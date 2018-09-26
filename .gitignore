@@ -1,3 +1,6 @@
 # ignore .DS_Store file
 .DS_Store
+
+# ignore both Mongoose apps from Duarte's and Pedro's PCs
 mongoose-free-6.9.exe
+Mongoose.app
