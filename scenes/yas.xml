@@ -1,18 +1,50 @@
 <yas>
-
     <scene root="" axis_length="ff" />
 
     <views default="ss" >
-       <!-- tem de existir, pelo menos, uma vista de -->
-       <!-- entre as seguintes (perspective ou ortho) -->
-       <perspective id="ss" near="ff" far="ff" angle="ff">
-           <from x="ff" y="ff" z="ff" />
-           <to x="ff" y="ff" z="ff" />
-       </perspective>
-       <ortho id="ss" near="ff" far="ff" left="ff" right="ff" top="ff" bottom="ff" />
+        <!-- tem de existir, pelo menos, uma vista de -->
+        <!-- entre as seguintes (perspective ou ortho) -->
+        <perspective id="perspective" near="0.1" far="500" angle="0">
+            <from x="0" y="0" z="0" />
+            <to x="500" y="500" z="500" />
+        </perspective>
+        <ortho id="ortho" near="0.1" far="500" left="250" right="250" top="250" bottom="250" />
     </views>
 
-  
+    <ambient>
+        <ambient r="0.2" g="0.2" b="0.2" a="1" />
+        <background r="0" g="0" b="0" a="1" />
+    </ambient>
 
+    <lights>
+        <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <omni id="light0" enabled="1" >
+            <location x="0" y="10" z="0" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
 
+        <omni id="light1" enabled="1" >
+            <location x="30" y="10" z="0" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+
+        <omni id="light2" enabled="1" >
+            <location x="0" y="10" z="0" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+
+        <omni id="light0" enabled="1" >
+            <location x="30" y="10" z="20" w="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.6" g="0.6" b="0.6" a="1.0" />
+        </omni>
+    </lights>
 </yas>
