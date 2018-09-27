@@ -47,4 +47,73 @@
             <specular r="0.6" g="0.6" b="0.6" a="1.0" />
         </omni>
     </lights>
+
+    <textures>
+        <!-- Deve existir um ou mais blocos "texture" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <texture id="trunk" file="images/trunk-image.jpg" />
+        <texture id="folhas" file="images/leaves.jpg" />
+        <texture id="rocks" file="images/rocks.jpg" />
+        <texture id="vidral" file="images/vidral.jpg" />
+        <texture id="banco" file="images/bank.jpg" />
+    </textures>
+
+    <materials>
+        <!-- Deve existir um ou mais blocos "material" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <material id="piramideMaterial" shininess = "1" >
+            <specular r="0" g="0" b="0" a="1" />
+            <diffuse r="1.0" g="0.68" b="0.4" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="leavesTreeMaterial" shininess = "1" >
+            <specular r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0.0" g="0.207" b="0.0" a="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="trunkTreeMaterial" shininess = "1" >
+            <specular r="0.0" g="0.0" b="0.0" a="1" />
+            <diffuse r="0.6" g="0.298" b="0.0" a="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="lightPostMaterial" shininess = "100" >
+            <specular r="0.0" g="0.0" b="0.0" a="1" />
+            <diffuse r="0.447" g="0.416" b="0.416" a="1" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="lightMaterial" shininess = "100" >
+            <specular r="0.5" g="0.5" b="0.5" a="1" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="1" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="defaultMaterial" shininess = "1" >
+            <specular r="0.0" g="0.0" b="0.0" a="1" />
+            <diffuse r="0.4" g="0.4" b="0.4" a="1" />
+            <ambient r="0.4" g="0.4" b="0.4" a="1" />
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        </material>
+    </materials>
+
+    <transformations>
+        <!-- Deve existir um ou mais blocos "transformation" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <!-- Os angulos sao expressos em graus -->
+        <transformation id="ss">
+            <!-- instrucoes a usar sem limite nem ordem -->
+            <!-- deve existir pelo menos uma transformacao -->
+            <translate x="ff" y="ff" z="ff" />
+            <rotate axis="cc" angle="ff" />
+            <scale x="ff" y="ff" z="ff" />
+        </transformation>
+    </transformations>
 </yas>
