@@ -1,12 +1,15 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
 // Order of the groups in the XML document.
-var INITIALS_INDEX = 0;
-var ILLUMINATION_INDEX = 1;
-var LIGHTS_INDEX = 2;
-var TEXTURES_INDEX = 3;
-var MATERIALS_INDEX = 4;
-var NODES_INDEX = 5;
+var SCENE_INDEX = 0;
+var VIEWS_INDEX = 1;
+var AMBIENT_INDEX = 2;
+var LIGHTS_INDEX = 3;
+var TEXTURES_INDEX = 4;
+var MATERIALS_INDEX = 5;
+var TRANSFORMATIONS_INDEX = 6;
+var PRIMITIVES_INDEX = 7;
+var COMPONENTS_INDEX = 8;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -24,7 +27,7 @@ class MySceneGraph {
 
         this.nodes = [];
 
-        this.idRoot = null;                    // The id of the root element.
+        this.idRoot = null; // The id of the root element.
 
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
@@ -70,8 +73,8 @@ class MySceneGraph {
      * @param {XML root element} rootElement
      */
     parseXMLFile(rootElement) {
-        if (rootElement.nodeName != "SCENE")
-            return "root tag <SCENE> missing";
+        if (rootElement.nodeName != "yas")
+            return "root tag <yas> missing";
 
         var nodes = rootElement.children;
 
@@ -86,40 +89,40 @@ class MySceneGraph {
 
         // Processes each node, verifying errors.
 
-        // <INITIALS>
+        // <scene>
         var index;
-        if ((index = nodeNames.indexOf("INITIALS")) == -1)
-            return "tag <INITIALS> missing";
+        if ((index = nodeNames.indexOf("scene")) == -1)
+            return "tag <scene> missing";
         else {
-            if (index != INITIALS_INDEX)
-                this.onXMLMinorError("tag <INITIALS> out of order");
+            if (index != SCENE_INDEX)
+                this.onXMLMinorError("tag <scene> out of order");
 
-            //Parse INITIAL block
-            if ((error = this.parseInitials(nodes[index])) != null)
+            //Parse scene block
+            if ((error = this.parseScene(nodes[index])) != null)
                 return error;
         }
 
-        // <ILLUMINATION>
-        if ((index = nodeNames.indexOf("ILLUMINATION")) == -1)
-            return "tag <ILLUMINATION> missing";
+        // <views>
+        if ((index = nodeNames.indexOf("views")) == -1)
+            return "tag <views> missing";
         else {
-            if (index != ILLUMINATION_INDEX)
-                this.onXMLMinorError("tag <ILLUMINATION> out of order");
+            if (index != VIEWS_INDEX)
+                this.onXMLMinorError("tag <views> out of order");
 
-            //Parse ILLUMINATION block
-            if ((error = this.parseIllumination(nodes[index])) != null)
+            //Parse views block
+            if ((error = this.parseViews(nodes[index])) != null)
                 return error;
         }
 
-        // <LIGHTS>
-        if ((index = nodeNames.indexOf("LIGHTS")) == -1)
-            return "tag <LIGHTS> missing";
+        // <ambient>
+        if ((index = nodeNames.indexOf("ambient")) == -1)
+            return "tag <ambient> missing";
         else {
-            if (index != LIGHTS_INDEX)
-                this.onXMLMinorError("tag <LIGHTS> out of order");
+            if (index != AMBIENT_INDEX)
+                this.onXMLMinorError("tag <ambient> out of order");
 
-            //Parse LIGHTS block
-            if ((error = this.parseLights(nodes[index])) != null)
+            //Parse ambient block
+            if ((error = this.parseAmbient(nodes[index])) != null)
                 return error;
         }
 
@@ -158,6 +161,235 @@ class MySceneGraph {
             if ((error = this.parseNodes(nodes[index])) != null)
                 return error;
         }
+    }
+
+    /**
+     * Parses the <scene> block.
+     */
+    parseScene(sceneNode) {
+        var axisLength = this.reader.getFloat(sceneNode, 'axis_length');
+
+        if (axisLength == null || isNaN(axisLength)) {
+            axisLength = 1;
+            return "Axis length can't be null.";
+        }
+
+        if (axisLength < 1.0) {
+            axisLength = 1;
+            return "Axis length is too small.";
+        }
+
+        this.axisCoords['x'] = [axisLength, 0, 0];
+        this.axisCoords['y'] = [0, axisLength, 0];
+        this.axisCoords['z'] = [0, 0, axisLength];
+
+        return null;
+    }
+
+    /**
+     * Parses the <views> block.
+     */
+    parseViews(viewsNode) {
+        var children = viewsNode.children;
+
+        var nodeNames = [];
+
+        for (var i = 0; i < children.length; i++)
+            nodeNames.push(children[i].nodeName);
+
+        if (viewsNode.getElementsByTagName('perspective').length > 1)
+            return "no more than one perspective may be defined";
+
+        if (viewsNode.getElementsByTagName('ortho').length > 1)
+            return "no more than one ortho view may be defined";
+
+        if (viewsNode.getElementsByTagName('perspective').length == 0 && viewsNode.getElementsByTagName('ortho').length == 0)
+            return "at least one view (perspective or ortho) must be defined";
+
+        this.views = [];
+        this.views["ortho"] = {};
+
+        var indexPerspective = nodeNames.indexOf("perspective");
+        var indexOrtho = nodeNames.indexOf("ortho");
+
+        if (indexPerspective != -1) {
+            this.views["perspective"] = {};
+
+            var near, far, angle;
+
+            near = this.reader.getFloat(children[indexPerspective], 'near');
+            if (near == null || isNaN(near)) {
+                near = 1;
+                return "Near element must not be null."
+            }
+
+            far = this.reader.getFloat(children[indexPerspective], 'far');
+            if (far == null || isNaN(far)) {
+                far = 10;
+                return "Far element must not be null."
+            }
+            else if (near >= far)
+                return '"near" must be smaller than "far"';
+
+            angle = this.reader.getFloat(children[indexPerspective], 'angle');
+            if (angle == null || isNaN(angle)) {
+                angle = 0;
+                return "Angle element must not be null."
+            }
+
+            var range = children[indexPerspective].children;
+
+            var rangeNames = [];
+
+            for (var i = 0; i < range.length; i++)
+                rangeNames.push(range.nodeName);
+
+            if (range.getElementsByTagName('from').length != 1)
+                return 'one and only one "from" tag must be defined';
+
+            if (range.getElementsByTagName('to').length != 1)
+                return 'one and only one "to" tag must be defined';
+
+            var indexFrom = rangeNames.indexOf("perspective");
+            var indexTo = rangeNames.indexOf("ortho");
+
+            var from = {}, to = {};
+            
+            from.x = this.reader.getFloat(range[j], 'x');
+            from.y = this.reader.getFloat(range[j], 'y');
+            from.z = this.reader.getFloat(range[j], 'z');
+
+            if (from.x == null || from.y == null || from.z == null) {
+                from.x = 0;
+                from.y = 0;
+                from.z = 0;
+                return "x, y and z can't be null.";
+            }
+            if (isNaN(from.x) || isNaN(from.y) || isNaN(from.z)) {
+                from.x = 0;
+                from.y = 0;
+                from.z = 0;
+                return "x, y and z can't be null.";
+            }
+        }
+
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName == "perspective") {
+                var range = children[i].children;
+
+                if ((range[0].nodeName == "from" && range[1].nodeName == "from") || (range[0].nodeName == "to" && range[1].nodeName == "to")) {
+                    return 'You must have "from" and to "tags".';
+                }
+
+                var from = {}, to = {};
+
+                for (var j = 0; j < range.length; j++) {
+                    if (range[j].nodeName == "from") {
+                        from.x = this.reader.getFloat(range[j], 'x');
+                        from.y = this.reader.getFloat(range[j], 'y');
+                        from.z = this.reader.getFloat(range[j], 'z');
+
+                        if (from.x == null || from.y == null || from.z == null) {
+                            from.x = 0;
+                            from.y = 0;
+                            from.z = 0;
+                            return "x, y and z can't be null.";
+                        }
+                        if (isNaN(from.x) || isNaN(from.y) || isNaN(from.z)) {
+                            from.x = 0;
+                            from.y = 0;
+                            from.z = 0;
+                            return "x, y and z can't be null.";
+                        }
+                    }
+                    else if (range[j].nodeName == "to") {
+                        to.x = this.reader.getFloat(range[j], 'x');
+                        to.y = this.reader.getFloat(range[j], 'y');
+                        to.z = this.reader.getFloat(range[j], 'z');
+
+                        if (to.x == null || to.y == null || to.z == null) {
+                            to.x = 0;
+                            to.y = 0;
+                            to.z = 0;
+                            return "x, y and z can't be null.";
+                        }
+                        if (isNaN(to.x) || isNaN(to.y) || isNaN(to.z)) {
+                            to.x = 0;
+                            to.y = 0;
+                            to.z = 0;
+                            return "x, y and z can't be null.";
+                        }
+                    }
+                }
+
+                this.views["perspective"].from = from;
+                this.views["perspective"].to = to;
+            }
+            else if (children[i].nodeName == "ortho") {
+                var near, far, bottom, top, left, right;
+
+                near = this.reader.getFloat(children[i], 'near');
+                if (near == null || isNaN(near)) {
+                    near = 1;
+                    return "Near element must not be null."
+                }
+
+                far = this.reader.getFloat(children[i], 'far');
+                if (far == null || isNaN(far)) {
+                    far = 1;
+                    return "Far element must not be null."
+                }
+                else if (near >= far)
+                    return '"near" must be smaller than "far"';
+
+                bottom = this.reader.getFloat(children[i], 'bottom');
+                if (bottom == null || isNaN(bottom)) {
+                    bottom = 1;
+                    return "Bottom element must not be null."
+                }
+
+                top = this.reader.getFloat(children[i], 'top');
+                if (top == null || isNaN(top)) {
+                    top = 1;
+                    return "Top element must not be null."
+                }
+                else if (bottom >= top)
+                    return '"bottom" must be smaller than "top"';
+
+                left = this.reader.getFloat(children[i], 'left');
+                if (left == null || isNaN(left)) {
+                    left = 1;
+                    return "Left element must not be null."
+                }
+
+                right = this.reader.getFloat(children[i], 'right');
+                if (right == null || isNaN(right)) {
+                    right = 1;
+                    return "Right element must not be null."
+                }
+                else if (left >= right)
+                    return '"left" must be smaller than "right"';
+
+                this.views["ortho"].near = near;
+                this.views["ortho"].far = far;
+                this.views["ortho"].bottom = bottom;
+                this.views["ortho"].top = top;
+                this.views["ortho"].left = left;
+                this.views["ortho"].right = right;
+            }
+            else {
+                return "Node name error."
+            }
+        }
+    }
+
+    parseAmbient(ambientNode) {
+        var children = ambientNode.children;
+
+        var nodeNames = [];
+
+        for (var i = 0; i < children.length; i++)
+            nodeNames.push(children[i].nodeName);
     }
 
     /**
