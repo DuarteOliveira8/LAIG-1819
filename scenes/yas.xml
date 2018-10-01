@@ -8,7 +8,7 @@
             <from x="0" y="0" z="0" />
             <to x="500" y="500" z="500" />
         </perspective>
-        <ortho id="ortho" near="0.1" far="500" left="250" right="250" top="250" bottom="250" />
+        <ortho id="ortho" near="0.1" far="500" left="200" right="250" top="250" bottom="200" />
     </views>
 
     <ambient>
@@ -19,7 +19,6 @@
     <lights>
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-
         <omni id="unica-light" enabled="1" >
             <location x="0" y="10" z="0" w="1" />
             <ambient r="0.2" g="0.2" b="0.2" a="1.0" />

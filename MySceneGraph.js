@@ -207,7 +207,6 @@ class MySceneGraph {
             return "at least one view (perspective or ortho) must be defined";
 
         this.views = [];
-        this.views["ortho"] = {};
 
         var indexPerspective = nodeNames.indexOf("perspective");
         var indexOrtho = nodeNames.indexOf("ortho");
@@ -242,144 +241,101 @@ class MySceneGraph {
             var rangeNames = [];
 
             for (var i = 0; i < range.length; i++)
-                rangeNames.push(range.nodeName);
+                rangeNames.push(range[i].nodeName);
 
-            if (range.getElementsByTagName('from').length != 1)
+            if (children[indexPerspective].getElementsByTagName('from').length != 1)
                 return 'one and only one "from" tag must be defined';
 
-            if (range.getElementsByTagName('to').length != 1)
+            if (children[indexPerspective].getElementsByTagName('to').length != 1)
                 return 'one and only one "to" tag must be defined';
 
-            var indexFrom = rangeNames.indexOf("perspective");
-            var indexTo = rangeNames.indexOf("ortho");
+            var indexFrom = rangeNames.indexOf("from");
+            var indexTo = rangeNames.indexOf("to");
 
             var from = {}, to = {};
-            
-            from.x = this.reader.getFloat(range[j], 'x');
-            from.y = this.reader.getFloat(range[j], 'y');
-            from.z = this.reader.getFloat(range[j], 'z');
 
-            if (from.x == null || from.y == null || from.z == null) {
+            from.x = this.reader.getFloat(range[indexFrom], 'x');
+            from.y = this.reader.getFloat(range[indexFrom], 'y');
+            from.z = this.reader.getFloat(range[indexFrom], 'z');
+
+            if (from.x == null || from.y == null || from.z == null || isNaN(from.x) || isNaN(from.y) || isNaN(from.z)) {
                 from.x = 0;
                 from.y = 0;
                 from.z = 0;
                 return "x, y and z can't be null.";
             }
-            if (isNaN(from.x) || isNaN(from.y) || isNaN(from.z)) {
-                from.x = 0;
-                from.y = 0;
-                from.z = 0;
+
+            to.x = this.reader.getFloat(range[indexTo], 'x');
+            to.y = this.reader.getFloat(range[indexTo], 'y');
+            to.z = this.reader.getFloat(range[indexTo], 'z');
+
+            if (to.x == null || to.y == null || to.z == null || isNaN(to.x) || isNaN(to.y) || isNaN(to.z)) {
+                to.x = 0;
+                to.y = 0;
+                to.z = 0;
                 return "x, y and z can't be null.";
             }
+
+            this.views["perspective"].near = near;
+            this.views["perspective"].far = far;
+            this.views["perspective"].angle = angle;
+            this.views["perspective"].from = from;
+            this.views["perspective"].to = to;
         }
 
-        for (var i = 0; i < children.length; i++) {
-            if (children[i].nodeName == "perspective") {
-                var range = children[i].children;
+        if (indexOrtho != -1) {
+            this.views["ortho"] = {};
 
-                if ((range[0].nodeName == "from" && range[1].nodeName == "from") || (range[0].nodeName == "to" && range[1].nodeName == "to")) {
-                    return 'You must have "from" and to "tags".';
-                }
+            var near, far, bottom, top, left, right;
 
-                var from = {}, to = {};
-
-                for (var j = 0; j < range.length; j++) {
-                    if (range[j].nodeName == "from") {
-                        from.x = this.reader.getFloat(range[j], 'x');
-                        from.y = this.reader.getFloat(range[j], 'y');
-                        from.z = this.reader.getFloat(range[j], 'z');
-
-                        if (from.x == null || from.y == null || from.z == null) {
-                            from.x = 0;
-                            from.y = 0;
-                            from.z = 0;
-                            return "x, y and z can't be null.";
-                        }
-                        if (isNaN(from.x) || isNaN(from.y) || isNaN(from.z)) {
-                            from.x = 0;
-                            from.y = 0;
-                            from.z = 0;
-                            return "x, y and z can't be null.";
-                        }
-                    }
-                    else if (range[j].nodeName == "to") {
-                        to.x = this.reader.getFloat(range[j], 'x');
-                        to.y = this.reader.getFloat(range[j], 'y');
-                        to.z = this.reader.getFloat(range[j], 'z');
-
-                        if (to.x == null || to.y == null || to.z == null) {
-                            to.x = 0;
-                            to.y = 0;
-                            to.z = 0;
-                            return "x, y and z can't be null.";
-                        }
-                        if (isNaN(to.x) || isNaN(to.y) || isNaN(to.z)) {
-                            to.x = 0;
-                            to.y = 0;
-                            to.z = 0;
-                            return "x, y and z can't be null.";
-                        }
-                    }
-                }
-
-                this.views["perspective"].from = from;
-                this.views["perspective"].to = to;
+            near = this.reader.getFloat(children[indexOrtho], 'near');
+            if (near == null || isNaN(near)) {
+                near = 1;
+                return "Near element must not be null."
             }
-            else if (children[i].nodeName == "ortho") {
-                var near, far, bottom, top, left, right;
 
-                near = this.reader.getFloat(children[i], 'near');
-                if (near == null || isNaN(near)) {
-                    near = 1;
-                    return "Near element must not be null."
-                }
-
-                far = this.reader.getFloat(children[i], 'far');
-                if (far == null || isNaN(far)) {
-                    far = 1;
-                    return "Far element must not be null."
-                }
-                else if (near >= far)
-                    return '"near" must be smaller than "far"';
-
-                bottom = this.reader.getFloat(children[i], 'bottom');
-                if (bottom == null || isNaN(bottom)) {
-                    bottom = 1;
-                    return "Bottom element must not be null."
-                }
-
-                top = this.reader.getFloat(children[i], 'top');
-                if (top == null || isNaN(top)) {
-                    top = 1;
-                    return "Top element must not be null."
-                }
-                else if (bottom >= top)
-                    return '"bottom" must be smaller than "top"';
-
-                left = this.reader.getFloat(children[i], 'left');
-                if (left == null || isNaN(left)) {
-                    left = 1;
-                    return "Left element must not be null."
-                }
-
-                right = this.reader.getFloat(children[i], 'right');
-                if (right == null || isNaN(right)) {
-                    right = 1;
-                    return "Right element must not be null."
-                }
-                else if (left >= right)
-                    return '"left" must be smaller than "right"';
-
-                this.views["ortho"].near = near;
-                this.views["ortho"].far = far;
-                this.views["ortho"].bottom = bottom;
-                this.views["ortho"].top = top;
-                this.views["ortho"].left = left;
-                this.views["ortho"].right = right;
+            far = this.reader.getFloat(children[indexOrtho], 'far');
+            if (far == null || isNaN(far)) {
+                far = 1;
+                return "Far element must not be null."
             }
-            else {
-                return "Node name error."
+            else if (near >= far)
+                return '"near" must be smaller than "far"';
+
+            bottom = this.reader.getFloat(children[indexOrtho], 'bottom');
+            if (bottom == null || isNaN(bottom)) {
+                bottom = 1;
+                return "Bottom element must not be null."
             }
+
+            top = this.reader.getFloat(children[indexOrtho], 'top');
+            if (top == null || isNaN(top)) {
+                top = 1;
+                return "Top element must not be null."
+            }
+            else if (bottom >= top)
+                return '"bottom" must be smaller than "top"';
+
+            left = this.reader.getFloat(children[indexOrtho], 'left');
+            if (left == null || isNaN(left)) {
+                left = 1;
+                return "Left element must not be null."
+            }
+
+            right = this.reader.getFloat(children[indexOrtho], 'right');
+            if (right == null || isNaN(right)) {
+                right = 1;
+                return "Right element must not be null."
+            }
+            else if (left >= right)
+                return '"left" must be smaller than "right"';
+
+            this.views["ortho"].near = near;
+            this.views["ortho"].far = far;
+            this.views["ortho"].bottom = bottom;
+            this.views["ortho"].top = top;
+            this.views["ortho"].left = left;
+            this.views["ortho"].right = right;
         }
     }
 
@@ -390,6 +346,120 @@ class MySceneGraph {
 
         for (var i = 0; i < children.length; i++)
             nodeNames.push(children[i].nodeName);
+
+        if (ambientNode.getElementsByTagName('ambient').length != 1)
+            return 'one and only one "ambient" tag must be defined';
+
+        if (ambientNode.getElementsByTagName('background').length != 1)
+            return 'one and only one "background" tag must be defined';
+
+        this.ambient = [];
+
+        var indexAmbient = nodeNames.indexOf("ambient");
+        var indexBackground = nodeNames.indexOf("background");
+
+        if (indexAmbient != 1) {
+            this.ambient["ambient"] = {};
+
+            var r, g, b, a;
+
+            r = this.reader.getFloat(children[indexAmbient], 'r');
+            if (r == null || isNaN(r)) {
+                r = 1;
+                return '"r" element must not be null. Assuming r=1';
+            }
+            else if (r < 0 || r > 1) {
+                r = 1;
+                return '"r" element must be between 0 and 1. Assuming r=1';
+            }
+
+            g = this.reader.getFloat(children[indexAmbient], 'g');
+            if (g == null || isNaN(g)) {
+                g = 1;
+                return '"g" element must not be null. Assuming g=1';
+            }
+            else if (g < 0 || g > 1) {
+                g = 1;
+                return '"g" element must be between 0 and 1. Assuming g=1';
+            }
+
+            b = this.reader.getFloat(children[indexAmbient], 'b');
+            if (b == null || isNaN(b)) {
+                b = 1;
+                return '"b" element must not be null. Assuming b=1';
+            }
+            else if (b < 0 || b > 1) {
+                b = 1;
+                return '"b" element must be between 0 and 1. Assuming b=1';
+            }
+
+            a = this.reader.getFloat(children[indexAmbient], 'a');
+            if (a == null || isNaN(a)) {
+                a = 1;
+                return '"a" element must not be null. Assuming a=1';
+            }
+            else if (a < 0 || a > 1) {
+                a = 1;
+                return '"a" element must be between 0 and 1. Assuming a=1';
+            }
+
+            this.views["ambient"].r = r;
+            this.views["ambient"].g = g;
+            this.views["ambient"].b = b;
+            this.views["ambient"].a = a;
+        }
+
+        if (indexBackground != 1) {
+            this.ambient["background"] = {};
+
+            var r, g, b, a;
+
+            r = this.reader.getFloat(children[indexBackground], 'r');
+            if (r == null || isNaN(r)) {
+                r = 1;
+                return '"r" element must not be null. Assuming r=1';
+            }
+            else if (r < 0 || r > 1) {
+                r = 1;
+                return '"r" element must be between 0 and 1. Assuming r=1';
+            }
+
+            g = this.reader.getFloat(children[indexBackground], 'g');
+            if (g == null || isNaN(g)) {
+                g = 1;
+                return '"g" element must not be null. Assuming g=1';
+            }
+            else if (g < 0 || g > 1) {
+                g = 1;
+                return '"g" element must be between 0 and 1. Assuming g=1';
+            }
+
+            b = this.reader.getFloat(children[indexBackground], 'b');
+            if (b == null || isNaN(b)) {
+                b = 1;
+                return '"b" element must not be null. Assuming b=1';
+            }
+            else if (b < 0 || b > 1) {
+                b = 1;
+                return '"b" element must be between 0 and 1. Assuming b=1';
+            }
+
+            a = this.reader.getFloat(children[indexBackground], 'a');
+            if (a == null || isNaN(a)) {
+                a = 1;
+                return '"a" element must not be null. Assuming a=1';
+            }
+            else if (a < 0 || a > 1) {
+                a = 1;
+                return '"a" element must be between 0 and 1. Assuming a=1';
+            }
+
+            this.views["background"].r = r;
+            this.views["background"].g = g;
+            this.views["background"].b = b;
+            this.views["background"].a = a;
+        }
+
     }
 
     /**
