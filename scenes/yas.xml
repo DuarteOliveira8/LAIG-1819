@@ -1,7 +1,7 @@
 <yas>
-    <scene root="" axis_length="ff" />
+    <scene root="unico-comp" axis_length="5" />
 
-    <views default="ss" >
+    <views default="unica-view">
         <!-- tem de existir, pelo menos, uma vista de -->
         <!-- entre as seguintes (perspective ou ortho) -->
         <perspective id="perspective" near="0.1" far="500" angle="0">
@@ -19,87 +19,30 @@
     <lights>
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <omni id="light0" enabled="1" >
+
+        <omni id="unica-light" enabled="1" >
             <location x="0" y="10" z="0" w="1" />
             <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-        </omni>
-
-        <omni id="light1" enabled="1" >
-            <location x="30" y="10" z="0" w="1" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-        </omni>
-
-        <omni id="light2" enabled="1" >
-            <location x="0" y="10" z="0" w="1" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-        </omni>
-
-        <omni id="light0" enabled="1" >
-            <location x="30" y="10" z="20" w="1" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
-            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
-            <specular r="0.6" g="0.6" b="0.6" a="1.0" />
         </omni>
     </lights>
 
     <textures>
         <!-- Deve existir um ou mais blocos "texture" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <texture id="trunk" file="images/trunk-image.jpg" />
-        <texture id="folhas" file="images/leaves.jpg" />
-        <texture id="rocks" file="images/rocks.jpg" />
-        <texture id="vidral" file="images/vidral.jpg" />
-        <texture id="banco" file="images/bank.jpg" />
+
+        <texture id="unica-text" file="images/trunk-image.jpg" />
     </textures>
 
     <materials>
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <material id="piramideMaterial" shininess = "1" >
-            <specular r="0" g="0" b="0" a="1" />
-            <diffuse r="1.0" g="0.68" b="0.4" a="1" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1" />
-            <emission r="0.0" g="0.0" b="0.0" a="1" />
-        </material>
 
-        <material id="leavesTreeMaterial" shininess = "1" >
-            <specular r="0.2" g="0.2" b="0.2" a="1" />
-            <diffuse r="0.0" g="0.207" b="0.0" a="1" />
-            <ambient r="0.1" g="0.1" b="0.1" a="1" />
-            <emission r="0.0" g="0.0" b="0.0" a="1" />
-        </material>
-
-        <material id="trunkTreeMaterial" shininess = "1" >
+        <material id="unico-mat" shininess="1" >
             <specular r="0.0" g="0.0" b="0.0" a="1" />
             <diffuse r="0.6" g="0.298" b="0.0" a="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1" />
-            <emission r="0.0" g="0.0" b="0.0" a="1" />
-        </material>
-
-        <material id="lightPostMaterial" shininess = "100" >
-            <specular r="0.0" g="0.0" b="0.0" a="1" />
-            <diffuse r="0.447" g="0.416" b="0.416" a="1" />
-            <ambient r="0.0" g="0.0" b="0.0" a="1" />
-            <emission r="0.0" g="0.0" b="0.0" a="1" />
-        </material>
-
-        <material id="lightMaterial" shininess = "100" >
-            <specular r="0.5" g="0.5" b="0.5" a="1" />
-            <diffuse r="0.5" g="0.5" b="0.5" a="1" />
-            <ambient r="0.0" g="0.0" b="0.0" a="1" />
-            <emission r="0.0" g="0.0" b="0.0" a="1" />
-        </material>
-
-        <material id="defaultMaterial" shininess = "1" >
-            <specular r="0.0" g="0.0" b="0.0" a="1" />
-            <diffuse r="0.4" g="0.4" b="0.4" a="1" />
-            <ambient r="0.4" g="0.4" b="0.4" a="1" />
             <emission r="0.0" g="0.0" b="0.0" a="1" />
         </material>
     </materials>
@@ -108,12 +51,78 @@
         <!-- Deve existir um ou mais blocos "transformation" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <!-- Os angulos sao expressos em graus -->
-        <transformation id="ss">
+
+        <transformation id="unica-tf">
             <!-- instrucoes a usar sem limite nem ordem -->
             <!-- deve existir pelo menos uma transformacao -->
-            <translate x="ff" y="ff" z="ff" />
-            <rotate axis="cc" angle="ff" />
-            <scale x="ff" y="ff" z="ff" />
+            <translate x="0" y="0" z="0" />
         </transformation>
     </transformations>
+
+    <primitives>
+        <!-- Uma "primitive" e' uma primitiva e pode ser usada em nos folha -->
+        <!-- Deve existir um ou mais blocos "primitive" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+
+        <primitive id="unico-prim">
+            <!-- apenas pode existir UMA das seguintes tags: -->
+            <!-- rectangle, triangle, cylinder, sphere, torus -->
+            <!-- os parametros devem ser interpretados, genericamente, -->
+            <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
+            <cylinder base="1" top="1" height="1" slices="8" stacks="8" />
+        </primitive>
+    </primitives>
+
+    <components>
+        <component id="unico-comp">
+            <!-- Uma "component" e' um objeto composto e pode ser -->
+            <!-- usada em nos intermédios -->
+            <!-- bloco "transformation" e' obrigatorio -->
+            <transformation>
+                <!-- deve conter uma referencia a uma das "transformation" -->
+                <!-- declaradas anteriormente -->
+                <transformationref id="unica-tf" />
+
+                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
+                <!-- usando zero ou mais das instrucoes seguintes, sem -->
+                <!-- limite nem ordem -->
+                <!-- ex: bloco transformation pode ficar sem conteudo -->
+            </transformation>
+
+            <!-- declaracao obrigatoria de pelo menos um material; -->
+            <!-- o material id="inherit", mantem (herda) material do "pai" -->
+            <!-- se varios materiais declarados, o default e' o -->
+            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
+            <!-- o material muda para o proximo material da lista; do -->
+            <!-- ultimo material da lista volta ao primeiro -->
+            <materials>
+                <material id="unico-mat" />
+            </materials>
+
+            <!-- declaracao obrigatoria de texture -->
+            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
+            <!-- id="none" remove a textura recebida do pai -->
+            <!-- a textura declarada sobrepoe a textura recebida do -->
+            <!-- objecto "pai" -->
+            <!-- length_s e length_t sao fatores de escala de textura:-->
+            <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
+            <!-- comprimento, deve cobrir um comprimento igual -->
+            <!-- a 3 unidades; -->
+            <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
+            <!-- largura, deve cobrir uma largura igual a 0.4 unidades. -->
+            <!-- E' permitido que objetos afetados por Transf. Geometr. -->
+            <!-- do tipo escalamento violem esta regra. -->
+            <!-- Nao e' necessario aplicar fatores de escala em -->
+            <!-- quadricas (esfera, cilindro...) -->
+            <texture id="unico-text" length_s="1" length_t="1" />
+
+            <!-- bloco "children" obrigatorio num "component" -->
+            <children>
+                <!-- deve existir uma ou mais tags "componentref" e/ou -->
+                <!-- "primitiveref", identificando outros -->
+                <!-- componentes ou primitivas -->
+                <primitiveref id="unico-prim" />
+            </children>
+        </component>
+    </components>
 </yas>
