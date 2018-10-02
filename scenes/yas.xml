@@ -1,4 +1,18 @@
+<!-- Os comentarios devem ter espacos no inicio e no fim, a -->
+<!-- separar dos hifens -->
+<!-- Nao devem ser usados caracteres especiais (p.ex. acentos) -->
+<!-- Todas as tags e atributos sao obrigatorios, exceto onde for -->
+<!-- referido o contrario -->
+<!-- Na descricao abaixo, os simbolos utilizados tem o seguinte significado: -->
+    <!-- ii: integer value -->
+    <!-- ff: float value -->
+    <!-- ss: string value -->
+    <!-- cc: character "x" or "y" or "z" -->
+    <!-- tt: "0" or "1" with Boolean significance -->
+
 <yas>
+    <!-- deve definir-se um objeto para raiz da arvore, assim -->
+    <!-- como o comprimento dos tres eixos (cilindros) -->
     <scene root="unico-comp" axis_length="5" />
 
     <views default="unica-view">
@@ -25,19 +39,26 @@
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
         </omni>
+
+        <spot id="segunda-light" enabled="1" angle="0" exponent="0" >
+            <!-- atencao, "target" e' diferente de "direction" -->
+            <location x="0" y="10" z="0" w="1" />
+            <target x="1" y="1" z="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </spot>
     </lights>
 
     <textures>
         <!-- Deve existir um ou mais blocos "texture" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-
         <texture id="unica-text" file="images/trunk-image.jpg" />
     </textures>
 
     <materials>
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-
         <material id="unico-mat" shininess="1" >
             <specular r="0.0" g="0.0" b="0.0" a="1" />
             <diffuse r="0.6" g="0.298" b="0.0" a="1" />
@@ -50,11 +71,12 @@
         <!-- Deve existir um ou mais blocos "transformation" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <!-- Os angulos sao expressos em graus -->
-
         <transformation id="unica-tf">
             <!-- instrucoes a usar sem limite nem ordem -->
             <!-- deve existir pelo menos uma transformacao -->
             <translate x="0" y="0" z="0" />
+            <rotate axis="y" angle="10" />
+            <scale x="4" y="5" z="2" />
         </transformation>
     </transformations>
 
@@ -62,14 +84,27 @@
         <!-- Uma "primitive" e' uma primitiva e pode ser usada em nos folha -->
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-
-        <primitive id="unico-prim">
+        <primitive id="cilindro">
             <!-- apenas pode existir UMA das seguintes tags: -->
             <!-- rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente, -->
             <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
             <cylinder base="1" top="1" height="1" slices="8" stacks="8" />
         </primitive>
+        <primitive id="rectangle">
+            <rectangle x1="ff" y1="ff" x2="ff" y2="ff" />
+        </primitive >
+        <primitive id="triangle">
+            <triangle x1="ff" y1="ff" z1="ff"
+            x2="ff" y2="ff" z2="ff"
+            x3="ff" y3="ff" z3="ff" />
+        </primitive >
+        <primitive id="sphere">
+            <sphere radius="ff" slices="ii" stacks="ii" />
+        </primitive >
+        <primitive id="torus">
+            <torus inner="ff" outer="ff" slices="ii" loops="ii" />
+        </primitive >
     </primitives>
 
     <components>
