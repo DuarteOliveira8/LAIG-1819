@@ -210,7 +210,7 @@ class MySceneGraph {
             return "Axis length can't be null.";
         }
 
-        if (axisLength < 1.0) {
+        if (axisLength <= 0) {
             axisLength = 1;
             return "Axis length is too small.";
         }
@@ -218,8 +218,6 @@ class MySceneGraph {
         this.axisCoords['x'] = [axisLength, 0, 0];
         this.axisCoords['y'] = [0, axisLength, 0];
         this.axisCoords['z'] = [0, 0, axisLength];
-
-        return null;
     }
 
     /**
@@ -1251,6 +1249,9 @@ class MySceneGraph {
                     instruction.y = y;
                     instruction.z = z;
                 }
+                else {
+                    this.onXMLMinorError("unknown tag <" + attrs[j].nodeName + ">");
+                }
 
                 instructions.push(instruction);
             }
@@ -1273,10 +1274,12 @@ class MySceneGraph {
                 continue;
             }
 
-
             var attrs = children[i].children;
-            var attrNames = [];
             var id;
+
+            if (attrs.length > 1) {
+                return "Only 1 primitive may be defined.";
+            }
 
             id = this.reader.getString(children[i], 'id');
             if (id == null || id == "") {
@@ -1284,16 +1287,218 @@ class MySceneGraph {
                 return "Id element must not be null.";
             }
 
-            for (var j = 0; j < attrs.length; j++)
-                attrNames.push(attrs[j].nodeName);
+            if(attrs[0].nodeName == "cylinder") {
+                var type = "cylinder", base, top, height, slices, stacks;
 
-            if(attrNames.length > 1)
-                return "only 1 tag must exist.";
+                base = this.reader.getFloat(attrs[0], 'base');
+                if (base == null || isNaN(base)) {
+                    base = 1;
+                    return '"base" element must not be null. Assuming base=1';
+                }
 
-            //if(attrs[0])
+                top = this.reader.getFloat(attrs[0], 'top');
+                if (top == null || isNaN(top)) {
+                    top = 1;
+                    return '"top" element must not be null. Assuming top=1';
+                }
+
+                height = this.reader.getFloat(attrs[0], 'height');
+                if (height == null || isNaN(height)) {
+                    height = 1;
+                    return '"height" element must not be null. Assuming height=1';
+                }
+
+                slices = this.reader.getInteger(attrs[0], 'slices');
+                if (slices == null || isNaN(slices)) {
+                    slices = 3;
+                    return '"slices" element must not be null. Assuming slices=3';
+                }
+
+                stacks = this.reader.getInteger(attrs[0], 'stacks');
+                if (stacks == null || isNaN(stacks)) {
+                    stacks = 1;
+                    return '"stacks" element must not be null. Assuming stacks=1';
+                }
+
+                primitive.type = type;
+                primitive.base = base;
+                primitive.top = top;
+                primitive.height = height;
+                primitive.slices = slices;
+                primitive.stacks = stacks;
+            }
+
+            else if (attrs[0].nodeName == "rectangle") {
+                var type = "rectangle", x1, y1, x2, y2;
+
+                x1 = this.reader.getFloat(attrs[0], 'x1');
+                if (x1 == null || isNaN(x1)) {
+                    x1 = 1;
+                    return '"x1" element must not be null. Assuming x1=1';
+                }
+
+                y1 = this.reader.getFloat(attrs[0], 'y1');
+                if (y1 == null || isNaN(y1)) {
+                    y1 = 1;
+                    return '"y1" element must not be null. Assuming y1=1';
+                }
+
+                x2 = this.reader.getFloat(attrs[0], 'x2');
+                if (x2 == null || isNaN(x2)) {
+                    x2 = 2;
+                    return '"x2" element must not be null. Assuming x2=2';
+                }
+
+                y2 = this.reader.getFloat(attrs[0], 'y2');
+                if (y2 == null || isNaN(y2)) {
+                    y2 = 2;
+                    return '"y2" element must not be null. Assuming y2=2';
+                }
+
+                primitive.type = type;
+                primitive.x1 = x1;
+                primitive.y1 = y1;
+                primitive.x2 = x2;
+                primitive.y2 = y2;
+            }
 
 
+            else if (attrs[0].nodeName == "triangle") {
+                var type = "triangle", x1, y1, z1, x2, y2, z2, x3, y3, z3;
 
+                x1 = this.reader.getFloat(attrs[0], 'x1');
+                if (x1 == null || isNaN(x1)) {
+                    x1 = 0;
+                    return '"x1" element must not be null. Assuming x1=0';
+                }
+
+                y1 = this.reader.getFloat(attrs[0], 'y1');
+                if (y1 == null || isNaN(y1)) {
+                    y1 = 0;
+                    return '"y1" element must not be null. Assuming y1=0';
+                }
+
+                z1 = this.reader.getFloat(attrs[0], 'z1');
+                if (z1 == null || isNaN(z1)) {
+                    z1 = 0;
+                    return '"z1" element must not be null. Assuming z1=0';
+                }
+
+                x2 = this.reader.getFloat(attrs[0], 'x2');
+                if (x2 == null || isNaN(x2)) {
+                    x2 = 0;
+                    return '"x2" element must not be null. Assuming x2=0';
+                }
+
+                y2 = this.reader.getFloat(attrs[0], 'y2');
+                if (y2 == null || isNaN(y2)) {
+                    y2 = 1;
+                    return '"y2" element must not be null. Assuming y2=1';
+                }
+
+                z2 = this.reader.getFloat(attrs[0], 'z2');
+                if (z2 == null || isNaN(z2)) {
+                    z2 = 0;
+                    return '"z2" element must not be null. Assuming z2=0';
+                }
+
+                x3 = this.reader.getFloat(attrs[0], 'x3');
+                if (x3 == null || isNaN(x3)) {
+                    x3 = 1;
+                    return '"x3" element must not be null. Assuming x3=1';
+                }
+
+                y3 = this.reader.getFloat(attrs[0], 'y3');
+                if (y3 == null || isNaN(y3)) {
+                    y3 = 0.5;
+                    return '"y3" element must not be null. Assuming y3=0.5';
+                }
+
+                z3 = this.reader.getFloat(attrs[0], 'z3');
+                if (z3 == null || isNaN(z3)) {
+                    z3 = 0;
+                    return '"z3" element must not be null. Assuming z3=0';
+                }
+
+                primitive.type = type;
+                primitive.x1 = x1;
+                primitive.y1 = y1;
+                primitive.z1 = z1;
+                primitive.x2 = x2;
+                primitive.y2 = y2;
+                primitive.z2 = z2;
+                primitive.x3 = x3;
+                primitive.y3 = y3;
+                primitive.z3 = z3;
+            }
+
+
+            else if (attrs[0].nodeName == "sphere") {
+                var type = "sphere", radius, slices, stacks;
+
+                radius = this.reader.getFloat(attrs[0], 'radius');
+                if (radius == null || isNaN(radius)) {
+                    radius = 1;
+                    return '"radius" element must not be null. Assuming radius=1';
+                }
+
+                slices = this.reader.getInteger(attrs[0], 'slices');
+                if (slices == null || isNaN(slices)) {
+                    slices = 3;
+                    return '"slices" element must not be null. Assuming slices=3';
+                }
+
+                stacks = this.reader.getInteger(attrs[0], 'stacks');
+                if (stacks == null || isNaN(stacks)) {
+                    stacks = 1;
+                    return '"stacks" element must not be null. Assuming stacks=1';
+                }
+
+                primitive.type = type;
+                primitive.radius = radius;
+                primitive.slices = slices;
+                primitive.stacks = stacks;
+            }
+
+
+            else if (attrs[0].nodeName == "torus") {
+                var type = "torus", inner, outer, slices, loops;
+
+                inner = this.reader.getFloat(attrs[0], 'inner');
+                if (inner == null || isNaN(inner)) {
+                    inner = 1;
+                    return '"inner" element must not be null. Assuming inner=1';
+                }
+
+                outer = this.reader.getFloat(attrs[0], 'outer');
+                if (outer == null || isNaN(outer)) {
+                    outer = 1;
+                    return '"outer" element must not be null. Assuming outer=1';
+                }
+
+                slices = this.reader.getInteger(attrs[0], 'slices');
+                if (slices == null || isNaN(slices)) {
+                    slices = 3;
+                    return '"slices" element must not be null. Assuming slices=3';
+                }
+
+                loops = this.reader.getInteger(attrs[0], 'loops');
+                if (loops == null || isNaN(loops)) {
+                    loops = 1;
+                    return '"loops" element must not be null. Assuming loops=1';
+                }
+
+                primitive.type = type;
+                primitive.inner = inner;
+                primitive.outer = outer;
+                primitive.slices = slices;
+                primitive.loops = loops;
+            }
+            else {
+              this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
+            }
+
+            this.primitives.push(primitive);
         }
     }
 
@@ -1301,7 +1506,7 @@ class MySceneGraph {
         var children = componentsNode.children;
 
         if(componentsNode.getElementsByTagName('component').length < 1)
-            return 'at least one "primitive" tag must be defined';
+            return 'at least one component must be defined';
 
         this.components = [];
 
@@ -1339,7 +1544,7 @@ class MySceneGraph {
                 return "no more than one children tag may be defined";
 
             if (attrs.length > 4) {
-                return "only 4 tags must exist";
+                return "only 4 tags may be defined";
             }
 
             var indexTransformation = attrNames.indexOf("transformation");
@@ -1348,30 +1553,31 @@ class MySceneGraph {
             var indexChildren = attrNames.indexOf("children");
 
             if (indexTransformation != -1) {
-                if (attrs[indexTransformation].getElementsByTagName("transformationref").length == 0) {
-                    var instructions = [];
-                    var transformations = attrs[indexTransformation].children;
+                var transformation = [];
 
-                    if (transformations.length > 0) {
-                        for (var j = 0; j < transformations.length; j++) {
+                if (attrs[indexTransformation].getElementsByTagName("transformationref").length == 0) {
+                    var instructions = attrs[indexTransformation].children;
+
+                    if (instructions.length > 0) {
+                        for (var j = 0; j < instructions.length; j++) {
                             var instruction = {};
 
-                            if (transformations[j].nodeName == "translate") {
+                            if (instructions[j].nodeName == "translate") {
                                 var type = "translate", x, y, z;
 
-                                x = this.reader.getFloat(transformations[j], 'x');
+                                x = this.reader.getFloat(instructions[j], 'x');
                                 if (x == null || isNaN(x)) {
                                     x = 0;
                                     return '"x" element must not be null. Assuming x=0';
                                 }
 
-                                y = this.reader.getFloat(transformations[j], 'y');
+                                y = this.reader.getFloat(instructions[j], 'y');
                                 if (y == null || isNaN(y)) {
                                     y = 0;
                                     return '"y" element must not be null. Assuming y=0';
                                 }
 
-                                z = this.reader.getFloat(transformations[j], 'z');
+                                z = this.reader.getFloat(instructions[j], 'z');
                                 if (z == null || isNaN(z)) {
                                     z = 0;
                                     return '"z" element must not be null. Assuming z=0';
@@ -1382,10 +1588,10 @@ class MySceneGraph {
                                 instruction.y = y;
                                 instruction.z = z;
                             }
-                            else if (transformations[j].nodeName == "rotate") {
+                            else if (instructions[j].nodeName == "rotate") {
                                 var type = "rotate", axis, angle;
 
-                                axis = this.reader.getString(transformations[j], 'axis');
+                                axis = this.reader.getString(instructions[j], 'axis');
                                 if (axis == null || axis == '') {
                                     axis = 'x';
                                     return '"axis" element must not be null. Assuming axis=x';
@@ -1394,7 +1600,7 @@ class MySceneGraph {
                                     return '"axis" must correspond to one of the axis (x, y or z)';
                                 }
 
-                                angle = this.reader.getFloat(transformations[j], 'angle');
+                                angle = this.reader.getFloat(instructions[j], 'angle');
                                 if (angle == null || isNaN(angle)) {
                                     angle = 0;
                                     return '"angle" element must not be null. Assuming angle=0';
@@ -1404,22 +1610,22 @@ class MySceneGraph {
                                 instruction.axis = axis;
                                 instruction.angle = angle;
                             }
-                            else if (transformations[j].nodeName == "scale") {
+                            else if (instructions[j].nodeName == "scale") {
                                 var type = "scale", x, y, z;
 
-                                x = this.reader.getFloat(transformations[j], 'x');
+                                x = this.reader.getFloat(instructions[j], 'x');
                                 if (x == null || isNaN(x)) {
                                     x = 0;
                                     return '"x" element must not be null. Assuming x=0';
                                 }
 
-                                y = this.reader.getFloat(transformations[j], 'y');
+                                y = this.reader.getFloat(instructions[j], 'y');
                                 if (y == null || isNaN(y)) {
                                     y = 0;
                                     return '"y" element must not be null. Assuming y=0';
                                 }
 
-                                z = this.reader.getFloat(transformations[j], 'z');
+                                z = this.reader.getFloat(instructions[j], 'z');
                                 if (z == null || isNaN(z)) {
                                     z = 0;
                                     return '"z" element must not be null. Assuming z=0';
@@ -1430,33 +1636,144 @@ class MySceneGraph {
                                 instruction.y = y;
                                 instruction.z = z;
                             }
+                            else {
+                                this.onXMLMinorError("unknown tag <" + instructions[j].nodeName + ">");
+                            }
 
-                            instructions.push(instruction);
+                            transformation.push(instruction);
                         }
                     }
-
-                    //save transformation
                 }
                 else if (attrs[indexTransformation].getElementsByTagName("transformationref").length == 1) {
                     var ref = attrs[indexTransformation].children[0];
-                    
+                    var transformationref;
+
+                    transformationref = this.reader.getString(ref, 'id');
+                    if (transformationref == null || transformationref == "") {
+                        transformationref = i;
+                        return "Id element must not be null.";
+                    }
+
+                    transformation["transformationref"] = transformationref;
                 }
                 else {
                     return "no more than one transformationref tag may be defined";
                 }
+
+                component.transformation = transformation;
+            }
+            else {
+                return "transformation tag missing";
             }
 
             if (indexMaterials != -1) {
+                var materials = attrs[indexMaterials].children;
 
+                if(attrs[indexMaterials].getElementsByTagName('material').length < 1)
+                    return 'at least one material must be defined';
+
+                var materialsContainer = [];
+
+                for (var j = 0; j < materials.length; j++) {
+                    if (materials[j].nodeName != "material") {
+                        this.onXMLMinorError("unknown tag <" + materials[j].nodeName + ">");
+                        continue;
+                    }
+
+                    var materialId;
+
+                    materialId = this.reader.getString(materials[j], 'id');
+                    if (materialId == null || materialId == "") {
+                        materialId = j;
+                        return "Id element must not be null.";
+                    }
+
+                    materialsContainer.push(materialId);
+                }
+
+                component.materials = materialsContainer;
+            }
+            else {
+                return "materials tag missing";
             }
 
             if (indexTexture != -1) {
+                var textureNode = attrs[indexTexture];
 
+                var texture = {};
+                var textureId, length_s, length_t;
+
+                textureId = this.reader.getString(textureNode, 'id');
+                if (textureId == null || textureId == "") {
+                    textureId = j;
+                    return "Id element must not be null.";
+                }
+
+                length_s = this.reader.getFloat(textureNode, 'length_s');
+                if (length_s == null || isNaN(length_s)) {
+                    length_s = 1;
+                    return '"length_s" element must not be null. Assuming length_s=1';
+                }
+
+                length_t = this.reader.getFloat(textureNode, 'length_t');
+                if (length_t == null || isNaN(length_t)) {
+                    length_t = 1;
+                    return '"length_t" element must not be null. Assuming length_t=1';
+                }
+
+                texture.id = textureId;
+                texture.length_s = length_s;
+                texture.length_t = length_t;
+
+                component.texture = texture;
+            }
+            else {
+                return "texture tag missing";
             }
 
             if (indexChildren != -1) {
+                var childrenElements = attrs[indexChildren].children;
 
+                if(childrenElements.length < 1)
+                    return 'at least one child element must be defined must be defined';
+
+                var childrenObject = {};
+
+                var componentChildren = [];
+                var primitiveChildren = [];
+
+                for (var j = 0; j < childrenElements.length; j++) {
+                    if (childrenElements[j].nodeName != "component" && childrenElements[j].nodeName != "primitiveref") {
+                        this.onXMLMinorError("unknown tag <" + childrenElements[j].nodeName + ">");
+                        continue;
+                    }
+
+                    var childrenId;
+
+                    childrenId = this.reader.getString(childrenElements[j], 'id');
+                    if (childrenId == null || childrenId == "") {
+                        childrenId = j;
+                        return "Id element must not be null.";
+                    }
+
+                    if (childrenElements[j].nodeName != "component") {
+                        componentChildren.push(childrenId);
+                    }
+                    else if (childrenElements[j].nodeName != "primitiveref") {
+                        primitiveChildren.push(childrenId);
+                    }
+                }
+
+                childrenObject.componentChildren = componentChildren;
+                childrenObject.primitiveChildren = primitiveChildren;
+
+                component.children = childrenObject;
             }
+            else {
+                return "children tag missing";
+            }
+
+            this.components.push(component);
         }
     }
 

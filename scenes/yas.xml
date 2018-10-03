@@ -35,15 +35,15 @@
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <omni id="unica-light" enabled="1" >
             <location x="0" y="10" z="0" w="1" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
         <spot id="segunda-light" enabled="1" angle="0" exponent="0" >
             <!-- atencao, "target" e' diferente de "direction" -->
             <location x="0" y="10" z="0" w="1" />
-            <target x="1" y="1" z="1" />
+            <target x="0" y="0" z="0" />
             <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -84,7 +84,7 @@
         <!-- Uma "primitive" e' uma primitiva e pode ser usada em nos folha -->
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <primitive id="cilindro">
+        <primitive id="cylinder">
             <!-- apenas pode existir UMA das seguintes tags: -->
             <!-- rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente, -->
@@ -92,18 +92,18 @@
             <cylinder base="1" top="1" height="1" slices="8" stacks="8" />
         </primitive>
         <primitive id="rectangle">
-            <rectangle x1="ff" y1="ff" x2="ff" y2="ff" />
+            <rectangle x1="1" y1="1" x2="2" y2="2" />
         </primitive >
         <primitive id="triangle">
-            <triangle x1="ff" y1="ff" z1="ff"
-            x2="ff" y2="ff" z2="ff"
-            x3="ff" y3="ff" z3="ff" />
+            <triangle x1="0" y1="0" z1="0"
+            x2="0" y2="1" z2="0"
+            x3="1" y3="0.5" z3="0" />
         </primitive >
         <primitive id="sphere">
-            <sphere radius="ff" slices="ii" stacks="ii" />
+            <sphere radius="2" slices="8" stacks="5" />
         </primitive >
         <primitive id="torus">
-            <torus inner="ff" outer="ff" slices="ii" loops="ii" />
+            <torus inner="2" outer="2" slices="3" loops="5" />
         </primitive >
     </primitives>
 
@@ -156,6 +156,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <primitiveref id="unico-prim" />
+                <component id="unico-comp" />
             </children>
         </component>
     </components>
