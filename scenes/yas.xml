@@ -26,27 +26,27 @@
     </views>
 
     <ambient>
-        <ambient r="0.2" g="0.2" b="0.2" a="1" />
+        <ambient r="0.1" g="0.1" b="0.1" a="1" />
         <background r="0" g="0" b="0" a="1" />
     </ambient>
 
     <lights>
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <omni id="unica-light" enabled="1" >
+        <omni id="light0" enabled="1" >
             <location x="0" y="10" z="0" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
-        <spot id="segunda-light" enabled="1" angle="0" exponent="0" >
+        <spot id="light1" enabled="1" angle="0" exponent="0" >
             <!-- atencao, "target" e' diferente de "direction" -->
             <location x="0" y="10" z="0" w="1" />
             <target x="0" y="0" z="0" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </spot>
     </lights>
 
@@ -60,7 +60,7 @@
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <material id="unico-mat" shininess="1" >
-            <specular r="0.0" g="0.0" b="0.0" a="1" />
+            <specular r="0.3" g="0.3" b="0.3" a="1" />
             <diffuse r="0.6" g="0.298" b="0.0" a="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1" />
             <emission r="0.0" g="0.0" b="0.0" a="1" />
@@ -108,7 +108,25 @@
     </primitives>
 
     <components>
-        <component id="unico-comp">
+        <component id="primeiro-comp">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="y" angle="10" />
+                <scale x="4" y="5" z="2" />
+            </transformation>
+
+            <materials>
+                <material id="unico-mat" />
+            </materials>
+
+            <texture id="unica-text" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="segundo-comp">
             <!-- Uma "component" e' um objeto composto e pode ser -->
             <!-- usada em nos intermédios -->
             <!-- bloco "transformation" e' obrigatorio -->
@@ -148,15 +166,15 @@
             <!-- do tipo escalamento violem esta regra. -->
             <!-- Nao e' necessario aplicar fatores de escala em -->
             <!-- quadricas (esfera, cilindro...) -->
-            <texture id="unico-text" length_s="1" length_t="1" />
+            <texture id="unica-text" length_s="1" length_t="1" />
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-                <primitiveref id="unico-prim" />
-                <component id="unico-comp" />
+                <primitiveref id="triangle" />
+                <component id="primeiro-comp" />
             </children>
         </component>
     </components>

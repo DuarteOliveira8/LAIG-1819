@@ -246,7 +246,7 @@ class MySceneGraph {
         var indexOrtho = nodeNames.indexOf("ortho");
 
         if (indexPerspective != -1) {
-            this.views["perspective"] = {};
+            this.views["perspective"] = [];
 
             var id, near, far, angle;
 
@@ -292,7 +292,7 @@ class MySceneGraph {
             var indexFrom = rangeNames.indexOf("from");
             var indexTo = rangeNames.indexOf("to");
 
-            var from = {}, to = {};
+            var from = [], to = [];
 
             from.x = this.reader.getFloat(range[indexFrom], 'x');
             from.y = this.reader.getFloat(range[indexFrom], 'y');
@@ -325,7 +325,7 @@ class MySceneGraph {
         }
 
         if (indexOrtho != -1) {
-            this.views["ortho"] = {};
+            this.views["ortho"] = [];
 
             var id, near, far, bottom, top, left, right;
 
@@ -407,7 +407,7 @@ class MySceneGraph {
         var indexBackground = nodeNames.indexOf("background");
 
         if (indexAmbient != -1) {
-            this.ambient["ambient"] = {};
+            this.ambient["ambient"] = [];
 
             var r, g, b, a;
 
@@ -458,7 +458,7 @@ class MySceneGraph {
         }
 
         if (indexBackground != -1) {
-            this.ambient["background"] = {};
+            this.ambient["background"] = [];
 
             var r, g, b, a;
 
@@ -522,9 +522,9 @@ class MySceneGraph {
                 continue;
             }
 
-            var light = {};
+            var light = [];
             var attrs = children[i].children;
-            var id, enabled, location = {}, ambient = {}, diffuse = {}, specular = {};
+            var id, enabled, location = [], ambient = [], diffuse = [], specular = [];
 
             id = this.reader.getString(children[i], 'id');
             if (id == null || id == "") {
@@ -591,10 +591,10 @@ class MySceneGraph {
                     return '"w" element must not be null. Assuming w=0';
                 }
 
-                location.x = x;
-                location.y = y;
-                location.z = z;
-                location.w = w;
+                location.push(x);
+                location.push(y);
+                location.push(z);
+                location.push(w);
             }
             else {
                 return "Location must be defined."
@@ -643,10 +643,10 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                ambient.r = r;
-                ambient.g = g;
-                ambient.b = b;
-                ambient.a = a;
+                ambient.push(r);
+                ambient.push(g);
+                ambient.push(b);
+                ambient.push(a);
             }
             else {
                 return "Ambient must be defined."
@@ -695,10 +695,10 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                diffuse.r = r;
-                diffuse.g = g;
-                diffuse.b = b;
-                diffuse.a = a;
+                diffuse.push(r);
+                diffuse.push(g);
+                diffuse.push(b);
+                diffuse.push(a);
             }
             else {
                 return "Diffuse must be defined."
@@ -747,10 +747,10 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                specular.r = r;
-                specular.g = g;
-                specular.b = b;
-                specular.a = a;
+                specular.push(r);
+                specular.push(g);
+                specular.push(b);
+                specular.push(a);
             }
             else {
                 return "Specular must be defined."
@@ -776,7 +776,7 @@ class MySceneGraph {
                 var indexTarget = attrNames.indexOf("target");
 
                 if (indexTarget != -1) {
-                    var target = {};
+                    var target = [];
                     var x, y, z;
 
                     x = this.reader.getFloat(attrs[indexTarget], 'x');
@@ -797,9 +797,9 @@ class MySceneGraph {
                         return '"z" element must not be null. Assuming z=0';
                     }
 
-                    target.x = x;
-                    target.y = y;
-                    target.z = z;
+                    target.push(x);
+                    target.push(y);
+                    target.push(z);
                 }
                 else {
                     return "Target must be defined."
@@ -840,7 +840,7 @@ class MySceneGraph {
             return 'at least one "texture" tag must be defined';
 
         for (var i = 0; i < children.length; i++) {
-            var texture = {};
+            var texture = [];
 
             if (children[i].nodeName != "texture") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
@@ -877,8 +877,8 @@ class MySceneGraph {
 
         for (var i = 0; i < children.length; i++) {
 
-            var material = {};
-            var specular = {}, diffuse = {}, ambient = {}, emission = {};
+            var material = [];
+            var specular = [], diffuse = [], ambient = [], emission = [];
             var id, shininess;
 
             if (children[i].nodeName != "material") {
@@ -968,10 +968,10 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                specular.r = r;
-                specular.g = g;
-                specular.b = b;
-                specular.a = a;
+                specular.push(r);
+                specular.push(g);
+                specular.push(b);
+                specular.push(a);
             }
             else {
                 return "Specular must be defined."
@@ -1020,10 +1020,10 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                diffuse.r = r;
-                diffuse.g = g;
-                diffuse.b = b;
-                diffuse.a = a;
+                diffuse.push(r);
+                diffuse.push(g);
+                diffuse.push(b);
+                diffuse.push(a);
             }
             else {
                 return "Diffuse must be defined."
@@ -1072,10 +1072,10 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                ambient.r = r;
-                ambient.g = g;
-                ambient.b = b;
-                ambient.a = a;
+                ambient.push(r);
+                ambient.push(g);
+                ambient.push(b);
+                ambient.push(a);
             }
             else {
                 return "Ambient must be defined."
@@ -1124,10 +1124,10 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                emission.r = r;
-                emission.g = g;
-                emission.b = b;
-                emission.a = a;
+                emission.push(r);
+                emission.push(g);
+                emission.push(b);
+                emission.push(a);
             }
             else {
                 return "Emission must be defined."
@@ -1158,7 +1158,9 @@ class MySceneGraph {
                 continue;
             }
 
-            var instructions = [];
+            var transformation = [];
+            var instructions = mat4.create();
+            mat4.identity(instructions);
             var attrs = children[i].children;
             var id;
 
@@ -1173,10 +1175,10 @@ class MySceneGraph {
             }
 
             for (var j = 0; j < attrs.length; j++) {
-                var instruction = {};
+                var instruction = vec3.create();
 
                 if (attrs[j].nodeName == "translate") {
-                    var type = "translate", x, y, z;
+                    var x, y, z;
 
                     x = this.reader.getFloat(attrs[j], 'x');
                     if (x == null || isNaN(x)) {
@@ -1196,13 +1198,11 @@ class MySceneGraph {
                         return '"z" element must not be null. Assuming z=0';
                     }
 
-                    instruction.type = type;
-                    instruction.x = x;
-                    instruction.y = y;
-                    instruction.z = z;
+                    vec3.set(instruction, x, y, z);
+                    mat4.translate(instructions,instructions,instruction);
                 }
                 else if (attrs[j].nodeName == "rotate") {
-                    var type = "rotate", axis, angle;
+                    var axis, angle;
 
                     axis = this.reader.getString(attrs[j], 'axis');
                     if (axis == null || axis == '') {
@@ -1219,12 +1219,18 @@ class MySceneGraph {
                         return '"angle" element must not be null. Assuming angle=0';
                     }
 
-                    instruction.type = type;
-                    instruction.axis = axis;
-                    instruction.angle = angle;
+                    if (axis == 'x') {
+                        mat4.rotateX(instructions,instructions,angle*DEGREE_TO_RAD);
+                    }
+                    else if (axis == 'y') {
+                        mat4.rotateY(instructions,instructions,angle*DEGREE_TO_RAD);
+                    }
+                    else {
+                        mat4.rotateZ(instructions,instructions,angle*DEGREE_TO_RAD);
+                    }
                 }
                 else if (attrs[j].nodeName == "scale") {
-                    var type = "scale", x, y, z;
+                    var x, y, z;
 
                     x = this.reader.getFloat(attrs[j], 'x');
                     if (x == null || isNaN(x)) {
@@ -1244,17 +1250,19 @@ class MySceneGraph {
                         return '"z" element must not be null. Assuming z=0';
                     }
 
-                    instruction.type = type;
-                    instruction.x = x;
-                    instruction.y = y;
-                    instruction.z = z;
+                    vec3.set(instruction, x, y, z);
+                    mat4.scale(instructions,instructions,instruction);
+
                 }
                 else {
                     this.onXMLMinorError("unknown tag <" + attrs[j].nodeName + ">");
                 }
-
-                instructions.push(instruction);
             }
+
+            transformation.id = id;
+            transformation.instructions = instructions;
+
+            this.transformations.push(transformation);
         }
     }
 
@@ -1267,7 +1275,7 @@ class MySceneGraph {
         this.primitives = [];
 
         for (var i = 0; i < children.length; i++) {
-            var primitive = {};
+            var primitive = [];
 
             if (children[i].nodeName != "primitive") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
@@ -1320,6 +1328,7 @@ class MySceneGraph {
                     return '"stacks" element must not be null. Assuming stacks=1';
                 }
 
+                primitive.id = id;
                 primitive.type = type;
                 primitive.base = base;
                 primitive.top = top;
@@ -1355,6 +1364,7 @@ class MySceneGraph {
                     return '"y2" element must not be null. Assuming y2=2';
                 }
 
+                primitive.id = id;
                 primitive.type = type;
                 primitive.x1 = x1;
                 primitive.y1 = y1;
@@ -1420,6 +1430,7 @@ class MySceneGraph {
                     return '"z3" element must not be null. Assuming z3=0';
                 }
 
+                primitive.id = id;
                 primitive.type = type;
                 primitive.x1 = x1;
                 primitive.y1 = y1;
@@ -1454,6 +1465,7 @@ class MySceneGraph {
                     return '"stacks" element must not be null. Assuming stacks=1';
                 }
 
+                primitive.id = id;
                 primitive.type = type;
                 primitive.radius = radius;
                 primitive.slices = slices;
@@ -1488,6 +1500,7 @@ class MySceneGraph {
                     return '"loops" element must not be null. Assuming loops=1';
                 }
 
+                primitive.id = id;
                 primitive.type = type;
                 primitive.inner = inner;
                 primitive.outer = outer;
@@ -1516,7 +1529,7 @@ class MySceneGraph {
                 continue;
             }
 
-            var component = {};
+            var component = [];
             var attrs = children[i].children;
             var id;
 
@@ -1553,17 +1566,18 @@ class MySceneGraph {
             var indexChildren = attrNames.indexOf("children");
 
             if (indexTransformation != -1) {
-                var transformation = [];
+                var transformation = mat4.create();
+                mat4.identity(transformation);
 
                 if (attrs[indexTransformation].getElementsByTagName("transformationref").length == 0) {
                     var instructions = attrs[indexTransformation].children;
 
                     if (instructions.length > 0) {
                         for (var j = 0; j < instructions.length; j++) {
-                            var instruction = {};
+                            var instruction = vec3.create();
 
                             if (instructions[j].nodeName == "translate") {
-                                var type = "translate", x, y, z;
+                                var x, y, z;
 
                                 x = this.reader.getFloat(instructions[j], 'x');
                                 if (x == null || isNaN(x)) {
@@ -1583,13 +1597,11 @@ class MySceneGraph {
                                     return '"z" element must not be null. Assuming z=0';
                                 }
 
-                                instruction.type = type;
-                                instruction.x = x;
-                                instruction.y = y;
-                                instruction.z = z;
+                                vec3.set(instruction, x, y, z);
+                                mat4.translate(transformation,transformation,instruction);
                             }
                             else if (instructions[j].nodeName == "rotate") {
-                                var type = "rotate", axis, angle;
+                                var axis, angle;
 
                                 axis = this.reader.getString(instructions[j], 'axis');
                                 if (axis == null || axis == '') {
@@ -1606,12 +1618,18 @@ class MySceneGraph {
                                     return '"angle" element must not be null. Assuming angle=0';
                                 }
 
-                                instruction.type = type;
-                                instruction.axis = axis;
-                                instruction.angle = angle;
+                                if (axis == 'x') {
+                                    mat4.rotateX(transformation,transformation,angle*DEGREE_TO_RAD);
+                                }
+                                else if (axis == 'y') {
+                                    mat4.rotateY(transformation,transformation,angle*DEGREE_TO_RAD);
+                                }
+                                else {
+                                    mat4.rotateZ(transformation,transformation,angle*DEGREE_TO_RAD);
+                                }
                             }
                             else if (instructions[j].nodeName == "scale") {
-                                var type = "scale", x, y, z;
+                                var x, y, z;
 
                                 x = this.reader.getFloat(instructions[j], 'x');
                                 if (x == null || isNaN(x)) {
@@ -1631,39 +1649,41 @@ class MySceneGraph {
                                     return '"z" element must not be null. Assuming z=0';
                                 }
 
-                                instruction.type = type;
-                                instruction.x = x;
-                                instruction.y = y;
-                                instruction.z = z;
+                                vec3.set(instruction, x, y, z);
+                                mat4.scale(transformation,transformation,instruction);
                             }
                             else {
                                 this.onXMLMinorError("unknown tag <" + instructions[j].nodeName + ">");
                             }
 
-                            transformation.push(instruction);
+                            component.transformation = transformation;
                         }
                     }
                 }
                 else if (attrs[indexTransformation].getElementsByTagName("transformationref").length == 1) {
                     var ref = attrs[indexTransformation].children[0];
-                    var transformationref;
+                    var transformationRef, transformationId;
 
-                    transformationref = this.reader.getString(ref, 'id');
-                    if (transformationref == null || transformationref == "") {
-                        transformationref = i;
+                    transformationId = this.reader.getString(ref, 'id');
+                    if (transformationId == null || transformationId == "") {
+                        transformationId = i;
                         return "Id element must not be null.";
                     }
 
-                    transformation["transformationref"] = transformationref;
+                    for (var k = 0; k < this.transformations.length; k++) {
+                        if (this.transformations[k].id == transformationId) {
+                            transformationRef = this.transformations[k];
+                        }
+                    }
+
+                    component.transformation = transformationRef;
                 }
                 else {
                     return "no more than one transformationref tag may be defined";
                 }
-
-                component.transformation = transformation;
             }
             else {
-                return "transformation tag missing";
+                return "transformation tag is missing";
             }
 
             if (indexMaterials != -1) {
@@ -1680,7 +1700,7 @@ class MySceneGraph {
                         continue;
                     }
 
-                    var materialId;
+                    var materialId, material;
 
                     materialId = this.reader.getString(materials[j], 'id');
                     if (materialId == null || materialId == "") {
@@ -1688,7 +1708,13 @@ class MySceneGraph {
                         return "Id element must not be null.";
                     }
 
-                    materialsContainer.push(materialId);
+                    for (var k = 0; k < this.materials.length; k++) {
+                        if (this.materials[k].id == materialId) {
+                            material = this.materials[k];
+                        }
+                    }
+
+                    materialsContainer.push(material);
                 }
 
                 component.materials = materialsContainer;
@@ -1700,13 +1726,19 @@ class MySceneGraph {
             if (indexTexture != -1) {
                 var textureNode = attrs[indexTexture];
 
-                var texture = {};
-                var textureId, length_s, length_t;
+                var texture = [];
+                var textureId, textureRef, length_s, length_t;
 
                 textureId = this.reader.getString(textureNode, 'id');
                 if (textureId == null || textureId == "") {
                     textureId = j;
                     return "Id element must not be null.";
+                }
+
+                for (var k = 0; k < this.textures.length; k++) {
+                    if (this.textures[k].id == textureId) {
+                        textureRef = this.textures[k];
+                    }
                 }
 
                 length_s = this.reader.getFloat(textureNode, 'length_s');
@@ -1721,7 +1753,7 @@ class MySceneGraph {
                     return '"length_t" element must not be null. Assuming length_t=1';
                 }
 
-                texture.id = textureId;
+                texture.texture = textureRef;
                 texture.length_s = length_s;
                 texture.length_t = length_t;
 
@@ -1737,7 +1769,7 @@ class MySceneGraph {
                 if(childrenElements.length < 1)
                     return 'at least one child element must be defined must be defined';
 
-                var childrenObject = {};
+                var childrenObject = [];
 
                 var componentChildren = [];
                 var primitiveChildren = [];
@@ -1756,11 +1788,30 @@ class MySceneGraph {
                         return "Id element must not be null.";
                     }
 
-                    if (childrenElements[j].nodeName != "component") {
-                        componentChildren.push(childrenId);
+                    if (childrenElements[j].nodeName == "component") {
+                        var componentRef;
+
+                        for (var k = 0; k < this.components.length; k++) {
+                            if (this.components[k].id == childrenId) {
+                                componentRef = this.components[k];
+                            }
+                        }
+
+                        componentChildren.push(componentRef);
                     }
-                    else if (childrenElements[j].nodeName != "primitiveref") {
-                        primitiveChildren.push(childrenId);
+                    else if (childrenElements[j].nodeName == "primitiveref") {
+                        var primitiveRef;
+
+                        for (var k = 0; k < this.primitives.length; k++) {
+                            console.log(this.primitives[k].id);
+                            console.log(childrenId);
+
+                            if (this.primitives[k].id == childrenId) {
+                                primitiveRef = this.primitives[k];
+                            }
+                        }
+
+                        primitiveChildren.push(primitiveRef);
                     }
                 }
 
@@ -1772,6 +1823,8 @@ class MySceneGraph {
             else {
                 return "children tag missing";
             }
+
+            component.id = id;
 
             this.components.push(component);
         }
