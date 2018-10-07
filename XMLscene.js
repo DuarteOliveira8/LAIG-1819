@@ -6,7 +6,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 class XMLscene extends CGFscene {
     /**
      * @constructor
-     * @param {MyInterface} myinterface 
+     * @param {MyInterface} myinterface
      */
     constructor(myinterface) {
         super();
@@ -77,7 +77,7 @@ class XMLscene extends CGFscene {
     }
 
 
-    /* Handler called when the graph is finally loaded. 
+    /* Handler called when the graph is finally loaded.
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {

@@ -1,180 +1,420 @@
-<!-- Os comentarios devem ter espacos no inicio e no fim, a -->
-<!-- separar dos hifens -->
-<!-- Nao devem ser usados caracteres especiais (p.ex. acentos) -->
-<!-- Todas as tags e atributos sao obrigatorios, exceto onde for -->
-<!-- referido o contrario -->
-<!-- Na descricao abaixo, os simbolos utilizados tem o seguinte significado: -->
-    <!-- ii: integer value -->
-    <!-- ff: float value -->
-    <!-- ss: string value -->
-    <!-- cc: character "x" or "y" or "z" -->
-    <!-- tt: "0" or "1" with Boolean significance -->
-
 <yas>
-    <!-- deve definir-se um objeto para raiz da arvore, assim -->
-    <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="unico-comp" axis_length="5" />
+    <scene root="root" axis_length="5" />
 
     <views default="unica-view">
-        <!-- tem de existir, pelo menos, uma vista de -->
-        <!-- entre as seguintes (perspective ou ortho) -->
         <perspective id="perspective" near="0.1" far="500" angle="0">
             <from x="0" y="0" z="0" />
-            <to x="500" y="500" z="500" />
+            <to x="15" y="15" z="15" />
         </perspective>
+
         <ortho id="ortho" near="0.1" far="500" left="200" right="250" top="250" bottom="200" />
     </views>
 
     <ambient>
         <ambient r="0.1" g="0.1" b="0.1" a="1" />
-        <background r="0" g="0" b="0" a="1" />
+        <background r="1" g="1" b="1" a="1" />
     </ambient>
 
     <lights>
-        <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
         <omni id="light0" enabled="1" >
-            <location x="0" y="10" z="0" w="1" />
+            <location x="0" y="6" z="0" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
-        <spot id="light1" enabled="1" angle="0" exponent="0" >
-            <!-- atencao, "target" e' diferente de "direction" -->
-            <location x="0" y="10" z="0" w="1" />
-            <target x="0" y="0" z="0" />
+        <omni id="light1" enabled="1" >
+            <location x="6" y="6" z="0" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
-        </spot>
+        </omni>
+
+        <omni id="light2" enabled="1" >
+            <location x="0" y="6" z="6" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </omni>
+
+        <omni id="light3" enabled="1" >
+            <location x="6" y="6" z="6" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </omni>
     </lights>
 
     <textures>
-        <!-- Deve existir um ou mais blocos "texture" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
-        <texture id="unica-text" file="images/trunk-image.jpg" />
+        <texture id="water" file="images/water.jpeg" />
+
+        <texture id="houses" file="images/ribeira.jpeg" />
+
+        <texture id="bridge" file="images/pontedluis.jpg" />
     </textures>
 
     <materials>
-        <!-- Deve existir um ou mais blocos "material" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
-        <material id="unico-mat" shininess="1" >
-            <specular r="0.3" g="0.3" b="0.3" a="1" />
-            <diffuse r="0.6" g="0.298" b="0.0" a="1" />
-            <ambient r="0.1" g="0.1" b="0.1" a="1" />
-            <emission r="0.0" g="0.0" b="0.0" a="1" />
+        <material id="water" shininess="500" >
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </material>
+
+        <material id="hill" shininess="1" >
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </material>
+
+        <material id="boat" shininess="1" >
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </material>
     </materials>
 
     <transformations>
-        <!-- Deve existir um ou mais blocos "transformation" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
-        <!-- Os angulos sao expressos em graus -->
-        <transformation id="unica-tf">
-            <!-- instrucoes a usar sem limite nem ordem -->
-            <!-- deve existir pelo menos uma transformacao -->
-            <translate x="0" y="0" z="0" />
-            <rotate axis="y" angle="10" />
-            <scale x="4" y="5" z="2" />
+        <transformation id="boat-transf">
+            <translate x="3" y="0" z="3" />
+        </transformation>
+
+        <transformation id="sail-transf">
+            <translate x="0" y="0.5" z="0" />
+        </transformation>
+
+        <transformation id="float-transf">
+            <translate x="4" y="0" z="4" />
+            <scale  x="0.5" y="0.5" z="0.5" />
+        </transformation>
+
+        <transformation id="water-transf">
+            <translate x="0" y="0" z="5" />
+            <rotate axis="x" angle="-90" />
+        </transformation>
+
+        <transformation id="bridge-transf">
+            <translate x="0" y="0" z="5" />
+            <rotate axis="y" angle="-90" />
+        </transformation>
+
+        <transformation id="sun-transf">
+            <translate x="1" y="5" z="1" />
+            <scale x="1.5" y="1.5" z="1.5" />
         </transformation>
     </transformations>
 
     <primitives>
-        <!-- Uma "primitive" e' uma primitiva e pode ser usada em nos folha -->
-        <!-- Deve existir um ou mais blocos "primitive" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
-        <primitive id="cylinder">
-            <!-- apenas pode existir UMA das seguintes tags: -->
-            <!-- rectangle, triangle, cylinder, sphere, torus -->
-            <!-- os parametros devem ser interpretados, genericamente, -->
-            <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
-            <cylinder base="1" top="1" height="1" slices="8" stacks="8" />
+        <primitive id="scenario">
+            <rectangle x1="0" y1="0" x2="5" y2="5" />
         </primitive>
-        <primitive id="rectangle">
-            <rectangle x1="1" y1="1" x2="2" y2="2" />
-        </primitive >
-        <primitive id="triangle">
-            <triangle x1="0" y1="0" z1="0"
-            x2="0" y2="1" z2="0"
-            x3="1" y3="0.5" z3="0" />
-        </primitive >
-        <primitive id="sphere">
-            <sphere radius="2" slices="8" stacks="5" />
-        </primitive >
-        <primitive id="torus">
-            <torus inner="2" outer="2" slices="3" loops="5" />
-        </primitive >
+
+        <primitive id="boat-part">
+            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+        </primitive>
+
+        <primitive id="boat-mast">
+            <cylinder base="0.1" top="0.1" height="2" slices="8" stacks="8" />
+        </primitive>
+
+        <primitive id="boat-sale">
+            <triangle x1="0" y1="-0.5" z1="-0.5"
+                      x2="0" y2="0.5" z2="0"
+                      x3="0" y3="-0.5" z3="0.5" />
+        </primitive>
+
+        <primitive id="float">
+            <torus inner="0.1" outer="0.2" slices="8" loops="8" />
+        </primitive>
+
+        <primitive id="sun">
+            <sphere radius="0.5" slices="8" stacks="8" />
+        </primitive>
     </primitives>
 
     <components>
-        <component id="primeiro-comp">
+        <component id="root">
             <transformation>
-                <translate x="0" y="0" z="0" />
-                <rotate axis="y" angle="10" />
-                <scale x="4" y="5" z="2" />
             </transformation>
 
             <materials>
-                <material id="unico-mat" />
+                <material id="inherit" />
             </materials>
 
-            <texture id="unica-text" length_s="1" length_t="1" />
+            <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <primitiveref id="rectangle" />
+                <componentref id="" />
             </children>
         </component>
 
-        <component id="segundo-comp">
-            <!-- Uma "component" e' um objeto composto e pode ser -->
-            <!-- usada em nos intermédios -->
-            <!-- bloco "transformation" e' obrigatorio -->
+        <component id="water">
             <transformation>
-                <!-- deve conter uma referencia a uma das "transformation" -->
-                <!-- declaradas anteriormente -->
-                <transformationref id="unica-tf" />
-
-                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
-                <!-- usando zero ou mais das instrucoes seguintes, sem -->
-                <!-- limite nem ordem -->
-                <!-- ex: bloco transformation pode ficar sem conteudo -->
+                <transformationref id="water-transforms" />
             </transformation>
 
-            <!-- declaracao obrigatoria de pelo menos um material; -->
-            <!-- o material id="inherit", mantem (herda) material do "pai" -->
-            <!-- se varios materiais declarados, o default e' o -->
-            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
-            <!-- o material muda para o proximo material da lista; do -->
-            <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="unico-mat" />
+                <material id="water" />
             </materials>
 
-            <!-- declaracao obrigatoria de texture -->
-            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
-            <!-- id="none" remove a textura recebida do pai -->
-            <!-- a textura declarada sobrepoe a textura recebida do -->
-            <!-- objecto "pai" -->
-            <!-- length_s e length_t sao fatores de escala de textura:-->
-            <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
-            <!-- comprimento, deve cobrir um comprimento igual -->
-            <!-- a 3 unidades; -->
-            <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
-            <!-- largura, deve cobrir uma largura igual a 0.4 unidades. -->
-            <!-- E' permitido que objetos afetados por Transf. Geometr. -->
-            <!-- do tipo escalamento violem esta regra. -->
-            <!-- Nao e' necessario aplicar fatores de escala em -->
-            <!-- quadricas (esfera, cilindro...) -->
-            <texture id="unica-text" length_s="1" length_t="1" />
+            <texture id="water" length_s="1" length_t="1" />
 
-            <!-- bloco "children" obrigatorio num "component" -->
             <children>
-                <!-- deve existir uma ou mais tags "componentref" e/ou -->
-                <!-- "primitiveref", identificando outros -->
-                <!-- componentes ou primitivas -->
-                <primitiveref id="triangle" />
-                <component id="primeiro-comp" />
+                <primitiveref id="scenario" />
+            </children>
+        </component>
+
+        <component id="houses">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="houses" />
+            </materials>
+
+            <texture id="houses" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="scenario" />
+            </children>
+        </component>
+
+        <component id="sun">
+            <transformation>
+                <transformationref id="sun-transf" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="sun" />
+            </children>
+        </component>
+
+        <component id="bridge">
+            <transformation>
+                <transformationref id="bridge-transf" />
+            </transformation>
+
+            <materials>
+                <material id="bridge" />
+            </materials>
+
+            <texture id="bridge" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="scenario" />
+            </children>
+        </component>
+
+        <component id="float">
+            <transformation>
+                <transformationref id="float-transf" />
+            </transformation>
+
+            <materials>
+                <material id="bridge" />
+            </materials>
+
+            <texture id="bridge" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="scenario" />
+            </children>
+        </component>
+
+        <component id="boat">
+            <transformation>
+                <transformationref id="boat-transf" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="boat-base" />
+                <componentref id="boat-sail" />
+            </children>
+        </component>
+
+        <component id="boat-sail">
+            <transformation>
+                <transformationref id="sail-transf" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="base-sail-sail" />
+                <componentref id="base-sail-mast" />
+            </children>
+        </component>
+
+        <component id="boat-sail-sail">
+            <transformation>
+                <translate x="0" y="1.5" z="0" />
+                <scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="boat-sail" />
+            </children>
+        </component>
+
+        <component id="boat-sail-mast">
+            <transformation>
+                <scale x="1" y="2" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="boat-mast" />
+            </children>
+        </component>
+
+        <component id="boat-base">
+            <transformation>
+                <scale x="2" y="0.5" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="base-top" />
+                <componentref id="base-bottom" />
+                <componentref id="base-left" />
+                <componentref id="base-right" />
+                <componentref id="base-front" />
+                <componentref id="base-back" />
+            </children>
+        </component>
+
+        <component id="base-top">
+            <transformation>
+                <translate x="0" y="0.5" z="0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="boat-part" />
+            </children>
+        </component>
+
+        <component id="base-bottom">
+            <transformation>
+                <translate x="0" y="-0.5" z="0" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="boat-part" />
+            </children>
+        </component>
+
+        <component id="base-left">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="boat-part" />
+            </children>
+        </component>
+
+        <component id="base-right">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="boat-part" />
+            </children>
+        </component>
+
+        <component id="base-front">
+            <transformation>
+                <translate x="0.5" y="0" z="0" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="boat-part" />
+            </children>
+        </component>
+
+        <component id="base-back">
+            <transformation>
+                <translate x="-0.5" y="0" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="boat-part" />
             </children>
         </component>
     </components>
