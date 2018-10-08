@@ -244,7 +244,7 @@
             <texture id="bridge" length_s="1" length_t="1" />
 
             <children>
-                <primitiveref id="scenario" />
+                <primitiveref id="float" />
             </children>
         </component>
 
