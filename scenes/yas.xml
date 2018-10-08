@@ -1,8 +1,8 @@
 <yas>
     <scene root="root" axis_length="5" />
 
-    <views default="unica-view">
-        <perspective id="perspective" near="0.1" far="500" angle="0">
+    <views default="perspective">
+        <perspective id="perspective" near="0.1" far="500" angle="23">
             <from x="0" y="0" z="0" />
             <to x="15" y="15" z="15" />
         </perspective>
