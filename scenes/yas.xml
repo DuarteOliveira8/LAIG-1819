@@ -1,18 +1,18 @@
 <yas>
     <scene root="root" axis_length="5" />
 
-    <views default="perspective">
-        <perspective id="perspective" near="0.1" far="500" angle="23">
+    <views default="cam0">
+        <perspective id="cam0" near="0.1" far="500" angle="23">
             <from x="0" y="0" z="0" />
             <to x="15" y="15" z="15" />
         </perspective>
 
-        <ortho id="ortho" near="0.1" far="500" left="200" right="250" top="250" bottom="200" />
+        <ortho id="cam1" near="0.1" far="500" left="200" right="250" top="250" bottom="200" />
     </views>
 
     <ambient>
         <ambient r="0.1" g="0.1" b="0.1" a="1" />
-        <background r="0" g="0" b="0" a="1" />
+        <background r="0.1" g="0.1" b="0.1" a="1" />
     </ambient>
 
     <lights>
@@ -43,6 +43,14 @@
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
+
+        <spot id="light4" enabled="0" angle="23" exponent="1">
+            <location x="10" y="10" z="10" w="10" />
+            <target x="0" y="0" z="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1" />
+            <specular r="0.3" g="0.3" b="0.3" a="1" />
+        </spot>
     </lights>
 
     <textures>
