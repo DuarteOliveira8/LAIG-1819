@@ -51,7 +51,7 @@ class MyRectangle extends CGFobject
 		// 	this.minS, this.minT,
 		// 	this.minS, this.maxT,
 		// 	this.maxS, this.maxT
-		];
+		// ];
 
 		this.initGLBuffers();
 	};

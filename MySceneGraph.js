@@ -1425,7 +1425,7 @@ class MySceneGraph {
 
 
             else if (attrs[0].nodeName == "sphere") {
-                var type = "sphere", radius, slices, stacks;
+                var radius, slices, stacks;
 
                 radius = this.reader.getFloat(attrs[0], 'radius');
                 if (radius == null || isNaN(radius)) {
@@ -1445,10 +1445,7 @@ class MySceneGraph {
                     return '"stacks" element must not be null. Assuming stacks=1';
                 }
 
-                primitive.type = type;
-                primitive.radius = radius;
-                primitive.slices = slices;
-                primitive.stacks = stacks;
+                primitive = new MySphere(this.scene, radius, slices, stacks);
             }
 
 
