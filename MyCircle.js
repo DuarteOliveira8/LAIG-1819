@@ -7,9 +7,10 @@
 class MyCircle extends CGFobject
 {
 
-	constructor(scene, slices)
+	constructor(scene, slices, radius)
 	{
 		super(scene);
+		this.radius = radius;
 		this.slices = slices;
 		this.vertices = [];
 		this.indices = [];
@@ -26,7 +27,7 @@ class MyCircle extends CGFobject
 
 		var angle = 0;
 		for (var i = 0; i < this.slices; i++) {
-			this.vertices.push(Math.cos(angle * degToRad), Math.sin(angle * degToRad), 0);
+			this.vertices.push(Math.cos(angle * degToRad)*this.radius, Math.sin(angle * degToRad)*this.radius, 0);
 			angle += 360/this.slices;
 		}
 		this.vertices.push(0,0,0);

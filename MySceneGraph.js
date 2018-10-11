@@ -1297,7 +1297,7 @@ class MySceneGraph {
                 return "Id element must be unique for each primitive. (Duplicate: " + id + ")";
 
             if(attrs[0].nodeName == "cylinder") {
-                var type = "cylinder", base, top, height, slices, stacks;
+                var base, top, height, slices, stacks;
 
                 base = this.reader.getFloat(attrs[0], 'base');
                 if (base == null || isNaN(base)) {
@@ -1329,12 +1329,7 @@ class MySceneGraph {
                     return '"stacks" element must not be null. Assuming stacks=1';
                 }
 
-                primitive.type = type;
-                primitive.base = base;
-                primitive.top = top;
-                primitive.height = height;
-                primitive.slices = slices;
-                primitive.stacks = stacks;
+                primitive = new MyCoveredCylinder(this.scene, base, top, height, slices, stacks);
             }
 
             else if (attrs[0].nodeName == "rectangle") {
@@ -1424,16 +1419,6 @@ class MySceneGraph {
                     z3 = 0;
                     return '"z3" element must not be null. Assuming z3=0';
                 }
-
-                primitive.x1 = x1;
-                primitive.y1 = y1;
-                primitive.z1 = z1;
-                primitive.x2 = x2;
-                primitive.y2 = y2;
-                primitive.z2 = z2;
-                primitive.x3 = x3;
-                primitive.y3 = y3;
-                primitive.z3 = z3;
 
                 primitive = new MyTriangle(this.scene, x1, y1, z1, x2, y2, z2, x3, y3, z3);
             }
