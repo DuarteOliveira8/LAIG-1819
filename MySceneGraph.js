@@ -202,9 +202,14 @@ class MySceneGraph {
     /**
      * Parses the <scene> block.
      */
-    parseScene(sceneNode) {
-        var axisLength = this.reader.getFloat(sceneNode, 'axis_length');
+    parseScene(sceneNode) {  //done
+        var root = this.reader.getString(sceneNode, 'root');
+        if (root == null || root == "") {
+            root = 1;
+            return "Root length can't be null.";
+        }
 
+        var axisLength = this.reader.getFloat(sceneNode, 'axis_length');
         if (axisLength == null || isNaN(axisLength)) {
             axisLength = 1;
             return "Axis length can't be null.";
@@ -215,11 +220,8 @@ class MySceneGraph {
             return "Axis length is too small.";
         }
 
+        this.idRoot = root;
         this.axisLength = axisLength;
-
-        // this.axisCoords['x'] = [axisLength, 0, 0];
-        // this.axisCoords['y'] = [0, axisLength, 0];
-        // this.axisCoords['z'] = [0, 0, axisLength];
     }
 
     /**
@@ -389,7 +391,7 @@ class MySceneGraph {
         }
     }
 
-    parseAmbient(ambientNode) {
+    parseAmbient(ambientNode) {  //done
         var children = ambientNode.children;
 
         var nodeNames = [];
@@ -511,7 +513,7 @@ class MySceneGraph {
         }
     }
 
-    parseLights(lightsNode) {
+    parseLights(lightsNode) {  //done
         var children = lightsNode.children;
 
         this.lights = [];
@@ -759,7 +761,7 @@ class MySceneGraph {
                 return "Specular must be defined."
             }
 
-            light.enabled = enabled;
+            light.enabled = enabled ? true : false;
             light.location = location;
             light.ambient = ambient;
             light.diffuse = diffuse;
@@ -1336,7 +1338,7 @@ class MySceneGraph {
             }
 
             else if (attrs[0].nodeName == "rectangle") {
-                var type = "rectangle", x1, y1, x2, y2;
+                var x1, y1, x2, y2;
 
                 x1 = this.reader.getFloat(attrs[0], 'x1');
                 if (x1 == null || isNaN(x1)) {
@@ -1362,16 +1364,12 @@ class MySceneGraph {
                     return '"y2" element must not be null. Assuming y2=2';
                 }
 
-                primitive.type = type;
-                primitive.x1 = x1;
-                primitive.y1 = y1;
-                primitive.x2 = x2;
-                primitive.y2 = y2;
+                primitive = new MyRectangle(this.scene, x1, y1, x2, y2);
             }
 
 
             else if (attrs[0].nodeName == "triangle") {
-                var type = "triangle", x1, y1, z1, x2, y2, z2, x3, y3, z3;
+                var x1, y1, z1, x2, y2, z2, x3, y3, z3;
 
                 x1 = this.reader.getFloat(attrs[0], 'x1');
                 if (x1 == null || isNaN(x1)) {
@@ -1427,7 +1425,6 @@ class MySceneGraph {
                     return '"z3" element must not be null. Assuming z3=0';
                 }
 
-                primitive.type = type;
                 primitive.x1 = x1;
                 primitive.y1 = y1;
                 primitive.z1 = z1;
@@ -1437,6 +1434,8 @@ class MySceneGraph {
                 primitive.x3 = x3;
                 primitive.y3 = y3;
                 primitive.z3 = z3;
+
+                primitive = new MyTriangle(this.scene, x1, y1, z1, x2, y2, z2, x3, y3, z3);
             }
 
 
@@ -1876,11 +1875,32 @@ class MySceneGraph {
         console.log("   " + message);
     }
 
+    displayNode(node) {
+        this.scene.pushMatrix();
+
+        if (node.transformation != null) {
+            this.scene.multMatrix(node.transformation);
+        }
+
+        for (var i = 0; i < node.children.primitiveChildren.length; i++) {
+            node.children.primitiveChildren[i].display();
+        }
+
+        for (var key in node.children.componentChildren) {
+            this.displayNode(node.children.componentChildren[key]);
+        }
+
+        this.scene.popMatrix();
+    }
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
+
+        this.displayNode(this.components[this.idRoot]);
     }
+
 }
