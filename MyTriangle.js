@@ -42,11 +42,20 @@ class MyTriangle extends CGFobject
 
 		this.primitiveType=this.scene.gl.TRIANGLES;
 
+		var ux = this.x2-this.x1;
+		var uy = this.y2-this.y1;
+		var uz = this.z2-this.z1;
+		var vx = this.x3-this.x1;
+		var vy = this.y3-this.y1;
+		var vz = this.z3-this.z1;
+
+		var nx = uy*vz - uz*vy
+		var ny = uz*vx - ux*vz
+		var nz = ux*vy - uy*vx
 		this.normals = [
-			0, 0, 1,
-			0, 0, 1,
-			0, 0, 1,
-			0, 0, 1
+			nx, ny, nz,
+			nx, ny, nz,
+			nx, ny, nz
 		];
 
 		// this.texCoords = [
