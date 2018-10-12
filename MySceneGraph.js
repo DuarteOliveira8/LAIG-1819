@@ -1450,7 +1450,7 @@ class MySceneGraph {
 
 
             else if (attrs[0].nodeName == "torus") {
-                var type = "torus", inner, outer, slices, loops;
+                var inner, outer, slices, loops;
 
                 inner = this.reader.getFloat(attrs[0], 'inner');
                 if (inner == null || isNaN(inner)) {
@@ -1476,11 +1476,7 @@ class MySceneGraph {
                     return '"loops" element must not be null. Assuming loops=1';
                 }
 
-                primitive.type = type;
-                primitive.inner = inner;
-                primitive.outer = outer;
-                primitive.slices = slices;
-                primitive.loops = loops;
+                primitive = new MyTorus(this.scene, inner, outer, slices, loops)
             }
             else {
               this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
