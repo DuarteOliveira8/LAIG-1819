@@ -7,7 +7,10 @@
             <to x="15" y="15" z="15" />
         </perspective>
 
-        <ortho id="cam1" near="0.1" far="500" left="200" right="250" top="250" bottom="200" />
+        <ortho id="cam1" near="0.1" far="500" left="200" right="250" top="250" bottom="200">
+            <from x="0" y="0" z="0" />
+            <to x="15" y="15" z="15" />
+        </ortho>
     </views>
 
     <ambient>
