@@ -331,7 +331,7 @@ class MySceneGraph {
                 camera.to = to;
                 camera.type = "perspective";
 
-                this.views.cameras[id] = camera;
+                this.views.cameras[id] = new CGFcamera(angle, near, far, from, to);
             }
             else if (children[i].nodeName == "ortho") {
                 var near, far, bottom, top, left, right;
