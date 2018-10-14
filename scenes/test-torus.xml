@@ -54,7 +54,7 @@
     </lights>
 
     <textures>
-        <texture id="water" file="scenes/images/water.jpeg" />
+        <texture id="water" file="scenes/images/donut.jpg" />
     </textures>
 
     <materials>
@@ -74,7 +74,7 @@
 
     <primitives>
         <primitive id="torus">
-            <torus inner="0.5" outer="2" slices="4" loops="4" />
+            <torus inner="0.2" outer="0.3" slices="15" loops="15" />
         </primitive>
     </primitives>
 
@@ -87,7 +87,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="water" length_s="1" length_t="1" />
+            <texture id="none" length_s="1" length_t="1" />
 
             <children>
                 <componentref id="torus" />
@@ -96,13 +96,14 @@
 
         <component id="torus">
             <transformation>
+                <rotate axis="x" angle="90" />
             </transformation>
 
             <materials>
                 <material id="root" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="water" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="torus" />
