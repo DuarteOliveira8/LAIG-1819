@@ -892,7 +892,7 @@ class MySceneGraph {
                 return "Id element must be unique for each material. (Duplicate: " + id + ")";
 
             shininess = this.reader.getFloat(children[i], 'shininess');
-            if (shininess == null || shininess == "") {
+            if (shininess == null) {
                 return "Shininess value must not be null.";
             }
             else if (shininess < 0) {
