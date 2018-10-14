@@ -54,7 +54,7 @@
     </lights>
 
     <textures>
-        <texture id="water" file="images/water.jpeg" />
+        <texture id="water" file="scenes/images/water.jpeg" />
     </textures>
 
     <materials>
@@ -108,7 +108,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="water" length_s="1" length_t="1" />
 
             <children>
                 <componentref id="face1" />

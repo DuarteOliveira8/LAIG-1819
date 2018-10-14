@@ -10,10 +10,11 @@ class MyTriangle extends CGFobject
 	{
 		super(scene);
 
-		// this.minS = 0.0;
-		// this.maxS = 1.0;
-		// this.minT = 0.0;
-		// this.maxT = 1.0;
+		this.minS = 0.0;
+		this.maxS = 1.0;
+		this.minT = 0.0;
+		this.maxT = 1.0;
+		this.texCoords = [];
 
 		this.x1 = x1;
 		this.y1 = y1;
@@ -58,12 +59,23 @@ class MyTriangle extends CGFobject
 			nx, ny, nz
 		];
 
-		// this.texCoords = [
-		// 	this.maxS, this.minT,
-		// 	this.minS, this.minT,
-		// 	this.minS, this.maxT,
-		// 	this.maxS, this.maxT
-		// ];
+		var u = vec3.fromValues(this.x1, this.y1, this.z1);
+		var v = vec3.fromValues(this.x2, this.y2, this.z2);
+		var t = vec3.fromValues(this.x3, this.y3, this.z3);
+
+		var vt = Math.sqrt(Math.pow(v[0] - t[0], 2) + Math.pow(v[1] - t[1], 2) + Math.pow(v[2] - t[2], 2));
+		var ut = Math.sqrt(Math.pow(u[0] - t[0], 2) + Math.pow(u[1] - t[1], 2) + Math.pow(u[2] - t[2], 2));
+		var uv = Math.sqrt(Math.pow(u[0] - v[0], 2) + Math.pow(u[1] - v[1], 2) + Math.pow(u[2] - v[2], 2));
+
+		var angle = Math.acos((Math.pow(vt, 2) - Math.pow(ut, 2) + Math.pow(uv, 2)) / (2 * vt * uv));
+
+		var d = vt * Math.sin(angle);
+
+		this.texCoords = [
+			this.minS, d*this.maxT,
+			uv*this.maxS, d*this.maxT,
+			(uv-vt*Math.cos(angle))*this.maxS, (d-vt*Math.sin(angle))*this.maxT
+		];
 
 		this.initGLBuffers();
 	};

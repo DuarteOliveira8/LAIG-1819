@@ -54,7 +54,7 @@
     </lights>
 
     <textures>
-        <texture id="water" file="images/water.jpeg" />
+        <texture id="water" file="scenes/images/testTexture.png" />
     </textures>
 
     <materials>
@@ -122,7 +122,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="water" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cylinder" />
@@ -138,7 +138,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="water" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cylinder2" />
@@ -154,7 +154,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="water" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cylinder3" />
@@ -170,7 +170,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="water" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cylinder4" />
@@ -186,7 +186,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="water" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cylinder5" />

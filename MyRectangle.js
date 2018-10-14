@@ -10,10 +10,10 @@ class MyRectangle extends CGFobject
 	{
 		super(scene);
 
-		// this.minS = 0.0;
-		// this.maxS = 1.0;
-		// this.minT = 0.0;
-		// this.maxT = 1.0;
+		this.minS = 0.0;
+		this.maxS = 1.0;
+		this.minT = 0.0;
+		this.maxT = 1.0;
 
 		this.x1 = x1;
 		this.y1 = y1;
@@ -46,12 +46,12 @@ class MyRectangle extends CGFobject
 			0, 0, 1
 		];
 
-		// this.texCoords = [
-		// 	this.maxS, this.minT,
-		// 	this.minS, this.minT,
-		// 	this.minS, this.maxT,
-		// 	this.maxS, this.maxT
-		// ];
+		this.texCoords = [
+			this.maxS, this.minT,
+			this.minS, this.minT,
+			this.minS, this.maxT,
+			this.maxS, this.maxT
+		];
 
 		this.initGLBuffers();
 	};

@@ -837,14 +837,14 @@ class MySceneGraph {
             return 'at least one "texture" tag must be defined';
 
         for (var i = 0; i < children.length; i++) {
-            var texture = [];
+            var texture;
 
             if (children[i].nodeName != "texture") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
 
-            var id, file;
+            var id;
 
             id = this.reader.getString(children[i], 'id');
             if (id == null || id == "") {
@@ -855,14 +855,12 @@ class MySceneGraph {
             if(this.textures[id] != null)
                 return "Id element must be unique for each texture. (Duplicate: " + id + ")";
 
-            file = this.reader.getString(children[i], 'file');
-            if (file == null || file == "") {
+            texture = this.reader.getString(children[i], 'file');
+            if (texture == null || texture == "") {
                 return "File name is not valid.";
             }
 
-
-            texture.file = file;
-            this.textures[id] = texture;
+            this.textures[id] = new CGFtexture(this.scene, texture);
         }
     }
 
@@ -876,8 +874,7 @@ class MySceneGraph {
 
         for (var i = 0; i < children.length; i++) {
 
-            var material = [];
-            var specular = [], diffuse = [], ambient = [], emission = [];
+            var material = new CGFappearance(this.scene);
             var id, shininess;
 
             if (children[i].nodeName != "material") {
@@ -901,6 +898,8 @@ class MySceneGraph {
             else if (shininess < 0) {
                 return "Shininess value must be higher than 0.";
             }
+
+            material.setShininess(shininess);
 
             var attrs = children[i].children;
             var attrNames = [];
@@ -968,10 +967,7 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                specular.push(r);
-                specular.push(g);
-                specular.push(b);
-                specular.push(a);
+                material.setSpecular(r, g, b, a);
             }
             else {
                 return "Specular must be defined."
@@ -1020,10 +1016,7 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                diffuse.push(r);
-                diffuse.push(g);
-                diffuse.push(b);
-                diffuse.push(a);
+                material.setDiffuse(r, g, b, a);
             }
             else {
                 return "Diffuse must be defined."
@@ -1072,10 +1065,7 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                ambient.push(r);
-                ambient.push(g);
-                ambient.push(b);
-                ambient.push(a);
+                material.setAmbient(r, g, b, a);
             }
             else {
                 return "Ambient must be defined."
@@ -1124,20 +1114,13 @@ class MySceneGraph {
                     return '"a" element must be between 0 and 1. Assuming a=1';
                 }
 
-                emission.push(r);
-                emission.push(g);
-                emission.push(b);
-                emission.push(a);
+                material.setEmission(r, g, b, a);
             }
             else {
                 return "Emission must be defined."
             }
 
-            material.shininess = shininess;
-            material.specular = specular;
-            material.diffuse = diffuse;
-            material.ambient = ambient;
-            material.emission = emission;
+            material.setTextureWrap('REPEAT', 'REPEAT');
 
             this.materials[id] = material;
         }
@@ -1853,11 +1836,38 @@ class MySceneGraph {
         console.log("   " + message);
     }
 
-    displayNode(node) {
+    displayNode(node, material, texture) {
         this.scene.pushMatrix();
 
         if (node.transformation != null) {
             this.scene.multMatrix(node.transformation);
+        }
+
+        if (node.materials[0] == "inherit") {
+            if (node.texture.texture == "inherit") {
+                // do nothing
+            }
+            else if (node.texture.texture == "none") {
+                material.setTexture(null);
+                material.apply();
+            }
+            else {
+                material.setTexture(node.texture.texture);
+                material.apply();
+            }
+        }
+        else {
+            if (node.texture.texture == "inherit") {
+                node.materials[0].setTexture(texture);
+            }
+            else if (node.texture.texture == "none") {
+                node.materials[0].setTexture(null);
+            }
+            else {
+                node.materials[0].setTexture(node.texture.texture);
+            }
+
+            node.materials[0].apply();
         }
 
         for (var i = 0; i < node.children.primitiveChildren.length; i++) {
@@ -1865,7 +1875,24 @@ class MySceneGraph {
         }
 
         for (var key in node.children.componentChildren) {
-            this.displayNode(node.children.componentChildren[key]);
+            if (node.materials[0] == "inherit" && node.texture.texture == "inherit") {
+                this.displayNode(node.children.componentChildren[key], material, texture);
+            }
+            else if (node.materials[0] == "inherit" && node.texture.texture != "inherit" && node.texture.texture != "none") {
+                this.displayNode(node.children.componentChildren[key], material, node.texture.texture);
+            }
+            else if (node.materials[0] == "inherit" && node.texture.texture == "none") {
+                this.displayNode(node.children.componentChildren[key], material, null);
+            }
+            else if (node.materials[0] != "inherit" && node.texture.texture == "inherit") {
+                this.displayNode(node.children.componentChildren[key], node.materials[0], texture);
+            }
+            else if (node.materials[0] != "inherit" && node.texture.texture != "inherit" && node.texture.texture != "none") {
+                this.displayNode(node.children.componentChildren[key], node.materials[0], node.texture.texture);
+            }
+            else if (node.materials[0] != "inherit" && node.texture.texture == "none") {
+                this.displayNode(node.children.componentChildren[key], node.materials[0], null);
+            }
         }
 
         this.scene.popMatrix();
@@ -1876,9 +1903,9 @@ class MySceneGraph {
      */
     displayScene() {
         // entry point for graph rendering
-        //TODO: Render loop starting at root of graph
+        // Render loop starting at root of graph
 
-        this.displayNode(this.components[this.idRoot]);
+        this.displayNode(this.components[this.idRoot], this.components[this.idRoot].materials[0], null);
     }
 
 }

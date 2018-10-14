@@ -19,11 +19,11 @@ class MyCylinder extends CGFobject
 		this.indices = [];
 		this.normals = [];
 
-		// this.minS = minS || 0;
-		// this.maxS = maxS || 1;
-		// this.minT = minT || 0;
-		// this.maxT = maxT || 1;
-		// this.texCoords = [];
+		this.minS = 0;
+		this.maxS = 1;
+		this.minT = 0;
+		this.maxT = 1;
+		this.texCoords = [];
 
 		this.initBuffers();
 	};
@@ -38,8 +38,8 @@ class MyCylinder extends CGFobject
 		var k = 0;
 		var verticesN = this.slices*2;
 		var m;
-		// var incS = Math.abs(this.maxS - this.minS)/(this.slices);
-		// var incT = Math.abs(this.maxT - this.minT)/(this.stacks);
+		var incS = Math.abs(this.maxS - this.minS)/(this.slices);
+		var incT = Math.abs(this.maxT - this.minT)/(this.stacks);
 
 		var z = 0;
 		for (var j = 0; j < this.stacks; j++) {
@@ -63,15 +63,15 @@ class MyCylinder extends CGFobject
 				angle += 360/this.slices;
 
 				// TEXTURE COORDS
-				// this.texCoords.push(this.minS + i*incS, this.minT + j*incT);
-				// this.texCoords.push(this.minS + i*incS, this.minT + (j+1)*incT);
+				this.texCoords.push(this.minS + i*incS, this.minT + j*incT);
+				this.texCoords.push(this.minS + i*incS, this.minT + (j+1)*incT);
 			}
 			this.vertices.push(Math.cos(angle * degToRad)*currentRadius, Math.sin(angle * degToRad)*currentRadius, z);
 			this.vertices.push(Math.cos(angle * degToRad)*(currentRadius + radiusInc), Math.sin(angle * degToRad)*(currentRadius + radiusInc), z+substack);
 			this.normals.push(Math.cos(angle * degToRad), Math.sin(angle * degToRad), 0);
 			this.normals.push(Math.cos(angle * degToRad), Math.sin(angle * degToRad), 0);
-			// this.texCoords.push(1,this.minT + j*incT);
-			// this.texCoords.push(1,this.minT + (j+1)*incT);
+			this.texCoords.push(1,this.minT + j*incT);
+			this.texCoords.push(1,this.minT + (j+1)*incT);
 
 			currentRadius += radiusInc;
 			z+= substack;
