@@ -53,10 +53,8 @@
 
     <textures>
         <texture id="water" file="scenes/images/water.jpeg" />
-
-        <texture id="houses" file="scenes/images/ribeira.jpeg" />
-
-        <texture id="bridge" file="scenes/images/pontedluis.jpg" />
+        <texture id="rocks" file="scenes/images/rocks.jpg" />
+        <texture id="grass" file="scenes/images/grass.jpeg" />
     </textures>
 
     <materials>
@@ -110,11 +108,19 @@
         </primitive>
 
         <primitive id="hill-left">
-            <rectangle x1="0" y1="0" x2="1" y2="1" />
+            <triangle
+                x1="5" y1="0" z1="0"
+                x2="0" y2="0" z2="0"
+                x3="0" y3="4" z3="0"
+            />
         </primitive>
 
         <primitive id="hill-right">
-            <rectangle x1="0" y1="0" x2="1" y2="1" />
+            <triangle
+                x1="0" y1="4" z1="10"
+                x2="0" y2="0" z2="10"
+                x3="5" y3="0" z3="10"
+            />
         </primitive>
 
         <primitive id="cube-face">
@@ -137,7 +143,9 @@
                 <componentref id="water" />
                 <componentref id="sidewalk-porto" />
                 <componentref id="sidewalk-gaia" />
-                <componentref id="hill" />
+                <componentref id="hill-porto" />
+                <componentref id="hill-gaia" />
+                <componentref id="bridge" />
             </children>
         </component>
 
@@ -157,9 +165,9 @@
             </children>
         </component>
 
-        <component id="hill">
+        <component id="bridge">
             <transformation>
-                <translate x="-5" y="0.5" z="0" />
+                <translate x="5" y="0.75" z="1.5" />
             </transformation>
 
             <materials>
@@ -169,12 +177,12 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="hill-back" />
-                <componentref id="hill-front" />
+                <componentref id="bridge-left" />
+                <componentref id="bridge-right" />
             </children>
         </component>
 
-        <component id="hill-right">
+        <component id="bridge-left">
             <transformation>
             </transformation>
 
@@ -183,6 +191,281 @@
             </materials>
 
             <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="bridge-half" />
+            </children>
+        </component>
+
+        <component id="bridge-right">
+            <transformation>
+                <rotate axis="y" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="bridge-half" />
+            </children>
+        </component>
+
+        <component id="bridge-half">
+            <transformation>
+
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="bridge-bottom" />
+                <componentref id="bridge-middle" />
+                <componentref id="bridge-top" />
+                <componentref id="bridge-support-left" />
+                <componentref id="bridge-support-middle" />
+                <componentref id="bridge-support-right" />
+                <componentref id="bridge-tower" />
+            </children>
+        </component>
+
+        <component id="bridge-tower">
+            <transformation>
+                <translate x="-4" y="0.625" z="0" />
+                <scale x="4" y="0.25" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="bridge-support" />
+            </children>
+        </component>
+
+        <component id="bridge-support-left">
+            <transformation>
+                <translate x="-4" y="2" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="bridge-support" />
+            </children>
+        </component>
+
+        <component id="bridge-support-middle">
+            <transformation>
+                <translate x="-2.725" y="2" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="bridge-support" />
+            </children>
+        </component>
+
+        <component id="bridge-support-right">
+            <transformation>
+                <translate x="-0.025" y="2" z="0" />
+                <scale x="0.5" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="bridge-support" />
+            </children>
+        </component>
+
+        <component id="bridge-support">
+            <transformation>
+                <rotate axis="z" angle="90" />
+                <scale x="3.5" y="0.1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="bridge-top">
+            <transformation>
+                <translate x="-5" y="4" z="0" />
+                <scale x="10" y="0.5" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="bridge-middle">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="bridge-middle-left" />
+                <componentref id="bridge-middle-right" />
+            </children>
+        </component>
+
+        <component id="bridge-middle-left">
+            <transformation>
+                <translate x="-3.3335" y="1.4165" z="0" />
+                <rotate axis="z" angle="60.29" />
+                <scale x="2.69" y="0.25" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="bridge-middle-right">
+            <transformation>
+                <translate x="-1.333" y="3.16635" z="0" />
+                <rotate axis="z" angle="23.63" />
+                <scale x="2.91" y="0.25" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="bridge-bottom">
+            <transformation>
+                <translate x="-2" y="0" z="0" />
+                <scale x="4" y="0.5" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="hill-porto">
+            <transformation>
+                <translate x="-5" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="hill-template" />
+            </children>
+        </component>
+
+        <component id="hill-gaia">
+            <transformation>
+                <translate x="15" y="0" z="10" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="hill-template" />
+            </children>
+        </component>
+
+        <component id="hill-template">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="grass" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="hill-back" />
+                <componentref id="hill-front" />
+                <componentref id="hill-left" />
+                <componentref id="hill-right" />
+                <componentref id="hill-bottom" />
+            </children>
+        </component>
+
+        <component id="hill-right">
+            <transformation>
+                <translate x="0" y="1" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="hill-right" />
@@ -191,13 +474,14 @@
 
         <component id="hill-left">
             <transformation>
+                <translate x="0" y="1" z="0" />
             </transformation>
 
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="hill-left" />
@@ -206,7 +490,7 @@
 
         <component id="hill-front">
             <transformation>
-                <translate x="5" y="0" z="10" />
+                <translate x="5" y="1" z="10" />
                 <rotate axis="z" angle="51.375" />
                 <rotate axis="y" angle="90" />
                 <scale x="10" y="6.40" z="1" />
@@ -216,7 +500,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="scenario" />
@@ -225,6 +509,7 @@
 
         <component id="hill-back">
             <transformation>
+                <translate x="0" y="1" z="0" />
                 <rotate axis="y" angle="-90" />
                 <scale x="10" y="4" z="1" />
             </transformation>
@@ -233,10 +518,27 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="scenario" />
+            </children>
+        </component>
+
+        <component id="hill-bottom">
+            <transformation>
+                <translate x="2.5" y="0.5" z="5" />
+                <scale x="5" y="1" z="10" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
             </children>
         </component>
 
@@ -273,15 +575,15 @@
 
         <component id="sidewalk-template">
             <transformation>
-                <translate x="0.5" y="0.25" z="5" />
-                <scale x="1" y="0.5" z="10" />
+                <translate x="0.5" y="0.5" z="5" />
+                <scale x="1" y="1" z="10" />
             </transformation>
 
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="rocks" length_s="1" length_t="1" />
 
             <children>
                 <componentref id="cube" />
@@ -296,7 +598,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <componentref id="cube-top" />
@@ -318,7 +620,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -335,7 +637,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -351,7 +653,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -368,7 +670,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -385,7 +687,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -402,7 +704,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
