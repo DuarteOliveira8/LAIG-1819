@@ -306,6 +306,8 @@ class MySceneGraph {
                 from.y = this.reader.getFloat(range[indexFrom], 'y');
                 from.z = this.reader.getFloat(range[indexFrom], 'z');
 
+                var fromVec = vec3.fromValues(from.x,from.y,from.z);
+
                 if (from.x == null || from.y == null || from.z == null || isNaN(from.x) || isNaN(from.y) || isNaN(from.z)) {
                     from.x = 0;
                     from.y = 0;
@@ -317,6 +319,8 @@ class MySceneGraph {
                 to.y = this.reader.getFloat(range[indexTo], 'y');
                 to.z = this.reader.getFloat(range[indexTo], 'z');
 
+                var toVec = vec3.fromValues(to.x,to.y,to.z);
+
                 if (to.x == null || to.y == null || to.z == null || isNaN(to.x) || isNaN(to.y) || isNaN(to.z)) {
                     to.x = 0;
                     to.y = 0;
@@ -324,14 +328,7 @@ class MySceneGraph {
                     return "x, y and z can't be null.";
                 }
 
-                camera.near = near;
-                camera.far = far;
-                camera.angle = angle;
-                camera.from = from;
-                camera.to = to;
-                camera.type = "perspective";
-
-                this.views.cameras[id] = new CGFcamera(angle, near, far, from, to);
+                this.views.cameras[id] = new CGFcamera(angle*DEGREE_TO_RAD, near, far, fromVec, toVec);
             }
             else if (children[i].nodeName == "ortho") {
                 var near, far, bottom, top, left, right;

@@ -3,13 +3,13 @@
 
     <views default="cam0">
         <perspective id="cam0" near="0.1" far="500" angle="23">
-            <from x="0" y="0" z="0" />
-            <to x="15" y="15" z="15" />
+            <from x="30" y="30" z="30" />
+            <to x="0" y="0" z="0" />
         </perspective>
 
         <ortho id="cam1" near="0.1" far="500" left="200" right="250" top="250" bottom="200">
-            <from x="0" y="0" z="0" />
-            <to x="15" y="15" z="15" />
+            <from x="30" y="30" z="30" />
+            <to x="0" y="0" z="0" />
         </ortho>
     </views>
 
