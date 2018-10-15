@@ -1845,16 +1845,16 @@ class MySceneGraph {
 
         if (node.materials[0] == "inherit") {
             if (node.texture.texture == "inherit") {
-                // do nothing
+                material.setTexture(texture);
             }
             else if (node.texture.texture == "none") {
                 material.setTexture(null);
-                material.apply();
             }
             else {
                 material.setTexture(node.texture.texture);
-                material.apply();
             }
+
+            material.apply();
         }
         else {
             if (node.texture.texture == "inherit") {
