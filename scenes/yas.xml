@@ -135,6 +135,14 @@
             <cylinder base="0.5" top="0.5" height="1" slices="3" stacks="8" />
         </primitive>
 
+        <primitive id="pole-part">
+            <cylinder base="0.025" top="0.025" height="0.25" slices="10" stacks="10" />
+        </primitive>
+
+        <primitive id="pole-top">
+            <sphere radius="0.05" slices="10" stacks="10" />
+        </primitive>
+
         <primitive id="cube-face">
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
@@ -244,6 +252,250 @@
                 <componentref id="bridge-support-middle" />
                 <componentref id="bridge-support-right" />
                 <componentref id="bridge-tower" />
+                <componentref id="pole-half1" />
+                <componentref id="pole-half2" />
+            </children>
+        </component>
+
+        <component id="pole-half1">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="5-poles1" />
+                <componentref id="5-poles2" />
+                <componentref id="5-poles3" />
+                <componentref id="5-poles4" />
+                <componentref id="pole-mid" />
+            </children>
+        </component>
+
+        <component id="pole-half2">
+            <transformation>
+                <translate x="0" y="0" z="-1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="5-poles1" />
+                <componentref id="5-poles2" />
+                <componentref id="5-poles3" />
+                <componentref id="5-poles4" />
+                <componentref id="pole-mid" />
+            </children>
+        </component>
+
+        <component id="pole-mid">
+            <transformation>
+                <translate x="0" y="4.25" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+              <primitiveref id="pole-part" />
+              <componentref id="pole-top" />
+            </children>
+        </component>
+
+        <component id="5-poles1">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="pole1" />
+                <componentref id="pole2" />
+                <componentref id="pole3" />
+                <componentref id="pole4" />
+                <componentref id="pole5" />
+            </children>
+        </component>
+
+        <component id="5-poles2">
+            <transformation>
+                <translate x="2.5" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="pole1" />
+                <componentref id="pole2" />
+                <componentref id="pole3" />
+                <componentref id="pole4" />
+                <componentref id="pole5" />
+            </children>
+        </component>
+
+        <component id="5-poles3">
+            <transformation>
+                <translate x="5" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="pole1" />
+                <componentref id="pole2" />
+                <componentref id="pole3" />
+                <componentref id="pole4" />
+                <componentref id="pole5" />
+            </children>
+        </component>
+
+        <component id="5-poles4">
+            <transformation>
+                <translate x="7.5" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="pole1" />
+                <componentref id="pole2" />
+                <componentref id="pole3" />
+                <componentref id="pole4" />
+                <componentref id="pole5" />
+            </children>
+        </component>
+
+        <component id="pole1">
+            <transformation>
+                <translate x="-10" y="4.25" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+              <primitiveref id="pole-part" />
+              <componentref id="pole-top" />
+            </children>
+        </component>
+
+        <component id="pole2">
+            <transformation>
+                <translate x="-9.5" y="4.25" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+              <primitiveref id="pole-part" />
+              <componentref id="pole-top" />
+            </children>
+        </component>
+
+        <component id="pole3">
+            <transformation>
+                <translate x="-9" y="4.25" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+              <primitiveref id="pole-part" />
+              <componentref id="pole-top" />
+            </children>
+        </component>
+
+        <component id="pole4">
+            <transformation>
+                <translate x="-8.5" y="4.25" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+              <primitiveref id="pole-part" />
+              <componentref id="pole-top" />
+            </children>
+        </component>
+
+        <component id="pole5">
+            <transformation>
+                <translate x="-8" y="4.25" z="0.5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+              <primitiveref id="pole-part" />
+              <componentref id="pole-top" />
+            </children>
+        </component>
+
+        <component id="pole-top">
+            <transformation>
+                <translate x="0" y="0" z="0.25" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+              <primitiveref id="pole-top" />
             </children>
         </component>
 
