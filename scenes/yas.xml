@@ -146,6 +146,11 @@
         <primitive id="cube-face">
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
+
+        <!-- <primitive id="metro-tail">
+            <cylinder base=
+        </primitive> -->
+
     </primitives>
 
     <components>
@@ -160,12 +165,13 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="water" />
+                <!-- <componentref id="water" />
                 <componentref id="sidewalk-porto" />
                 <componentref id="sidewalk-gaia" />
                 <componentref id="hill-porto" />
-                <componentref id="hill-gaia" />
+                <componentref id="hill-gaia" /> -->
                 <componentref id="bridge" />
+                <componentref id="metro" />
             </children>
         </component>
 
@@ -711,6 +717,40 @@
                 <primitiveref id="cube-face" />
             </children>
         </component>
+
+        <component id="metro">
+            <transformation>
+                <translate x="10" y="5.25" z="1.5" />
+                <scale x="4" y="0.5" z="0.6" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+                <!-- <componentref id="metro-front" /> -->
+            </children>
+        </component>
+
+        <!-- <component id="metro-tail">
+            <transformation>
+                <translate x="10" y="5.25" z="1.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="" />
+            </children>
+        </component> -->
 
         <component id="hill-porto">
             <transformation>
