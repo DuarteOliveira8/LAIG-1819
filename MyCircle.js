@@ -51,7 +51,7 @@ class MyCircle extends CGFobject
 			angle += 360/this.slices;
 		}
 		this.originalTexCoords.push(0.5, 0.5);
-		this.texCoords = this.originalTexCoords;
+		this.texCoords = this.originalTexCoords.slice();
 
 
 		this.primitiveType=this.scene.gl.TRIANGLES;
@@ -60,10 +60,13 @@ class MyCircle extends CGFobject
 	};
 
 	updateTexCoords(s, t) {
-			this.texCoords = this.originalTexCoords;
+			this.texCoords = this.originalTexCoords.slice();
 
-			for (var i = 0; i < array.length; i++) {
-				array[i]
+			for (var i = 0; i < this.texCoords.length; i+=2) {
+					this.texCoords[i] *= s;
+					this.texCoords[i+1] *= t;
 			}
+
+			this.updateTexCoordsGLBuffers();
 	}
 };

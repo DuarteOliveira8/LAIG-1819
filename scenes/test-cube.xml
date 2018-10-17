@@ -54,7 +54,7 @@
     </lights>
 
     <textures>
-        <texture id="water" file="scenes/images/water.jpeg" />
+        <texture id="test" file="scenes/images/testTexture.png" />
     </textures>
 
     <materials>
@@ -102,7 +102,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="water" length_s="1" length_t="1" />
+            <texture id="test" length_s="1" length_t="1" />
 
             <children>
                 <componentref id="face1" />
@@ -123,7 +123,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="10" length_t="10" />
 
             <children>
                 <primitiveref id="face" />
@@ -189,7 +189,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="10" length_t="10" />
 
             <children>
                 <primitiveref id="face" />
@@ -206,7 +206,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="10" length_t="10" />
 
             <children>
                 <primitiveref id="face" />

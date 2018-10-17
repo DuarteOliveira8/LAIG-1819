@@ -23,6 +23,7 @@ class MyCylinder extends CGFobject
 		this.maxS = 1;
 		this.minT = 0;
 		this.maxT = 1;
+		this.originalTexCoords = [];
 		this.texCoords = [];
 
 		this.initBuffers();
@@ -63,21 +64,34 @@ class MyCylinder extends CGFobject
 				angle += 360/this.slices;
 
 				// TEXTURE COORDS
-				this.texCoords.push(this.minS + i*incS, this.minT + j*incT);
-				this.texCoords.push(this.minS + i*incS, this.minT + (j+1)*incT);
+				this.originalTexCoords.push(this.minS + i*incS, this.minT + j*incT);
+				this.originalTexCoords.push(this.minS + i*incS, this.minT + (j+1)*incT);
 			}
 			this.vertices.push(Math.cos(angle * degToRad)*currentRadius, Math.sin(angle * degToRad)*currentRadius, z);
 			this.vertices.push(Math.cos(angle * degToRad)*(currentRadius + radiusInc), Math.sin(angle * degToRad)*(currentRadius + radiusInc), z+substack);
 			this.normals.push(Math.cos(angle * degToRad), Math.sin(angle * degToRad), 0);
 			this.normals.push(Math.cos(angle * degToRad), Math.sin(angle * degToRad), 0);
-			this.texCoords.push(1,this.minT + j*incT);
-			this.texCoords.push(1,this.minT + (j+1)*incT);
+			this.originalTexCoords.push(1,this.minT + j*incT);
+			this.originalTexCoords.push(1,this.minT + (j+1)*incT);
 
 			currentRadius += radiusInc;
 			z+= substack;
 		}
 
+		this.texCoords = this.originalTexCoords.slice();
+
 		this.initGLBuffers();
 	};
+
+	updateTexCoords(s, t) {
+			this.texCoords = this.originalTexCoords.slice();
+
+			for (var i = 0; i < this.texCoords.length; i+=2) {
+					this.texCoords[i] *= s;
+					this.texCoords[i+1] *= t;
+			}
+
+			this.updateTexCoordsGLBuffers();
+	}
 
 };

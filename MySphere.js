@@ -21,6 +21,7 @@ class MySphere extends CGFobject
 		this.maxS = 1;
 		this.minT = 0;
 		this.maxT = 1;
+		this.originalTexCoords = [];
 		this.texCoords = [];
 
 		this.initBuffers();
@@ -59,8 +60,8 @@ class MySphere extends CGFobject
 				this.normals.push(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad), Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad), Math.cos((anglePhi+anglePhiInc) * degToRad));
 
 				// TEXTURE COORDS
-				this.texCoords.push(0.5+(Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad))/2);
-				this.texCoords.push(0.5+(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad))/2);
+				this.originalTexCoords.push(0.5+(Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad))/2);
+				this.originalTexCoords.push(0.5+(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad))/2);
 
 				angleTheta += angleThetaInc;
 			}
@@ -68,14 +69,27 @@ class MySphere extends CGFobject
 			this.vertices.push((Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad))*this.radius, (Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad))*this.radius, (Math.cos((anglePhi+anglePhiInc) * degToRad))*this.radius);
 			this.normals.push(Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad), Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad), Math.cos(anglePhi * degToRad));
 			this.normals.push(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad), Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad), Math.cos((anglePhi+anglePhiInc) * degToRad));
-			this.texCoords.push(0.5+(Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad))/2);
-			this.texCoords.push(0.5+(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad))/2);
+			this.originalTexCoords.push(0.5+(Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad))/2);
+			this.originalTexCoords.push(0.5+(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad))/2);
 
 			anglePhi += anglePhiInc;
 		}
-		this.texCoords.push(0.5, 0.5);
+		this.originalTexCoords.push(0.5, 0.5);
+
+		this.texCoords = this.originalTexCoords.slice();
 
 		this.initGLBuffers();
+	};
+
+	updateTexCoords(s, t) {
+			this.texCoords = this.originalTexCoords.slice();
+
+			for (var i = 0; i < this.texCoords.length; i+=2) {
+					this.texCoords[i] *= s;
+					this.texCoords[i+1] *= t;
+			}
+
+			this.updateTexCoordsGLBuffers();
 	};
 
 };

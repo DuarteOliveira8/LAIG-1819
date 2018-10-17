@@ -14,6 +14,7 @@ class MyTriangle extends CGFobject
 		this.maxS = 1.0;
 		this.minT = 0.0;
 		this.maxT = 1.0;
+		this.originalTexCoords = [];
 		this.texCoords = [];
 
 		this.x1 = x1;
@@ -71,12 +72,24 @@ class MyTriangle extends CGFobject
 
 		var d = vt * Math.sin(angle);
 
-		this.texCoords = [
+		this.originalTexCoords = [
 			this.minS, d*this.maxT,
 			uv*this.maxS, d*this.maxT,
 			(uv-vt*Math.cos(angle))*this.maxS, (d-vt*Math.sin(angle))*this.maxT
 		];
 
+		this.texCoords = this.originalTexCoords.slice();
+
 		this.initGLBuffers();
 	};
+
+	updateTexCoords(s, t) {
+			this.texCoords = this.originalTexCoords.slice();
+
+			for (var i = 0; i < this.texCoords.length; i+=2) {
+					this.texCoords[i] *= s;
+					this.texCoords[i+1] *= t;
+			}
+	};
+
 };

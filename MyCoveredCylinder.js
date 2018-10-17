@@ -36,4 +36,11 @@ class MyCoveredCylinder extends CGFobject
 
       this.scene.popMatrix();
 	};
+
+	updateTexCoords(s, t) {
+			this.cylinder.updateTexCoords(s, t);
+			this.circleBase.updateTexCoords(s, t);
+			this.circleTop.updateTexCoords(s, t);
+	}
+
 };
