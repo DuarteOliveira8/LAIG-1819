@@ -5,4 +5,5 @@
 - Diogo da Silva Amaral - up201306082@fe.up.pt
 
 ## Adapted by:
-- Rui Rodrigues - rui.rodrigues@fe.up.pt
+- Pedro Casais da Silva e Sousa Gonçalves - up201604643@fe.up.pt
+- Duarte Filipe Machado de Oliveira - up201604948@fe.up.pt
