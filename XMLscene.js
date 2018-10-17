@@ -102,6 +102,9 @@ class XMLscene extends CGFscene {
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
+        // Adds camera dropdown
+        this.interface.addCameras(this.graph.views.cameras);
+
         this.sceneInited = true;
     }
 
@@ -155,5 +158,11 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    updateCamera(newCamera) {
+        this.graph.views.currCam = newCamera;
+        this.camera = this.graph.views.cameras[this.graph.views.currCam];
+        this.interface.setActiveCamera(this.camera);
     }
 }

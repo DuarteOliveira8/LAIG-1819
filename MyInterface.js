@@ -30,7 +30,6 @@ class MyInterface extends CGFinterface {
      * @param {array} lights
      */
     addLightsGroup(lights) {
-
         var group = this.gui.addFolder("Lights");
         group.open();
 
@@ -43,5 +42,20 @@ class MyInterface extends CGFinterface {
                 group.add(this.scene.lightValues, key);
             }
         }
+    }
+
+    addCameras(cameras) {
+        var cameraID = [];
+
+        for (var key in cameras)
+            cameraID.push(key);
+
+        var scene = this.scene;
+
+        var controller = this.gui.add(this.scene.graph.views, "currCam", cameraID).name("Cameras");
+
+        controller.onChange(function(value) {
+            scene.updateCamera(value);
+        });
     }
 }
