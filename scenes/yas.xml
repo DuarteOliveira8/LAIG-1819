@@ -147,9 +147,9 @@
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
 
-        <!-- <primitive id="metro-tail">
-            <cylinder base=
-        </primitive> -->
+        <primitive id="metro-tail">
+            <cylinder base="1" top="1" height="1" slices="3" stacks="1" />
+        </primitive>
 
     </primitives>
 
@@ -170,7 +170,7 @@
                 <componentref id="sidewalk-gaia" />
                 <componentref id="hill-porto" />
                 <componentref id="hill-gaia" /> -->
-                <componentref id="bridge" />
+                <!-- <componentref id="bridge" /> -->
                 <componentref id="metro" />
             </children>
         </component>
@@ -732,13 +732,15 @@
 
             <children>
                 <componentref id="cube" />
-                <!-- <componentref id="metro-front" /> -->
+                <componentref id="metro-tail" />
             </children>
         </component>
 
-        <!-- <component id="metro-tail">
+        <component id="metro-tail">
             <transformation>
-                <translate x="10" y="5.25" z="1.5" />
+                <!-- <scale x="1" y="0.5" z="0.6" />
+                <rotate axis="z" angle="90" /> -->
+                <!-- <translate x="-5" y="-5.25" z="-1.5" /> -->
             </transformation>
 
             <materials>
@@ -748,9 +750,9 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="" />
+                <primitiveref id="metro-tail" />
             </children>
-        </component> -->
+        </component>
 
         <component id="hill-porto">
             <transformation>
