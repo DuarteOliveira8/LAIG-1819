@@ -110,6 +110,8 @@ class MyTorus extends CGFobject
 					this.texCoords[i] *= s;
 					this.texCoords[i+1] *= t;
 			}
+
+			this.updateTexCoordsGLBuffers();
 	};
 
 };

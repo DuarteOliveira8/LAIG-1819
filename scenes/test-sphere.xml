@@ -54,7 +54,7 @@
     </lights>
 
     <textures>
-        <texture id="water" file="scenes/images/testTexture.png" />
+        <texture id="test" file="scenes/images/testTexture.png" />
     </textures>
 
     <materials>
@@ -74,7 +74,7 @@
 
     <primitives>
         <primitive id="sphere">
-            <sphere radius="3" slices="8" stacks="8" />
+            <sphere radius="3" slices="30" stacks="30" />
         </primitive>
     </primitives>
 
@@ -102,7 +102,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="water" length_s="1" length_t="1" />
+            <texture id="test" length_s="4" length_t="4" />
 
             <children>
                 <primitiveref id="sphere" />

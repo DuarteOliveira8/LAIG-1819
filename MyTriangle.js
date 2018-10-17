@@ -61,8 +61,11 @@ class MyTriangle extends CGFobject
 		];
 
 		var u = vec3.fromValues(this.x1, this.y1, this.z1);
+		vec3.normalize(u, u);
 		var v = vec3.fromValues(this.x2, this.y2, this.z2);
+		vec3.normalize(v, v);
 		var t = vec3.fromValues(this.x3, this.y3, this.z3);
+		vec3.normalize(t, t);
 
 		var vt = Math.sqrt(Math.pow(v[0] - t[0], 2) + Math.pow(v[1] - t[1], 2) + Math.pow(v[2] - t[2], 2));
 		var ut = Math.sqrt(Math.pow(u[0] - t[0], 2) + Math.pow(u[1] - t[1], 2) + Math.pow(u[2] - t[2], 2));
@@ -86,10 +89,12 @@ class MyTriangle extends CGFobject
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();
 
-			for (var i = 0; i < this.texCoords.length; i+=2) {
+			for (var i = 0; i < this.texCoords.length; i++) {
 					this.texCoords[i] *= s;
-					this.texCoords[i+1] *= t;
+					this.texCoords[++i] *= t;
 			}
+
+			this.updateTexCoordsGLBuffers();
 	};
 
 };
