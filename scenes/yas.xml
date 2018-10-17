@@ -151,6 +151,10 @@
             <cylinder base="1" top="1" height="1" slices="3" stacks="1" />
         </primitive>
 
+        <primitive id="metro-bumper">
+            <cylinder base="1" top="1" height="0.5" slices="30" stacks="1" />
+        </primitive>
+
     </primitives>
 
     <components>
@@ -165,12 +169,12 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <!-- <componentref id="water" />
+                <componentref id="water" />
                 <componentref id="sidewalk-porto" />
                 <componentref id="sidewalk-gaia" />
                 <componentref id="hill-porto" />
-                <componentref id="hill-gaia" /> -->
-                <!-- <componentref id="bridge" /> -->
+                <componentref id="hill-gaia" />
+                <componentref id="bridge" />
                 <componentref id="metro" />
             </children>
         </component>
@@ -721,6 +725,23 @@
         <component id="metro">
             <transformation>
                 <translate x="10" y="5.25" z="1.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="metro-body" />
+                <componentref id="metro-tail" />
+                <componentref id="metro-tail2" />
+            </children>
+        </component>
+
+        <component id="metro-body">
+            <transformation>
                 <scale x="4" y="0.5" z="0.6" />
             </transformation>
 
@@ -732,15 +753,47 @@
 
             <children>
                 <componentref id="cube" />
-                <componentref id="metro-tail" />
             </children>
         </component>
 
         <component id="metro-tail">
             <transformation>
-                <!-- <scale x="1" y="0.5" z="0.6" />
-                <rotate axis="z" angle="90" /> -->
-                <!-- <translate x="-5" y="-5.25" z="-1.5" /> -->
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="metro-tail-body" />
+                <componentref id="metro-tail-bumper" />
+            </children>
+        </component>
+
+        <component id="metro-tail2">
+            <transformation>
+                <rotate axis="y" angle="-180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="metro-tail-body" />
+                <componentref id="metro-tail-bumper" />
+            </children>
+        </component>
+
+        <component id="metro-tail-body">
+            <transformation>
+                <translate x="2" y="-0.083" z="-0.3" />
+                <scale x="0.7" y="0.333" z="0.6" />
+                <rotate axis="z" angle="90" />
             </transformation>
 
             <materials>
@@ -751,6 +804,24 @@
 
             <children>
                 <primitiveref id="metro-tail" />
+            </children>
+        </component>
+
+        <component id="metro-tail-bumper">
+            <transformation>
+                <translate x="-2.55" y="-0.1735" z="0" />
+                <scale x="0.15" y="0.15" z="0.32" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="metro-bumper" />
             </children>
         </component>
 
