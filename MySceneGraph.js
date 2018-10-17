@@ -238,7 +238,7 @@ class MySceneGraph {
             return "Default element must not be null.";
         }
 
-        this.views.defaultCam = defaultCam;
+        this.views.currCam = defaultCam;
 
         if (children.length < 1) {
             return "At least one camera must be defined.";
@@ -264,7 +264,7 @@ class MySceneGraph {
             }
 
             if (children[i].nodeName == "perspective") {
-                var near, far, angle, from = [], to = [];
+                var near, far, angle;
 
                 near = this.reader.getFloat(children[i], 'near');
                 if (near == null || isNaN(near)) {
@@ -302,36 +302,25 @@ class MySceneGraph {
                 var indexFrom = rangeNames.indexOf("from");
                 var indexTo = rangeNames.indexOf("to");
 
-                from.x = this.reader.getFloat(range[indexFrom], 'x');
-                from.y = this.reader.getFloat(range[indexFrom], 'y');
-                from.z = this.reader.getFloat(range[indexFrom], 'z');
+                var fromX = this.reader.getFloat(range[indexFrom], 'x');
+                var fromY = this.reader.getFloat(range[indexFrom], 'y');
+                var fromZ = this.reader.getFloat(range[indexFrom], 'z');
+                var fromVec = vec3.fromValues(fromX,fromY,fromZ);
 
-                if (from.x == null || from.y == null || from.z == null || isNaN(from.x) || isNaN(from.y) || isNaN(from.z)) {
-                    from.x = 0;
-                    from.y = 0;
-                    from.z = 0;
+                if (fromX == null || fromY == null || fromZ == null || isNaN(fromX) || isNaN(fromY) || isNaN(fromZ)) {
                     return "x, y and z can't be null.";
                 }
 
-                to.x = this.reader.getFloat(range[indexTo], 'x');
-                to.y = this.reader.getFloat(range[indexTo], 'y');
-                to.z = this.reader.getFloat(range[indexTo], 'z');
+                var toX = this.reader.getFloat(range[indexTo], 'x');
+                var toY = this.reader.getFloat(range[indexTo], 'y');
+                var toZ = this.reader.getFloat(range[indexTo], 'z');
+                var toVec = vec3.fromValues(toX,toY,toZ);
 
-                if (to.x == null || to.y == null || to.z == null || isNaN(to.x) || isNaN(to.y) || isNaN(to.z)) {
-                    to.x = 0;
-                    to.y = 0;
-                    to.z = 0;
+                if (toX == null || toY == null || toZ == null || isNaN(toX) || isNaN(toY) || isNaN(toZ)) {
                     return "x, y and z can't be null.";
                 }
 
-                camera.near = near;
-                camera.far = far;
-                camera.angle = angle;
-                camera.from = from;
-                camera.to = to;
-                camera.type = "perspective";
-
-                this.views.cameras[id] = camera;
+                this.views.cameras[id] = new CGFcamera(angle*DEGREE_TO_RAD, near, far, fromVec, toVec);
             }
             else if (children[i].nodeName == "ortho") {
                 var near, far, bottom, top, left, right;
@@ -378,15 +367,43 @@ class MySceneGraph {
                 else if (left >= right)
                     return '"left" must be smaller than "right"';
 
-                camera.near = near;
-                camera.far = far;
-                camera.bottom = bottom;
-                camera.top = top;
-                camera.left = left;
-                camera.right = right;
-                camera.type = "ortho";
+                var range = children[i].children;
 
-                this.views.cameras[id] = camera;
+                var rangeNames = [];
+
+                for (var j = 0; j < range.length; j++)
+                    rangeNames.push(range[j].nodeName);
+
+                if (children[i].getElementsByTagName('from').length != 1)
+                    return 'one and only one "from" tag must be defined';
+
+                if (children[i].getElementsByTagName('to').length != 1)
+                    return 'one and only one "to" tag must be defined';
+
+                var indexFrom = rangeNames.indexOf("from");
+                var indexTo = rangeNames.indexOf("to");
+
+                var fromX = this.reader.getFloat(range[indexFrom], 'x');
+                var fromY = this.reader.getFloat(range[indexFrom], 'y');
+                var fromZ = this.reader.getFloat(range[indexFrom], 'z');
+                var fromVec = vec3.fromValues(fromX,fromY,fromZ);
+
+                if (fromX == null || fromY == null || fromZ == null || isNaN(fromX) || isNaN(fromY) || isNaN(fromZ)) {
+                    return "x, y and z can't be null.";
+                }
+
+                var toX = this.reader.getFloat(range[indexTo], 'x');
+                var toY = this.reader.getFloat(range[indexTo], 'y');
+                var toZ = this.reader.getFloat(range[indexTo], 'z');
+                var toVec = vec3.fromValues(toX,toY,toZ);
+
+                if (toX == null || toY == null || toZ == null || isNaN(toX) || isNaN(toY) || isNaN(toZ)) {
+                    return "x, y and z can't be null.";
+                }
+
+                var upVec = vec3.fromValues(0,1,0);
+
+                this.views.cameras[id] = new CGFcameraOrtho(left, right, bottom, top, near, far, fromVec, toVec, upVec);
             }
         }
     }
