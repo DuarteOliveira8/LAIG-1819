@@ -41,6 +41,8 @@ class MyCylinder extends CGFobject
 		var m;
 		var incS = Math.abs(this.maxS - this.minS)/(this.slices);
 		var incT = Math.abs(this.maxT - this.minT)/(this.stacks);
+		console.log((Math.atan((radiusInc/substack))/degToRad));
+		var inclineAngle = 90-(Math.atan((substack/this.base))/degToRad);
 
 		var z = 0;
 		for (var j = 0; j < this.stacks; j++) {
@@ -48,31 +50,37 @@ class MyCylinder extends CGFobject
 
 			var angle = 0;
 			k = m;
-			for (var i = 0; i < this.slices; i++) {
+			for (var i = 0; i <= this.slices; i++) {
 				// VERTICES DEFINITION
 				this.vertices.push(Math.cos(angle * degToRad)*currentRadius, Math.sin(angle * degToRad)*currentRadius, z);
 				this.vertices.push(Math.cos(angle * degToRad)*(currentRadius + radiusInc), Math.sin(angle * degToRad)*(currentRadius + radiusInc), z+substack);
 
 				// INDICES DEFINITION
-				this.indices.push(k+2, k+1, k);
-				this.indices.push(k+1, k+2, k+3);
-				k += 2;
+				if (i != this.slices) {
+						this.indices.push(k+2, k+1, k);
+						this.indices.push(k+1, k+2, k+3);
+						k += 2;
+				}
 
 				// NORMALS DEFINITION
-				this.normals.push(Math.cos(angle * degToRad), Math.sin(angle * degToRad), 0);
-				this.normals.push(Math.cos(angle * degToRad), Math.sin(angle * degToRad), 0);
+				var nx1 = Math.cos(angle * degToRad);
+				var ny1 = Math.sin(angle * degToRad);
+				var nz1 = Math.sin(inclineAngle * degToRad);
+				var length1 = Math.sqrt(nx1*nx1 + ny1*ny1 + nz1*nz1);
+				this.normals.push(nx1/length1, ny1/length1, nz1/length1);
+
+				var nx2 = Math.cos(angle * degToRad);
+				var ny2 = Math.sin(angle * degToRad);
+				var nz2 = Math.sin(inclineAngle * degToRad);
+				var length2 = Math.sqrt(nx2*nx2 + ny2*ny2 + nz2*nz2);
+				this.normals.push(nx2/length2, ny2/length2, nz2/length2);
+
 				angle += 360/this.slices;
 
 				// TEXTURE COORDS
 				this.originalTexCoords.push(this.minS + i*incS, this.minT + j*incT);
 				this.originalTexCoords.push(this.minS + i*incS, this.minT + (j+1)*incT);
 			}
-			this.vertices.push(Math.cos(angle * degToRad)*currentRadius, Math.sin(angle * degToRad)*currentRadius, z);
-			this.vertices.push(Math.cos(angle * degToRad)*(currentRadius + radiusInc), Math.sin(angle * degToRad)*(currentRadius + radiusInc), z+substack);
-			this.normals.push(Math.cos(angle * degToRad), Math.sin(angle * degToRad), 0);
-			this.normals.push(Math.cos(angle * degToRad), Math.sin(angle * degToRad), 0);
-			this.originalTexCoords.push(1,this.minT + j*incT);
-			this.originalTexCoords.push(1,this.minT + (j+1)*incT);
 
 			currentRadius += radiusInc;
 			z+= substack;
