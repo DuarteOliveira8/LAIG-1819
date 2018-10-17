@@ -401,7 +401,9 @@ class MySceneGraph {
                     return "x, y and z can't be null.";
                 }
 
-                // this.views.cameras[id] = new CGFcameraOrtho(left, right, bottom, top, near, far, fromVec, toVec, up);
+                var upVec = vec3.fromValues(0,1,0);
+
+                this.views.cameras[id] = new CGFcameraOrtho(left, right, bottom, top, near, far, fromVec, toVec, upVec);
             }
         }
     }
