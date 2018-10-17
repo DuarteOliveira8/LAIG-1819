@@ -20,6 +20,9 @@ class MyRectangle extends CGFobject
 		this.x2 = x2;
 		this.y2 = y2;
 
+		this.originalTexCoords = [];
+		this.texCoords = [];
+
 		this.initBuffers();
 	};
 
@@ -46,13 +49,26 @@ class MyRectangle extends CGFobject
 			0, 0, 1
 		];
 
-		this.texCoords = [
+		this.originalTexCoords = [
 			this.maxS, this.minT,
 			this.minS, this.minT,
 			this.minS, this.maxT,
 			this.maxS, this.maxT
 		];
 
+		this.texCoords = this.originalTexCoords.slice();
+
 		this.initGLBuffers();
+	};
+
+	updateTexCoords(s, t) {
+			this.texCoords = this.originalTexCoords.slice();
+
+			for (var i = 0; i < this.texCoords.length; i++) {
+					this.texCoords[i] *= s;
+					this.texCoords[++i] *= t;
+			}
+
+			this.updateTexCoordsGLBuffers();
 	};
 };

@@ -1871,6 +1871,7 @@ class MySceneGraph {
         }
 
         for (var i = 0; i < node.children.primitiveChildren.length; i++) {
+            node.children.primitiveChildren[i].updateTexCoords(node.texture.length_s, node.texture.length_t);
             node.children.primitiveChildren[i].display();
         }
 
