@@ -70,11 +70,7 @@ class MyInterface extends CGFinterface {
   	};
 
   	processKeyDown(event) {
-  		this.activeKeys[event.code]=false;
-  	};
-
-  	processKeyUp(event) {
-  		this.activeKeys[event.code]=true;
+      this.activeKeys[event.code]=true;
       if (event.key == 'm' || event.key == 'M') {
           this.scene.graph.currMaterial++;
       }
