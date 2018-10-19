@@ -34,6 +34,8 @@ class MySceneGraph {
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
 
+        this.currMaterial = 0;
+
         // File reading
         this.reader = new CGFXMLreader();
 
