@@ -63,6 +63,7 @@
         <texture id="bluehouse" file="scenes/images/bluehouse.png" />
         <texture id="yellowhouse" file="scenes/images/yellowhouse.png" />
         <texture id="redhouse" file="scenes/images/redhouse.png" />
+        <texture id="metro-bumper" file="scenes/images/metro-bumper.png" />
     </textures>
 
     <materials>
