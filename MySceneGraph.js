@@ -34,6 +34,8 @@ class MySceneGraph {
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
 
+        this.currMaterial = 0;
+
         // File reading
         this.reader = new CGFXMLreader();
 
@@ -1860,31 +1862,33 @@ class MySceneGraph {
             this.scene.multMatrix(node.transformation);
         }
 
-        if (node.materials[0] == "inherit") {
+        console.log(node.materials[this.currMaterial%node.materials.length]);
+
+        if (node.materials[this.currMaterial%node.materials.length] == "inherit") {
             if (node.texture.texture == "inherit") {
                 // do nothing
             }
             else if (node.texture.texture == "none") {
                 material.setTexture(null);
-                material.apply();
             }
             else {
                 material.setTexture(node.texture.texture);
-                material.apply();
             }
+
+            material.apply();
         }
         else {
             if (node.texture.texture == "inherit") {
-                node.materials[0].setTexture(texture);
+                node.materials[this.currMaterial%node.materials.length].setTexture(texture);
             }
             else if (node.texture.texture == "none") {
-                node.materials[0].setTexture(null);
+                node.materials[this.currMaterial%node.materials.length].setTexture(null);
             }
             else {
-                node.materials[0].setTexture(node.texture.texture);
+                node.materials[this.currMaterial%node.materials.length].setTexture(node.texture.texture);
             }
 
-            node.materials[0].apply();
+            node.materials[this.currMaterial%node.materials.length].apply();
         }
 
         for (var i = 0; i < node.children.primitiveChildren.length; i++) {
@@ -1893,23 +1897,23 @@ class MySceneGraph {
         }
 
         for (var key in node.children.componentChildren) {
-            if (node.materials[0] == "inherit" && node.texture.texture == "inherit") {
+            if (node.materials[this.currMaterial%node.materials.length] == "inherit" && node.texture.texture == "inherit") {
                 this.displayNode(node.children.componentChildren[key], material, texture);
             }
-            else if (node.materials[0] == "inherit" && node.texture.texture != "inherit" && node.texture.texture != "none") {
+            else if (node.materials[this.currMaterial%node.materials.length] == "inherit" && node.texture.texture != "inherit" && node.texture.texture != "none") {
                 this.displayNode(node.children.componentChildren[key], material, node.texture.texture);
             }
-            else if (node.materials[0] == "inherit" && node.texture.texture == "none") {
+            else if (node.materials[this.currMaterial%node.materials.length] == "inherit" && node.texture.texture == "none") {
                 this.displayNode(node.children.componentChildren[key], material, null);
             }
-            else if (node.materials[0] != "inherit" && node.texture.texture == "inherit") {
-                this.displayNode(node.children.componentChildren[key], node.materials[0], texture);
+            else if (node.materials[this.currMaterial%node.materials.length] != "inherit" && node.texture.texture == "inherit") {
+                this.displayNode(node.children.componentChildren[key], node.materials[this.currMaterial%node.materials.length], texture);
             }
-            else if (node.materials[0] != "inherit" && node.texture.texture != "inherit" && node.texture.texture != "none") {
-                this.displayNode(node.children.componentChildren[key], node.materials[0], node.texture.texture);
+            else if (node.materials[this.currMaterial%node.materials.length] != "inherit" && node.texture.texture != "inherit" && node.texture.texture != "none") {
+                this.displayNode(node.children.componentChildren[key], node.materials[this.currMaterial%node.materials.length], node.texture.texture);
             }
-            else if (node.materials[0] != "inherit" && node.texture.texture == "none") {
-                this.displayNode(node.children.componentChildren[key], node.materials[0], null);
+            else if (node.materials[this.currMaterial%node.materials.length] != "inherit" && node.texture.texture == "none") {
+                this.displayNode(node.children.componentChildren[key], node.materials[this.currMaterial%node.materials.length], null);
             }
         }
 
@@ -1923,7 +1927,7 @@ class MySceneGraph {
         // entry point for graph rendering
         // Render loop starting at root of graph
 
-        this.displayNode(this.components[this.idRoot], this.components[this.idRoot].materials[0], null);
+        this.displayNode(this.components[this.idRoot], this.components[this.idRoot].materials[this.currMaterial%this.components[this.idRoot].materials.length], null);
     }
 
 }
