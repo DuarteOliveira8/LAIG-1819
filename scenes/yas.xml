@@ -64,6 +64,7 @@
         <texture id="yellowhouse" file="scenes/images/yellowhouse.png" />
         <texture id="redhouse" file="scenes/images/redhouse.png" />
         <texture id="metro-bumper" file="scenes/images/metro-bumper.png" />
+        <texture id="metro-tail" file="scenes/images/metro-tail.png" />
     </textures>
 
     <materials>
@@ -1135,7 +1136,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="metro-tail" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="metro-tail" />
@@ -1153,7 +1154,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="metro-bumper" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="metro-bumper" />
