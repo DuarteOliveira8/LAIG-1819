@@ -54,7 +54,7 @@
     </lights>
 
     <textures>
-        <texture id="test" file="scenes/images/testTexture.png" />
+        <texture id="test" file="scenes/images/metro-bumper.png" />
     </textures>
 
     <materials>
