@@ -63,6 +63,7 @@
         <texture id="bluehouse" file="scenes/images/bluehouse.png" />
         <texture id="yellowhouse" file="scenes/images/yellowhouse.png" />
         <texture id="redhouse" file="scenes/images/redhouse.png" />
+        <texture id="float" file="scenes/images/float.jpeg" />
         <texture id="metro-bumper" file="scenes/images/metro-bumper.png" />
         <texture id="metro-tail" file="scenes/images/metro-tail.png" />
     </textures>
@@ -264,7 +265,6 @@
 
         <component id="bridge-half">
             <transformation>
-
             </transformation>
 
             <materials>
@@ -281,13 +281,17 @@
                 <componentref id="bridge-support-middle" />
                 <componentref id="bridge-support-right" />
                 <componentref id="bridge-tower" />
-                <componentref id="pole-half1" />
-                <componentref id="pole-half2" />
+                <componentref id="pole-top-half1" />
+                <componentref id="pole-top-half2" />
+                <componentref id="pole-top-mid" />
+                <componentref id="pole-bottom-half1" />
+                <componentref id="pole-bottom-half2" />
             </children>
         </component>
 
-        <component id="pole-half1">
+        <component id="pole-top-half1">
             <transformation>
+                <translate x="-10" y="4.25" z="0" />
             </transformation>
 
             <materials>
@@ -301,13 +305,12 @@
                 <componentref id="5-poles2" />
                 <componentref id="5-poles3" />
                 <componentref id="5-poles4" />
-                <componentref id="pole-mid" />
             </children>
         </component>
 
-        <component id="pole-half2">
+        <component id="pole-top-half2">
             <transformation>
-                <translate x="0" y="0" z="-1" />
+                <translate x="-10" y="4.25" z="-1" />
             </transformation>
 
             <materials>
@@ -321,11 +324,10 @@
                 <componentref id="5-poles2" />
                 <componentref id="5-poles3" />
                 <componentref id="5-poles4" />
-                <componentref id="pole-mid" />
             </children>
         </component>
 
-        <component id="pole-mid">
+        <component id="pole-top-mid">
             <transformation>
                 <translate x="0" y="4.25" z="0.5" />
                 <rotate axis="x" angle="-90" />
@@ -340,6 +342,57 @@
             <children>
               <primitiveref id="pole-part" />
               <componentref id="pole-top" />
+            </children>
+        </component>
+
+        <component id="pole-bottom-half1">
+            <transformation>
+                <translate x="-3.5" y="0.25" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="5-poles1" />
+                <componentref id="2-poles" />
+            </children>
+        </component>
+
+        <component id="pole-bottom-half2">
+            <transformation>
+                <translate x="-3.5" y="0.25" z="-1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="5-poles1" />
+                <componentref id="2-poles" />
+            </children>
+        </component>
+
+        <component id="2-poles">
+            <transformation>
+                <translate x="2.5" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="pole1" />
+                <componentref id="pole2" />
             </children>
         </component>
 
@@ -424,7 +477,7 @@
 
         <component id="pole1">
             <transformation>
-                <translate x="-10" y="4.25" z="0.5" />
+                <translate x="0" y="0" z="0.5" />
                 <rotate axis="x" angle="-90" />
             </transformation>
 
@@ -442,7 +495,7 @@
 
         <component id="pole2">
             <transformation>
-                <translate x="-9.5" y="4.25" z="0.5" />
+                <translate x="0.5" y="0" z="0.5" />
                 <rotate axis="x" angle="-90" />
             </transformation>
 
@@ -460,7 +513,7 @@
 
         <component id="pole3">
             <transformation>
-                <translate x="-9" y="4.25" z="0.5" />
+                <translate x="1" y="0" z="0.5" />
                 <rotate axis="x" angle="-90" />
             </transformation>
 
@@ -478,7 +531,7 @@
 
         <component id="pole4">
             <transformation>
-                <translate x="-8.5" y="4.25" z="0.5" />
+                <translate x="1.5" y="0" z="0.5" />
                 <rotate axis="x" angle="-90" />
             </transformation>
 
@@ -496,7 +549,7 @@
 
         <component id="pole5">
             <transformation>
-                <translate x="-8" y="4.25" z="0.5" />
+                <translate x="2" y="0" z="0.5" />
                 <rotate axis="x" angle="-90" />
             </transformation>
 
@@ -1516,7 +1569,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="float" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="float" />
@@ -1533,7 +1586,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="float" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="float" />
@@ -1550,7 +1603,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="float" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="float" />
@@ -1567,7 +1620,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="float" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="float" />
