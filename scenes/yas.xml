@@ -20,7 +20,7 @@
 
     <lights>
         <omni id="light0" enabled="1" >
-            <location x="5" y="3" z="2.5" w="1" />
+            <location x="5" y="3" z="0" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
@@ -183,7 +183,7 @@
                 <material id="water" />
             </materials>
 
-            <texture id="water" length_s="1" length_t="1" />
+            <texture id="water" length_s="1" />
 
             <children>
                 <primitiveref id="scenario" />
@@ -214,7 +214,7 @@
                 <material id="bridge" />
             </materials>
 
-            <texture id="bridge" length_s="1" length_t="1" />
+            <texture id="bridge" length_s="5" length_t="5" />
 
             <children>
                 <primitiveref id="scenario" />
@@ -246,7 +246,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" length_t="1" />
 
             <children>
                 <primitiveref id="float" />
@@ -280,7 +280,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="water" length_t="5" />
 
             <children>
                 <componentref id="boat-sail-sail" />
@@ -300,7 +300,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="5" length_t="5" />
 
             <children>
                 <primitiveref id="boat-sail" />
@@ -318,7 +318,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="boat-sail" />
