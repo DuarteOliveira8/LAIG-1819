@@ -74,28 +74,42 @@
             <emission r="0" g="0" b="0" a="1.0" />
         </material>
 
-        <material id="water" shininess="500" >
+        <material id="water" shininess="1" >
+            <specular r="0.3" g="0.3" b="0.3" a="0.1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="0.1" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="0.1" />
+            <emission r="0" g="0" b="0" a="1.0" />
+        </material>
+
+        <material id="house-day" shininess="1" >
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <emission r="0" g="0" b="0" a="1.0" />
         </material>
 
-        <material id="houses" shininess="1" >
+        <material id="house-night" shininess="1" >
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <emission r="0.99" g="1" b="0.82" a="1.0" />
+        </material>
+
+        <material id="lamp-day" shininess="300" >
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <emission r="0" g="0" b="0" a="1.0" />
+        </material>
+
+        <material id="lamp-night" shininess="300" >
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <emission r="0.99" g="1" b="0.82" a="1.0" />
         </material>
 
         <material id="bridge" shininess="1" >
-            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
-            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
-            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
-            <emission r="0" g="0" b="0" a="1.0" />
-        </material>
-
-        <material id="boat" shininess="1" >
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
@@ -156,6 +170,9 @@
             <cylinder base="1" top="1" height="0.5" slices="30" stacks="1" />
         </primitive>
 
+        <primitive id="float">
+            <torus inner="0.05" outer="0.15" slices="32" loops="32" />
+        </primitive>
     </primitives>
 
     <components>
@@ -176,7 +193,6 @@
                 <componentref id="hill-porto" />
                 <componentref id="hill-gaia" />
                 <componentref id="bridge" />
-                <componentref id="metro" />
             </children>
         </component>
 
@@ -198,7 +214,7 @@
 
         <component id="bridge">
             <transformation>
-                <translate x="5" y="0.75" z="1.5" />
+                <translate x="5" y="0.75" z="1" />
             </transformation>
 
             <materials>
@@ -210,6 +226,7 @@
             <children>
                 <componentref id="bridge-left" />
                 <componentref id="bridge-right" />
+                <componentref id="metro" />
             </children>
         </component>
 
@@ -257,7 +274,7 @@
 
             <children>
                 <componentref id="bridge-bottom" />
-                <componentref id="bridge-middle" />
+                <componentref id="bridge-arch" />
                 <componentref id="bridge-top" />
                 <componentref id="bridge-support-left" />
                 <componentref id="bridge-support-middle" />
@@ -500,7 +517,8 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="lamp-day" />
+                <material id="lamp-night" />
             </materials>
 
             <texture id="inherit" length_s="1" length_t="1" />
@@ -513,7 +531,7 @@
         <component id="bridge-tower">
             <transformation>
                 <translate x="-4" y="0.625" z="0" />
-                <scale x="4" y="0.25" z="1" />
+                <scale x="4" y="0.25" z="1.2" />
             </transformation>
 
             <materials>
@@ -589,7 +607,79 @@
             <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="support-top" />
+                <componentref id="support-bottom" />
+                <componentref id="support-front" />
+                <componentref id="support-back" />
+                <componentref id="cube-left" />
+                <componentref id="cube-right" />
+            </children>
+        </component>
+
+        <component id="support-top">
+            <transformation>
+                <translate x="0" y="0.5" z="0" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="3.5" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="support-bottom">
+            <transformation>
+                <translate x="0" y="-0.5" z="0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="3.5" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="support-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="35" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="support-back">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="35" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
             </children>
         </component>
 
@@ -607,9 +697,9 @@
 
             <children>
               <componentref id="bridge-top-top" />
-              <componentref id="cube-bottom" />
-              <componentref id="cube-front" />
-              <componentref id="cube-back" />
+              <componentref id="bridge-top-bottom" />
+              <componentref id="bridge-top-front" />
+              <componentref id="bridge-top-back" />
               <componentref id="cube-left" />
               <componentref id="cube-right" />
             </children>
@@ -625,14 +715,64 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="rails" length_s="1" length_t="1" />
+            <texture id="rails" length_s="10" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
             </children>
         </component>
 
-        <component id="bridge-middle">
+        <component id="bridge-top-bottom">
+            <transformation>
+                <translate x="0" y="-0.5" z="0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="10" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-top-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="20" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-top-back">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="20" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-arch">
             <transformation>
             </transformation>
 
@@ -643,12 +783,12 @@
             <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="bridge-middle-left" />
-                <componentref id="bridge-middle-right" />
+                <componentref id="bridge-arch-left" />
+                <componentref id="bridge-arch-right" />
             </children>
         </component>
 
-        <component id="bridge-middle-left">
+        <component id="bridge-arch-left">
             <transformation>
                 <translate x="-3.3335" y="1.4165" z="0" />
                 <rotate axis="z" angle="60.29" />
@@ -662,11 +802,83 @@
             <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="bridge-arch-left-top" />
+                <componentref id="bridge-arch-left-bottom" />
+                <componentref id="bridge-arch-left-front" />
+                <componentref id="bridge-arch-left-back" />
+                <componentref id="cube-left" />
+                <componentref id="cube-right" />
             </children>
         </component>
 
-        <component id="bridge-middle-right">
+        <component id="bridge-arch-left-top">
+            <transformation>
+                <translate x="0" y="0.5" z="0" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="2.69" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-arch-left-bottom">
+            <transformation>
+                <translate x="0" y="-0.5" z="0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="2.69" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-arch-left-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="10.76" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-arch-left-back">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="10.76" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-arch-right">
             <transformation>
                 <translate x="-1.333" y="3.16635" z="0" />
                 <rotate axis="z" angle="23.63" />
@@ -680,7 +892,79 @@
             <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="bridge-arch-right-top" />
+                <componentref id="bridge-arch-right-bottom" />
+                <componentref id="bridge-arch-right-front" />
+                <componentref id="bridge-arch-right-back" />
+                <componentref id="cube-left" />
+                <componentref id="cube-right" />
+            </children>
+        </component>
+
+        <component id="bridge-arch-right-top">
+            <transformation>
+                <translate x="0" y="0.5" z="0" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="2.91" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-arch-right-bottom">
+            <transformation>
+                <translate x="0" y="-0.5" z="0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="2.91" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-arch-right-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="11.64" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-arch-right-back">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="11.64" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
             </children>
         </component>
 
@@ -698,9 +982,9 @@
 
             <children>
                 <componentref id="bridge-bottom-top" />
-                <componentref id="cube-bottom" />
-                <componentref id="cube-front" />
-                <componentref id="cube-back" />
+                <componentref id="bridge-bottom-bottom" />
+                <componentref id="bridge-bottom-front" />
+                <componentref id="bridge-bottom-back" />
                 <componentref id="cube-left" />
                 <componentref id="cube-right" />
             </children>
@@ -723,9 +1007,59 @@
             </children>
         </component>
 
+        <component id="bridge-bottom-bottom">
+            <transformation>
+                <translate x="0" y="-0.5" z="0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="4" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-bottom-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="8" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="bridge-bottom-back">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="8" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
         <component id="metro">
             <transformation>
-                <translate x="10" y="5.25" z="1.5" />
+                <translate x="6" y="4.5" z="0" />
             </transformation>
 
             <materials>
@@ -894,7 +1228,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="10" length_t="8" />
 
             <children>
                 <primitiveref id="hill-right" />
@@ -910,7 +1244,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="8" length_t="10" />
 
             <children>
                 <primitiveref id="hill-left" />
@@ -929,7 +1263,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="10" length_t="6.40" />
 
             <children>
                 <primitiveref id="scenario" />
@@ -947,7 +1281,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="10" length_t="4" />
 
             <children>
                 <primitiveref id="scenario" />
@@ -967,7 +1301,62 @@
             <texture id="inherit" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="cube-top" />
+                <componentref id="cube-bottom" />
+                <componentref id="hill-bottom-front" />
+                <componentref id="hill-bottom-back" />
+                <componentref id="hill-bottom-left" />
+                <componentref id="cube-right" />
+            </children>
+        </component>
+
+        <component id="hill-bottom-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="5" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="hill-bottom-back">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="5" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="hill-bottom-left">
+            <transformation>
+                <translate x="-0.5" y="0" z="0" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="10" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
             </children>
         </component>
 
@@ -982,13 +1371,15 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="sidewalk-template" />
+                <componentref id="sidewalk" />
+                <componentref id="float-group-porto" />
             </children>
         </component>
 
         <component id="sidewalk-gaia">
             <transformation>
-                <translate x="9" y="0" z="0" />
+                <translate x="10" y="0" z="10" />
+                <rotate axis="y" angle="180" />
             </transformation>
 
             <materials>
@@ -998,11 +1389,12 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="sidewalk-template" />
+                <componentref id="sidewalk" />
+                <componentref id="float-group-gaia" />
             </children>
         </component>
 
-        <component id="sidewalk-template">
+        <component id="sidewalk">
             <transformation>
                 <translate x="0.5" y="0.5" z="5" />
                 <scale x="1" y="1" z="10" />
@@ -1019,8 +1411,8 @@
                 <componentref id="cube-bottom" />
                 <componentref id="cube-front" />
                 <componentref id="cube-back" />
-                <componentref id="cube-left" />
-                <componentref id="cube-right" />
+                <componentref id="sidewalk-left" />
+                <componentref id="sidewalk-right" />
             </children>
         </component>
 
@@ -1038,6 +1430,146 @@
 
             <children>
                 <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="sidewalk-left">
+            <transformation>
+                <translate x="-0.5" y="0" z="0" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="10" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="sidewalk-right">
+            <transformation>
+                <translate x="0.5" y="0" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="10" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="float-group-gaia">
+            <transformation>
+                <translate x="1.05" y="0.85" z="-2.2" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="float1" />
+                <componentref id="float2" />
+                <componentref id="float3" />
+                <componentref id="float4" />
+            </children>
+        </component>
+
+        <component id="float-group-porto">
+            <transformation>
+                <translate x="1.05" y="0.85" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="float1" />
+                <componentref id="float2" />
+                <componentref id="float3" />
+                <componentref id="float4" />
+            </children>
+        </component>
+
+        <component id="float1">
+            <transformation>
+                <translate x="0" y="0" z="9.85" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="float" />
+            </children>
+        </component>
+
+        <component id="float2">
+            <transformation>
+                <translate x="0" y="0" z="7.35" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="float" />
+            </children>
+        </component>
+
+        <component id="float3">
+            <transformation>
+                <translate x="0" y="0" z="4.85" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="float" />
+            </children>
+        </component>
+
+        <component id="float4">
+            <transformation>
+                <translate x="0" y="0" z="2.35" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="float" />
             </children>
         </component>
 
@@ -1223,7 +1755,7 @@
             <texture id="redhouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
             </children>
         </component>
@@ -1241,7 +1773,7 @@
             <texture id="bluehouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
             </children>
         </component>
@@ -1259,7 +1791,7 @@
             <texture id="yellowhouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
             </children>
         </component>
@@ -1277,7 +1809,7 @@
             <texture id="bluehouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
             </children>
         </component>
@@ -1295,7 +1827,7 @@
             <texture id="redhouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
             </children>
         </component>
@@ -1312,7 +1844,7 @@
             <texture id="yellowhouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
             </children>
         </component>
@@ -1329,7 +1861,7 @@
             <texture id="bluehouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
             </children>
         </component>
@@ -1347,7 +1879,7 @@
             <texture id="bluehouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
             </children>
         </component>
@@ -1365,7 +1897,7 @@
             <texture id="redhouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
             </children>
         </component>
@@ -1383,8 +1915,29 @@
             <texture id="yellowhouse" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="house-base" />
                 <componentref id="roof" />
+            </children>
+        </component>
+
+        <component id="house-base">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="house-day" />
+                <material id="house-night" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube-top" />
+                <componentref id="cube-bottom" />
+                <componentref id="cube-front" />
+                <componentref id="cube-back" />
+                <componentref id="cube-left" />
+                <componentref id="cube-right" />
             </children>
         </component>
 
