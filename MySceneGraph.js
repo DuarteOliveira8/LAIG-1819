@@ -204,7 +204,7 @@ class MySceneGraph {
     /**
      * Parses the <scene> block.
      */
-    parseScene(sceneNode) {  //done
+    parseScene(sceneNode) {
         var root = this.reader.getString(sceneNode, 'root');
         if (root == null || root == "") {
             root = 1;
@@ -410,7 +410,7 @@ class MySceneGraph {
         }
     }
 
-    parseAmbient(ambientNode) {  //done
+    parseAmbient(ambientNode) {
         var children = ambientNode.children;
 
         var nodeNames = [];
@@ -532,7 +532,7 @@ class MySceneGraph {
         }
     }
 
-    parseLights(lightsNode) {  //done
+    parseLights(lightsNode) { 
         var children = lightsNode.children;
 
         this.lights = [];
@@ -1871,7 +1871,7 @@ class MySceneGraph {
 
         if (node.materials[this.currMaterial%node.materials.length] == "inherit") {
             if (node.texture.texture == "inherit") {
-                // do nothing
+                material.setTexture(texture);
             }
             else if (node.texture.texture == "none") {
                 material.setTexture(null);

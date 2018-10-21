@@ -4,3 +4,6 @@
 # ignore both Mongoose apps from Duarte's and Pedro's PCs
 mongoose-free-6.9.exe
 Mongoose.app
+
+# ignore all files starting with ._
+._*
