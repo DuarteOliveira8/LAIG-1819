@@ -28,6 +28,8 @@ class XMLscene extends CGFscene {
 
         this.enableTextures(true);
 
+        this.defaultMaterial = new CGFappearance(this);
+
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);

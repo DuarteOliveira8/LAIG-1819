@@ -1733,7 +1733,6 @@ class MySceneGraph {
                         material = this.materials[materialId];
                     }
 
-
                     materialsContainer.push(material);
                 }
 
@@ -2028,7 +2027,7 @@ class MySceneGraph {
         // entry point for graph rendering
         // Render loop starting at root of graph
 
-        this.displayNode(this.components[this.idRoot], this.components[this.idRoot].materials[this.currMaterial%this.components[this.idRoot].materials.length], null, 1, 1);
+        this.displayNode(this.components[this.idRoot], this.scene.defaultMaterial, null, 1, 1);
     }
 
 }
