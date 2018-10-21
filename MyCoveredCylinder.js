@@ -4,9 +4,14 @@
  * @constructor
  */
 
+ /**
+  * MyCoveredCylinder class, representing the cylinder primitive with covers on each side.
+  */
 class MyCoveredCylinder extends CGFobject
 {
-
+	/**
+	 * @constructor Constructor of the class MyCoveredCylinder.
+	 */
 	constructor(scene, base, top, height, slices, stacks)
 	{
       super(scene);
@@ -17,6 +22,9 @@ class MyCoveredCylinder extends CGFobject
       this.circleTop = new MyCircle(scene, slices, top);
   };
 
+	/**
+	 * Positions the covers on the cylinder primitive and displays the result.
+	 */
 	display()
 	{
       var degToRad = Math.PI / 180;
@@ -37,6 +45,11 @@ class MyCoveredCylinder extends CGFobject
       this.scene.popMatrix();
 	};
 
+	/**
+	 * Updates the texture coordinates.
+ 	 * @param {s texture coordinate} s
+ 	 * @param {t texture coordinate} t
+	 */
 	updateTexCoords(s, t) {
 			this.cylinder.updateTexCoords(s, t);
 			this.circleBase.updateTexCoords(s, t);
