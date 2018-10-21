@@ -17,9 +17,14 @@
             <to x="5" y="0" z="0" />
         </perspective>
 
-        <ortho id="cam3" near="0.1" far="500" left="-5" right="15" top="10" bottom="0" >
-            <from x="9" y="1.5" z="7" />
-            <to x="9" y="1.5" z="0" />
+        <ortho id="cam3" near="0.1" far="500" left="-10" right="10" top="5" bottom="-8" >
+            <from x="5" y="5" z="30" />
+            <to x="5" y="5" z="0" />
+        </ortho>
+
+        <ortho id="cam4" near="0.1" far="500" left="-5" right="3.5" top="5" bottom="-1" >
+            <from x="9" y="1" z="5" />
+            <to x="0" y="1" z="5" />
         </ortho>
     </views>
 
@@ -263,7 +268,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-          
+
             <texture id="bridge" length_s="1" length_t="1" />
 
             <children>
