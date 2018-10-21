@@ -4,9 +4,14 @@
  * @constructor
  */
 
+ /**
+  * MyCircle class, representing the circle primitive.
+  */
 class MyCircle extends CGFobject
 {
-
+	/**
+	 * @constructor constructor of the class MyCircle.
+	 */
 	constructor(scene, slices, radius)
 	{
 		super(scene);
@@ -21,6 +26,9 @@ class MyCircle extends CGFobject
 		this.initBuffers();
   };
 
+	/**
+	*	Prepares the buffer for the circle primitive.
+	*/
 	initBuffers()
 	{
 		// VERTICES DEFINITION
@@ -59,6 +67,11 @@ class MyCircle extends CGFobject
 		this.initGLBuffers();
 	};
 
+	/**
+	* Updates the texture coordinates.
+	* @param {s texture coordinate} s
+	* @param {t texture coordinate} t
+	*/
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();
 
