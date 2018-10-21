@@ -27,7 +27,7 @@ class MyCircle extends CGFobject
   };
 
 	/**
-	*	Prepares the buffer for the circle primitive.
+	*	Prepares the buffer to display the circle primitive.
 	*/
 	initBuffers()
 	{
