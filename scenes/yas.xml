@@ -34,35 +34,35 @@
     </ambient>
 
     <lights>
-        <omni id="light0" enabled="0" >
+        <omni id="light0" enabled="1" >
             <location x="-6" y="6" z="-1" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
-        <omni id="light1" enabled="0" >
+        <omni id="light1" enabled="1" >
             <location x="16" y="6" z="-1" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
-        <omni id="light2" enabled="0" >
+        <omni id="light2" enabled="1" >
             <location x="-6" y="6" z="11" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
-        <omni id="light3" enabled="0" >
+        <omni id="light3" enabled="1" >
             <location x="16" y="6" z="11" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
-        <spot id="light4" enabled="1" angle="50" exponent="1">
+        <spot id="light4" enabled="0" angle="50" exponent="1">
             <location x="0.975" y="1.25" z="3" w="1" />
             <target x="4" y="6" z="0" />
             <ambient r="0.1" g="0.1" b="0.08" a="1" />
@@ -70,7 +70,7 @@
             <specular r="0.3" g="0.3" b="0.25" a="1" />
         </spot>
 
-        <spot id="light5" enabled="1" angle="50" exponent="1">
+        <spot id="light5" enabled="0" angle="50" exponent="1">
             <location x="8.975" y="1.25" z="3" w="1" />
             <target x="4" y="6" z="0" />
             <ambient r="0.1" g="0.1" b="0.08" a="1" />
@@ -110,6 +110,13 @@
             <specular r="0.3" g="0.3" b="0.3" a="0.1" />
             <ambient r="0.1" g="0.1" b="0.1" a="0.1" />
             <diffuse r="0.6" g="0.6" b="0.6" a="0.1" />
+            <emission r="0" g="0" b="0" a="1.0" />
+        </material>
+
+        <material id="grass" shininess="1" >
+            <specular r="0.075" g="0.15" b="0.075" a="1" />
+            <ambient r="0.0025" g="0.05" b="0.0025" a="1" />
+            <diffuse r="0.15" g="0.3" b="0.15" a="1" />
             <emission r="0" g="0" b="0" a="1.0" />
         </material>
 
@@ -1433,6 +1440,7 @@
 
             <materials>
                 <material id="inherit" />
+                <material id="grass" />
             </materials>
 
             <texture id="inherit" length_s="10" length_t="8" />
@@ -1449,6 +1457,7 @@
 
             <materials>
                 <material id="inherit" />
+                <material id="grass" />
             </materials>
 
             <texture id="inherit" length_s="8" length_t="10" />
@@ -1468,6 +1477,7 @@
 
             <materials>
                 <material id="inherit" />
+                <material id="grass" />
             </materials>
 
             <texture id="inherit" length_s="10" length_t="6.40" />
@@ -1486,6 +1496,7 @@
 
             <materials>
                 <material id="inherit" />
+                <material id="grass" />
             </materials>
 
             <texture id="inherit" length_s="10" length_t="4" />
@@ -1503,6 +1514,7 @@
 
             <materials>
                 <material id="inherit" />
+                <material id="grass" />
             </materials>
 
             <texture id="inherit" />
