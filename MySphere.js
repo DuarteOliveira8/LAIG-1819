@@ -11,6 +11,10 @@ class MySphere extends CGFobject
 {
 	/**
 	 * @constructor constructor of the class MySphere.
+	 * @param {scene of the application} scene
+	 * @param {sphere radius} radius
+	 * @param {number of sphere slices} slices
+	 * @param {number of sphere stacks} stacks
 	 */
 	constructor(scene, radius, slices, stacks)
 	{
