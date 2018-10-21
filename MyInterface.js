@@ -22,6 +22,8 @@ class MyInterface extends CGFinterface {
 
         // add a group of controls (and open/expand by defult)
 
+        this.initKeys();
+
         return true;
     }
 
@@ -30,7 +32,6 @@ class MyInterface extends CGFinterface {
      * @param {array} lights
      */
     addLightsGroup(lights) {
-
         var group = this.gui.addFolder("Lights");
         group.open();
 
@@ -44,4 +45,35 @@ class MyInterface extends CGFinterface {
             }
         }
     }
+
+    addCameras(cameras) {
+        var cameraID = [];
+
+        for (var key in cameras)
+            cameraID.push(key);
+
+        var scene = this.scene;
+
+        var controller = this.gui.add(this.scene.graph.views, "currCam", cameraID).name("Cameras");
+
+        controller.onChange(function(value) {
+            scene.updateCamera(value);
+        });
+    }
+
+    initKeys() {
+  		this.scene.gui=this;
+  		this.processKeyboard=function(){
+
+  		};
+  		this.activeKeys={};
+  	};
+
+  	processKeyDown(event) {
+      this.activeKeys[event.code]=true;
+      if (event.key == 'm' || event.key == 'M') {
+          this.scene.graph.currMaterial++;
+      }
+      this.activeKeys[event.code]=false;
+  	};
 }

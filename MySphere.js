@@ -45,19 +45,30 @@ class MySphere extends CGFobject
 
 			var angleTheta = 0;
 			k = m;
-			for (var i = 0; i < this.slices; i++) {
+			for (var i = 0; i <= this.slices; i++) {
 				// VERTICES DEFINITION
 				this.vertices.push((Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad))*this.radius, (Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad))*this.radius, (Math.cos(anglePhi * degToRad))*this.radius);
 				this.vertices.push((Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad))*this.radius, (Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad))*this.radius, (Math.cos((anglePhi+anglePhiInc) * degToRad))*this.radius);
 
 				// INDICES DEFINITION
-				this.indices.push(k, k+1, k+2);
-				this.indices.push(k+3, k+2, k+1);
-				k += 2;
+				if (i != this.slices) {
+						this.indices.push(k, k+1, k+2);
+						this.indices.push(k+3, k+2, k+1);
+						k += 2;
+				}
 
 				// NORMALS DEFINITION
-				this.normals.push(Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad), Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad), Math.cos(anglePhi * degToRad));
-				this.normals.push(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad), Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad), Math.cos((anglePhi+anglePhiInc) * degToRad));
+				var nx1 = Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad);
+				var ny1 = Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad);
+				var nz1 = Math.cos(anglePhi * degToRad);
+				var length1 = Math.sqrt(nx1*nx1 + ny1*ny1 + nz1*nz1);
+				this.normals.push(nx1/length1, ny1/length1, nz1/length1);
+
+				var nx2 = Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad);
+				var ny2 = Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad);
+				var nz2 = Math.cos((anglePhi+anglePhiInc) * degToRad);
+				var length2 = Math.sqrt(nx2*nx2 + ny2*ny2 + nz2*nz2);
+				this.normals.push(nx2/length2, ny2/length2, nz2/length2);
 
 				// TEXTURE COORDS
 				this.originalTexCoords.push(0.5+(Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad))/2);
@@ -65,12 +76,6 @@ class MySphere extends CGFobject
 
 				angleTheta += angleThetaInc;
 			}
-			this.vertices.push((Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad))*this.radius, (Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad))*this.radius, (Math.cos(anglePhi * degToRad))*this.radius);
-			this.vertices.push((Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad))*this.radius, (Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad))*this.radius, (Math.cos((anglePhi+anglePhiInc) * degToRad))*this.radius);
-			this.normals.push(Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad), Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad), Math.cos(anglePhi * degToRad));
-			this.normals.push(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad), Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad), Math.cos((anglePhi+anglePhiInc) * degToRad));
-			this.originalTexCoords.push(0.5+(Math.sin(anglePhi * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin(anglePhi * degToRad) * Math.sin(angleTheta * degToRad))/2);
-			this.originalTexCoords.push(0.5+(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.cos(angleTheta * degToRad))/2, 0.5-(Math.sin((anglePhi+anglePhiInc) * degToRad) * Math.sin(angleTheta * degToRad))/2);
 
 			anglePhi += anglePhiInc;
 		}

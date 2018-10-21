@@ -248,7 +248,7 @@
                 <material id="water" />
             </materials>
 
-            <texture id="water" length_s="1" length_t="1" />
+            <texture id="water" />
 
             <children>
                 <primitiveref id="scenario" />
@@ -263,7 +263,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-
+          
             <texture id="bridge" length_s="1" length_t="1" />
 
             <children>

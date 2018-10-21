@@ -66,26 +66,14 @@ class MyTorus extends CGFobject
 						var nx1 = this.inner*Math.cos(innerAngle*degToRad)*Math.cos(outerAngle*degToRad);
 						var ny1 = this.inner*Math.cos(innerAngle*degToRad)*Math.sin(outerAngle*degToRad);
 						var nz1 = this.inner*Math.sin(innerAngle*degToRad);
-
 						var length1 = Math.sqrt(nx1*nx1 + ny1*ny1 + nz1*nz1);
-
-						nx1 /= length1;
-						ny1 /= length1;
-						nz1 /= length1;
-
-            this.normals.push(nx1, ny1, nz1);
+            this.normals.push(nx1/length1, ny1/length1, nz1/length1);
 
 						var nx2 = this.inner*Math.cos(innerAngle*degToRad)*Math.cos((outerAngle + outerAngleInc)*degToRad);
 						var ny2 = this.inner*Math.cos(innerAngle*degToRad)*Math.sin((outerAngle + outerAngleInc)*degToRad);
 						var nz2 = this.inner*Math.sin(innerAngle*degToRad);
-
 						var length2 = Math.sqrt(nx2*nx2 + ny2*ny2 + nz2*nz2);
-
-						nx2 /= length2;
-						ny2 /= length2;
-						nz2 /= length2;
-
-						this.normals.push(nx2, ny2, nz2);
+						this.normals.push(nx2/length2, ny2/length2, nz2/length2);
 
 						this.originalTexCoords.push(1-i*incS, 1-j*incT);
 						this.originalTexCoords.push(1-(i+1)*incS, 1-j*incT);

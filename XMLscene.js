@@ -87,8 +87,8 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-        this.camera.near = this.graph.views.cameras[this.graph.views.defaultCam].near;
-        this.camera.far = this.graph.views.cameras[this.graph.views.defaultCam].far;
+        this.camera = this.graph.views.cameras[this.graph.views.currCam];
+        this.interface.setActiveCamera(this.camera);
 
         //TODO: Change reference length according to parsed graph
         this.axis = new CGFaxis(this, this.graph.axisLength);
@@ -101,6 +101,9 @@ class XMLscene extends CGFscene {
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
+
+        // Adds camera dropdown
+        this.interface.addCameras(this.graph.views.cameras);
 
         this.sceneInited = true;
     }
@@ -155,5 +158,11 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    updateCamera(newCamera) {
+        this.graph.views.currCam = newCamera;
+        this.camera = this.graph.views.cameras[this.graph.views.currCam];
+        this.interface.setActiveCamera(this.camera);
     }
 }
