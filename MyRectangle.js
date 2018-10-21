@@ -11,6 +11,11 @@ class MyRectangle extends CGFobject
 {
 	/**
 	 * @constructor constructor of the class MyRectangle.
+	 * @param {scene of the application} scene
+	 * @param {x coordinate of the first vertex} x1
+	 * @param {y coordinate of the first vertex} y1
+	 * @param {x coordinate of the opposing vertex} x2
+	 * @param {y coordinate of the opposing vertex} y2
 	 */
 	constructor(scene, x1, y1, x2, y2)
 	{
