@@ -160,6 +160,9 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
+    /**
+     * Updates the camera to the new chosen camera
+     */
     updateCamera(newCamera) {
         this.graph.views.currCam = newCamera;
         this.camera = this.graph.views.cameras[this.graph.views.currCam];

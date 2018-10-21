@@ -22,6 +22,8 @@ var COMPONENTS_INDEX = 8;
 class MySceneGraph {
     /**
      * @constructor Constructor of the class MySceneGraph
+     * @param {xml file name} filename
+     * @param {scene of the application} scene
      */
     constructor(filename, scene) {
         this.loadedOk = null;
