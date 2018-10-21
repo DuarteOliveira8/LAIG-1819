@@ -11,6 +11,9 @@ class MyCircle extends CGFobject
 {
 	/**
 	 * @constructor constructor of the class MyCircle.
+	 * @param {scene of the application} scene
+	 * @param {number of circle slices} slices
+	 * @param {circle radius} radius
 	 */
 	constructor(scene, slices, radius)
 	{
