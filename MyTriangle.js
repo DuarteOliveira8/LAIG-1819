@@ -6,6 +6,19 @@
 
 class MyTriangle extends CGFobject
 {
+	/**
+	 * MyTriangle class, representing the traingle primitive.
+ 	 * @param {scene of the application} scene
+ 	 * @param {x coordinate of the first vertex} x1
+ 	 * @param {y coordinate of the first vertex} y1
+ 	 * @param {z coordinate of the first vertex} z1
+ 	 * @param {x coordinate of the second vertex} x2
+ 	 * @param {y coordinate of the second vertex} y2
+ 	 * @param {z coordinate of the second vertex} z2
+ 	 * @param {x coordinate of the third vertex} x3
+ 	 * @param {y coordinate of the third vertex} y3
+ 	 * @param {z coordinate of the third vertex} z3
+	 */
 	constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3)
 	{
 		super(scene);
@@ -30,6 +43,9 @@ class MyTriangle extends CGFobject
 		this.initBuffers();
 	};
 
+	/**
+	 * Prepares the buffers to display the triangle.
+	 */
 	initBuffers()
 	{
 		this.vertices = [
@@ -86,6 +102,11 @@ class MyTriangle extends CGFobject
 		this.initGLBuffers();
 	};
 
+	/**
+	 * Updates the texture coordinates.
+ 	 * @param {s texture coordinate} s
+ 	 * @param {t texture coordinate} t
+	 */
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();
 

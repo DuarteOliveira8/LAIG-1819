@@ -4,13 +4,19 @@
  * @constructor
  */
 
- /**
-  * MyCoveredCylinder class, representing the cylinder primitive with covers on each side.
-  */
+/**
+ * MyCoveredCylinder class, representing the cylinder primitive with covers on each side.
+ */
 class MyCoveredCylinder extends CGFobject
 {
 	/**
 	 * @constructor Constructor of the class MyCoveredCylinder.
+ 	 * @param {scene of the application} scene
+ 	 * @param {base radius} base
+ 	 * @param {top radius} top
+ 	 * @param {height of the cylinder} height
+ 	 * @param {slices of the cylinder} slices
+ 	 * @param {stacks of the cylinder} stacks
 	 */
 	constructor(scene, base, top, height, slices, stacks)
 	{
