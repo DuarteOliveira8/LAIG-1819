@@ -573,7 +573,7 @@ class MySceneGraph {
             if(this.lights[id] != null)
                 return "Id element must be unique for each light (Duplicate: " + id + ")";
 
-            enabled = this.reader.getInteger(children[i], 'enabled');
+            enabled = this.reader.getBoolean(children[i], 'enabled');
             if (enabled == null || isNaN(enabled)) {
                 enabled = 0;
                 return "Enabled element must not be null.";
