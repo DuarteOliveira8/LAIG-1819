@@ -2210,7 +2210,12 @@
             <texture id="inherit" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="cube-top" />
+                <componentref id="cube-bottom" />
+                <componentref id="cube-front" />
+                <componentref id="cube-back" />
+                <componentref id="cube-left" />
+                <componentref id="cube-right" />
             </children>
         </component>
 
@@ -2229,26 +2234,6 @@
 
             <children>
                 <primitiveref id="roof" />
-            </children>
-        </component>
-
-        <component id="cube">
-            <transformation>
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" />
-
-            <children>
-                <componentref id="cube-top" />
-                <componentref id="cube-bottom" />
-                <componentref id="cube-front" />
-                <componentref id="cube-back" />
-                <componentref id="cube-left" />
-                <componentref id="cube-right" />
             </children>
         </component>
 
