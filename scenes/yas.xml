@@ -195,9 +195,9 @@
 
         <primitive id="metro-tail-side-left">
             <triangle
-                x1="0" y1="0" z1="0"
-                x2="0" y2="0.5" z2="0"
-                x3="-0.5" y3="0" z3="0"
+                x1="-0.5" y1="0" z1="0"
+                x2="0" y2="0" z2="0"
+                x3="0" y3="0.5" z3="0"
             />
         </primitive>
 
