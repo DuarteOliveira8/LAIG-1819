@@ -7,7 +7,7 @@
 class MyTriangle extends CGFobject
 {
 	/**
-	 * MyTriangle class, representing the traingle primitive.
+	 * MyTriangle class, representing the triangle primitive.
  	 * @param {scene of the application} scene
  	 * @param {x coordinate of the first vertex} x1
  	 * @param {y coordinate of the first vertex} y1
@@ -44,7 +44,7 @@ class MyTriangle extends CGFobject
 	};
 
 	/**
-	 * Prepares the buffers to display the triangle.
+	 * Prepares the buffers to display the triangle primitive.
 	 */
 	initBuffers()
 	{
