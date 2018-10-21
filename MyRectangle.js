@@ -4,8 +4,14 @@
  * @constructor
  */
 
+ /**
+  * MyRectangle class, representing the rectangle primitive.
+  */
 class MyRectangle extends CGFobject
 {
+	/**
+	 * @constructor constructor of the class MyRectangle.
+	 */
 	constructor(scene, x1, y1, x2, y2)
 	{
 		super(scene);
@@ -26,6 +32,9 @@ class MyRectangle extends CGFobject
 		this.initBuffers();
 	};
 
+	/**
+	*	Prepares the buffer to display the rectangle primitive.
+	*/
 	initBuffers()
 	{
 		this.vertices = [
@@ -61,6 +70,11 @@ class MyRectangle extends CGFobject
 		this.initGLBuffers();
 	};
 
+	/**
+	* Updates the texture coordinates.
+	* @param {s texture coordinate} s
+	* @param {t texture coordinate} t
+	*/
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();
 
