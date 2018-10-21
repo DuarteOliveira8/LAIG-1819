@@ -1,3 +1,8 @@
+/**
+ * MySceneGraph
+ * @constructor
+ */
+
 var DEGREE_TO_RAD = Math.PI / 180;
 
 // Order of the groups in the XML document.
@@ -16,7 +21,7 @@ var COMPONENTS_INDEX = 8;
  */
 class MySceneGraph {
     /**
-     * @constructor of the class MySceneGraph
+     * @constructor Constructor of the class MySceneGraph
      */
     constructor(filename, scene) {
         this.loadedOk = null;
