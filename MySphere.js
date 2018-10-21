@@ -4,8 +4,14 @@
  * @constructor
  */
 
+ /**
+  * MySphere class, representing the sphere primitive.
+  */
 class MySphere extends CGFobject
 {
+	/**
+	 * @constructor constructor of the class MySphere.
+	 */
 	constructor(scene, radius, slices, stacks)
 	{
 		super(scene);
@@ -27,6 +33,9 @@ class MySphere extends CGFobject
 		this.initBuffers();
 	};
 
+	/**
+	*	Prepares the buffer to display the sphere primitive.
+	*/
 	initBuffers()
 	{
 		// VERTICES DEFINITION
@@ -86,6 +95,11 @@ class MySphere extends CGFobject
 		this.initGLBuffers();
 	};
 
+	/**
+	* Updates the texture coordinates.
+	* @param {s texture coordinate} s
+	* @param {t texture coordinate} t
+	*/
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();
 
