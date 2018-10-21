@@ -1766,29 +1766,29 @@ class MySceneGraph {
                     textureRef = this.textures[textureId];
                 }
 
-                if (textureId != "none") {
-                    length_s = this.reader.getFloat(textureNode, 'length_s', false);
-                    if (length_s > 0 || length_s == null) {
-                        texture.length_s = length_s;
-                    }
-                    else if (isNaN(length_s)) {
-                        return '"length_s" element must be a float.';
-                    }
-                    else if (length_s <= 0) {
-                        return '"length_s" element must be higher than 0.';
-                    }
-
-                    length_t = this.reader.getFloat(textureNode, 'length_t', false);
-                    if (length_t > 0 || length_t == null) {
-                        texture.length_t = length_t;
-                    }
-                    else if (isNaN(length_t)) {
-                        return '"length_t" element must be a float.';
-                    }
-                    else if (length_t <= 0) {
-                        return '"length_t" element must be higher than 0.';
-                    }
+                length_s = this.reader.getFloat(textureNode, 'length_s', false);
+                if (textureId != "none" && textureId != "inherit" && length_s == null) {
+                    return "if a new texture is defined, length_s must be defined.";
                 }
+                else if (isNaN(length_s)) {
+                    return '"length_s" element must be a float.';
+                }
+                else if (length_s <= 0) {
+                    return '"length_s" element must be higher than 0.';
+                }
+                texture.length_s = length_s;
+
+                length_t = this.reader.getFloat(textureNode, 'length_t', false);
+                if (textureId != "none" && textureId != "inherit" && length_t == null) {
+                    return "if a new texture is defined, length_t must be defined.";
+                }
+                else if (isNaN(length_t)) {
+                    return '"length_t" element must be a float.';
+                }
+                else if (length_t <= 0) {
+                    return '"length_t" element must be higher than 0.';
+                }
+                texture.length_t = length_t;
 
                 texture.texture = textureRef;
 
@@ -1942,7 +1942,7 @@ class MySceneGraph {
         }
 
         for (var i = 0; i < node.children.primitiveChildren.length; i++) {
-            if (node.texture.texture != "none") {
+            if (node.texture.texture == "inherit") {
                 if (node.texture.length_s == null && node.texture.length_t == null) {
                     node.children.primitiveChildren[i].updateTexCoords(length_s, length_t);
                 }
@@ -1955,6 +1955,12 @@ class MySceneGraph {
                 else {
                     node.children.primitiveChildren[i].updateTexCoords(node.texture.length_s, node.texture.length_t);
                 }
+            }
+            else if (node.texture.texture == "none") {
+                node.children.primitiveChildren[i].updateTexCoords(length_s, length_t);
+            }
+            else {
+                node.children.primitiveChildren[i].updateTexCoords(node.texture.length_s, node.texture.length_t);
             }
 
             node.children.primitiveChildren[i].display();
@@ -1980,18 +1986,7 @@ class MySceneGraph {
                   this.displayNode(node.children.componentChildren[key], material, null, length_s, length_t);
               }
               else {
-                  if (node.texture.length_s == null && node.texture.length_t == null) {
-                      this.displayNode(node.children.componentChildren[key], material, node.texture.texture, length_s, length_t);
-                  }
-                  else if (node.texture.length_t == null) {
-                      this.displayNode(node.children.componentChildren[key], material, node.texture.texture, node.texture.length_s, length_t);
-                  }
-                  else if (node.texture.length_s == null) {
-                      this.displayNode(node.children.componentChildren[key], material, node.texture.texture, length_s, node.texture.length_t);
-                  }
-                  else {
-                      this.displayNode(node.children.componentChildren[key], material, node.texture.texture, node.texture.length_s, node.texture.length_t);
-                  }
+                  this.displayNode(node.children.componentChildren[key], material, node.texture.texture, node.texture.length_s, node.texture.length_t);
               }
           }
           else {
@@ -2013,18 +2008,7 @@ class MySceneGraph {
                   this.displayNode(node.children.componentChildren[key], node.materials[this.currMaterial%node.materials.length], null, length_s, length_t);
               }
               else {
-                  if (node.texture.length_s == null && node.texture.length_t == null) {
-                      this.displayNode(node.children.componentChildren[key], node.materials[this.currMaterial%node.materials.length], node.texture.texture, length_s, length_t);
-                  }
-                  else if (node.texture.length_t == null) {
-                      this.displayNode(node.children.componentChildren[key], node.materials[this.currMaterial%node.materials.length], node.texture.texture, node.texture.length_s, length_t);
-                  }
-                  else if (node.texture.length_s == null) {
-                      this.displayNode(node.children.componentChildren[key], node.materials[this.currMaterial%node.materials.length], node.texture.texture, length_s, node.texture.length_t);
-                  }
-                  else {
-                      this.displayNode(node.children.componentChildren[key], node.materials[this.currMaterial%node.materials.length], node.texture.texture, node.texture.length_s, node.texture.length_t);
-                  }
+                  this.displayNode(node.children.componentChildren[key], node.materials[this.currMaterial%node.materials.length], node.texture.texture, node.texture.length_s, node.texture.length_t);
               }
           }
         }
