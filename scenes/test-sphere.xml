@@ -105,7 +105,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="test" length_s="4" length_t="4" />
+            <texture id="test" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="sphere" />
