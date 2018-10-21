@@ -232,7 +232,7 @@
                 <material id="root" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="water" />
@@ -286,7 +286,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-half" />
@@ -302,7 +302,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-half" />
@@ -317,7 +317,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-bottom" />
@@ -344,7 +344,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="5-poles1" />
@@ -363,7 +363,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="5-poles1" />
@@ -383,7 +383,7 @@
                 <material id="lamp-day" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
               <primitiveref id="pole-part" />
@@ -400,7 +400,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="5-poles1" />
@@ -417,7 +417,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="5-poles1" />
@@ -434,7 +434,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="pole1" />
@@ -450,7 +450,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="pole1" />
@@ -470,7 +470,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="pole1" />
@@ -490,7 +490,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="pole1" />
@@ -510,7 +510,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="pole1" />
@@ -531,7 +531,7 @@
                 <material id="lamp-day" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
               <primitiveref id="pole-part" />
@@ -549,7 +549,7 @@
                 <material id="lamp-day" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
               <primitiveref id="pole-part" />
@@ -567,7 +567,7 @@
                 <material id="lamp-day" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
               <primitiveref id="pole-part" />
@@ -585,7 +585,7 @@
                 <material id="lamp-day" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
               <primitiveref id="pole-part" />
@@ -603,7 +603,7 @@
                 <material id="lamp-day" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
               <primitiveref id="pole-part" />
@@ -621,7 +621,7 @@
                 <material id="lamp-night" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
               <primitiveref id="pole-top" />
@@ -654,7 +654,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-support" />
@@ -670,7 +670,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-support" />
@@ -687,7 +687,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-support" />
@@ -704,7 +704,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="support-top" />
@@ -793,7 +793,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
               <componentref id="bridge-top-top" />
@@ -880,7 +880,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-arch-left" />
@@ -899,7 +899,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-arch-left-top" />
@@ -989,7 +989,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-arch-right-top" />
@@ -1078,7 +1078,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="bridge-bottom-top" />
@@ -1166,7 +1166,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="metro-body" />
@@ -1254,7 +1254,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="metro-tail-body" />
@@ -1271,7 +1271,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="metro-tail-body" />
@@ -1288,7 +1288,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="metro-tail-front" />
@@ -1376,7 +1376,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="hill-template" />
@@ -1395,7 +1395,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="hill-template" />
@@ -1505,7 +1505,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="cube-top" />
@@ -1575,7 +1575,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="sidewalk" />
@@ -1594,7 +1594,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="sidewalk" />
@@ -1686,7 +1686,7 @@
                 <material id="bridge-spotlight" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="spotlight-pole" />
@@ -1703,7 +1703,7 @@
                 <material id="bridge-spotlight" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="spotlight-pole" />
@@ -1723,7 +1723,7 @@
                 <material id="bridge-spotlight" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <primitiveref id="spotlight-top" />
@@ -1739,7 +1739,7 @@
                 <material id="bridge-spotlight" />
             </materials>
 
-            <texture id="none" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <primitiveref id="pole-part" />
@@ -1755,7 +1755,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="float1" />
@@ -1774,7 +1774,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="float1" />
@@ -1861,7 +1861,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="street" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="house1" />
@@ -1887,7 +1887,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="street" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="house1" />
@@ -1912,7 +1912,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="street" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="house1" />
@@ -1938,7 +1938,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="street" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="house1" />
@@ -1961,7 +1961,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="street" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="house3" />
@@ -1985,7 +1985,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="street" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="house3" />
@@ -2008,7 +2008,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="street" length_s="1" length_t="1" />
+            <texture id="none" />
 
             <children>
                 <componentref id="house1" />
@@ -2207,15 +2207,10 @@
                 <material id="house" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
-                <componentref id="cube-top" />
-                <componentref id="cube-bottom" />
-                <componentref id="cube-front" />
-                <componentref id="cube-back" />
-                <componentref id="cube-left" />
-                <componentref id="cube-right" />
+                <componentref id="cube" />
             </children>
         </component>
 
@@ -2245,7 +2240,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <componentref id="cube-top" />
@@ -2267,7 +2262,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -2284,7 +2279,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -2300,7 +2295,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -2317,7 +2312,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -2334,7 +2329,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -2351,7 +2346,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" />
 
             <children>
                 <primitiveref id="cube-face" />

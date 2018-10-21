@@ -1767,7 +1767,10 @@ class MySceneGraph {
                 }
 
                 length_s = this.reader.getFloat(textureNode, 'length_s', false);
-                if (textureId != "none" && textureId != "inherit" && length_s == null) {
+                if (length_s == null || length_s > 0) {
+                    texture.length_s = length_s;
+                }
+                else if (textureId != "none" && textureId != "inherit" && length_s == null) {
                     return "if a new texture is defined, length_s must be defined.";
                 }
                 else if (isNaN(length_s)) {
@@ -1776,10 +1779,12 @@ class MySceneGraph {
                 else if (length_s <= 0) {
                     return '"length_s" element must be higher than 0.';
                 }
-                texture.length_s = length_s;
 
                 length_t = this.reader.getFloat(textureNode, 'length_t', false);
-                if (textureId != "none" && textureId != "inherit" && length_t == null) {
+                if (length_t == null || length_t > 0) {
+                    texture.length_t = length_t;
+                }
+                else if (textureId != "none" && textureId != "inherit" && length_t == null) {
                     return "if a new texture is defined, length_t must be defined.";
                 }
                 else if (isNaN(length_t)) {
