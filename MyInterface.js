@@ -1,9 +1,10 @@
 /**
-* MyInterface class, creating a GUI interface.
-*/
+ * MyInterface class, creating a GUI interface.
+ * @constructor
+ */
 class MyInterface extends CGFinterface {
     /**
-     * @constructor
+     * @constructor Constructor of the class MyInterface.
      */
     constructor() {
         super();
@@ -46,6 +47,10 @@ class MyInterface extends CGFinterface {
         }
     }
 
+    /**
+     * Adds a dropdown menu containing the IDs of the cameras passed as parameter.
+     * @param {array} cameras
+     */
     addCameras(cameras) {
         var cameraID = [];
 
@@ -61,6 +66,9 @@ class MyInterface extends CGFinterface {
         });
     }
 
+    /**
+     * Initiates the keyboard keys.
+     */
     initKeys() {
   		this.scene.gui=this;
   		this.processKeyboard=function(){
@@ -69,6 +77,10 @@ class MyInterface extends CGFinterface {
   		this.activeKeys={};
   	};
 
+    /**
+     * Processes the key down events for keyboard keys.
+     * @param {current event} event
+     */
   	processKeyDown(event) {
       this.activeKeys[event.code]=true;
       if (event.key == 'm' || event.key == 'M') {
