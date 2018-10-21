@@ -87,14 +87,12 @@ class MyTriangle extends CGFobject
 		var ut = Math.sqrt(Math.pow(u[0] - t[0], 2) + Math.pow(u[1] - t[1], 2) + Math.pow(u[2] - t[2], 2));
 		var uv = Math.sqrt(Math.pow(u[0] - v[0], 2) + Math.pow(u[1] - v[1], 2) + Math.pow(u[2] - v[2], 2));
 
-		var angle = Math.acos((Math.pow(vt, 2) - Math.pow(ut, 2) + Math.pow(uv, 2)) / (2 * vt * uv));
-
-		var d = vt * Math.sin(angle);
+		var angle = Math.acos((ut*ut - uv*uv + vt*vt)/(2*ut*vt));
 
 		this.originalTexCoords = [
-			this.minS, d*this.maxT,
-			uv*this.maxS, d*this.maxT,
-			(uv-vt*Math.cos(angle))*this.maxS, (d-vt*Math.sin(angle))*this.maxT
+			vt - ut*Math.cos(angle), 1 - ut*Math.sin(angle),
+			0, 1,
+			vt, 1
 		];
 
 		this.texCoords = this.originalTexCoords.slice();
@@ -111,8 +109,8 @@ class MyTriangle extends CGFobject
 			this.texCoords = this.originalTexCoords.slice();
 
 			for (var i = 0; i < this.texCoords.length; i++) {
-					this.texCoords[i] *= s;
-					this.texCoords[++i] *= t;
+					this.texCoords[i] /= s;
+					this.texCoords[++i] /= t;
 			}
 
 			this.updateTexCoordsGLBuffers();

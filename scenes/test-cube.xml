@@ -126,7 +126,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="10" />
+            <texture id="inherit" length_s="5" length_t="5" />
 
             <children>
                 <primitiveref id="face" />
@@ -192,7 +192,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="10" />
+            <texture id="inherit" length_s="5" length_t="5" />
 
             <children>
                 <primitiveref id="face" />
@@ -209,7 +209,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="10" />
+            <texture id="inherit" length_s="5" length_t="5" />
 
             <children>
                 <primitiveref id="face" />

@@ -93,8 +93,9 @@ class MyCylinder extends CGFobject
 				angle += 360/this.slices;
 
 				// TEXTURE COORDS
-				this.originalTexCoords.push(this.minS + i*incS, this.minT + j*incT);
-				this.originalTexCoords.push(this.minS + i*incS, this.minT + (j+1)*incT);
+				var perimeter = 2*Math.PI*currentRadius;
+				this.originalTexCoords.push((this.minS + i*incS)*perimeter, (this.minT + j*incT)*this.height);
+				this.originalTexCoords.push((this.minS + i*incS)*perimeter, (this.minT + (j+1)*incT)*this.height);
 			}
 
 			currentRadius += radiusInc;
@@ -115,8 +116,8 @@ class MyCylinder extends CGFobject
 			this.texCoords = this.originalTexCoords.slice();
 
 			for (var i = 0; i < this.texCoords.length; i+=2) {
-					this.texCoords[i] *= s;
-					this.texCoords[i+1] *= t;
+					this.texCoords[i] /= s;
+					this.texCoords[i+1] /= t;
 			}
 
 			this.updateTexCoordsGLBuffers();

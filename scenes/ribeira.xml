@@ -207,17 +207,17 @@
 
         <primitive id="metro-tail-side-left">
             <triangle
-                x1="-0.5" y1="0" z1="0"
-                x2="0" y2="0" z2="0"
-                x3="0" y3="0.5" z3="0"
+                x1="0" y1="0.5" z1="0"
+                x2="-0.5" y2="0" z2="0"
+                x3="0" y3="0" z3="0"
             />
         </primitive>
 
         <primitive id="metro-tail-side-right">
             <triangle
-                x1="0" y1="0" z1="0"
-                x2="0.5" y2="0" z2="0"
-                x3="0" y3="0.5" z3="0"
+                x1="0" y1="0.5" z1="0"
+                x2="0" y2="0" z2="0"
+                x3="0.5" y3="0" z3="0"
             />
         </primitive>
 
@@ -733,7 +733,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="3.5" length_t="1" />
+            <texture id="inherit" length_s="0.2857" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -750,7 +750,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="3.5" length_t="1" />
+            <texture id="inherit" length_s="0.2857" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -766,7 +766,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="35" length_t="1" />
+            <texture id="inherit" length_s="0.0286" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -783,7 +783,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="35" length_t="1" />
+            <texture id="inherit" length_s="0.0286" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -822,7 +822,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="rails" length_s="10" length_t="1" />
+            <texture id="rails" length_s="0.1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -839,7 +839,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="1" />
+            <texture id="inherit" length_s="0.1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -855,7 +855,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="20" length_t="1" />
+            <texture id="inherit" length_s="0.05" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -872,7 +872,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="20" length_t="1" />
+            <texture id="inherit" length_s="0.05" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -928,7 +928,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="2.69" length_t="1" />
+            <texture id="inherit" length_s="0.3717" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -945,7 +945,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="2.69" length_t="1" />
+            <texture id="inherit" length_s="0.3717" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -961,7 +961,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="10.76" length_t="1" />
+            <texture id="inherit" length_s="0.0929" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -978,7 +978,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="10.76" length_t="1" />
+            <texture id="inherit" length_s="0.0929" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1018,7 +1018,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="2.91" length_t="1" />
+            <texture id="inherit" length_s="0.3436" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1035,7 +1035,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="2.91" length_t="1" />
+            <texture id="inherit" length_s="0.3436" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1051,7 +1051,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="11.64" length_t="1" />
+            <texture id="inherit" length_s="0.0859" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1068,7 +1068,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="11.64" length_t="1" />
+            <texture id="inherit" length_s="0.0859" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1124,7 +1124,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="4" length_t="1" />
+            <texture id="inherit" length_s="0.25" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1140,7 +1140,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="8" length_t="1" />
+            <texture id="inherit" length_s="0.125" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1157,7 +1157,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="8" length_t="1" />
+            <texture id="inherit" length_s="0.125" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1213,7 +1213,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="metro-top" length_s="4" length_t="1" />
+            <texture id="metro-top" length_s="0.25" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1229,7 +1229,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="metro-side" length_s="4" length_t="1" />
+            <texture id="metro-side" length_s="0.25" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1246,7 +1246,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="metro-side" length_s="4" length_t="1" />
+            <texture id="metro-side" length_s="0.25" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1443,7 +1443,7 @@
                 <material id="grass" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="8" />
+            <texture id="inherit" length_s="0.1" length_t="0.125" />
 
             <children>
                 <primitiveref id="hill-right" />
@@ -1460,7 +1460,7 @@
                 <material id="grass" />
             </materials>
 
-            <texture id="inherit" length_s="8" length_t="10" />
+            <texture id="inherit" length_s="0.125" length_t="0.1" />
 
             <children>
                 <primitiveref id="hill-left" />
@@ -1480,7 +1480,7 @@
                 <material id="grass" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="6.40" />
+            <texture id="inherit" length_s="0.1" length_t="0.1563" />
 
             <children>
                 <primitiveref id="scenario" />
@@ -1499,7 +1499,7 @@
                 <material id="grass" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="4" />
+            <texture id="inherit" length_s="0.1" length_t="0.25" />
 
             <children>
                 <primitiveref id="scenario" />
@@ -1538,7 +1538,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="5" length_t="1" />
+            <texture id="inherit" length_s="0.2" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1555,7 +1555,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="5" length_t="1" />
+            <texture id="inherit" length_s="0.2" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1572,7 +1572,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="1" />
+            <texture id="inherit" length_s="0.1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1664,7 +1664,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="1" />
+            <texture id="inherit" length_s="0.1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -1681,7 +1681,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="inherit" length_s="10" length_t="1" />
+            <texture id="inherit" length_s="0.1" length_t="1" />
 
             <children>
                 <primitiveref id="cube-face" />
