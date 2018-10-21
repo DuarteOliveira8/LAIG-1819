@@ -74,6 +74,7 @@
         <texture id="float" file="scenes/images/float.jpeg" />
         <texture id="metro-bumper" file="scenes/images/metro-bumper.png" />
         <texture id="metro-tail" file="scenes/images/metro-tail.png" />
+        <texture id="metro-side" file="scenes/images/metro-side.png" />
     </textures>
 
     <materials>
@@ -1232,7 +1233,7 @@
               <material id="inherit" />
           </materials>
 
-          <texture id="none" length_s="1" length_t="1" />
+          <texture id="metro-tail" length_s="1" length_t="1" />
 
           <children>
               <primitiveref id="cube-face" />
