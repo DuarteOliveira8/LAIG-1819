@@ -4,8 +4,14 @@
  * @constructor
  */
 
+ /**
+  * MyCylinder class, representing the cylinder primitive without covers.
+  */
 class MyCylinder extends CGFobject
 {
+	/**
+	 * @constructor Constructor of the class MyCylinder.
+	 */
 	constructor(scene, base, top, height, slices, stacks)
 	{
 		super(scene);
@@ -29,6 +35,9 @@ class MyCylinder extends CGFobject
 		this.initBuffers();
 	};
 
+	/**
+	 * Prepares the buffers to display the cylinder.
+	 */
 	initBuffers()
 	{
 		// VERTICES DEFINITION
@@ -91,6 +100,11 @@ class MyCylinder extends CGFobject
 		this.initGLBuffers();
 	};
 
+	/**
+	 * Updates the texture coordinates.
+ 	 * @param {s texture coordinate} s
+ 	 * @param {t texture coordinate} t
+	 */
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();
 
