@@ -16,7 +16,7 @@ var COMPONENTS_INDEX = 8;
  */
 class MySceneGraph {
     /**
-     * @constructor
+     * @constructor of the class MySceneGraph
      */
     constructor(filename, scene) {
         this.loadedOk = null;
@@ -203,6 +203,7 @@ class MySceneGraph {
 
     /**
      * Parses the <scene> block.
+     * @param {XML scene node} sceneNode
      */
     parseScene(sceneNode) {
         var root = this.reader.getString(sceneNode, 'root');
@@ -228,6 +229,7 @@ class MySceneGraph {
 
     /**
      * Parses the <views> block.
+     * @param {XML views node} viewsNode
      */
     parseViews(viewsNode) {
         var children = viewsNode.children;
@@ -410,6 +412,10 @@ class MySceneGraph {
         }
     }
 
+    /**
+     * Parses the <ambient> block.
+     * @param {XML ambient node} viewsNode
+     */
     parseAmbient(ambientNode) {
         var children = ambientNode.children;
 
@@ -532,7 +538,11 @@ class MySceneGraph {
         }
     }
 
-    parseLights(lightsNode) { 
+    /**
+     * Parses the <lights> block.
+     * @param {XML lights node} lightsNode
+     */
+    parseLights(lightsNode) {
         var children = lightsNode.children;
 
         this.lights = [];
@@ -847,6 +857,10 @@ class MySceneGraph {
         }
     }
 
+    /**
+     * Parses the <textures> block.
+     * @param {XML textures node} texturesNode
+     */
     parseTextures(texturesNode) {
         var children = texturesNode.children;
 
@@ -883,6 +897,10 @@ class MySceneGraph {
         }
     }
 
+    /**
+     * Parses the <materials> block.
+     * @param {XML materials node} materialsNode
+     */
     parseMaterials(materialsNode) {
         var children = materialsNode.children;
 
@@ -1145,6 +1163,10 @@ class MySceneGraph {
         }
     }
 
+    /**
+     * Parses the <transformations> block.
+     * @param {XML transformations node} transformationsNode
+     */
     parseTransformations(transformationsNode) {
         var children = transformationsNode.children;
 
@@ -1266,6 +1288,10 @@ class MySceneGraph {
         }
     }
 
+    /**
+     * Parses the <primitives> block.
+     * @param {XML primitives node} primitiveNodes
+     */
     parsePrimitives(primitiveNodes) {
         var children = primitiveNodes.children;
 
@@ -1488,6 +1514,10 @@ class MySceneGraph {
         }
     }
 
+    /**
+     * Parses the <components> block.
+     * @param {XML components node} componentsNode
+     */
     parseComponents(componentsNode) {
         var children = componentsNode.children;
 
@@ -1862,6 +1892,14 @@ class MySceneGraph {
         console.log("   " + message);
     }
 
+    /**
+     * Displays the primitives of each node and calls itself recursively to display the child nodes.
+     * @param {current node being displayed} node
+     * @param {current inherited material} material
+     * @param {current inherited texture} texture
+     * @param {current inherited s texture coordinate} length_s
+     * @param {current inherited t texture coordinate} length_t
+     */
     displayNode(node, material, texture, length_s, length_t) {
         this.scene.pushMatrix();
 
