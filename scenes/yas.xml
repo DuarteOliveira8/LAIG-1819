@@ -1166,7 +1166,62 @@
             <texture id="metro-side" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <componentref id="metro-body-top" />
+                <componentref id="cube-bottom" />
+                <componentref id="metro-body-front" />
+                <componentref id="metro-body-back" />
+                <componentref id="cube-left" />
+                <componentref id="cube-right" />
+            </children>
+        </component>
+
+        <component id="metro-body-top">
+            <transformation>
+                <translate x="0" y="0.5" z="0" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="metro-body-front">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="metro-body-back">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
             </children>
         </component>
 
