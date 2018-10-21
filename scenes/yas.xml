@@ -3,9 +3,24 @@
 
     <views default="cam0">
         <perspective id="cam0" near="0.1" far="500" angle="23">
-            <from x="30" y="30" z="30" />
+            <from x="40" y="30" z="40" />
             <to x="0" y="0" z="0" />
         </perspective>
+
+        <perspective id="cam1" near="0.1" far="500" angle="23">
+            <from x="30" y="10" z="30" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
+        <perspective id="cam2" near="0.1" far="500" angle="23">
+            <from x="5" y="30" z="50" />
+            <to x="5" y="0" z="0" />
+        </perspective>
+
+        <ortho id="cam3" near="0.1" far="500" left="-5" right="15" top="10" bottom="0" >
+            <from x="9" y="1.5" z="7" />
+            <to x="9" y="1.5" z="0" />
+        </ortho>
     </views>
 
     <ambient>
@@ -1211,7 +1226,7 @@
         <component id="metro-body-back">
             <transformation>
                 <translate x="0" y="0" z="-0.5" />
-                <rotate axis="x" angle="180" />
+                <rotate axis="y" angle="180" />
             </transformation>
 
             <materials>
@@ -2289,7 +2304,7 @@
         <component id="cube-back">
             <transformation>
                 <translate x="0" y="0" z="-0.5" />
-                <rotate axis="x" angle="180" />
+                <rotate axis="y" angle="180" />
             </transformation>
 
             <materials>
