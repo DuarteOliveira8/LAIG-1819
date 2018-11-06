@@ -13,8 +13,9 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var TRANSFORMATIONS_INDEX = 6;
-var PRIMITIVES_INDEX = 7;
-var COMPONENTS_INDEX = 8;
+var ANIMATIONS_INDEX = 7;
+var PRIMITIVES_INDEX = 8;
+var COMPONENTS_INDEX = 9;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -180,6 +181,18 @@ class MySceneGraph {
 
             //Parse transformations block
             if ((error = this.parseTransformations(nodes[index])) != null)
+                return error;
+        }
+
+        // <animations>
+        if ((index = nodeNames.indexOf("animations")) == -1)
+            return "tag <animations> missing";
+        else {
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+
+            //Parse primitives block
+            if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -1292,6 +1305,75 @@ class MySceneGraph {
             }
 
             this.transformations[id] = instructions;
+        }
+    }
+
+    /**
+     * Parses the <animations> block.
+     * @param {XML primitives node} primitiveNodes
+     */
+    parseAnimations(animationNodes) {
+        var children = animationNodes.children;
+
+        this.animations = [];
+
+        for (var i = 0; i < children.length; i++) {
+            var animation = [];
+
+            if (children[i].nodeName != "linear" && children[i].nodeName != "circular") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            var id = this.reader.getString(children[i], 'id');
+            if (id == null || id == "") {
+                return "Id element must not be null.";
+            }
+
+            var span = this.reader.getFloat(children[i], 'span');
+            if (span == null || isNaN(span)) {
+                return "Span element must not be null.";
+            }
+
+            if (children[i].nodeName == "linear") {
+                var attrs = children[i].children;
+                var controlPoints = [];
+
+                if (attrs.length < 2) {
+                    return "At least 2 control points may be defined.";
+                }
+
+                for (var j = 0; j < attrs.length; j++) {
+                    if (attrs[j].nodeName != "controlpoint") {
+                        this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
+                        continue;
+                    }
+
+                    var controlPoint = [];
+
+                    controlPoint.x = this.reader.getFloat(attrs[j], 'xx');
+                    if (controlPoint.x == null || isNaN(controlPoint.x)) {
+                        return "X element must not be null.";
+                    }
+
+                    controlPoint.y = this.reader.getFloat(attrs[j], 'yy');
+                    if (controlPoint.y == null || isNaN(controlPoint.y)) {
+                        return "Y element must not be null.";
+                    }
+
+                    controlPoint.z = this.reader.getFloat(attrs[j], 'zz');
+                    if (controlPoint.z == null || isNaN(controlPoint.z)) {
+                        return "Z element must not be null.";
+                    }
+
+                    controlPoints.push(controlPoint);
+                }
+
+                this.animations[id] = new LinearAnimation(this.scene, span, controlPoints)
+            }
+            else if (children[i].nodeName == "circular") {
+
+            }
         }
     }
 
