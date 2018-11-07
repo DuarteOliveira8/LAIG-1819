@@ -1334,6 +1334,9 @@ class MySceneGraph {
             if (span == null || isNaN(span)) {
                 return "Span element must not be null.";
             }
+            else if(span < 0) {
+                return "Span element must not be negative.";
+            }
 
             if (children[i].nodeName == "linear") {
                 var attrs = children[i].children;
