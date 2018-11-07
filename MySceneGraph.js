@@ -1334,8 +1334,8 @@ class MySceneGraph {
             if (span == null || isNaN(span)) {
                 return "Span element must not be null.";
             }
-            else if (span < 0) {
-                return "Span element must be positive.";
+            else if(span < 0) {
+                return "Span element must not be negative.";
             }
 
             if (children[i].nodeName == "linear") {
@@ -1376,6 +1376,44 @@ class MySceneGraph {
             }
             else if (children[i].nodeName == "circular") {
 
+              var center = this.reader.getString(children[i], 'center');
+              if (center == null || center == "") {
+                  return "Center element must not be null.";
+              }
+              var centerFloat = center.split(' ');
+              centerFloat[0] = parseFloat(centerFloat[0]);
+              centerFloat[1] = parseFloat(centerFloat[1]);
+              centerFloat[2] = parseFloat(centerFloat[2]);
+
+              if(centerFloat[0] == null || isNaN(centerFloat[0])) {
+                  return "First center coordinate must not be null";
+              }
+              if(centerFloat[1] == null || isNaN(centerFloat[1])) {
+                  return "Second center coordinate must not be null";
+              }
+              if(centerFloat[2] == null || isNaN(centerFloat[2])) {
+                  return "Third center coordinate must not be null";
+              }
+
+              var radius = this.reader.getFloat(children[i], 'radius');
+              if(radius == null || isNaN(radius)) {
+                  return "Radius element must not be null.";
+              }
+              else if(radius < 0) {
+                  return "Radius element must not be negative.";
+              }
+
+              var startang = this.reader.getFloat(children[i], 'startang');
+              if(startang == null || isNaN(startang)) {
+                  return "Startang element must not be null.";
+              }
+
+              var rotang = this.reader.getFloat(children[i], 'rotang');
+              if(rotang == null || isNaN(rotang)) {
+                  return "Rotang element must not be null.";
+              }
+
+              this.animations[id] = new CircularAnimation(this.scene, span, centerFloat, radius, startang, rotang);
             }
         }
     }
