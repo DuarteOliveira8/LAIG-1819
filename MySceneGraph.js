@@ -1851,6 +1851,8 @@ class MySceneGraph {
                     animationsContainer.push(animation);
                 }
 
+                component.currentAnimation = 0;
+
                 component.animations = animationsContainer;
             }
 

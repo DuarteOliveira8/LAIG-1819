@@ -162,6 +162,14 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
+    update() {
+        for (var i = 0; i < this.graph.components.length; i++) {
+            if (this.graph.components[i].indexOf("animations") != -1) {
+                this.graph.components[i].animations[this.graph.components[i].currentAnimation].update();
+            }
+        }
+    }
+
     /**
      * Updates the camera to the new chosen camera
      */
