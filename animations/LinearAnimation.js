@@ -22,11 +22,7 @@ class LinearAnimation extends Animation {
 
 	apply() {
     // let previousPoint = (this.currentPoint-1) == -1 ? (this.controlPoints.length-1) : (this.currentPoint-1);
-		
-    // this.scene.translate(this.controlPoints[this.currentPoint].x, this.controlPoints[this.currentPoint].y, this.controlPoints[this.currentPoint].z)
-	};
 
-	update() {
-    // this.apply();
+    // this.scene.translate(this.controlPoints[this.currentPoint].x, this.controlPoints[this.currentPoint].y, this.controlPoints[this.currentPoint].z)
 	};
 };

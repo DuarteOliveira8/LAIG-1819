@@ -1645,6 +1645,9 @@ class MySceneGraph {
             if (children[i].getElementsByTagName('transformation').length > 1)
                 return "no more than one transformation may be defined";
 
+            if (children[i].getElementsByTagName('animations').length > 1)
+                return "no more than one animations tag may be defined";
+
             if (children[i].getElementsByTagName('materials').length > 1)
                 return "no more than one materials tag may be defined";
 
@@ -1654,11 +1657,12 @@ class MySceneGraph {
             if (children[i].getElementsByTagName('children').length > 1)
                 return "no more than one children tag may be defined";
 
-            if (attrs.length > 4) {
+            if (attrs.length > 5) {
                 return "only 4 tags may be defined";
             }
 
             var indexTransformation = attrNames.indexOf("transformation");
+            var indexAnimations = attrNames.indexOf("animations");
             var indexMaterials = attrNames.indexOf("materials");
             var indexTexture = attrNames.indexOf("texture");
             var indexChildren = attrNames.indexOf("children");
@@ -1780,6 +1784,36 @@ class MySceneGraph {
             }
             else {
                 return "transformation tag is missing";
+            }
+
+            if (indexAnimations != -1) {
+                var animations = attrs[indexAnimations].children;
+
+                var animationsContainer = [];
+
+                for (var j = 0; j < animations.length; j++) {
+                    if (animations[j].nodeName != "animationref") {
+                        this.onXMLMinorError("unknown tag <" + animations[j].nodeName + ">");
+                        continue;
+                    }
+
+                    var animationId, animation;
+
+                    animationId = this.reader.getString(animations[j], 'id');
+                    if (animationId == null || animationId == "") {
+                        return "Id element must not be null.";
+                    }
+
+                    if (this.animations[animationId] == null) {
+                        return "The animation with the id '" + animationId +  "' doesn't exist.";
+                    }
+
+                    animation = this.animations[animationId];
+
+                    animationsContainer.push(animation);
+                }
+
+                component.animations = animationsContainer;
             }
 
             if (indexMaterials != -1) {

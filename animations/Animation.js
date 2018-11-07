@@ -7,7 +7,7 @@
  /**
   * Animation class, representing an object's animation.
   */
-class Animation extends CGFobject {
+class Animation extends CGFobject { //abstract?
 	/**
 	 * @constructor constructor of the class Animation.
 	 * @param {scene of the application} scene
@@ -19,11 +19,7 @@ class Animation extends CGFobject {
 		this.initBuffers();
   };
 
-	apply() {
-
-	};
-
 	update() {
-
+			apply();
 	};
 };

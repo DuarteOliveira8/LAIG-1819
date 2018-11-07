@@ -127,6 +127,10 @@
                 <rotate axis="x" angle="90" />
             </transformation>
 
+            <animations>
+                <animationref id="linear" />
+            </animations>
+
             <materials>
                 <material id="root" />
             </materials>
