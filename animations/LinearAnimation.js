@@ -25,4 +25,8 @@ class LinearAnimation extends Animation {
 
     // this.scene.translate(this.controlPoints[this.currentPoint].x, this.controlPoints[this.currentPoint].y, this.controlPoints[this.currentPoint].z)
 	};
+
+	copy() {
+			return new LinearAnimation(this.scene, this.time, this.controlPoints);
+	};
 };

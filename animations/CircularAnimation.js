@@ -13,20 +13,20 @@ class CircularAnimation extends Animation {
 	 * @param {scene of the application} scene
 	 */
 	constructor(scene, time, center, radius, initAngle, rotAngle) {
-		super(scene, time);
-    this.center = center;
-    this.radius = radius;
-    this.initAngle = initAngle;
-    this.rotAngle = rotAngle;
+			super(scene, time);
+	    this.center = center;
+	    this.radius = radius;
+	    this.initAngle = initAngle;
+	    this.rotAngle = rotAngle;
 
-		this.initBuffers();
+			this.initBuffers();
   };
 
 	apply() {
 
 	};
 
-	update() {
-
+	copy() {
+			return new CircularAnimation(this.scene, this.time, this.center, this.radius, this.initAngle, this.rotAngle);
 	};
 };

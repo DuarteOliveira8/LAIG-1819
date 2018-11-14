@@ -1846,7 +1846,7 @@ class MySceneGraph {
                         return "The animation with the id '" + animationId +  "' doesn't exist.";
                     }
 
-                    animation = this.animations[animationId];
+                    animation = this.animations[animationId].copy();
 
                     animationsContainer.push(animation);
                 }
@@ -2075,6 +2075,7 @@ class MySceneGraph {
 
         if (node.transformation != null) {
             this.scene.multMatrix(node.transformation);
+            // this.scene.multMatrix(node.animations[node.currentAnimation].transformation);
         }
 
         if (node.materials[this.currMaterial%node.materials.length] == "inherit") {

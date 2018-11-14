@@ -13,13 +13,19 @@ class Animation extends CGFobject { //abstract?
 	 * @param {scene of the application} scene
 	 */
 	constructor(scene, time) {
-		super(scene);
-		this.time = time;
+			super(scene);
+			this.time = time;
+			this.currTime = 0;
+			this.transformation = new mat4.create();
 
-		this.initBuffers();
+			this.initBuffers();
   };
 
+	apply() {
+			
+	};
+
 	update() {
-			apply();
+			this.apply();
 	};
 };
