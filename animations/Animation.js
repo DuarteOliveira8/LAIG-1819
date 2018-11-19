@@ -17,12 +17,13 @@ class Animation extends CGFobject { //abstract?
 			this.time = time;
 			this.currTime = 0;
 			this.transformation = new mat4.create();
+			this.degToRad = Math.PI / 180;
 
 			this.initBuffers();
   };
 
 	apply() {
-			
+
 	};
 
 	update() {

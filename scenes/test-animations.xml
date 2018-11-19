@@ -128,7 +128,7 @@
             </transformation>
 
             <animations>
-                <animationref id="linear" />
+                <animationref id="circular" />
             </animations>
 
             <materials>

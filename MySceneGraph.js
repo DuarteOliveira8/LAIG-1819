@@ -2075,7 +2075,8 @@ class MySceneGraph {
 
         if (node.transformation != null) {
             this.scene.multMatrix(node.transformation);
-            // this.scene.multMatrix(node.animations[node.currentAnimation].transformation);
+            if (node.indexOf("animations") != -1)
+                this.scene.multMatrix(node.animations[node.currentAnimation].transformation);
         }
 
         if (node.materials[this.currMaterial%node.materials.length] == "inherit") {

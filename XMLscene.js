@@ -108,6 +108,9 @@ class XMLscene extends CGFscene {
         this.interface.addCameras(this.graph.views.cameras);
 
         this.sceneInited = true;
+
+        this.period = 10; // UPDATE PERIOD IN MILISSECONDS
+    		this.setUpdatePeriod(this.period);
     }
 
 
@@ -163,9 +166,9 @@ class XMLscene extends CGFscene {
     }
 
     update() {
-        for (var i = 0; i < this.graph.components.length; i++) {
-            if (this.graph.components[i].indexOf("animations") != -1) {
-                this.graph.components[i].animations[this.graph.components[i].currentAnimation].update();
+        for (var key in this.graph.components) {
+            if (this.graph.components[key].indexOf("animations") != -1) {
+                this.graph.components[key].animations[this.graph.components[key].currentAnimation].update();
             }
         }
     }
