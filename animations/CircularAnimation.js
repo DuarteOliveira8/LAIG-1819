@@ -14,6 +14,9 @@ class CircularAnimation extends Animation {
 	 */
 	constructor(scene, time, center, radius, initAngle, rotAngle) {
 			super(scene, time);
+			this.center = center;
+			this.radius = radius;
+			this.initAngle = initAngle;
 
 			let centerVec = vec3.create();
 			vec3.set(centerVec, center[0], center[1], center[2]);

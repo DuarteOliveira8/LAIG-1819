@@ -123,13 +123,12 @@
 
         <component id="pyramid">
             <transformation>
-                <translate x="-0.5" y="0.5" z="0" />
-                <rotate axis="x" angle="90" />
+                <translate x="0" y="0" z="0" />
             </transformation>
 
-            <animations>
+            <!-- <animations>
                 <animationref id="circular" />
-            </animations>
+            </animations> -->
 
             <materials>
                 <material id="root" />
@@ -200,9 +199,9 @@
 
         <component id="face4">
             <transformation>
-                <translate x="1" y="0" z="1" />
+                <!-- <translate x="1" y="0" z="1" />
                 <rotate axis="y" angle="90" />
-                <rotate axis="x" angle="-30" />
+                <rotate axis="x" angle="-30" /> -->
             </transformation>
 
             <materials>
@@ -218,7 +217,8 @@
 
         <component id="face5">
             <transformation>
-                <rotate axis="x" angle="90" />
+                <translate x="-0.5" y="0.5" z="0" />
+                <rotate axis="x" angle="180" />
             </transformation>
 
             <materials>

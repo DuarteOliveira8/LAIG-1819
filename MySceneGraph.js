@@ -2075,7 +2075,7 @@ class MySceneGraph {
 
         if (node.transformation != null) {
             this.scene.multMatrix(node.transformation);
-            if (node.indexOf("animations") != -1)
+            if (node.hasOwnProperty("animations"))
                 this.scene.multMatrix(node.animations[node.currentAnimation].transformation);
         }
 
