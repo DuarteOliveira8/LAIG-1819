@@ -167,7 +167,7 @@ class XMLscene extends CGFscene {
 
     update() {
         for (var key in this.graph.components) {
-            if (this.graph.components[key].indexOf("animations") != -1) {
+            if (this.graph.components[key].hasOwnProperty("animations")) {
                 this.graph.components[key].animations[this.graph.components[key].currentAnimation].update();
             }
         }
