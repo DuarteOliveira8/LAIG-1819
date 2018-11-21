@@ -16,19 +16,10 @@ class CircularAnimation extends Animation {
 			super(scene, time);
 			this.center = center;
 			this.radius = radius;
-			this.initAngle = initAngle;
+			this.angle = initAngle;
+			this.rotAngle = rotAngle;
 
-			let centerVec = vec3.create();
-			vec3.set(centerVec, center[0], center[1], center[2]);
-			mat4.translate(this.transformation, this.transformation, centerVec);
-
-			mat4.rotateY(this.transformation, this.transformation, initAngle*this.degToRad);
-
-			let radiusVec = vec3.create();
-			vec3.set(radiusVec, 0, 0, radius);
-			mat4.translate(this.transformation, this.transformation, radiusVec);
-
-	    this.rotAngle = rotAngle;
+			this.angle = 0;
 			this.delta = this.rotAngle/this.time;
 
 			this.initBuffers();
@@ -36,17 +27,22 @@ class CircularAnimation extends Animation {
 
 	apply() {
 			if (this.currTime <= this.time) {
-					mat4.rotateY(this.transformation, this.transformation, this.delta*this.degToRad);
-					this.currTime += this.scene.period/3600;
-					console.log("not yet");
-			}
-			else {
-					console.log("finished");
-			}
-	};
+					console.log(this.currTime + " <= " + this.time);
+					this.transformation = new mat4.create();
 
-	update() {
-			this.apply();
+					let centerVec = vec3.create();
+					vec3.set(centerVec, this.center[0], this.center[1], this.center[2]);
+					mat4.translate(this.transformation, this.transformation, centerVec);
+
+					mat4.rotateY(this.transformation, this.transformation, this.angle*this.degToRad);
+
+					let radiusVec = vec3.create();
+					vec3.set(radiusVec, 0, 0, this.radius);
+					mat4.translate(this.transformation, this.transformation, radiusVec);
+					this.currTime += this.scene.period;
+
+					this.angle += this.delta;
+			}
 	};
 
 	copy() {
