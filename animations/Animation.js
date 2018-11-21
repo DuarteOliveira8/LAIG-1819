@@ -7,10 +7,11 @@
  /**
   * Animation class, representing an object's animation.
   */
-class Animation extends CGFobject { //abstract?
+class Animation extends CGFobject {
 	/**
 	 * @constructor constructor of the class Animation.
 	 * @param {scene of the application} scene
+	 * @param {total time of the animation in ms} time
 	 */
 	constructor(scene, time) {
 			super(scene);
