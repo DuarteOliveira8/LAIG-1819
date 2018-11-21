@@ -15,24 +15,36 @@ class LinearAnimation extends Animation {
 	constructor(scene, time, controlPoints) {
 		super(scene, time);
     this.controlPoints = controlPoints;
-    this.currentPoint = 0;
+		this.currentPoint = 0;
 
-		let firstPoint = vec3.create();
-		vec3.set(firstPoint, controlPoints[0].x, controlPoints[0].y, controlPoints[0].z);
-		vec3.normalize(firstPoint, firstPoint);
+		let totalDistance = 0;
 
-		let objectDir = vec3.create();
-		vec3.set(objectDir, 0, 0, 1); //z axis
+		for(let i = 1; i < this.controlPoints.length;  i++) {
+			let point1 = vec3.fromValues(this.controlPoints[i-1].x, this.controlPoints[i-1].y, this.controlPoints[i-1].z);
+			let point2 = vec3.fromValues(this.controlPoints[i].x, this.controlPoints[i].y, this.controlPoints[i].z);
+			totalDistance += vec3.distance(point1, point2);
+		}
 
-		let rotateAngle = Math.atan2(firstPoint[2], firstPoint[0]) - Math.atan2(objectDir[2], objectDir[0]);
+		let firstPoint = vec3.fromValues(controlPoints[0].x, controlPoints[0].y, controlPoints[0].z);
 
-		mat4.rotateY(this.transformation, this.transformation, rotateAngle);
 		mat4.translate(this.transformation, this.transformation, firstPoint);
 
 		this.initBuffers();
   };
 
 	apply() {
+
+		if(this.currTime <= this.time) {
+			this.previousPoint = this.currentPoint;
+			this.currentPoint++;
+
+			if(this.currentPoint < this.controlPoints.length) {
+				let point = vec3.fromValues(this.controlPoints[this.currentPoint].x, this.controlPoints[this.currentPoint].y, this.controlPoints[this.currentPoint].z);
+				mat4.translate(this.transformation, this.transformation, point);
+			}
+
+			this.currTime += this.scene.period;
+		}
 
 	};
 
