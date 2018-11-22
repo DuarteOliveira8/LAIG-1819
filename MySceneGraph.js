@@ -1490,7 +1490,6 @@ class MySceneGraph {
 
                 primitive = new MyCoveredCylinder(this.scene, base, top, height, slices, stacks);
             }
-
             else if (attrs[0].nodeName == "rectangle") {
                 var x1, y1, x2, y2;
 
@@ -1520,8 +1519,6 @@ class MySceneGraph {
 
                 primitive = new MyRectangle(this.scene, x1, y1, x2, y2);
             }
-
-
             else if (attrs[0].nodeName == "triangle") {
                 var x1, y1, z1, x2, y2, z2, x3, y3, z3;
 
@@ -1581,8 +1578,6 @@ class MySceneGraph {
 
                 primitive = new MyTriangle(this.scene, x1, y1, z1, x2, y2, z2, x3, y3, z3);
             }
-
-
             else if (attrs[0].nodeName == "sphere") {
                 var radius, slices, stacks;
 
@@ -1606,8 +1601,6 @@ class MySceneGraph {
 
                 primitive = new MySphere(this.scene, radius, slices, stacks);
             }
-
-
             else if (attrs[0].nodeName == "torus") {
                 var inner, outer, slices, loops;
 
@@ -1636,6 +1629,21 @@ class MySceneGraph {
                 }
 
                 primitive = new MyTorus(this.scene, inner, outer, slices, loops)
+            }
+            else if (attrs[0].nodeName == "plane") {
+                var npartsU, npartsV;
+
+                npartsU = this.reader.getInteger(attrs[0], 'npartsU');
+                if (npartsU == null || isNaN(npartsU)) {
+                    return '"npartsU" element must not be null.';
+                }
+
+                npartsV = this.reader.getInteger(attrs[0], 'npartsV');
+                if (npartsV == null || isNaN(npartsV)) {
+                    return '"npartsV" element must not be null.';
+                }
+
+                primitive = new Plane(this.scene, npartsU, npartsV);
             }
             else {
               this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
