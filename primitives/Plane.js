@@ -40,8 +40,10 @@ class Plane extends CGFobject {
 				this.nurbsPlane = new CGFnurbsObject(this.scene, this.nPartsU, this.nPartsV, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
 		};
 
-		updateTexCoords(s, t) {
+		updateTexCoords(s, t) {};
 
+		getPoint(u, v) {
+				this.nurbsPlane.evalObj.getPoint(u, v);
 		};
 
 		display() {
