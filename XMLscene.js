@@ -36,6 +36,8 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
+
+        this.period = 10;
     }
 
     /**
@@ -109,7 +111,6 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = true;
 
-        this.period = 10; // UPDATE PERIOD IN MILISSECONDS
     		this.setUpdatePeriod(this.period);
     }
 

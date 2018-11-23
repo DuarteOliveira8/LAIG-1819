@@ -13,69 +13,62 @@ class LinearAnimation extends Animation {
 	 * @param {scene of the application} scene
 	 */
 	constructor(scene, time, controlPoints) {
-		super(scene, time);
-    this.controlPoints = controlPoints;
-		this.vecDist = [];
-		this.delta = 0;
-		this.currentPoint = 0;
-		this.currentDistance = 0;
-		this.totalDistance = 0;
+			super(scene, time);
+	    this.controlPoints = controlPoints;
+			this.dists = [];
+			this.dirs = [];
+			this.delta = 0;
+			this.currentPointIndex = 0;
+			this.currentDistance = 0;
+			this.totalDistance = 0;
 
-		for(let i = 1; i < this.controlPoints.length;  i++) {
-			let point1 = vec3.fromValues(this.controlPoints[i-1].x, this.controlPoints[i-1].y, this.controlPoints[i-1].z);
-			let point2 = vec3.fromValues(this.controlPoints[i].x, this.controlPoints[i].y, this.controlPoints[i].z);
-			let pointVec = vec3.create();
-			vec3.subtract(pointVec, point2, point1);
-			this.vecDist.push(pointVec);
+			for(let i = 0; i < this.controlPoints.length-1;  i++) {
+					let point1 = vec3.fromValues(this.controlPoints[i].x, this.controlPoints[i].y, this.controlPoints[i].z);
 
-			this.totalDistance += vec3.length(pointVec);
-		}
+					let point2 = vec3.fromValues(this.controlPoints[i+1].x, this.controlPoints[i+1].y, this.controlPoints[i+1].z);
 
-		this.delta = this.totalDistance/this.time;
+					let pointVec = vec3.create();
+					vec3.subtract(pointVec, point2, point1);
+					this.dists.push(vec3.length(pointVec));
+					this.totalDistance += vec3.length(pointVec);
+					this.dirs.push(vec3.normalize(pointVec, pointVec));
+			}
 
-		this.initBuffers();
+			this.delta = (this.totalDistance/this.time)*this.scene.period;
   };
 
 	apply() {
+			if(this.currTime <= this.time) {
+					let currentPoint = vec3.fromValues(this.controlPoints[this.currentPointIndex].x,
+																						 this.controlPoints[this.currentPointIndex].y,
+																						 this.controlPoints[this.currentPointIndex].z);
 
-		if(this.currTime <= this.time) {
+					this.transformation = mat4.create();
 
-			let firstPoint = vec3.fromValues(this.controlPoints[0].x, this.controlPoints[0].y, this.controlPoints[0].z);
+					mat4.translate(this.transformation, this.transformation, currentPoint);
 
-			this.transformation = mat4.create();
+					console.log("Current Distance: ", this.currentDistance);
+					console.log("Point Distance: ", this.dists[this.currentPointIndex]);
+					if(this.currentDistance >= this.dists[this.currentPointIndex]) {
+							console.log("Current Point increase.");
+							this.currentPointIndex++;
+							this.currentDistance = 0;
+					}
 
-			mat4.translate(this.transformation, this.transformation, firstPoint);
+					let dir = vec3.fromValues(this.dirs[this.currentPointIndex][0], this.dirs[this.currentPointIndex][1], this.dirs[this.currentPointIndex][2]);
 
-			let dir = vec3.create();
+					let deltaVec = vec3.create();
+					vec3.scale(deltaVec, dir, this.delta);
 
-			vec3.set(dir, (this.controlPoints[this.currentPoint+1].x - this.controlPoints[this.currentPoint].x),
-			  (this.controlPoints[this.currentPoint+1].y - this.controlPoints[this.currentPoint].y),
-			  (this.controlPoints[this.currentPoint+1].z - this.controlPoints[this.currentPoint].z));
+					this.controlPoints[this.currentPointIndex].x += deltaVec[0];
+					this.controlPoints[this.currentPointIndex].y += deltaVec[1];
+					this.controlPoints[this.currentPointIndex].z += deltaVec[2];
+					this.currentDistance += this.delta;
 
-			vec3.normalize(dir, dir);
-
-			let deltaVec = vec3.create();
-			vec3.scale(deltaVec, dir, this.delta);
-
-			this.controlPoints[this.currentPoint].x += deltaVec[0];
-			this.controlPoints[this.currentPoint].y += deltaVec[1];
-			this.controlPoints[this.currentPoint].z += deltaVec[2];
-
-			mat4.translate(this.transformation, this.transformation, deltaVec);
-
-			console.log("Current Distance: ", this.currentDistance);
-			console.log("Point Distance: ", vec3.length(this.vecDist[this.currentPoint]));
-			if(this.currentDistance >= vec3.length(this.vecDist[this.currentPoint])) {
-				console.log("Current Point increase.");
-				this.currentPoint++;
+					console.log("Increased current distance: ", this.currentDistance);
+					console.log(this.currTime);
+					this.currTime += this.scene.period;
 			}
-
-			this.currentDistance += this.delta;
-			console.log("Increased current distance: ", this.currentDistance);
-			console.log(this.currTime);
-			this.currTime += this.scene.period;
-		}
-
 	};
 
 	copy() {

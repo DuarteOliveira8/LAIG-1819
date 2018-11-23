@@ -19,10 +19,9 @@ class CircularAnimation extends Animation {
 			this.angle = initAngle;
 			this.rotAngle = rotAngle;
 
+			var degToRad = Math.PI / 180;
 			this.angle = 0;
-			this.delta = this.rotAngle/this.time;
-
-			this.initBuffers();
+			this.delta = (this.rotAngle/this.time)*this.scene.period;
   };
 
 	apply() {
