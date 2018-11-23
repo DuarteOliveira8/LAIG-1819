@@ -75,6 +75,9 @@
         </transformation>
     </transformations>
 
+    <animations>
+    </animations>
+
     <primitives>
         <primitive id="sphere">
             <sphere radius="3" slices="30" stacks="30" />

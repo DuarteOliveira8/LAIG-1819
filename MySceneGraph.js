@@ -1704,6 +1704,41 @@ class MySceneGraph {
 
                 primitive = new Patch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
             }
+            else if (attrs[0].nodeName == "cylinder2") {
+                var base, top, height, slices, stacks;
+
+                base = this.reader.getFloat(attrs[0], 'base');
+                if (base == null || isNaN(base)) {
+                    base = 1;
+                    return '"base" element must not be null. Assuming base=1';
+                }
+
+                top = this.reader.getFloat(attrs[0], 'top');
+                if (top == null || isNaN(top)) {
+                    top = 1;
+                    return '"top" element must not be null. Assuming top=1';
+                }
+
+                height = this.reader.getFloat(attrs[0], 'height');
+                if (height == null || isNaN(height)) {
+                    height = 1;
+                    return '"height" element must not be null. Assuming height=1';
+                }
+
+                slices = this.reader.getInteger(attrs[0], 'slices');
+                if (slices == null || isNaN(slices)) {
+                    slices = 3;
+                    return '"slices" element must not be null. Assuming slices=3';
+                }
+
+                stacks = this.reader.getInteger(attrs[0], 'stacks');
+                if (stacks == null || isNaN(stacks)) {
+                    stacks = 1;
+                    return '"stacks" element must not be null. Assuming stacks=1';
+                }
+
+                primitive = new Cylinder2(this.scene, base, top, height, slices, stacks);
+            }
             else {
               this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
             }

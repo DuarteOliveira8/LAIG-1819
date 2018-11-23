@@ -75,6 +75,9 @@
         </transformation>
     </transformations>
 
+    <animations>
+    </animations>
+
     <primitives>
         <primitive id="cylinder">
             <cylinder base="1" top="1" height="2" slices="8" stacks="8" />

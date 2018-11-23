@@ -17,6 +17,7 @@ class Plane extends CGFobject {
 
 				this.nPartsU = nPartsU;
 				this.nPartsV = nPartsV;
+				
 				this.createSurface();
 	  };
 

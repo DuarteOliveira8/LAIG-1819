@@ -20,9 +20,8 @@ class Patch extends CGFobject {
 				this.nPartsU = nPartsU;
 				this.nPartsV = nPartsV;
         this.controlPoints = controlPoints;
+				
 				this.createSurface();
-
-				this.initBuffers();
 	  };
 
 		createSurface() {
