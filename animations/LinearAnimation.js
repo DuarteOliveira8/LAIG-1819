@@ -18,6 +18,7 @@ class LinearAnimation extends Animation {
 		this.vecDist = [];
 		this.delta = 0;
 		this.currentPoint = 0;
+		this.currentDistance = 0;
 		this.totalDistance = 0;
 
 		for(let i = 1; i < this.controlPoints.length;  i++) {
@@ -29,6 +30,8 @@ class LinearAnimation extends Animation {
 
 			this.totalDistance += vec3.length(pointVec);
 		}
+
+		this.delta = this.totalDistance/this.time;
 
 		this.initBuffers();
   };
@@ -49,7 +52,7 @@ class LinearAnimation extends Animation {
 			  (this.controlPoints[this.currentPoint+1].y - this.controlPoints[this.currentPoint].y),
 			  (this.controlPoints[this.currentPoint+1].z - this.controlPoints[this.currentPoint].z));
 
-			this.delta = this.totalDistance/(this.time);
+			vec3.normalize(dir, dir);
 
 			let deltaVec = vec3.create();
 			vec3.scale(deltaVec, dir, this.delta);
@@ -60,11 +63,16 @@ class LinearAnimation extends Animation {
 
 			mat4.translate(this.transformation, this.transformation, deltaVec);
 
-			if(vec3.length(deltaVec) == vec3.length(this.vecDist[this.currentPoint])) {
+			console.log("Current Distance: ", this.currentDistance);
+			console.log("Point Distance: ", vec3.length(this.vecDist[this.currentPoint]));
+			if(this.currentDistance >= vec3.length(this.vecDist[this.currentPoint])) {
 				console.log("Current Point increase.");
 				this.currentPoint++;
 			}
 
+			this.currentDistance += this.delta;
+			console.log("Increased current distance: ", this.currentDistance);
+			console.log(this.currTime);
 			this.currTime += this.scene.period;
 		}
 
