@@ -34,28 +34,20 @@ class Cylinder2 extends CGFobject {
 			let weight = Math.pow(2, 1/2)/2;
 			let controlPoints = [
 											        [
-												          [ 0, -0.5*this.height, 1*this.base, weight ],
-												          [ 0,  0.5*this.height, 1*this.top, weight ]
+																	[this.base, 0, 0, 1],
+																	[this.top, 0, this.height, 1]
 											        ],
 															[
-																	[ 1*this.base, -0.5*this.height, 1*this.base, weight ],
-																	[ 1*this.top,  0.5*this.height, 1*this.top, weight ]
+																	[this.base, this.base, 0, weight],
+																	[this.top, this.top, this.height, weight]
 											        ],
 											        [
-																	[ 1*this.base, -0.5*this.height, 0, 1/weight ],
-																	[ 1*this.top,  0.5*this.height, 0, 1/weight ]
-											        ],
-											        [
-																	[ 1*this.base, -0.5*this.height, -1*this.base, weight ],
-																	[ 1*this.top,  0.5*this.height, -1*this.top, weight ]
-											        ],
-											        [
-																	[ 0, -0.5*this.height, -1*this.base, weight ],
-																	[ 0,  0.5*this.height, -1*this.top, weight ]
+																	[0, this.base, 0, 1],
+																	[0, this.top, this.height, 1]
 											        ]
 										      ];
 
-			let nurbsSurface = new CGFnurbsSurface(4, 1, controlPoints);
+			let nurbsSurface = new CGFnurbsSurface(2, 1, controlPoints);
 
 			this.nurbsPlane = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
   };
@@ -68,7 +60,17 @@ class Cylinder2 extends CGFobject {
 			this.nurbsPlane.display();
 
 			this.scene.pushMatrix();
-					this.scene.rotate(Math.PI, 0, 1, 0);
+					this.scene.rotate(Math.PI/2, 0, 0, 1);
+					this.nurbsPlane.display();
+			this.scene.popMatrix();
+
+			this.scene.pushMatrix();
+					this.scene.rotate(Math.PI, 0, 0, 1);
+					this.nurbsPlane.display();
+			this.scene.popMatrix();
+
+			this.scene.pushMatrix();
+					this.scene.rotate(3*Math.PI/2, 0, 0, 1);
 					this.nurbsPlane.display();
 			this.scene.popMatrix();
 	};
