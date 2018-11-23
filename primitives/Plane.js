@@ -18,8 +18,6 @@ class Plane extends CGFobject {
 				this.nPartsU = nPartsU;
 				this.nPartsV = nPartsV;
 				this.createSurface();
-
-				this.initBuffers();
 	  };
 
 		createSurface() {
@@ -28,7 +26,6 @@ class Plane extends CGFobject {
 								[
 										[-0.5, 0.0,  0.5, 1 ],
 										[-0.5, 0.0, -0.5, 1 ]
-
 								],
 								[
 										[0.5, 0.0,  0.5, 1 ],
@@ -37,7 +34,7 @@ class Plane extends CGFobject {
 						]
 				);
 
-				this.nurbsPlane = new CGFnurbsObject(this.scene, this.nPartsU, this.nPartsV, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
+				this.nurbsPlane = new CGFnurbsObject(this.scene, this.nPartsU, this.nPartsV, nurbsSurface);
 		};
 
 		updateTexCoords(s, t) {};

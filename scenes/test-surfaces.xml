@@ -82,6 +82,15 @@
         <primitive id="plane">
             <plane npartsU="5" npartsV="8" />
         </primitive>
+
+        <primitive id="patch">
+            <patch npointsU="2" npointsV="2" npartsU="5" npartsV="8" >
+                <controlpoint xx="0.5" yy="0" zz="0.5" />
+                <controlpoint xx="-0.5" yy="0" zz="0.5" />
+                <controlpoint xx="0.5" yy="0" zz="-0.5" />
+                <controlpoint xx="-0.5" yy="0" zz="-0.5" />
+            </patch>
+        </primitive>
     </primitives>
 
     <components>
@@ -111,7 +120,7 @@
             <texture id="test" length_s="1" length_t="1" />
 
             <children>
-                <primitiveref id="plane" />
+                <primitiveref id="patch" />
             </children>
         </component>
 
