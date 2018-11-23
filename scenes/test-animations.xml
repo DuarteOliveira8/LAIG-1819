@@ -76,7 +76,7 @@
     </transformations>
 
     <animations>
-        <linear id="linear" span="10">
+        <linear id="linear" span="1">
             <controlpoint xx="0" yy="0" zz="0" />
             <controlpoint xx="0" yy="0" zz="1" />
             <controlpoint xx="0" yy="0" zz="2" />

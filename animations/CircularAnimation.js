@@ -27,7 +27,6 @@ class CircularAnimation extends Animation {
 
 	apply() {
 			if (this.currTime <= this.time) {
-					console.log(this.currTime + " <= " + this.time);
 					this.transformation = new mat4.create();
 
 					let centerVec = vec3.create();

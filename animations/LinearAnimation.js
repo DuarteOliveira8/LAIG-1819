@@ -15,45 +15,54 @@ class LinearAnimation extends Animation {
 	constructor(scene, time, controlPoints) {
 		super(scene, time);
     this.controlPoints = controlPoints;
-		this.currentPoint = 0;
 		this.vecDist = [];
-		this.vecPercentage = [];
-		this.time = time;
+		this.delta = 0;
+		this.currentPoint = 0;
+		this.totalDistance = 0;
 
+		for(let i = 1; i < this.controlPoints.length;  i++) {
+			let point1 = vec3.fromValues(this.controlPoints[i-1].x, this.controlPoints[i-1].y, this.controlPoints[i-1].z);
+			let point2 = vec3.fromValues(this.controlPoints[i].x, this.controlPoints[i].y, this.controlPoints[i].z);
+			let pointVec = vec3.create();
+			vec3.subtract(pointVec, point2, point1);
+			this.vecDist.push(pointVec);
+
+			this.totalDistance += vec3.length(pointVec);
+		}
 
 		this.initBuffers();
   };
 
 	apply() {
 
-		let totalDistance = 0;
-		let timeFragment = 0;
-
-		for(let i = 1; i < this.controlPoints.length;  i++) {
-			let point1 = vec3.fromValues(this.controlPoints[i-1].x, this.controlPoints[i-1].y, this.controlPoints[i-1].z);
-			let point2 = vec3.fromValues(this.controlPoints[i].x, this.controlPoints[i].y, this.controlPoints[i].z);
-			let currentDist = vec3.create();
-			vec3.subtract(currentDist, point2, point1);
-			vecDist.push(currentDist);
-
-			totalDistance += vec3.length(currentDist);
-		}
-
-		for(let j = 0; j < vecDist.length; j++) {
-			this.vecPercentage.push(vec3.length(vecDist)/totalDistance);
-		}
-
-		let firstPoint = vec3.fromValues(this.controlPoints[0].x, this.controlPoints[0].y, this.controlPoints[0].z);
-
-		mat4.translate(this.transformation, this.transformation, firstPoint);
-
 		if(this.currTime <= this.time) {
-			this.previousPoint = this.currentPoint;
-			this.currentPoint++;
 
-			if(this.currentPoint < this.controlPoints.length) {
-				let point = vec3.fromValues(this.controlPoints[this.currentPoint].x, this.controlPoints[this.currentPoint].y, this.controlPoints[this.currentPoint].z);
-				mat4.translate(this.transformation, this.transformation, point);
+			let firstPoint = vec3.fromValues(this.controlPoints[0].x, this.controlPoints[0].y, this.controlPoints[0].z);
+
+			this.transformation = mat4.create();
+
+			mat4.translate(this.transformation, this.transformation, firstPoint);
+
+			let dir = vec3.create();
+
+			vec3.set(dir, (this.controlPoints[this.currentPoint+1].x - this.controlPoints[this.currentPoint].x),
+			  (this.controlPoints[this.currentPoint+1].y - this.controlPoints[this.currentPoint].y),
+			  (this.controlPoints[this.currentPoint+1].z - this.controlPoints[this.currentPoint].z));
+
+			this.delta = this.totalDistance/(this.time);
+
+			let deltaVec = vec3.create();
+			vec3.scale(deltaVec, dir, this.delta);
+
+			this.controlPoints[this.currentPoint].x += deltaVec[0];
+			this.controlPoints[this.currentPoint].y += deltaVec[1];
+			this.controlPoints[this.currentPoint].z += deltaVec[2];
+
+			mat4.translate(this.transformation, this.transformation, deltaVec);
+
+			if(vec3.length(deltaVec) == vec3.length(this.vecDist[this.currentPoint])) {
+				console.log("Current Point increase.");
+				this.currentPoint++;
 			}
 
 			this.currTime += this.scene.period;
