@@ -82,6 +82,51 @@
         <primitive id="plane">
             <plane npartsU="5" npartsV="8" />
         </primitive>
+
+        <primitive id="patch1">
+            <patch npointsU="3" npointsV="2" npartsU="5" npartsV="8" >
+                <controlpoint xx="-1.5" yy="-1.5" zz="0" />
+                <controlpoint xx="-1.5" yy="1.5" zz="0" />
+                <controlpoint xx="0" yy="-1.5" zz="3" />
+                <controlpoint xx="0" yy="1.5" zz="3" />
+                <controlpoint xx="1.5" yy="-1.5" zz="0" />
+                <controlpoint xx="1.5" yy="1.5" zz="0" />
+            </patch>
+        </primitive>
+
+        <primitive id="patch2">
+            <patch npointsU="3" npointsV="4" npartsU="5" npartsV="8" >
+                <controlpoint xx="-1.5" yy="-1.5" zz="0" />
+                <controlpoint xx="-2" yy="-2" zz="2" />
+                <controlpoint xx="-2" yy="2" zz="2" />
+                <controlpoint xx="-1.5" yy="1.5" zz="0" />
+                <controlpoint xx="0" yy="0" zz="3" />
+                <controlpoint xx="0" yy="-2" zz="3" />
+                <controlpoint xx="0" yy="2" zz="3" />
+                <controlpoint xx="0" yy="0" zz="3" />
+                <controlpoint xx="1.5" yy="-1.5" zz="0" />
+                <controlpoint xx="2" yy="-2" zz="2" />
+                <controlpoint xx="2" yy="2" zz="2" />
+                <controlpoint xx="1.5" yy="1.5" zz="0" />
+            </patch>
+        </primitive>
+
+        <primitive id="patch3">
+            <patch npointsU="3" npointsV="4" npartsU="5" npartsV="8" >
+                <controlpoint xx="-2" yy="-2" zz="1" />
+                <controlpoint xx="-2" yy="-1" zz="-2" />
+                <controlpoint xx="-2" yy="1" zz="5" />
+                <controlpoint xx="-2" yy="2" zz="-1" />
+                <controlpoint xx="0" yy="-2" zz="0" />
+                <controlpoint xx="0" yy="-1" zz="-1" />
+                <controlpoint xx="0" yy="1" zz="1.5" />
+                <controlpoint xx="0" yy="2" zz="0" />
+                <controlpoint xx="2" yy="-2" zz="-1" />
+                <controlpoint xx="2" yy="-1" zz="2" />
+                <controlpoint xx="2" yy="1" zz="-5" />
+                <controlpoint xx="2" yy="2" zz="1" />
+            </patch>
+        </primitive>
     </primitives>
 
     <components>
@@ -97,11 +142,17 @@
 
             <children>
                 <componentref id="plane" />
+                <componentref id="patch1" />
+                <componentref id="patch2" />
+                <componentref id="patch3" />
             </children>
         </component>
 
         <component id="plane">
             <transformation>
+                <translate x="-7.5" y="0" z="0" />
+                <rotate axis="x" angle="90" />
+                <scale x="3" y="1" z="3" />
             </transformation>
 
             <materials>
@@ -115,5 +166,52 @@
             </children>
         </component>
 
+        <component id="patch1">
+            <transformation>
+                <translate x="-2.5" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="root" />
+            </materials>
+
+            <texture id="test" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="patch1" />
+            </children>
+        </component>
+
+        <component id="patch2">
+            <transformation>
+                <translate x="2.5" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="root" />
+            </materials>
+
+            <texture id="test" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="patch2" />
+            </children>
+        </component>
+
+        <component id="patch3">
+            <transformation>
+                <translate x="7.5" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="root" />
+            </materials>
+
+            <texture id="test" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="patch3" />
+            </children>
+        </component>
     </components>
 </yas>

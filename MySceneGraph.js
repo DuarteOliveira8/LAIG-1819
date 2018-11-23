@@ -1645,6 +1645,65 @@ class MySceneGraph {
 
                 primitive = new Plane(this.scene, npartsU, npartsV);
             }
+            else if (attrs[0].nodeName == "patch") {
+                var npointsU, npointsV, npartsU, npartsV;
+
+                npointsU = this.reader.getInteger(attrs[0], 'npointsU');
+                if (npointsU == null || isNaN(npointsU)) {
+                    return '"npointsU" element must not be null.';
+                }
+                else if (npointsU < 2 || npointsU > 4) {
+                    return 'U points must be between 2 and 4.';
+                }
+
+                npointsV = this.reader.getInteger(attrs[0], 'npointsV');
+                if (npointsV == null || isNaN(npointsV)) {
+                    return '"npointsV" element must not be null.';
+                }
+                else if (npointsV < 2 || npointsV > 4) {
+                    return 'V points must be between 2 and 4.';
+                }
+
+                npartsU = this.reader.getInteger(attrs[0], 'npartsU');
+                if (npartsU == null || isNaN(npartsU)) {
+                    return '"npartsU" element must not be null.';
+                }
+
+                npartsV = this.reader.getInteger(attrs[0], 'npartsV');
+                if (npartsV == null || isNaN(npartsV)) {
+                    return '"npartsV" element must not be null.';
+                }
+
+                let controlPointsDef = attrs[0].children;
+                let controlPoints = [];
+
+                if (controlPointsDef.length != npointsU*npointsV) {
+                    return 'The number of control points doesn\'t correspond to the number of points U and V indicated.';
+                }
+
+                for (var j = 0; j < controlPointsDef.length; j++) {
+                    let controlPoint = [];
+
+                    controlPoint[0] = this.reader.getFloat(controlPointsDef[j], 'xx');
+                    if (controlPoint[0] == null || isNaN(controlPoint[0])) {
+                        return '"xx" element must not be null.';
+                    }
+
+                    controlPoint[1] = this.reader.getFloat(controlPointsDef[j], 'yy');
+                    if (controlPoint[1] == null || isNaN(controlPoint[1])) {
+                        return '"yy" element must not be null.';
+                    }
+
+                    controlPoint[2] = this.reader.getFloat(controlPointsDef[j], 'zz');
+                    if (controlPoint[2] == null || isNaN(controlPoint[2])) {
+                        return '"zz" element must not be null.';
+                    }
+
+                    controlPoints.push(controlPoint);
+                }
+
+                primitive = new Patch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
+            }
             else {
               this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
             }
