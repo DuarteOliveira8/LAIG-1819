@@ -75,9 +75,16 @@
         </transformation>
     </transformations>
 
+    <animations>
+    </animations>
+
     <primitives>
         <primitive id="cylinder">
             <cylinder2 base="1" top="1" height="2" slices="8" stacks="8" />
+        </primitive>
+
+        <primitive id="cylinder1">
+            <cylinder base="0.5" top="0.5" height="1" slices="8" stacks="8" />
         </primitive>
 
         <primitive id="cylinder2">
@@ -89,7 +96,7 @@
         </primitive>
 
         <primitive id="cylinder4">
-            <cylinder2 base="1" top="0" height="2" slices="8" stacks="8" />
+            <cylinder2 base="1" top="0" height="2" slices="30" stacks="30" />
         </primitive>
 
         <primitive id="cylinder5">
@@ -110,6 +117,7 @@
 
             <children>
                 <componentref id="cylinder" />
+                <!-- <componentref id="cylinder1" /> -->
                 <componentref id="cylinder2" />
                 <componentref id="cylinder3" />
                 <componentref id="cylinder4" />
@@ -129,6 +137,23 @@
 
             <children>
                 <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="cylinder1">
+            <transformation>
+                <translate x="0" y="-0.5" z="0" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="root" />
+            </materials>
+
+            <texture id="test" length_s="2" length_t="1" />
+
+            <children>
+                <primitiveref id="cylinder1" />
             </children>
         </component>
 

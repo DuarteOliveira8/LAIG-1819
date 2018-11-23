@@ -75,6 +75,9 @@
         </transformation>
     </transformations>
 
+    <animations>
+    </animations>
+
     <primitives>
         <primitive id="face">
             <triangle x1="0" y1="0" z1="0"
