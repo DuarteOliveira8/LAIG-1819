@@ -1902,6 +1902,9 @@ class MySceneGraph {
                             component.transformation = transformation;
                         }
                     }
+                    else {
+                        component.transformation = mat4.create();
+                    }
                 }
                 else if (attrs[indexTransformation].getElementsByTagName("transformationref").length == 1) {
                     var ref = attrs[indexTransformation].children[0];

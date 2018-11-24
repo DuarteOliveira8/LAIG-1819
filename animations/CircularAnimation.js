@@ -14,17 +14,16 @@ class CircularAnimation extends Animation {
 	 */
 	constructor(scene, time, center, radius, initAngle, rotAngle) {
 			super(scene, time);
+
 			this.center = center;
 			this.radius = radius;
 			this.angle = initAngle;
 			this.rotAngle = rotAngle;
 
-			var degToRad = Math.PI / 180;
-			this.angle = 0;
 			this.delta = (this.rotAngle/this.time)*this.scene.period;
   };
 
-	apply() {
+	apply(currTime) {
 			if (this.currTime <= this.time) {
 					this.transformation = new mat4.create();
 
@@ -37,13 +36,22 @@ class CircularAnimation extends Animation {
 					let radiusVec = vec3.create();
 					vec3.set(radiusVec, 0, 0, this.radius);
 					mat4.translate(this.transformation, this.transformation, radiusVec);
-					this.currTime += this.scene.period;
 
+					if (this.previousTime != 0) {
+							this.deltaTime = currTime-this.previousTime;
+							this.delta = (this.rotAngle/this.time)*this.deltaTime;
+					}
+					this.previousTime = currTime;
+
+					this.currTime += this.deltaTime;
 					this.angle += this.delta;
+			}
+			else {
+					this.finished = true;
 			}
 	};
 
 	copy() {
-			return new CircularAnimation(this.scene, this.time, this.center, this.radius, this.initAngle, this.rotAngle);
+			return new CircularAnimation(this.scene, this.time, this.center, this.radius, this.angle, this.rotAngle);
 	};
 };

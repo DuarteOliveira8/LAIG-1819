@@ -90,7 +90,7 @@
             <controlpoint xx="-1" yy="0" zz="-1" />
         </linear>
 
-        <circular id="circular" span="2" center="00 00 00" radius="4" startang="0" rotang="360" />
+        <circular id="circular" span="10" center="00 00 00" radius="4" startang="0" rotang="360" />
     </animations>
 
     <primitives>
@@ -117,18 +117,36 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
+                <componentref id="vehicle" />
+            </children>
+        </component>
+
+        <component id="vehicle">
+            <transformation>
+            </transformation>
+
+            <animations>
+                <animationref id="linear2" />
+                <animationref id="linear" />
+                <animationref id="circular" />
+            </animations>
+
+            <materials>
+                <material id="root" />
+            </materials>
+
+            <texture id="test" length_s="1" length_t="1" />
+
+            <children>
                 <componentref id="pyramid" />
             </children>
         </component>
 
         <component id="pyramid">
             <transformation>
-                <translate x="-0.5" y="-0.5" z="0" />
+                <rotate axis="y" angle="45" />
+                <translate x="-0.5" y="-0.5" z="-0.25" />
             </transformation>
-
-            <animations>
-                <animationref id="circular" />
-            </animations>
 
             <materials>
                 <material id="root" />

@@ -19,15 +19,22 @@ class Animation extends CGFobject {
 			this.currTime = 0;
 			this.transformation = new mat4.create();
 			this.degToRad = Math.PI / 180;
+			this.previousTime = 0;
+			this.deltaTime = this.scene.period;
+			this.finished = false;
 
 			this.initBuffers();
   };
 
-	apply() {
+	hasFinished() {
+			return this.finished;
+	};
+
+	apply(currTime) {
 
 	};
 
-	update() {
-			this.apply();
+	update(currTime) {
+			this.apply(currTime);
 	};
 };

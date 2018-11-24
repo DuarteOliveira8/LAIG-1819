@@ -166,10 +166,15 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
-    update() {
+    update(currTime) {
         for (var key in this.graph.components) {
             if (this.graph.components[key].hasOwnProperty("animations")) {
-                this.graph.components[key].animations[this.graph.components[key].currentAnimation].update();
+                if (!this.graph.components[key].animations[this.graph.components[key].currentAnimation].hasFinished()) {
+                    this.graph.components[key].animations[this.graph.components[key].currentAnimation].update(currTime);
+                }
+                else if (this.graph.components[key].currentAnimation < this.graph.components[key].animations.length-1) {
+                    this.graph.components[key].currentAnimation++;
+                }
             }
         }
     }
