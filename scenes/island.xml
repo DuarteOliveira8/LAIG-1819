@@ -76,6 +76,7 @@
     </transformations>
 
     <animations>
+        <circular id="circular" span="10" center="00 00 00" radius="4" startang="0" rotang="360" />
     </animations>
 
     <primitives>
@@ -85,6 +86,10 @@
 
         <primitive id="water">
             <water idtexture="scenes/images/water.jpg" idwavemap="scenes/images/water-height.png" parts="250" heightscale="0.3" texscale="4" />
+        </primitive>
+
+        <primitive id="drone">
+            <vehicle />
         </primitive>
     </primitives>
 
@@ -102,6 +107,7 @@
             <children>
                 <componentref id="terrain" />
                 <componentref id="water" />
+                <componentref id="drone" />
             </children>
         </component>
 
@@ -136,6 +142,26 @@
             <children>
                 <primitiveref id="water" />
             </children>
+        </component>
+
+        <component id="drone">
+          <transformation>
+              <translate x="0" y="7" z="0" />
+          </transformation>
+
+          <animations>
+              <animationref id="circular" />
+          </animations>
+
+          <materials>
+              <material id="inherit" />
+          </materials>
+
+          <texture id="none" length_s="1" length_t="1" />
+
+          <children>
+              <primitiveref id="drone" />
+          </children>
         </component>
     </components>
 </yas>
