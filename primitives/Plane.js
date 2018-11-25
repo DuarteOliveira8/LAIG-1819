@@ -5,7 +5,7 @@
  */
 
  /**
-  * Plane class, representing a 2D and 3D surfaces.
+  * Plane class, representing a 2D surface.
   */
 class Plane extends CGFobject {
 		/**
@@ -17,7 +17,7 @@ class Plane extends CGFobject {
 
 				this.nPartsU = nPartsU;
 				this.nPartsV = nPartsV;
-				
+
 				this.createSurface();
 	  };
 

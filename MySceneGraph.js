@@ -1741,6 +1741,28 @@ class MySceneGraph {
             }
             else if(attrs[0].nodeName == "vehicle") {
                 primitive = new Vehicle(this.scene);
+            else if (attrs[0].nodeName == "terrain") {
+                let idtexture = this.reader.getString(attrs[0], 'idtexture');
+                if (idtexture == null || idtexture == "") {
+                    return '"idtexture" element must not be null.';
+                }
+
+                let idheightmap = this.reader.getString(attrs[0], 'idheightmap');
+                if (idheightmap == null || idtexture == "") {
+                    return '"idheightmap" element must not be null.';
+                }
+
+                let parts = this.reader.getInteger(attrs[0], 'parts');
+                if (parts == null || isNaN(parts)) {
+                    return '"parts" element must not be null.';
+                }
+
+                let heightscale = this.reader.getFloat(attrs[0], 'heightscale');
+                if (heightscale == null || isNaN(heightscale)) {
+                    return '"heightscale" element must not be null.';
+                }
+
+                primitive = new Terrain(this.scene, idtexture, idheightmap, parts, heightscale);
             }
             else {
               this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
@@ -1904,6 +1926,9 @@ class MySceneGraph {
 
                             component.transformation = transformation;
                         }
+                    }
+                    else {
+                        component.transformation = mat4.create();
                     }
                 }
                 else if (attrs[indexTransformation].getElementsByTagName("transformationref").length == 1) {

@@ -21,6 +21,7 @@ class LinearAnimation extends Animation {
 			this.currentPointIndex = 0;
 			this.currentDistance = 0;
 			this.totalDistance = 0;
+			this.dirAngle = 0;
 
 			for(let i = 0; i < this.controlPoints.length-1;  i++) {
 					let point1 = vec3.fromValues(this.controlPoints[i].x, this.controlPoints[i].y, this.controlPoints[i].z);
@@ -37,8 +38,27 @@ class LinearAnimation extends Animation {
 			this.delta = (this.totalDistance/this.time)*this.scene.period;
   };
 
-	apply() {
+	apply(currTime) {
 			if(this.currTime <= this.time) {
+					if(this.currentDistance >= this.dists[this.currentPointIndex]) {
+							this.currentPointIndex++;
+							this.currentDistance = 0;
+
+							let nextDir = vec3.fromValues(this.dirs[this.currentPointIndex][0],
+																						this.dirs[this.currentPointIndex][1],
+																						this.dirs[this.currentPointIndex][2]);
+
+							let previousDir = vec3.fromValues(this.dirs[this.currentPointIndex-1][0],
+																							  this.dirs[this.currentPointIndex-1][1],
+																							  this.dirs[this.currentPointIndex-1][2]);
+
+							console.log(vec3.dot(nextDir, previousDir));
+							console.log(vec3.length(nextDir));
+							console.log(vec3.length(previousDir));
+							this.dirAngle -= Math.acos(vec3.dot(nextDir, previousDir)/(vec3.length(nextDir)*vec3.length(previousDir)));
+							console.log(this.dirAngle);
+					}
+
 					let currentPoint = vec3.fromValues(this.controlPoints[this.currentPointIndex].x,
 																						 this.controlPoints[this.currentPointIndex].y,
 																						 this.controlPoints[this.currentPointIndex].z);
@@ -46,17 +66,15 @@ class LinearAnimation extends Animation {
 					this.transformation = mat4.create();
 
 					mat4.translate(this.transformation, this.transformation, currentPoint);
+					mat4.rotateY(this.transformation, this.transformation, this.dirAngle);
 
-					console.log("Current Distance: ", this.currentDistance);
-					console.log("Point Distance: ", this.dists[this.currentPointIndex]);
-					if(this.currentDistance >= this.dists[this.currentPointIndex]) {
-							console.log("Current Point increase.");
-							this.currentPointIndex++;
-							this.currentDistance = 0;
+					if (this.previousTime != 0) {
+							this.deltaTime = currTime-this.previousTime;
+							this.delta = (this.totalDistance/this.time)*this.deltaTime;
 					}
+					this.previousTime = currTime;
 
 					let dir = vec3.fromValues(this.dirs[this.currentPointIndex][0], this.dirs[this.currentPointIndex][1], this.dirs[this.currentPointIndex][2]);
-
 					let deltaVec = vec3.create();
 					vec3.scale(deltaVec, dir, this.delta);
 
@@ -65,9 +83,10 @@ class LinearAnimation extends Animation {
 					this.controlPoints[this.currentPointIndex].z += deltaVec[2];
 					this.currentDistance += this.delta;
 
-					console.log("Increased current distance: ", this.currentDistance);
-					console.log(this.currTime);
-					this.currTime += this.scene.period;
+					this.currTime += this.deltaTime;
+			}
+			else {
+					this.finished = true;
 			}
 	};
 
