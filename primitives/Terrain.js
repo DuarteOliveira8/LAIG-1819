@@ -17,18 +17,17 @@ class Terrain extends Plane {
 
 				this.idTexture = new CGFtexture(this.scene, idTexture);
         this.idHeightMap = new CGFtexture(this.scene, idHeightMap);
-        this.idHeightMap = idHeightMap;
         this.heightScale = heightScale;
 
-				this.shader = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
-				this.shader.setUniformsValues({heightScale: this.heightScale, uSampler: 1, uSampler2: 2});
+				this.shader = new CGFshader(this.scene.gl, "./shaders/terrain.vert", "./shaders/terrain.frag");
+				this.shader.setUniformsValues({heightScale: this.heightScale, uSampler2: 1});
 	  };
 
 		display() {
 				this.scene.setActiveShader(this.shader);
 
-				this.idTexture.bind(1);
-				this.idHeightMap.bind(2);
+				this.idTexture.bind();
+				this.idHeightMap.bind(1);
 
 				this.nurbsPlane.display();
 

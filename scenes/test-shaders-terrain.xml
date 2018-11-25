@@ -3,7 +3,7 @@
 
     <views default="cam0">
         <perspective id="cam0" near="0.1" far="500" angle="23">
-            <from x="30" y="30" z="30" />
+            <from x="100" y="100" z="100" />
             <to x="0" y="0" z="0" />
         </perspective>
 
@@ -80,7 +80,7 @@
 
     <primitives>
         <primitive id="terrain">
-            <terrain idtexture="scenes/images/island.jpg" idheightmap="scenes/images/island-height.png" parts="5" heightscale="7" />
+            <terrain idtexture="scenes/images/island.jpg" idheightmap="scenes/images/island-height.png" parts="100" heightscale="10" />
         </primitive>
     </primitives>
 
@@ -102,7 +102,7 @@
 
         <component id="terrain">
             <transformation>
-                <scale x="3" y="1" z="3" />
+                <scale x="50" y="1" z="50" />
             </transformation>
 
             <materials>
