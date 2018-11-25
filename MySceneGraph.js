@@ -1746,7 +1746,7 @@ class MySceneGraph {
                 }
 
                 let idheightmap = this.reader.getString(attrs[0], 'idheightmap');
-                if (idheightmap == null || idtexture == "") {
+                if (idheightmap == null || idheightmap == "") {
                     return '"idheightmap" element must not be null.';
                 }
 
@@ -1761,6 +1761,34 @@ class MySceneGraph {
                 }
 
                 primitive = new Terrain(this.scene, idtexture, idheightmap, parts, heightscale);
+            }
+            else if (attrs[0].nodeName == "water") {
+                let idtexture = this.reader.getString(attrs[0], 'idtexture');
+                if (idtexture == null || idtexture == "") {
+                    return '"idtexture" element must not be null.';
+                }
+
+                let idwavemap = this.reader.getString(attrs[0], 'idwavemap');
+                if (idwavemap == null || idwavemap == "") {
+                    return '"idwavemap" element must not be null.';
+                }
+
+                let parts = this.reader.getInteger(attrs[0], 'parts');
+                if (parts == null || isNaN(parts)) {
+                    return '"parts" element must not be null.';
+                }
+
+                let heightscale = this.reader.getFloat(attrs[0], 'heightscale');
+                if (heightscale == null || isNaN(heightscale)) {
+                    return '"heightscale" element must not be null.';
+                }
+
+                let texscale = this.reader.getFloat(attrs[0], 'texscale');
+                if (texscale == null || isNaN(texscale)) {
+                    return '"texscale" element must not be null.';
+                }
+
+                primitive = new Water(this.scene, idtexture, idwavemap, parts, heightscale, texscale);
             }
             else {
               this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
