@@ -1739,6 +1739,9 @@ class MySceneGraph {
 
                 primitive = new Cylinder2(this.scene, base, top, height, slices, stacks);
             }
+            else if(attrs[0].nodeName == "vehicle") {
+                primitive = new Vehicle(this.scene);
+            }
             else {
               this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
             }
