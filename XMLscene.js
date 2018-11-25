@@ -37,7 +37,7 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
 
-        this.period = 10;
+        this.period = 20;
     }
 
     /**
@@ -174,6 +174,12 @@ class XMLscene extends CGFscene {
                 }
                 else if (this.graph.components[key].currentAnimation < this.graph.components[key].animations.length-1) {
                     this.graph.components[key].currentAnimation++;
+                }
+            }
+
+            for (var i = 0; i < this.graph.components[key].children.primitiveChildren.length; i++) {
+                if (this.graph.components[key].children.primitiveChildren[i] instanceof Water) {
+                    this.graph.components[key].children.primitiveChildren[i].update(currTime);
                 }
             }
         }

@@ -79,8 +79,8 @@
     </animations>
 
     <primitives>
-        <primitive id="terrain">
-            <terrain idtexture="scenes/images/island.jpg" idheightmap="scenes/images/island-height.png" parts="250" heightscale="10" />
+        <primitive id="water">
+            <water idtexture="scenes/images/water.jpg" idwavemap="scenes/images/water-height.png" parts="100" heightscale="2" texscale="2" />
         </primitive>
     </primitives>
 
@@ -96,11 +96,11 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="terrain" />
+                <componentref id="water" />
             </children>
         </component>
 
-        <component id="terrain">
+        <component id="water">
             <transformation>
                 <scale x="50" y="1" z="50" />
             </transformation>
@@ -112,7 +112,7 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <primitiveref id="terrain" />
+                <primitiveref id="water" />
             </children>
         </component>
     </components>
