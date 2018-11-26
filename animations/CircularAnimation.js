@@ -34,7 +34,7 @@ class CircularAnimation extends Animation {
 					mat4.rotateY(this.transformation, this.transformation, this.angle*this.degToRad);
 
 					let radiusVec = vec3.create();
-					vec3.set(radiusVec, 0, 0, this.radius);
+					vec3.set(radiusVec, this.radius, 0, 0);
 					mat4.translate(this.transformation, this.transformation, radiusVec);
 
 					if (this.previousTime != 0) {
@@ -44,7 +44,7 @@ class CircularAnimation extends Animation {
 					this.previousTime = currTime;
 
 					this.currTime += this.deltaTime;
-					this.angle += this.delta;
+					this.angle -= this.delta;
 			}
 			else {
 					this.finished = true;

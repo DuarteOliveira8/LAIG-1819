@@ -49,7 +49,7 @@ class Cylinder2 extends CGFobject {
 
 			let nurbsSurface = new CGFnurbsSurface(2, 1, controlPoints);
 
-			this.nurbsPlane = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
+			this.nurbsPlane = new CGFnurbsObject(this.scene, this.slices/4, this.stacks/4, nurbsSurface);
   };
 
 	getPoint(u, v) {
