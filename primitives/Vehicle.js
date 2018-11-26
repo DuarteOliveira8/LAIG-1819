@@ -11,7 +11,7 @@
  {
      /**
      * @constructor constructor of the class Vehicle.
-     * @param {scene of the application} scene
+     * @param {Scene of the application} scene
      */
      constructor(scene)
      {

@@ -21,6 +21,9 @@ class Plane extends CGFobject {
 				this.createSurface();
 	  };
 
+		/**
+	   * Creates the NURBS surface using the WebCGF library.
+	   */
 		createSurface() {
 				let nurbsSurface = new CGFnurbsSurface(1, 1,
 						[
@@ -38,13 +41,26 @@ class Plane extends CGFobject {
 				this.nurbsPlane = new CGFnurbsObject(this.scene, this.nPartsU, this.nPartsV, nurbsSurface);
 		};
 
-		updateTexCoords(s, t) {};
-
+		/**
+		 * Returns a specific vertex of the plane.
+		 * @param {u coordinate of the point.} u
+		 * @param {v coordinate of the point.} v
+		 */
 		getPoint(u, v) {
 				this.nurbsPlane.evalObj.getPoint(u, v);
 		};
 
+		/**
+		 * Displays the plane surface.
+		 */
 		display() {
-			this.nurbsPlane.display();
+				this.nurbsPlane.display();
 		};
+
+		/**
+		 * Updates the texture coordinates.
+	 	 * @param {s texture coordinate.} s
+	 	 * @param {t texture coordinate.} t
+		 */
+		updateTexCoords(s, t) {};
 };

@@ -9,8 +9,13 @@
   */
 class Water extends Plane {
 		/**
-		 * @constructor constructor of the class Water.
-		 * @param {scene of the application} scene
+		 * @constructor constructor of the class Terrain.
+		 * @param {Scene of the application.} scene
+		 * @param {File of the terrain color texture.} idTexture
+		 * @param {File of the terrain wave map.} idWaveMap
+		 * @param {Number of parts. Creates a n x n plane.} parts
+		 * @param {Scale factor of the height transformation.} heightScale
+		 * @param {Scale factor of the water texture.} texScale
 		 */
 		constructor(scene, idTexture, idWaveMap, parts, heightScale, texScale) {
 				super(scene, parts, parts);
@@ -25,6 +30,9 @@ class Water extends Plane {
 				this.shader.setUniformsValues({heightScale: this.heightScale, texScale: this.texScale, uSampler2: 1});
 	  };
 
+		/**
+	   * Sets the current shader and displays the terrain.
+	   */
 		display() {
 				this.scene.setActiveShader(this.shader);
 
@@ -36,6 +44,9 @@ class Water extends Plane {
 				this.scene.setActiveShader(this.scene.defaultShader);
 		};
 
+		/**
+	   * Updates the time factor of the shader based ont time.
+	   */
     update() {
         this.factor += 0.005;
         this.factor %= 1;

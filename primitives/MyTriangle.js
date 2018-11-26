@@ -8,7 +8,7 @@ class MyTriangle extends CGFobject
 {
 	/**
 	 * MyTriangle class, representing the triangle primitive.
- 	 * @param {scene of the application.} scene
+ 	 * @param {Scene of the application.} scene
  	 * @param {x coordinate of the first vertex.} x1
  	 * @param {y coordinate of the first vertex.} y1
  	 * @param {z coordinate of the first vertex.} z1

@@ -11,11 +11,11 @@ class MyTorus extends CGFobject
 {
 	/**
 	 * @constructor constructor of the class MyTorus.
-	 * @param {scene of the application.} scene
-	 * @param {inner radius.} inner
-	 * @param {outer radius.} outer
-	 * @param {number of torus slices.} slices
-	 * @param {number of torus loops.} loops
+	 * @param {Scene of the application.} scene
+	 * @param {Inner radius.} inner
+	 * @param {Outer radius.} outer
+	 * @param {Number of torus slices.} slices
+	 * @param {Number of torus loops.} loops
 	 */
 	constructor(scene, inner, outer, slices, loops)
 	{

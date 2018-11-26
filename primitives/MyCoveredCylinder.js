@@ -11,12 +11,12 @@ class MyCoveredCylinder extends CGFobject
 {
 	/**
 	 * @constructor Constructor of the class MyCoveredCylinder.
- 	 * @param {scene of the application.} scene
- 	 * @param {base radius.} base
- 	 * @param {top radius.} top
- 	 * @param {height of the cylinder.} height
- 	 * @param {slices of the cylinder.} slices
- 	 * @param {stacks of the cylinder.} stacks
+ 	 * @param {Scene of the application.} scene
+ 	 * @param {Base radius.} base
+ 	 * @param {Top radius.} top
+ 	 * @param {Height of the cylinder.} height
+ 	 * @param {Slices of the cylinder.} slices
+ 	 * @param {Stacks of the cylinder.} stacks
 	 */
 	constructor(scene, base, top, height, slices, stacks)
 	{
