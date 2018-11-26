@@ -88,8 +88,8 @@ class Cylinder2 extends CGFobject {
 
 	/**
 	 * Updates the texture coordinates.
- 	 * @param {s texture coordinate} s
- 	 * @param {t texture coordinate} t
+ 	 * @param {s texture coordinate.} s
+ 	 * @param {t texture coordinate.} t
 	 */
 	updateTexCoords(s, t) {};
 

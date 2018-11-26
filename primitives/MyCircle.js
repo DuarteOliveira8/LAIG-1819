@@ -11,9 +11,9 @@ class MyCircle extends CGFobject
 {
 	/**
 	 * @constructor constructor of the class MyCircle.
-	 * @param {scene of the application} scene
-	 * @param {number of circle slices} slices
-	 * @param {circle radius} radius
+	 * @param {scene of the application.} scene
+	 * @param {number of circle slices.} slices
+	 * @param {circle radius.} radius
 	 */
 	constructor(scene, slices, radius)
 	{
@@ -72,8 +72,8 @@ class MyCircle extends CGFobject
 
 	/**
 	* Updates the texture coordinates.
-	* @param {s texture coordinate} s
-	* @param {t texture coordinate} t
+	* @param {s texture coordinate.} s
+	* @param {t texture coordinate.} t
 	*/
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();

@@ -11,12 +11,12 @@ class MyCylinder extends CGFobject
 {
 	/**
 	 * @constructor Constructor of the class MyCylinder.
- 	 * @param {scene of the application} scene
- 	 * @param {base radius} base
- 	 * @param {top radius} top
- 	 * @param {height of the cylinder} height
- 	 * @param {slices of the cylinder} slices
- 	 * @param {stacks of the cylinder} stacks
+ 	 * @param {scene of the application.} scene
+ 	 * @param {base radius.} base
+ 	 * @param {top radius.} top
+ 	 * @param {height of the cylinder.} height
+ 	 * @param {slices of the cylinder.} slices
+ 	 * @param {stacks of the cylinder.} stacks
 	 */
 	constructor(scene, base, top, height, slices, stacks)
 	{
@@ -109,8 +109,8 @@ class MyCylinder extends CGFobject
 
 	/**
 	 * Updates the texture coordinates.
- 	 * @param {s texture coordinate} s
- 	 * @param {t texture coordinate} t
+ 	 * @param {s texture coordinate.} s
+ 	 * @param {t texture coordinate.} t
 	 */
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();

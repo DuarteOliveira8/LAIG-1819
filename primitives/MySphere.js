@@ -11,10 +11,10 @@ class MySphere extends CGFobject
 {
 	/**
 	 * @constructor constructor of the class MySphere.
-	 * @param {scene of the application} scene
-	 * @param {sphere radius} radius
-	 * @param {number of sphere slices} slices
-	 * @param {number of sphere stacks} stacks
+	 * @param {scene of the application.} scene
+	 * @param {sphere radius.} radius
+	 * @param {number of sphere slices.} slices
+	 * @param {number of sphere stacks.} stacks
 	 */
 	constructor(scene, radius, slices, stacks)
 	{
@@ -101,8 +101,8 @@ class MySphere extends CGFobject
 
 	/**
 	* Updates the texture coordinates.
-	* @param {s texture coordinate} s
-	* @param {t texture coordinate} t
+	* @param {s texture coordinate.} s
+	* @param {t texture coordinate.} t
 	*/
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();

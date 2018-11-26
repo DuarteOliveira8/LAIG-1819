@@ -11,11 +11,11 @@ class MyTorus extends CGFobject
 {
 	/**
 	 * @constructor constructor of the class MyTorus.
-	 * @param {scene of the application} scene
-	 * @param {inner radius} inner
-	 * @param {outer radius} outer
-	 * @param {number of torus slices} slices
-	 * @param {number of torus loops} loops
+	 * @param {scene of the application.} scene
+	 * @param {inner radius.} inner
+	 * @param {outer radius.} outer
+	 * @param {number of torus slices.} slices
+	 * @param {number of torus loops.} loops
 	 */
 	constructor(scene, inner, outer, slices, loops)
 	{
@@ -106,8 +106,8 @@ class MyTorus extends CGFobject
 
 	/**
 	* Updates the texture coordinates.
-	* @param {s texture coordinate} s
-	* @param {t texture coordinate} t
+	* @param {s texture coordinate.} s
+	* @param {t texture coordinate.} t
 	*/
 	updateTexCoords(s, t) {
 			this.texCoords = this.originalTexCoords.slice();
