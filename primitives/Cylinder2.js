@@ -9,13 +9,13 @@
   */
 class Cylinder2 extends CGFobject {
 	/**
-	 * @constructor Constructor of the class MyCylinder.
- 	 * @param {scene of the application} scene
- 	 * @param {base radius} base
- 	 * @param {top radius} top
- 	 * @param {height of the cylinder} height
- 	 * @param {slices of the cylinder} slices
- 	 * @param {stacks of the cylinder} stacks
+	 * @constructor Constructor of the class Cylinder2.
+ 	 * @param {scene of the application.} scene
+ 	 * @param {base radius.} base
+ 	 * @param {top radius.} top
+ 	 * @param {height of the cylinder.} height
+ 	 * @param {slices of the cylinder.} slices
+ 	 * @param {stacks of the cylinder.} stacks
 	 */
 	constructor(scene, base, top, height, slices, stacks)
 	{
@@ -30,6 +30,9 @@ class Cylinder2 extends CGFobject {
 		this.createSurface();
 	};
 
+	/**
+   * Creates the NURBS surface using the WebCGF library. It creates a quarter of a cylinder.
+   */
   createSurface() {
 			let weight = Math.pow(2, 1/2)/2;
 			let controlPoints = [
@@ -52,10 +55,18 @@ class Cylinder2 extends CGFobject {
 			this.nurbsPlane = new CGFnurbsObject(this.scene, this.slices/4, this.stacks/4, nurbsSurface);
   };
 
+	/**
+	 * Returns a specific vertex of the cylinder.
+	 * @param {u coordinate of the point.} u
+	 * @param {v coordinate of the point.} v
+	 */
 	getPoint(u, v) {
 			this.nurbsPlane.evalObj.getPoint(u, v);
 	};
 
+	/**
+	 * Displays all four quarters of the cylinder.
+	 */
 	display() {
 			this.nurbsPlane.display();
 

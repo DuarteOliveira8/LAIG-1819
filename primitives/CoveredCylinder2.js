@@ -5,18 +5,18 @@
  */
 
 /**
- * MyCoveredCylinder class, representing the cylinder primitive with covers on each side.
+ * CoveredCylinder2 class, representing the NURBS version of the cylinder primitive with covers.
  */
 class CoveredCylinder2 extends CGFobject
 {
 	/**
-	 * @constructor Constructor of the class MyCoveredCylinder.
- 	 * @param {scene of the application} scene
- 	 * @param {base radius} base
- 	 * @param {top radius} top
- 	 * @param {height of the cylinder} height
- 	 * @param {slices of the cylinder} slices
- 	 * @param {stacks of the cylinder} stacks
+	 * @constructor Constructor of the class CoveredCylinder2.
+ 	 * @param {scene of the application.} scene
+ 	 * @param {base radius.} base
+ 	 * @param {top radius.} top
+ 	 * @param {height of the cylinder.} height
+ 	 * @param {slices of the cylinder.} slices
+ 	 * @param {stacks of the cylinder.} stacks
 	 */
 	constructor(scene, base, top, height, slices, stacks)
 	{
