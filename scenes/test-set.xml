@@ -1,32 +1,16 @@
 <yas>
     <scene root="root" axis_length="5" />
 
-    <views default="full-view">
-        <perspective id="full-view" near="0.1" far="500" angle="23">
-            <from x="100" y="100" z="100" />
+    <views default="cam0">
+        <perspective id="cam0" near="0.1" far="500" angle="23">
+            <from x="30" y="30" z="30" />
             <to x="0" y="0" z="0" />
         </perspective>
 
-        <perspective id="temple" near="0.1" far="500" angle="23">
-            <from x="30" y="30" z="-20" />
-            <to x="-5" y="0" z="-20" />
-        </perspective>
-
-        <perspective id="set1" near="0.1" far="500" angle="23">
-            <from x="9" y="10" z="10" />
-            <to x="9" y="2.5" z="-2" />
-        </perspective>
-        <translate x="9" y="2.5" z="-2" />
-
-        <perspective id="set2" near="0.1" far="500" angle="23">
-            <from x="-30" y="20" z="15" />
-            <to x="-10" y="3" z="15" />
-        </perspective>
-
-        <perspective id="set3" near="0.1" far="500" angle="23">
-            <from x="-13" y="30" z="-40" />
-            <to x="-13" y="2" z="-12" />
-        </perspective>
+        <ortho id="cam1" near="0.1" far="500" left="0" right="10" top="6" bottom="0">
+            <from x="50" y="0" z="5" />
+            <to x="5" y="0" z="0" />
+        </ortho>
     </views>
 
     <ambient>
@@ -35,33 +19,41 @@
     </ambient>
 
     <lights>
-        <omni id="temple" enabled="1" >
-            <location x="-4" y="7" z="-16.75" w="1" />
+        <omni id="light0" enabled="1" >
+            <location x="0" y="6" z="0" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
-        <omni id="set1" enabled="1" >
-            <location x="9" y="7" z="-2" w="1" />
+        <omni id="light1" enabled="1" >
+            <location x="6" y="6" z="0" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
-        <omni id="set2" enabled="1" >
-            <location x="-10" y="7" z="15" w="1" />
+        <omni id="light2" enabled="1" >
+            <location x="0" y="6" z="6" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
 
-        <omni id="set3" enabled="1" >
-            <location x="-13" y="7" z="-12" w="1" />
+        <omni id="light3" enabled="1" >
+            <location x="6" y="6" z="6" w="1" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </omni>
+
+        <spot id="light4" enabled="0" angle="23" exponent="1">
+            <location x="10" y="10" z="10" w="10" />
+            <target x="0" y="0" z="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1" />
+            <specular r="0.3" g="0.3" b="0.3" a="1" />
+        </spot>
     </lights>
 
     <textures>
@@ -84,50 +76,9 @@
     </transformations>
 
     <animations>
-        <linear id="up-drone" span="2">
-            <controlpoint xx="0" yy="0" zz="0" />
-            <controlpoint xx="0" yy="80" zz="0" />
-        </linear>
-
-        <circular id="around-circular-drone" span="20" center="-80 80 00" radius="80" startang="0" rotang="-360" />
-
-        <linear id="around-linear-drone" span="20">
-            <controlpoint xx="0" yy="80" zz="0" />
-            <controlpoint xx="0" yy="80" zz="-60" />
-            <controlpoint xx="-160" yy="80" zz="-60" />
-            <controlpoint xx="-160" yy="80" zz="60" />
-            <controlpoint xx="0" yy="80" zz="60" />
-            <controlpoint xx="0" yy="80" zz="0" />
-        </linear>
-
-        <linear id="down-drone" span="2">
-            <controlpoint xx="0" yy="80" zz="0" />
-            <controlpoint xx="0" yy="0" zz="0" />
-        </linear>
-
-        <linear id="climb-stairs" span="50">
-            <controlpoint xx="0" yy="0" zz="0" />
-            <controlpoint xx="0" yy="27.6" zz="30" />
-            <controlpoint xx="0" yy="27.6" zz="40" />
-            <controlpoint xx="0.1" yy="27.6" zz="40" />
-            <controlpoint xx="0.1" yy="27.6" zz="30" />
-            <controlpoint xx="0" yy="0" zz="0" />
-        </linear>
     </animations>
 
     <primitives>
-        <primitive id="terrain">
-            <terrain idtexture="scenes/images/temple-island.png" idheightmap="scenes/images/temple-island-height.jpg" parts="250" heightscale="15" />
-        </primitive>
-
-        <primitive id="water">
-            <water idtexture="scenes/images/water.jpg" idwavemap="scenes/images/water-height.png" parts="250" heightscale="0.3" texscale="4" />
-        </primitive>
-
-        <primitive id="drone">
-            <vehicle />
-        </primitive>
-
         <primitive id="head">
             <sphere radius="1" slices="64" stacks="64" />
         </primitive>
@@ -138,10 +89,6 @@
 
         <primitive id="body-member">
             <cylinder base="0.25" top="0.125" height="2" slices="8" stacks="8" />
-        </primitive>
-
-        <primitive id="anthena">
-            <cylinder base="0.05" top="0.05" height="0.5" slices="8" stacks="8" />
         </primitive>
 
         <primitive id="tripod-leg">
@@ -165,101 +112,12 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="terrain" />
-                <componentref id="water" />
-                <componentref id="drone" />
-                <componentref id="drone-person" />
-                <componentref id="temple-actor" />
-                <componentref id="set-1" />
-                <componentref id="set-2" />
-                <componentref id="set-3" />
-            </children>
-        </component>
-
-        <component id="terrain">
-            <transformation>
-                <scale x="50" y="1" z="50" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="none" length_s="1" length_t="1" />
-
-            <children>
-                <primitiveref id="terrain" />
-            </children>
-        </component>
-
-        <component id="water">
-            <transformation>
-                <translate x="0" y="0.5" z="0" />
-                <scale x="60" y="1" z="60" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="none" length_s="1" length_t="1" />
-
-            <children>
-                <primitiveref id="water" />
-            </children>
-        </component>
-
-        <component id="set-1">
-            <transformation>
-                <translate x="9" y="2.5" z="-2" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1" length_t="1" />
-
-            <children>
-                <componentref id="set" />
-            </children>
-        </component>
-
-        <component id="set-2">
-            <transformation>
-                <translate x="-10" y="3" z="15" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1" length_t="1" />
-
-            <children>
-                <componentref id="set" />
-            </children>
-        </component>
-
-        <component id="set-3">
-            <transformation>
-                <translate x="-13" y="2" z="-12" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1" length_t="1" />
-
-            <children>
                 <componentref id="set" />
             </children>
         </component>
 
         <component id="set">
             <transformation>
-                <scale x="0.1" y="0.1" z="0.1" />
             </transformation>
 
             <materials>
@@ -454,211 +312,95 @@
         </component>
 
         <component id="lens">
-            <transformation>
-                <translate x="0" y="3.5" z="0.25" />
-                <scale x="1.5" y="1.5" z="3" />
-            </transformation>
+          <transformation>
+              <translate x="0" y="3.5" z="0.25" />
+              <scale x="1.5" y="1.5" z="3" />
+          </transformation>
 
-            <materials>
-                <material id="inherit" />
-            </materials>
+          <materials>
+              <material id="inherit" />
+          </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+          <texture id="inherit" length_s="1" length_t="1" />
 
-            <children>
-                <primitiveref id="camera-lens" />
-            </children>
+          <children>
+              <primitiveref id="camera-lens" />
+          </children>
         </component>
 
         <component id="tripod-leg-1">
-            <transformation>
-                <translate x="0" y="0" z="-1.25" />
-                <rotate axis="x" angle="-70" />
-                <scale x="1" y="1" z="2" />
-            </transformation>
+          <transformation>
+              <translate x="0" y="0" z="-1.25" />
+              <rotate axis="x" angle="-70" />
+              <scale x="1" y="1" z="2" />
+          </transformation>
 
-            <materials>
-                <material id="inherit" />
-            </materials>
+          <materials>
+              <material id="inherit" />
+          </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+          <texture id="inherit" length_s="1" length_t="1" />
 
-            <children>
-                <primitiveref id="tripod-leg" />
-            </children>
+          <children>
+              <primitiveref id="tripod-leg" />
+          </children>
         </component>
 
         <component id="tripod-leg-2">
-            <transformation>
-                <rotate axis="y" angle="90" />
-                <translate x="0" y="0" z="-1.25" />
-                <rotate axis="x" angle="-70" />
-                <scale x="1" y="1" z="2" />
-            </transformation>
+          <transformation>
+              <rotate axis="y" angle="90" />
+              <translate x="0" y="0" z="-1.25" />
+              <rotate axis="x" angle="-70" />
+              <scale x="1" y="1" z="2" />
+          </transformation>
 
-            <materials>
-                <material id="inherit" />
-            </materials>
+          <materials>
+              <material id="inherit" />
+          </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+          <texture id="inherit" length_s="1" length_t="1" />
 
-            <children>
-                <primitiveref id="tripod-leg" />
-            </children>
+          <children>
+              <primitiveref id="tripod-leg" />
+          </children>
         </component>
 
         <component id="tripod-leg-3">
-            <transformation>
-                <rotate axis="y" angle="180" />
-                <translate x="0" y="0" z="-1.25" />
-                <rotate axis="x" angle="-70" />
-                <scale x="1" y="1" z="2" />
-            </transformation>
+          <transformation>
+              <rotate axis="y" angle="180" />
+              <translate x="0" y="0" z="-1.25" />
+              <rotate axis="x" angle="-70" />
+              <scale x="1" y="1" z="2" />
+          </transformation>
 
-            <materials>
-                <material id="inherit" />
-            </materials>
+          <materials>
+              <material id="inherit" />
+          </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+          <texture id="inherit" length_s="1" length_t="1" />
 
-            <children>
-                <primitiveref id="tripod-leg" />
-            </children>
+          <children>
+              <primitiveref id="tripod-leg" />
+          </children>
         </component>
 
         <component id="tripod-leg-4">
-            <transformation>
-                <rotate axis="y" angle="-90" />
-                <translate x="0" y="0" z="-1.25" />
-                <rotate axis="x" angle="-70" />
-                <scale x="1" y="1" z="2" />
-            </transformation>
+          <transformation>
+              <rotate axis="y" angle="-90" />
+              <translate x="0" y="0" z="-1.25" />
+              <rotate axis="x" angle="-70" />
+              <scale x="1" y="1" z="2" />
+          </transformation>
 
-            <materials>
-                <material id="inherit" />
-            </materials>
+          <materials>
+              <material id="inherit" />
+          </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+          <texture id="inherit" length_s="1" length_t="1" />
 
-            <children>
-                <primitiveref id="tripod-leg" />
-            </children>
-        </component>
-
-        <component id="drone">
-            <transformation>
-                <translate x="1.5" y="1.24" z="-16.75" />
-                <scale x="0.05" y="0.05" z="0.05" />
-            </transformation>
-
-            <animations>
-                <animationref id="up-drone" />
-                <animationref id="around-circular-drone" />
-                <animationref id="around-linear-drone" />
-                <animationref id="down-drone" />
-            </animations>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="none" length_s="1" length_t="1" />
-
-            <children>
-                <primitiveref id="drone" />
-            </children>
-        </component>
-
-        <component id="temple-actor">
-            <transformation>
-                <translate x="0.5" y="1.24" z="-16.75" />
-                <rotate axis="y" angle="-90" />
-                <scale x="0.1" y="0.1" z="0.1" />
-            </transformation>
-
-            <animations>
-                <animationref id="climb-stairs" />
-            </animations>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="black" length_s="1" length_t="1" />
-
-            <children>
-                <componentref id="person" />
-            </children>
-        </component>
-
-        <component id="drone-person">
-            <transformation>
-                <translate x="2.5" y="1.24" z="-16.75" />
-                <rotate axis="y" angle="-90" />
-                <scale x="0.1" y="0.1" z="0.1" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="black" length_s="1" length_t="1" />
-
-            <children>
-                <componentref id="person" />
-                <componentref id="drone-controller" />
-            </children>
-        </component>
-
-        <component id="drone-controller">
-            <transformation>
-                <translate x="0" y="3" z="1.5" />
-                <rotate axis="x" angle="25" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1" length_t="1" />
-
-            <children>
-                <componentref id="drone-controller-body" />
-                <componentref id="drone-controller-anthena" />
-            </children>
-        </component>
-
-        <component id="drone-controller-body">
-            <transformation>
-                <scale x="1" y="0.5" z="0.1" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1" length_t="1" />
-
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
-
-        <component id="drone-controller-anthena">
-            <transformation>
-                <translate x="-0.25" y="0.25" z="0" />
-                <rotate axis="x" angle="-90" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1" length_t="1" />
-
-            <children>
-                <primitiveref id="anthena" />
-            </children>
+          <children>
+              <primitiveref id="tripod-leg" />
+          </children>
         </component>
 
         <component id="person">
