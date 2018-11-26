@@ -26,14 +26,21 @@ class Animation extends CGFobject {
 			this.initBuffers();
   };
 
+	/**
+	 * Checks if the animation has finished or not.
+	 */
 	hasFinished() {
 			return this.finished;
 	};
 
-	apply(currTime) {
+	/**
+	 * Abstract method apply.
+	 */
+	apply(currTime) {};
 
-	};
-
+	/**
+	 * Calls the apply method based on time.
+	 */
 	update(currTime) {
 			this.apply(currTime);
 	};
