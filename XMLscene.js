@@ -166,6 +166,9 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
+    /**
+    * Updates the components' animations and water movement.
+    */
     update(currTime) {
         for (var key in this.graph.components) {
             if (this.graph.components[key].hasOwnProperty("animations")) {
