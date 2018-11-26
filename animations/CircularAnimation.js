@@ -61,7 +61,7 @@ class CircularAnimation extends Animation {
 			}
 	};
 
-	/*
+	/**
 	* Returns a copy of the current class.
 	*/
 	copy() {
