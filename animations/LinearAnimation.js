@@ -10,7 +10,9 @@
 class LinearAnimation extends Animation {
 	/**
 	 * @constructor constructor of the class LinearAnimation.
-	 * @param {scene of the application} scene
+	 * @param {Scene of the application.} scene
+	 * @param {Total time of the animation in ms.} time
+	 * @param {Array containing the control points of the animation.} controlPoints
 	 */
 	constructor(scene, time, controlPoints) {
 			super(scene, time);
@@ -38,6 +40,11 @@ class LinearAnimation extends Animation {
 			this.delta = (this.totalDistance/this.time)*this.scene.period;
   };
 
+	/**
+	 * Applies the current animation state to the transformation matrix and prepares the next transformation.
+	 * When the current time of the animation exceeds the span specified, it terminates the animation.
+	 * @param {Current unix time in ms.} currTime
+	 */
 	apply(currTime) {
 			if(this.currTime <= this.time) {
 					if(this.currentDistance >= this.dists[this.currentPointIndex]) {
@@ -84,6 +91,9 @@ class LinearAnimation extends Animation {
 			}
 	};
 
+	/**
+	 * Returns a copy the current class.
+	 */
 	copy() {
 			return new LinearAnimation(this.scene, this.time, this.controlPoints);
 	};
