@@ -10,7 +10,12 @@
 class CircularAnimation extends Animation {
 	/**
 	 * @constructor constructor of the class CircularAnimation.
-	 * @param {scene of the application} scene
+	 * @param {Scene of the application.} scene
+	 * @param {Total time of the animation in ms.} time
+	 * @param {Center point of the animation rotation.} center
+	 * @param {Radius of the animation rotation.} radius
+	 * @param {Initial Animation Rotation Angle. If 0, it's located in the x axis.} initAngle
+	 * @param {Total rotation angle.} rotAngle
 	 */
 	constructor(scene, time, center, radius, initAngle, rotAngle) {
 			super(scene, time);
@@ -23,6 +28,11 @@ class CircularAnimation extends Animation {
 			this.delta = (this.rotAngle/this.time)*this.scene.period;
   };
 
+	/**
+	* Applies the current animation state to the transformation matrix and prepares the next transformation.
+	* When the current time of the animation exceeds the span specified, it terminates the animation.
+	* @param {Current UNIX time in ms.} currTime
+	*/
 	apply(currTime) {
 			if (this.currTime <= this.time) {
 					this.transformation = new mat4.create();
@@ -51,6 +61,9 @@ class CircularAnimation extends Animation {
 			}
 	};
 
+	/*
+	* Returns a copy of the current class.
+	*/
 	copy() {
 			return new CircularAnimation(this.scene, this.time, this.center, this.radius, this.angle, this.rotAngle);
 	};
