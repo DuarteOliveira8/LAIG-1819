@@ -1741,6 +1741,7 @@ class MySceneGraph {
             }
             else if(attrs[0].nodeName == "vehicle") {
                 primitive = new Vehicle(this.scene);
+            }
             else if (attrs[0].nodeName == "terrain") {
                 let idtexture = this.reader.getString(attrs[0], 'idtexture');
                 if (idtexture == null || idtexture == "") {

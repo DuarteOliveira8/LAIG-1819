@@ -44,19 +44,13 @@ class LinearAnimation extends Animation {
 							this.currentPointIndex++;
 							this.currentDistance = 0;
 
-							let nextDir = vec3.fromValues(this.dirs[this.currentPointIndex][0],
-																						this.dirs[this.currentPointIndex][1],
+							let nextDir = vec2.fromValues(this.dirs[this.currentPointIndex][0],
 																						this.dirs[this.currentPointIndex][2]);
 
-							let previousDir = vec3.fromValues(this.dirs[this.currentPointIndex-1][0],
-																							  this.dirs[this.currentPointIndex-1][1],
+							let previousDir = vec2.fromValues(this.dirs[this.currentPointIndex-1][0],
 																							  this.dirs[this.currentPointIndex-1][2]);
 
-							console.log(vec3.dot(nextDir, previousDir));
-							console.log(vec3.length(nextDir));
-							console.log(vec3.length(previousDir));
-							this.dirAngle -= Math.acos(vec3.dot(nextDir, previousDir)/(vec3.length(nextDir)*vec3.length(previousDir)));
-							console.log(this.dirAngle);
+							this.dirAngle -= Math.acos(vec2.dot(nextDir, previousDir)/(vec2.length(nextDir)*vec2.length(previousDir)));
 					}
 
 					let currentPoint = vec3.fromValues(this.controlPoints[this.currentPointIndex].x,
