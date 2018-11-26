@@ -10,8 +10,8 @@
 class Animation extends CGFobject {
 	/**
 	 * @constructor constructor of the class Animation.
-	 * @param {scene of the application} scene
-	 * @param {total time of the animation in ms} time
+	 * @param {Scene of the application.} scene
+	 * @param {Total time of the animation in ms.} time
 	 */
 	constructor(scene, time) {
 			super(scene);
@@ -35,13 +35,20 @@ class Animation extends CGFobject {
 
 	/**
 	 * Abstract method apply.
+	 * @param {Current unix time in ms.} currTime
 	 */
 	apply(currTime) {};
 
 	/**
 	 * Calls the apply method based on time.
+	 * @param {Current unix time in ms.} currTime
 	 */
 	update(currTime) {
 			this.apply(currTime);
 	};
+
+	/**
+	 * Abstract method copy.
+	 */
+	copy() {};
 };
