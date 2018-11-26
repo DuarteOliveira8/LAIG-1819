@@ -80,7 +80,7 @@
     </lights>
 
     <textures>
-        <texture id="water" file="scenes/images/water.jpeg" />
+        <texture id="water" file="scenes/images/water.jpg" />
         <texture id="rocks" file="scenes/images/rocks.jpg" />
         <texture id="grass" file="scenes/images/grass.jpeg" />
         <texture id="street" file="scenes/images/street.jpg" />
