@@ -1339,14 +1339,6 @@ class MySceneGraph {
             }
             span *= 1000;
 
-            let selfZrotation = this.reader.getFloat(children[i], 'selfZrotation');
-            if (isNaN(selfZrotation)) {
-                return 'The "selfZrotation" parameter must be a float.'
-            }
-            if (selfZrotation == null) {
-                selfZrotation = 0;
-            }
-
             if (children[i].nodeName == "linear") {
                 var attrs = children[i].children;
                 var controlPoints = [];
@@ -1381,7 +1373,7 @@ class MySceneGraph {
                     controlPoints.push(controlPoint);
                 }
 
-                this.animations[id] = new LinearAnimation(this.scene, span, controlPoints, selfZrotation)
+                this.animations[id] = new LinearAnimation(this.scene, span, controlPoints)
             }
             else if (children[i].nodeName == "circular") {
 
@@ -1422,7 +1414,7 @@ class MySceneGraph {
                   return "Rotang element must not be null.";
               }
 
-              this.animations[id] = new CircularAnimation(this.scene, span, centerFloat, radius, startang, rotang, selfZrotation);
+              this.animations[id] = new CircularAnimation(this.scene, span, centerFloat, radius, startang, rotang);
             }
         }
     }

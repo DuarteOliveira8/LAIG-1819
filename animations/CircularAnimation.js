@@ -17,18 +17,15 @@ class CircularAnimation extends Animation {
 	 * @param {Initial Animation Rotation Angle. If 0, it's located in the x axis.} initAngle
 	 * @param {Total rotation angle.} rotAngle
 	 */
-	constructor(scene, time, center, radius, initAngle, rotAngle, selfZrotation) {
+	constructor(scene, time, center, radius, initAngle, rotAngle) {
 			super(scene, time);
 
 			this.center = center;
 			this.radius = radius;
 			this.angle = initAngle;
 			this.rotAngle = rotAngle;
-			this.selfZrotation = selfZrotation;
-			this.currentSelf = 0;
 
 			this.delta = (this.rotAngle/this.time)*this.scene.period;
-			this.deltaSelf = (this.selfZrotation/this.time)*this.scene.period;
   };
 
 	/**
@@ -49,15 +46,12 @@ class CircularAnimation extends Animation {
 					let radiusVec = vec3.create();
 					vec3.set(radiusVec, this.radius, 0, 0);
 					mat4.translate(this.transformation, this.transformation, radiusVec);
-					mat4.rotateZ(this.transformation, this.transformation, this.currentSelf*this.degToRad);
 
 					if (this.previousTime != 0) {
 							this.deltaTime = currTime-this.previousTime;
 							this.delta = (this.rotAngle/this.time)*this.deltaTime;
-							this.deltaSelf = (this.selfZrotation/this.time)*this.deltaTime;
 					}
 					this.previousTime = currTime;
-					this.currentSelf += this.deltaSelf;
 
 					this.currTime += this.deltaTime;
 					this.angle -= this.delta;
@@ -71,6 +65,6 @@ class CircularAnimation extends Animation {
 	* Returns a copy of the current class.
 	*/
 	copy() {
-			return new CircularAnimation(this.scene, this.time, this.center, this.radius, this.angle, this.rotAngle, this.selfZrotation);
+			return new CircularAnimation(this.scene, this.time, this.center, this.radius, this.angle, this.rotAngle);
 	};
 };

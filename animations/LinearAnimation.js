@@ -14,7 +14,7 @@ class LinearAnimation extends Animation {
 	 * @param {Total time of the animation in ms.} time
 	 * @param {Array containing the control points of the animation.} controlPoints
 	 */
-	constructor(scene, time, controlPoints, selfZrotation) {
+	constructor(scene, time, controlPoints) {
 			super(scene, time);
 	    this.controlPoints = controlPoints;
 			this.dists = [];
@@ -22,10 +22,8 @@ class LinearAnimation extends Animation {
 			this.delta = 0;
 			this.currentPointIndex = 0;
 			this.currentDistance = 0;
-			this.currentSelf = 0;
 			this.totalDistance = 0;
 			this.dirAngle = 0;
-			this.selfZrotation = selfZrotation;
 
 			for(let i = 0; i < this.controlPoints.length-1;  i++) {
 					let point1 = vec3.fromValues(this.controlPoints[i].x, this.controlPoints[i].y, this.controlPoints[i].z);
@@ -40,7 +38,6 @@ class LinearAnimation extends Animation {
 			}
 
 			this.delta = (this.totalDistance/this.time)*this.scene.period;
-			this.deltaSelf = (this.selfZrotation/this.time)*this.scene.period;
   };
 
 	/**
@@ -71,12 +68,10 @@ class LinearAnimation extends Animation {
 
 					mat4.translate(this.transformation, this.transformation, currentPoint);
 					mat4.rotateY(this.transformation, this.transformation, this.dirAngle);
-					mat4.rotateZ(this.transformation, this.transformation, this.currentSelf*this.degToRad);
 
 					if (this.previousTime != 0) {
 							this.deltaTime = currTime-this.previousTime;
 							this.delta = (this.totalDistance/this.time)*this.deltaTime;
-							this.deltaSelf = (this.selfZrotation/this.time)*this.deltaTime;
 					}
 					this.previousTime = currTime;
 
@@ -88,7 +83,6 @@ class LinearAnimation extends Animation {
 					this.controlPoints[this.currentPointIndex].y += deltaVec[1];
 					this.controlPoints[this.currentPointIndex].z += deltaVec[2];
 					this.currentDistance += this.delta;
-					this.currentSelf += this.deltaSelf;
 
 					this.currTime += this.deltaTime;
 			}
@@ -101,6 +95,6 @@ class LinearAnimation extends Animation {
 	 * Returns a copy the current class.
 	 */
 	copy() {
-			return new LinearAnimation(this.scene, this.time, this.controlPoints, this.selfZrotation);
+			return new LinearAnimation(this.scene, this.time, this.controlPoints);
 	};
 };
