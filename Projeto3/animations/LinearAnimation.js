@@ -45,7 +45,7 @@ class LinearAnimation extends Animation {
 	 * When the current time of the animation exceeds the span specified, it terminates the animation.
 	 * @param {Current unix time in ms.} currTime
 	 */
-	apply(currTime) {
+	apply() {
 			if(this.currTime <= this.time) {
 					if(this.currentDistance >= this.dists[this.currentPointIndex]) {
 							this.currentPointIndex++;
@@ -70,10 +70,10 @@ class LinearAnimation extends Animation {
 					mat4.rotateY(this.transformation, this.transformation, this.dirAngle);
 
 					if (this.previousTime != 0) {
-							this.deltaTime = currTime-this.previousTime;
+							this.deltaTime = this.scene.currentTime-this.previousTime;
 							this.delta = (this.totalDistance/this.time)*this.deltaTime;
 					}
-					this.previousTime = currTime;
+					this.previousTime = this.scene.currentTime;
 
 					let dir = vec3.fromValues(this.dirs[this.currentPointIndex][0], this.dirs[this.currentPointIndex][1], this.dirs[this.currentPointIndex][2]);
 					let deltaVec = vec3.create();

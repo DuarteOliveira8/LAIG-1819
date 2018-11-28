@@ -37,14 +37,14 @@ class Animation extends CGFobject {
 	 * Abstract method apply.
 	 * @param {Current unix time in ms.} currTime
 	 */
-	apply(currTime) {};
+	apply() {};
 
 	/**
 	 * Calls the apply method based on time.
 	 * @param {Current unix time in ms.} currTime
 	 */
-	update(currTime) {
-			this.apply(currTime);
+	update() {
+			this.apply();
 	};
 
 	/**

@@ -37,7 +37,8 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
 
-        this.period = 20;
+        this.period = 10;
+        this.currentTime = 0;
     }
 
     /**
@@ -170,22 +171,24 @@ class XMLscene extends CGFscene {
     * Updates the components' animations and water movement.
     */
     update(currTime) {
-        for (var key in this.graph.components) {
-            if (this.graph.components[key].hasOwnProperty("animations")) {
-                if (!this.graph.components[key].animations[this.graph.components[key].currentAnimation].hasFinished()) {
-                    this.graph.components[key].animations[this.graph.components[key].currentAnimation].update(currTime);
-                }
-                else if (this.graph.components[key].currentAnimation < this.graph.components[key].animations.length-1) {
-                    this.graph.components[key].currentAnimation++;
-                }
-            }
+        this.currentTime = currTime;
 
-            for (var i = 0; i < this.graph.components[key].children.primitiveChildren.length; i++) {
-                if (this.graph.components[key].children.primitiveChildren[i] instanceof Water) {
-                    this.graph.components[key].children.primitiveChildren[i].update(currTime);
-                }
-            }
-        }
+        // for (var key in this.graph.components) {
+            // if (this.graph.components[key].hasOwnProperty("animations")) {
+            //     if (!this.graph.components[key].animations[this.graph.components[key].currentAnimation].hasFinished()) {
+            //         this.graph.components[key].animations[this.graph.components[key].currentAnimation].update(currTime);
+            //     }
+            //     else if (this.graph.components[key].currentAnimation < this.graph.components[key].animations.length-1) {
+            //         this.graph.components[key].currentAnimation++;
+            //     }
+            // }
+
+            // for (var i = 0; i < this.graph.components[key].children.primitiveChildren.length; i++) {
+            //     if (this.graph.components[key].children.primitiveChildren[i] instanceof Water) {
+            //         this.graph.components[key].children.primitiveChildren[i].update(currTime);
+            //     }
+            // }
+        // }
     }
 
     /**

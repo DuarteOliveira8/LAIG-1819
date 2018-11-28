@@ -2235,8 +2235,15 @@ class MySceneGraph {
 
         if (node.transformation != null) {
             this.scene.multMatrix(node.transformation);
-            if (node.hasOwnProperty("animations"))
+            if (node.hasOwnProperty("animations")) {
+                if (!node.animations[node.currentAnimation].hasFinished()) {
+                    node.animations[node.currentAnimation].update();
+                }
+                else if (node.currentAnimation < node.animations.length-1) {
+                    node.currentAnimation++;
+                }
                 this.scene.multMatrix(node.animations[node.currentAnimation].transformation);
+            }
         }
 
         if (node.materials[this.currMaterial%node.materials.length] == "inherit") {
@@ -2288,6 +2295,9 @@ class MySceneGraph {
                 node.children.primitiveChildren[i].updateTexCoords(node.texture.length_s, node.texture.length_t);
             }
 
+            if (node.children.primitiveChildren[i] instanceof Water) {
+                node.children.primitiveChildren[i].update();
+            }
             node.children.primitiveChildren[i].display();
         }
 

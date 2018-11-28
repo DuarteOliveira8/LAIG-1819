@@ -33,7 +33,7 @@ class CircularAnimation extends Animation {
 	* When the current time of the animation exceeds the span specified, it terminates the animation.
 	* @param {Current UNIX time in ms.} currTime
 	*/
-	apply(currTime) {
+	apply() {
 			if (this.currTime <= this.time) {
 					this.transformation = new mat4.create();
 
@@ -48,10 +48,10 @@ class CircularAnimation extends Animation {
 					mat4.translate(this.transformation, this.transformation, radiusVec);
 
 					if (this.previousTime != 0) {
-							this.deltaTime = currTime-this.previousTime;
+							this.deltaTime = this.scene.currentTime-this.previousTime;
 							this.delta = (this.rotAngle/this.time)*this.deltaTime;
 					}
-					this.previousTime = currTime;
+					this.previousTime = this.scene.currentTime;
 
 					this.currTime += this.deltaTime;
 					this.angle -= this.delta;
