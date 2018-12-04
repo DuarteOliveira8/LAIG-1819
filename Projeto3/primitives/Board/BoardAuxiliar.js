@@ -24,7 +24,7 @@ class BoardAuxiliar extends CGFobject {
         this.woodAppearance.setDiffuse(0.6,0.6,0.6,1);
         this.woodAppearance.setSpecular(0.3,0.3,0.3,1);
         this.woodAppearance.setShininess(150);
-        this.woodAppearance.loadTexture("../scenes/images/wood.jpg");
+        this.woodAppearance.loadTexture("../scenes/images/dark-wood.jpg");
 
         this.hinge = new MyCoveredCylinder(scene, 0.1, 0.1, 1, 32, 32);
 
