@@ -1793,6 +1793,9 @@ class MySceneGraph {
 
                 primitive = new Water(this.scene, idtexture, idwavemap, parts, heightscale, texscale);
             }
+            else if (attrs[0].nodeName == "board") {
+                primitive = new Board(this.scene);
+            }
             else {
               this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
             }
