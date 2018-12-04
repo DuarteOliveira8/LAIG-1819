@@ -1,21 +1,19 @@
 /**
- * Board
+ * BoardCell
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
 
 /**
- * Board class, a 3D representation of our game board.
+ * BoardCell class, a 3D representation of our game board cell.
  */
-class Board extends CGFobject {
+class BoardCell extends CGFobject {
     /**
-    * @constructor constructor of the class Board.
+    * @constructor constructor of the class BoardCell.
     * @param {Scene of the application} scene
     */
     constructor(scene) {
         super(scene);
-
-        this.boardCell = new BoardCell(scene);
     };
 
     /**
