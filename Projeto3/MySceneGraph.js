@@ -1742,6 +1742,15 @@ class MySceneGraph {
             else if(attrs[0].nodeName == "vehicle") {
                 primitive = new Vehicle(this.scene);
             }
+            else if (attrs[0].nodeName == "disc") {
+                primitive = new Disc(this.scene);
+            }
+            else if (attrs[0].nodeName == "mina") {
+                primitive = new Mina(this.scene);
+            }
+            else if (attrs[0].nodeName == "yuki") {
+                primitive = new Yuki(this.scene);
+            }
             else if (attrs[0].nodeName == "terrain") {
                 let idtexture = this.reader.getString(attrs[0], 'idtexture');
                 if (idtexture == null || idtexture == "") {
