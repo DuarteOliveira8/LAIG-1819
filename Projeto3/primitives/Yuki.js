@@ -61,7 +61,7 @@
 
         this.scene.pushMatrix();
             this.scene.translate(0, 1.2, 0);
-            this.scene.scale(1.5, 2, 1);
+            this.scene.scale(1.25, 1.75, 1);
             this.snowAppearance.apply();
             this.yukiBody.display();
         this.scene.popMatrix();
@@ -86,7 +86,7 @@
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.scene.translate(0.95, 1, 0);
+            this.scene.translate(0.8, 1, 0);
             this.scene.rotate(30*degToRad, 0, 0, 1);
             this.scene.rotate(-90*degToRad, 1, 0, 0);
             this.snowAppearance2.apply();
@@ -95,7 +95,7 @@
 
         this.scene.pushMatrix();
             this.scene.rotate(180*degToRad, 0, 1, 0);
-            this.scene.translate(0.95, 1, 0);
+            this.scene.translate(0.8, 1, 0);
             this.scene.rotate(30*degToRad, 0, 0, 1);
             this.scene.rotate(-90*degToRad, 1, 0, 0);
             this.snowAppearance2.apply();
