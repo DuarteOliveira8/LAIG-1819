@@ -14,6 +14,17 @@ class BoardCell extends CGFobject {
     */
     constructor(scene) {
         super(scene);
+
+        // this.pickingEnabled = true;
+
+        this.quad = new MyRectangle(scene, -0.5, -0.5, 0.5, 0.5);
+
+        this.topCellAppearance = new CGFappearance(this.scene);
+        this.topCellAppearance.setAmbient(0.6,0.6,0.6,1);
+        this.topCellAppearance.setDiffuse(0.7,0.7,0.7,1);
+        this.topCellAppearance.setSpecular(0.7,0.7,0.7,1);
+        this.topCellAppearance.setShininess(150);
+        this.topCellAppearance.loadTexture("../scenes/images/boardCell.jpg");
     };
 
     /**
@@ -21,6 +32,46 @@ class BoardCell extends CGFobject {
     */
     display() {
         var degToRad = Math.PI / 180;
+
+        this.scene.pushMatrix();
+            this.scene.scale(1, 0.1, 1);
+
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0, 0.5);
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0, -0.5);
+                this.scene.rotate(180*degToRad, 1, 0, 0);
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(0.5, 0, 0);
+                this.scene.rotate(90*degToRad, 0, 1, 0);
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(-0.5, 0, 0);
+                this.scene.rotate(-90*degToRad, 0, 1, 0);
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(0, -0.5, 0);
+                this.scene.rotate(90*degToRad, 1, 0, 0);
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0.5, 0);
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.topCellAppearance.apply();
+                this.quad.display();
+            this.scene.popMatrix();
+        this.scene.popMatrix();
     }
 
     /**

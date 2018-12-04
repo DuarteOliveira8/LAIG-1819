@@ -23,6 +23,8 @@ class Board extends CGFobject {
     */
     display() {
         var degToRad = Math.PI / 180;
+
+        this.boardCell.display();
     }
 
     /**
