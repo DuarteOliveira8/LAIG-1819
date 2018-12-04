@@ -16,6 +16,7 @@ class Board extends CGFobject {
         super(scene);
 
         this.boardCell = new BoardCell(scene);
+        this.boardWrapper = new BoardWrapper(scene);
         this.width = 10;
         this.height = 10;
     };
@@ -34,6 +35,8 @@ class Board extends CGFobject {
                 this.scene.popMatrix();
             }
         }
+
+        this.boardWrapper.display();
     }
 
     /**

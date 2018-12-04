@@ -34,7 +34,7 @@ class BoardCell extends CGFobject {
     };
 
     /**
-    * Board Display function.
+    * BoardCell Display function.
     */
     display() {
         var degToRad = Math.PI / 180;
