@@ -16,6 +16,8 @@ class Board extends CGFobject {
         super(scene);
 
         this.boardCell = new BoardCell(scene);
+        this.width = 10;
+        this.height = 10;
     };
 
     /**
@@ -24,7 +26,14 @@ class Board extends CGFobject {
     display() {
         var degToRad = Math.PI / 180;
 
-        this.boardCell.display();
+        for (var i = 0; i < this.width; i++) {
+            for (var j = 0; j < this.height; j++) {
+                this.scene.pushMatrix();
+                    this.scene.translate(-4.5+i, 0, -4.5+j);
+                    this.boardCell.display();
+                this.scene.popMatrix();
+            }
+        }
     }
 
     /**
