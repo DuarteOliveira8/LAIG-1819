@@ -5,5 +5,8 @@
 mongoose-free-6.9.exe
 Mongoose.app
 
-# ignore all files starting with ._
-._*
+# ignore all files starting with .
+.*
+
+# but not himself
+!.gitignore
