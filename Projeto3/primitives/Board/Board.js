@@ -9,21 +9,22 @@
  */
 class Board extends CGFobject {
     /**
-    * @constructor constructor of the class Board.
-    * @param {Scene of the application} scene
-    */
+     * @constructor constructor of the class Board.
+     * @param {Scene of the application} scene
+     */
     constructor(scene) {
         super(scene);
 
         this.boardCell = new BoardCell(scene);
         this.boardWrapper = new BoardWrapper(scene);
+        this.boardAuxiliar = new BoardAuxiliar(scene);
         this.width = 10;
         this.height = 10;
     };
 
     /**
-    * Board Display function.
-    */
+     * Board Display function.
+     */
     display() {
         var degToRad = Math.PI / 180;
 
@@ -37,13 +38,18 @@ class Board extends CGFobject {
         }
 
         this.boardWrapper.display();
+
+        this.scene.pushMatrix();
+            this.scene.translate(8, 0, 0);
+            this.boardAuxiliar.display();
+        this.scene.popMatrix();
     }
 
     /**
-    * Updates the texture coordinates.
-    * @param {s texture coordinate} s
-    * @param {t texture coordinate} t
-    */
+     * Updates the texture coordinates.
+     * @param {s texture coordinate} s
+     * @param {t texture coordinate} t
+     */
     updateTexCoords(s, t) {};
 
 }

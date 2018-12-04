@@ -9,9 +9,9 @@
  */
 class BoardCell extends CGFobject {
     /**
-    * @constructor constructor of the class BoardCell.
-    * @param {Scene of the application} scene
-    */
+     * @constructor constructor of the class BoardCell.
+     * @param {Scene of the application} scene
+     */
     constructor(scene) {
         super(scene);
 
@@ -34,8 +34,8 @@ class BoardCell extends CGFobject {
     };
 
     /**
-    * BoardCell Display function.
-    */
+     * BoardCell Display function.
+     */
     display() {
         var degToRad = Math.PI / 180;
 
@@ -83,10 +83,10 @@ class BoardCell extends CGFobject {
     }
 
     /**
-    * Updates the texture coordinates.
-    * @param {s texture coordinate} s
-    * @param {t texture coordinate} t
-    */
+     * Updates the texture coordinates.
+     * @param {s texture coordinate} s
+     * @param {t texture coordinate} t
+     */
     updateTexCoords(s, t) {};
 
 }

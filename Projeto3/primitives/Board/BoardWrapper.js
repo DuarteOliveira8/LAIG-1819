@@ -9,9 +9,9 @@
  */
 class BoardWrapper extends CGFobject {
     /**
-    * @constructor constructor of the class BoardWrapper.
-    * @param {Scene of the application} scene
-    */
+     * @constructor constructor of the class BoardWrapper.
+     * @param {Scene of the application} scene
+     */
     constructor(scene) {
         super(scene);
 
@@ -27,8 +27,8 @@ class BoardWrapper extends CGFobject {
     };
 
     /**
-    * BoardWrapper Display function.
-    */
+     * BoardWrapper Display function.
+     */
     display() {
         var degToRad = Math.PI / 180;
 
@@ -68,10 +68,10 @@ class BoardWrapper extends CGFobject {
     }
 
     /**
-    * Updates the texture coordinates.
-    * @param {s texture coordinate} s
-    * @param {t texture coordinate} t
-    */
+     * Updates the texture coordinates.
+     * @param {s texture coordinate} s
+     * @param {t texture coordinate} t
+     */
     updateTexCoords(s, t) {};
 
 }
