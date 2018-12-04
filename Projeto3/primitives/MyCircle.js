@@ -58,7 +58,7 @@ class MyCircle extends CGFobject
 		//TEXTURE DEFINITION
 		var angle = 0;
 		for (var i = 0; i < this.slices; i++) {
-			this.originalTexCoords.push((0.5+Math.cos(angle*degToRad)/2)*(this.radius*2), (0.5-Math.sin(angle*degToRad)/2)*(this.radius*2));
+			this.originalTexCoords.push((0.5+Math.cos(angle*degToRad)/2)*this.radius, (0.5-Math.sin(angle*degToRad)/2)*this.radius);
 			angle += 360/this.slices;
 		}
 		this.originalTexCoords.push(0.5, 0.5);
