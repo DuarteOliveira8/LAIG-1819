@@ -39,6 +39,8 @@ class XMLscene extends CGFscene {
 
         this.period = 10;
         this.currentTime = 0;
+
+        this.setPickEnabled(true);
     }
 
     /**

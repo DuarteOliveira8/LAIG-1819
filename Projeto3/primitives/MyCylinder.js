@@ -56,7 +56,6 @@ class MyCylinder extends CGFobject
 		var m;
 		var incS = Math.abs(this.maxS - this.minS)/(this.slices);
 		var incT = Math.abs(this.maxT - this.minT)/(this.stacks);
-		console.log((Math.atan((radiusInc/substack))/degToRad));
 		var inclineAngle = 90-(Math.atan((substack/this.base))/degToRad);
 
 		var z = 0;

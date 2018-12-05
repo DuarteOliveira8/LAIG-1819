@@ -12,10 +12,13 @@ class BoardCell extends CGFobject {
      * @constructor constructor of the class BoardCell.
      * @param {Scene of the application} scene
      */
-    constructor(scene) {
+    constructor(scene, xPos, yPos) {
         super(scene);
 
+        this.xPos = xPos;
+        this.yPos = yPos;
         this.pickingEnabled = true;
+        this.highlighted = false;
 
         this.quad = new MyRectangle(scene, -0.5, -0.5, 0.5, 0.5);
 
@@ -40,6 +43,7 @@ class BoardCell extends CGFobject {
         var degToRad = Math.PI / 180;
 
         this.scene.pushMatrix();
+            this.scene.translate(this.xPos, 0, this.yPos);
             this.scene.scale(1, 0.1, 1);
 
             this.whiteAppearance.apply();

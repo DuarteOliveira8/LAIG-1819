@@ -15,11 +15,20 @@ class Board extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.boardCell = new BoardCell(scene);
+        this.boardCells = [];
+        var width = 10;
+        var height = 10;
+
+        for (var i = 0; i < width; i++) {
+            let boardCellsList = []
+            for (var j = 0; j < height; j++) {
+                boardCellsList.push(new BoardCell(scene, -4.5+i, -4.5+j));
+            }
+            this.boardCells.push(boardCellsList);
+        }
+
         this.boardWrapper = new BoardWrapper(scene);
         this.boardAuxiliar = new BoardAuxiliar(scene);
-        this.width = 10;
-        this.height = 10;
     };
 
     /**
@@ -28,12 +37,9 @@ class Board extends CGFobject {
     display() {
         var degToRad = Math.PI / 180;
 
-        for (var i = 0; i < this.width; i++) {
-            for (var j = 0; j < this.height; j++) {
-                this.scene.pushMatrix();
-                    this.scene.translate(-4.5+i, 0, -4.5+j);
-                    this.boardCell.display();
-                this.scene.popMatrix();
+        for (var i = 0; i < this.boardCells.length; i++) {
+            for (var j = 0; j < this.boardCells[i].length; j++) {
+                this.boardCells[i][j].display();
             }
         }
 
