@@ -17,6 +17,9 @@
     {
         super(scene);
 
+        this.xPos = 0;
+        this.zPos = 0;
+
         this.disc = new MyCoveredCylinder(this.scene, 0.6, 0.6, 0.2, 32, 32);
 
         this.whiteAppearance = new CGFappearance(this.scene);
@@ -34,6 +37,7 @@
         var degToRad = Math.PI / 180;
 
         this.scene.pushMatrix();
+            this.scene.translate(this.xPos, 0, this.zPos);
             this.scene.rotate(-90*degToRad, 1, 0, 0);
             this.whiteAppearance.apply();
             this.disc.display();

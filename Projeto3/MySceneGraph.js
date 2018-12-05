@@ -1742,15 +1742,6 @@ class MySceneGraph {
             else if(attrs[0].nodeName == "vehicle") {
                 primitive = new Vehicle(this.scene);
             }
-            else if (attrs[0].nodeName == "disc") {
-                primitive = new Disc(this.scene);
-            }
-            else if (attrs[0].nodeName == "mina") {
-                primitive = new Mina(this.scene);
-            }
-            else if (attrs[0].nodeName == "yuki") {
-                primitive = new Yuki(this.scene);
-            }
             else if (attrs[0].nodeName == "terrain") {
                 let idtexture = this.reader.getString(attrs[0], 'idtexture');
                 if (idtexture == null || idtexture == "") {
@@ -1802,8 +1793,20 @@ class MySceneGraph {
 
                 primitive = new Water(this.scene, idtexture, idwavemap, parts, heightscale, texscale);
             }
+            else if (attrs[0].nodeName == "disc") {
+                primitive = new Disc(this.scene);
+            }
+            else if (attrs[0].nodeName == "mina") {
+                primitive = new Mina(this.scene);
+            }
+            else if (attrs[0].nodeName == "yuki") {
+                primitive = new Yuki(this.scene);
+            }
             else if (attrs[0].nodeName == "board") {
                 primitive = new Board(this.scene);
+            }
+            else if (attrs[0].nodeName == "game") {
+                primitive = new Game(this.scene);
             }
             else {
               this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");

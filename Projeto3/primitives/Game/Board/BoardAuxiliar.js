@@ -15,7 +15,11 @@ class BoardAuxiliar extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.pickingEnabled = true;
+        this.discs = [];
+
+        for (var i = 0; i < 70; i++) {
+            this.discs.push(new Disc(scene));
+        }
 
         this.quad = new MyCoveredCylinder(scene, 1, 1, 0.2, 4, 32);
 
@@ -105,6 +109,32 @@ class BoardAuxiliar extends CGFobject {
             this.scene.translate(1.7, 0.5, -2);
             this.hinge.display();
         this.scene.popMatrix();
+
+        var x = -10, y = 0, z = -23;
+
+        for (var i = 0; i < this.discs.length; i++) {
+            this.scene.pushMatrix();
+                this.scene.translate(x/10, y/10, z/10);
+                this.scene.scale(0.5, 0.5, 0.5);
+                this.discs[i].display();
+            this.scene.popMatrix();
+
+            if (y == 3) {
+                if (x == 11) {
+                    y = 0;
+                    x = -10;
+                    z += 7;
+                }
+                else {
+                    y = 0;
+                    x += 7;
+                }
+            }
+            else{
+                console.log(y);
+                y += 1;
+            }
+        }
     }
 
     /**

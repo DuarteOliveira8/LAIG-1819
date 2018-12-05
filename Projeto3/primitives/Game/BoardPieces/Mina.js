@@ -17,6 +17,9 @@
     {
         super(scene);
 
+        this.xPos = 0;
+        this.zPos = 0;
+
         this.minaDress = new MyCoveredCylinder(this.scene, 0.4, 0, 1, 32, 32);
         this.minaHead = new MySphere(this.scene, 0.3, 32, 32);
         this.minaBase = new MyCoveredCylinder(this.scene, 0.5, 0.5, 0.1, 32, 32);
@@ -52,31 +55,34 @@
         var degToRad = Math.PI / 180;
 
         this.scene.pushMatrix();
-            this.scene.translate(0, 0.3, 0);
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.dressAppearance.apply();
-            this.minaDress.display();
-        this.scene.popMatrix();
+            this.scene.translate(this.xPos, 0, this.zPos);
 
-        this.scene.pushMatrix();
-            this.scene.translate(0, 1.2, 0);
-            this.skinAppearance.apply();
-            this.minaHead.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0.3, 0);
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.dressAppearance.apply();
+                this.minaDress.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(0, 0.1, 0);
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.metalAppearance.apply();
-            this.minaSupport.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 1.2, 0);
+                this.skinAppearance.apply();
+                this.minaHead.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.metalAppearance.apply();
-            this.minaBase.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0.1, 0);
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.metalAppearance.apply();
+                this.minaSupport.display();
+            this.scene.popMatrix();
 
+            this.scene.pushMatrix();
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.metalAppearance.apply();
+                this.minaBase.display();
+            this.scene.popMatrix();
+        this.scene.popMatrix();
     }
 
     /**
