@@ -7,18 +7,16 @@
  /**
   * Yuki class, representing a 3D object: the Yuki character.
   */
- class Yuki extends CGFobject
- {
+ class Yuki extends BoardPiece {
     /**
     * @constructor constructor of the class Yuki.
     * @param {Scene of the application} scene
     */
-    constructor(scene)
-    {
-        super(scene);
+    constructor(scene, xPos, yPos, zPos) {
+        super(scene, xPos, yPos, zPos);
 
-        this.xPos = 0;
-        this.zPos = 0;
+        this.pickingEnabled = true;
+        this.highlighted = false;
 
         this.yukiBody = new MySphere(this.scene, 0.5, 32, 32);
         this.yukiHead = new MySphere(this.scene, 0.3, 32, 32);
@@ -58,8 +56,7 @@
     /**
     * Yuki Display function.
     */
-    display()
-    {
+    display() {
         var degToRad = Math.PI / 180;
 
         this.scene.pushMatrix();
