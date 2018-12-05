@@ -12,11 +12,11 @@ class BoardCell extends CGFobject {
      * @constructor constructor of the class BoardCell.
      * @param {Scene of the application} scene
      */
-    constructor(scene, xPos, yPos) {
+    constructor(scene, xPos, zPos) {
         super(scene);
 
         this.xPos = xPos;
-        this.yPos = yPos;
+        this.zPos = zPos;
         this.pickingEnabled = true;
         this.highlighted = false;
 
@@ -43,7 +43,7 @@ class BoardCell extends CGFobject {
         var degToRad = Math.PI / 180;
 
         this.scene.pushMatrix();
-            this.scene.translate(this.xPos, 0, this.yPos);
+            this.scene.translate(this.xPos, 0, this.zPos);
             this.scene.scale(1, 0.1, 1);
 
             this.whiteAppearance.apply();

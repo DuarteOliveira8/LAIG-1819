@@ -7,15 +7,16 @@
  /**
   * Mina class, representing a 3D object: the Mina character.
   */
- class Mina extends CGFobject
- {
+ class Mina extends BoardPiece {
     /**
     * @constructor constructor of the class Mina.
     * @param {Scene of the application} scene
     */
-    constructor(scene)
-    {
-        super(scene);
+    constructor(scene, xPos, yPos, zPos) {
+        super(scene, xPos, yPos, zPos);
+
+        this.pickingEnabled = true;
+        this.highlighted = false;
 
         this.minaDress = new MyCoveredCylinder(this.scene, 0.4, 0, 1, 32, 32);
         this.minaHead = new MySphere(this.scene, 0.3, 32, 32);
@@ -47,36 +48,39 @@
     /**
     * Mina Display function.
     */
-    display()
-    {
+    display() {
         var degToRad = Math.PI / 180;
 
         this.scene.pushMatrix();
-            this.scene.translate(0, 0.3, 0);
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.dressAppearance.apply();
-            this.minaDress.display();
-        this.scene.popMatrix();
+            this.scene.translate(this.xPos, this.yPos, this.zPos);
+            this.scene.scale(0.5, 0.5, 0.5);
 
-        this.scene.pushMatrix();
-            this.scene.translate(0, 1.2, 0);
-            this.skinAppearance.apply();
-            this.minaHead.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0.3, 0);
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.dressAppearance.apply();
+                this.minaDress.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(0, 0.1, 0);
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.metalAppearance.apply();
-            this.minaSupport.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 1.2, 0);
+                this.skinAppearance.apply();
+                this.minaHead.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.metalAppearance.apply();
-            this.minaBase.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0.1, 0);
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.metalAppearance.apply();
+                this.minaSupport.display();
+            this.scene.popMatrix();
 
+            this.scene.pushMatrix();
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.metalAppearance.apply();
+                this.minaBase.display();
+            this.scene.popMatrix();
+        this.scene.popMatrix();
     }
 
     /**

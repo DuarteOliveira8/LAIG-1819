@@ -7,15 +7,16 @@
  /**
   * Yuki class, representing a 3D object: the Yuki character.
   */
- class Yuki extends CGFobject
- {
+ class Yuki extends BoardPiece {
     /**
     * @constructor constructor of the class Yuki.
     * @param {Scene of the application} scene
     */
-    constructor(scene)
-    {
-        super(scene);
+    constructor(scene, xPos, yPos, zPos) {
+        super(scene, xPos, yPos, zPos);
+
+        this.pickingEnabled = true;
+        this.highlighted = false;
 
         this.yukiBody = new MySphere(this.scene, 0.5, 32, 32);
         this.yukiHead = new MySphere(this.scene, 0.3, 32, 32);
@@ -55,53 +56,56 @@
     /**
     * Yuki Display function.
     */
-    display()
-    {
+    display() {
         var degToRad = Math.PI / 180;
 
         this.scene.pushMatrix();
-            this.scene.translate(0, 1.2, 0);
-            this.scene.scale(1.25, 1.75, 1);
-            this.snowAppearance.apply();
-            this.yukiBody.display();
-        this.scene.popMatrix();
+            this.scene.translate(this.xPos, 0, this.zPos);
+            this.scene.scale(0.5, 0.5, 0.5);
 
-        this.scene.pushMatrix();
-            this.scene.translate(0, 2.2, 0);
-            this.snowAppearance.apply();
-            this.yukiHead.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 1.2, 0);
+                this.scene.scale(1.25, 1.75, 1);
+                this.snowAppearance.apply();
+                this.yukiBody.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(0, 0.1, 0);
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.metalAppearance.apply();
-            this.yukiSupport.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 2.2, 0);
+                this.snowAppearance.apply();
+                this.yukiHead.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.metalAppearance.apply();
-            this.yukiBase.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0.1, 0);
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.metalAppearance.apply();
+                this.yukiSupport.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(0.8, 1, 0);
-            this.scene.rotate(30*degToRad, 0, 0, 1);
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.snowAppearance2.apply();
-            this.yukiArm.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.metalAppearance.apply();
+                this.yukiBase.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.rotate(180*degToRad, 0, 1, 0);
-            this.scene.translate(0.8, 1, 0);
-            this.scene.rotate(30*degToRad, 0, 0, 1);
-            this.scene.rotate(-90*degToRad, 1, 0, 0);
-            this.snowAppearance2.apply();
-            this.yukiArm.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0.8, 1, 0);
+                this.scene.rotate(30*degToRad, 0, 0, 1);
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.snowAppearance2.apply();
+                this.yukiArm.display();
+            this.scene.popMatrix();
 
+            this.scene.pushMatrix();
+                this.scene.rotate(180*degToRad, 0, 1, 0);
+                this.scene.translate(0.8, 1, 0);
+                this.scene.rotate(30*degToRad, 0, 0, 1);
+                this.scene.rotate(-90*degToRad, 1, 0, 0);
+                this.snowAppearance2.apply();
+                this.yukiArm.display();
+            this.scene.popMatrix();
+        this.scene.popMatrix();
     }
 
     /**

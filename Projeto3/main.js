@@ -15,31 +15,33 @@ serialInclude(['../lib/CGF.js',
                'XMLscene.js',
                'MySceneGraph.js',
                'MyInterface.js',
-               './primitives/MyRectangle.js',
-               './primitives/MyTriangle.js',
-               './primitives/MyCylinder.js',
-               './primitives/MyCircle.js',
-               './primitives/MyCoveredCylinder.js',
-               './primitives/MySphere.js',
-               './primitives/MyTorus.js',
-               './primitives/Plane.js',
-               './primitives/Patch.js',
-               './primitives/Cylinder2.js',
-               './primitives/CoveredCylinder2.js',
-               './primitives/Vehicle.js',
-               './primitives/Terrain.js',
-               './primitives/Water.js',
-               './primitives/Disc.js',
-               './primitives/Mina.js',
-               './primitives/Yuki.js',
-               './primitives/Board/Board.js',
-               './primitives/Board/BoardCell.js',
-               './primitives/Board/BoardWrapper.js',
-               './primitives/Board/BoardAuxiliar.js',
+               './primitives/Geometry/MyRectangle.js',
+               './primitives/Geometry/MyTriangle.js',
+               './primitives/Geometry/MyCylinder.js',
+               './primitives/Geometry/MyCircle.js',
+               './primitives/Geometry/MySphere.js',
+               './primitives/Geometry/MyTorus.js',
+               './primitives/NURBSgeometry/Plane.js',
+               './primitives/NURBSgeometry/Patch.js',
+               './primitives/NURBSgeometry/Cylinder2.js',
+               './primitives/NURBSgeometry/Terrain.js',
+               './primitives/NURBSgeometry/Water.js',
+               './primitives/Game/Game.js',
+               './primitives/Game/BoardPieces/BoardPiece.js',
+               './primitives/Game/BoardPieces/Disc.js',
+               './primitives/Game/BoardPieces/Mina.js',
+               './primitives/Game/BoardPieces/Yuki.js',
+               './primitives/Game/Board/Board.js',
+               './primitives/Game/Board/BoardCell.js',
+               './primitives/Game/Board/BoardWrapper.js',
+               './primitives/Game/Board/BoardAuxiliar.js',
+               './primitives/Complex/MyCoveredCylinder.js',
+               './primitives/Complex/CoveredCylinder2.js',
+               './primitives/Complex/Vehicle.js',
                './animations/Animation.js',
                './animations/LinearAnimation.js',
                './animations/CircularAnimation.js',
-               
+
 
 main=function()
 {
@@ -58,7 +60,7 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
-	var filename=getUrlVars()['file'] || "game-scene-1.xml";
+	var filename=getUrlVars()['file'] || "delivery/game-scene-1.xml";
 
 	// create and load graph, and associate it to scene.
 	// Check console for loading errors
