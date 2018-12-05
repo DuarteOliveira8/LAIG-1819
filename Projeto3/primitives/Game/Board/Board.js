@@ -28,7 +28,6 @@ class Board extends CGFobject {
         }
 
         this.boardWrapper = new BoardWrapper(scene);
-        this.boardAuxiliar = new BoardAuxiliar(scene);
     };
 
     /**
@@ -44,11 +43,6 @@ class Board extends CGFobject {
         }
 
         this.boardWrapper.display();
-
-        this.scene.pushMatrix();
-            this.scene.translate(8, 0, 0);
-            this.boardAuxiliar.display();
-        this.scene.popMatrix();
     }
 
     /**

@@ -61,6 +61,7 @@
 
         this.scene.pushMatrix();
             this.scene.translate(this.xPos, 0, this.zPos);
+            this.scene.scale(0.5, 0.5, 0.5);
 
             this.scene.pushMatrix();
                 this.scene.translate(0, 1.2, 0);

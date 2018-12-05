@@ -17,8 +17,8 @@ class Game extends CGFobject {
 
         this.board = new Board(scene);
         this.box = new BoardAuxiliar(scene);
-        this.mina = new Mina(scene);
-        this.yuki = new Yuki(scene);
+        this.mina = new Mina(scene, 8, 0, 4);
+        this.yuki = new Yuki(scene, 8, 0, -4);
         this.discs = [];
     };
 
@@ -26,20 +26,20 @@ class Game extends CGFobject {
      * Game Display function.
      */
     display() {
-        // this.board.display();
+        this.board.display();
 
         this.scene.pushMatrix();
-            // this.scene.translate(8, 0, 0);
+            this.scene.translate(8, 0, 0);
             this.box.display();
         this.scene.popMatrix();
 
-        // this.mina.display();
+        this.mina.display();
 
-        // this.yuki.display();
+        this.yuki.display();
 
-        // for (var i = 0; i < this.discs.length; i++) {
-        //     this.discs[i].display();
-        // }
+        for (var i = 0; i < this.discs.length; i++) {
+            this.discs[i].display();
+        }
     }
 
     /**
