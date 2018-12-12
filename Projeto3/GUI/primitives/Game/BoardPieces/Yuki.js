@@ -38,13 +38,6 @@
         this.snowAppearance2.setShininess(150);
         this.snowAppearance2.loadTexture("../scenes/images/snow.jpg");
 
-        this.skinAppearance = new CGFappearance(this.scene);
-        this.skinAppearance.setAmbient(0.7,0.7,0.7,1);
-        this.skinAppearance.setDiffuse(0.7,0.7,0.7,1);
-        this.skinAppearance.setSpecular(0.3,0.3,0.3,1);
-        this.skinAppearance.setShininess(150);
-        this.skinAppearance.loadTexture("../scenes/images/skin.jpg");
-
         this.metalAppearance = new CGFappearance(this.scene);
         this.metalAppearance.setAmbient(0.5,0.5,0.5,1);
         this.metalAppearance.setDiffuse(0.6,0.6,0.6,1);
