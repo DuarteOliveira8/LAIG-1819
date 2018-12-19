@@ -138,6 +138,7 @@ class BoardAuxiliar extends CGFobject {
                 this.discs[i].display();
             this.scene.popMatrix();
         }
+      	this.scene.clearPickRegistration();
     }
 
     /**
