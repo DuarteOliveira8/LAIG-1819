@@ -134,7 +134,7 @@ class BoardAuxiliar extends CGFobject {
 
         for (var i = 0; i < this.discs.length; i++) {
             this.scene.pushMatrix();
-                this.scene.registerForPick(i, this.discs[i]);
+                this.scene.registerForPick(i, this.discs[i]); /* TODO: INCREMENT i WHEN THERE ARE OTHER PIECES ON THE BOARD */
                 this.discs[i].display();
             this.scene.popMatrix();
         }
