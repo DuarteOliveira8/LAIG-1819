@@ -65,6 +65,10 @@ class BoardAuxiliar extends CGFobject {
         var delta = 2/Math.sqrt(2);
         var quadHeight = 0.2;
 
+        // Picking functions
+        this.logPicking();
+      	this.scene.clearPickRegistration();
+
         this.woodAppearance.apply();
 
         this.scene.pushMatrix();
@@ -127,8 +131,10 @@ class BoardAuxiliar extends CGFobject {
             this.hinge.display();
         this.scene.popMatrix();
 
+
         for (var i = 0; i < this.discs.length; i++) {
             this.scene.pushMatrix();
+                this.scene.registerForPick(i, this.discs[i]);
                 this.discs[i].display();
             this.scene.popMatrix();
         }
@@ -140,5 +146,21 @@ class BoardAuxiliar extends CGFobject {
      * @param {t texture coordinate} t
      */
     updateTexCoords(s, t) {};
+
+    logPicking() {
+    	if (this.scene.pickMode == false) {
+    		if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
+    			for (var i=0; i< this.scene.pickResults.length; i++) {
+    				var obj = this.scene.pickResults[i][0];
+    				if (obj)
+    				{
+    					var customId = this.scene.pickResults[i][1];
+    					console.log("Picked object: " + obj + ", with pick id " + customId);
+    				}
+    			}
+    			this.scene.pickResults.splice(0,this.scene.pickResults.length);
+    		}
+    	}
+    };
 
 }
