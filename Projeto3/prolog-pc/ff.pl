@@ -1,5 +1,3 @@
-:- consult('menu.pl').
-:- consult('boardDisplay.pl').
 :- consult('game.pl').
 :- consult('logic.pl').
 :- consult('ai.pl').
@@ -12,6 +10,20 @@
 :-use_module(library(codesio)).
 
 /**
- * Server inicialization predicate
+ * Server port.
  */
-server.
+port(8081).
+
+/**
+ * Server inicialization predicate.
+ */
+server :-
+	port(Port),
+	write('Opened Server'),nl,nl,
+	socket_server_open(Port, Socket),
+	server_loop(Socket),
+	socket_server_close(Socket),
+	write('Closed Server'),nl.
+
+server_loop(Socket) :-
+  .
