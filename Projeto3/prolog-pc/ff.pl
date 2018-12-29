@@ -109,7 +109,6 @@ print_header_line(_).
 %                                            Commands                                                   %
 %-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%
 
-
 /**
  * File includes.
  */
@@ -118,6 +117,9 @@ print_header_line(_).
 :- consult('ai.pl').
 :- consult('auxiliar.pl').
 
+/**
+ * Test requests.
+ */
 parse_input(handshake, Res) :-
 	getJSONHeader(s,Header),
 	Res = {Header:'"handshake"'}.
@@ -126,6 +128,25 @@ parse_input(error, Res) :-
 	getJSONHeader(e,Header),
 	Res = {Header:'"This is an error"'}.
 
+/**
+ * Quit the server message.
+ */
 parse_input(quit, Res) :-
 	getJSONHeader(s,Header),
 	Res = {Header:'"goodbye"'}.
+
+/**
+ * Gets Yuki valid moves.
+ */
+parse_input(valid_moves(Board, yuki), Res) :-
+	valid_moves(Board, 'Yuki', ValidMoves),
+	getJSONHeader(s,Header),
+	Res = {Header:ValidMoves}.
+
+/**
+ * Gets Mina valid moves.
+ */
+parse_input(valid_moves(Board, mina), Res) :-
+	valid_moves(Board, 'Mina', ValidMoves),
+	getJSONHeader(s,Header),
+	Res = {Header:ValidMoves}.
