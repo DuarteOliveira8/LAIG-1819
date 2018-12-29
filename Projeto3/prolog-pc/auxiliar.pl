@@ -171,3 +171,9 @@ getNextType('p', 1, 'p').
 getNextType('p', 2, 'c').
 getNextType('c', 2, 'p').
 getNextType('c', 3, 'c').
+
+/**
+ * Gets JSON header. s is success and e is error.
+ */
+getJSONHeader(s, '"success":true,"data"').
+getJSONHeader(e, '"success":false,"error"').
