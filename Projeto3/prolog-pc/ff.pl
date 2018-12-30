@@ -136,17 +136,25 @@ parse_input(quit, Res) :-
 	Res = {Header:'"goodbye"'}.
 
 /**
- * Gets Yuki valid moves.
+ * Gets player's valid moves.
  */
-parse_input(valid_moves(Board, yuki), Res) :-
-	valid_moves(Board, 'Yuki', ValidMoves),
+parse_input(valid_moves(Board, Player), Res) :-
+	valid_moves(Board, Player, ValidMoves),
 	getJSONHeader(s,Header),
 	Res = {Header:ValidMoves}.
 
+parse_input(valid_moves(_Board, _Player), Res) :-
+	getJSONHeader(e,Header),
+	Res = {Header:'"Valid moves error"'}.
+
 /**
- * Gets Mina valid moves.
+ * Gets computer's play.
  */
-parse_input(valid_moves(Board, mina), Res) :-
-	valid_moves(Board, 'Mina', ValidMoves),
+parse_input(computerTurn(Player, Difficulty, Board), Res) :-
+	computerTurn(Player, Difficulty, Board, NewBoard),
 	getJSONHeader(s,Header),
-	Res = {Header:ValidMoves}.
+	Res = {Header:NewBoard}.
+
+parse_input(computerTurn(_Player, _Difficulty, _Board), Res) :-
+	getJSONHeader(e,Header),
+	Res = {Header:'"Computer play error"'}.

@@ -1,45 +1,33 @@
 /**
- * Manages Yuki computer turn and chooses position based on difficulty
+ * Manages computer turn and chooses position based on difficulty
  */
-playerTurn('Yuki', 'c', Difficulty, Board, NewBoard, ValidPlays) :-
-  write('\33\[2J'),
-  board_display(Board, 'Yuki'),
-  writeChoosingMessage,
-  choosePlay('Yuki', Difficulty, NewYukiX, NewYukiY, Board, ValidPlays),
-  move('Yuki', 'c', NewYukiX, NewYukiY, ValidPlays, Board, NewBoard).
-
-/**
- * Manages Mina computer turn and chooses position based on difficulty
- */
-playerTurn('Mina', 'c', Difficulty, Board, NewBoard, ValidPlays) :-
-  write('\33\[2J'),
-  board_display(Board, 'Mina'),
-  writeChoosingMessage,
-  choosePlay('Mina', Difficulty, NewMinaX, NewMinaY, Board, ValidPlays),
-  move('Mina', 'c', NewMinaX, NewMinaY, ValidPlays, Board, NewBoard).
+computerTurn(Player, Difficulty, Board, NewBoard) :-
+    valid_moves(Board, Player, ValidPlays),
+    choosePlay(Player, Difficulty, NewX, NewY, Board, ValidPlays),
+    move(Player, NewX, NewY, Board, NewBoard).
 
 /**
  * Move predicate for computer Yuki
  */
-move('Yuki', 'c', X, Y, _ValidPlays, Board, NewBoard) :-
-  getYukiPosition(YukiX, YukiY, Board),
-  removePlayerPosition(1, YukiX, YukiY, Board, NoYukiBoard),
-  eatTree(X, Y, NoYukiBoard, NoTreeBoard),
-  addPlayerPosition(1, X, Y, NoTreeBoard, NewBoard).
+move(yuki, X, Y, Board, NewBoard) :-
+    getYukiPosition(YukiX, YukiY, Board),
+    removePlayerPosition(1, YukiX, YukiY, Board, NoYukiBoard),
+    eatTree(X, Y, NoYukiBoard, NoTreeBoard),
+    addPlayerPosition(1, X, Y, NoTreeBoard, NewBoard).
 
 /**
  * Move predicate for computer Mina
  */
-move('Mina', 'c', X, Y, _ValidPlays, Board, NewBoard) :-
-  getMinaPosition(MinaX, MinaY, Board),
-  removePlayerPosition(2, MinaX, MinaY, Board, NoMinaBoard),
-  addPlayerPosition(2, X, Y, NoMinaBoard, NewBoard).
+move(mina, X, Y, Board, NewBoard) :-
+    getMinaPosition(MinaX, MinaY, Board),
+    removePlayerPosition(2, MinaX, MinaY, Board, NoMinaBoard),
+    addPlayerPosition(2, X, Y, NoMinaBoard, NewBoard).
 
 /**
  * Modify board to remove tree from given position
  */
 eatTree(X, Y, Board, NBoard) :-
-  addToMultListCell(-3, X, Y, Board, NBoard).
+    addToMultListCell(-3, X, Y, Board, NBoard).
 
 /**
  * Player input is in the valid plays list

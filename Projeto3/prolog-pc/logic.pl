@@ -28,13 +28,13 @@ checkTotal(Board, Value) :-
 /**
  * Computes the valid moves for Yuki considering the Board state.
  */
-valid_moves(Board, 'Yuki', ValidPlays) :-
+valid_moves(Board, yuki, ValidPlays) :-
   findall([X,Y], checkValidYukiPlay(X, Y, Board), ValidPlays).
 
 /**
  * Computes the valid moves for Mina considering the Board state.
  */
-valid_moves(Board, 'Mina', ValidPlays) :-
+valid_moves(Board, mina, ValidPlays) :-
   findall([X,Y], checkValidMinaPlay(X, Y, Board), ValidPlays).
 
 /**

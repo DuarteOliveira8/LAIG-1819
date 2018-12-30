@@ -72,7 +72,7 @@ chooseBestPlay('Yuki', YukiX, YukiY, Board, ValidPlays) :-
 /**
  * Chooses the best play from the valid ones for Yuki (Mina with value 5 - on tree)
  */
-chooseBestPlay('Yuki', YukiX, YukiY, Board, ValidPlays) :-
+chooseBestPlay(yuki, YukiX, YukiY, Board, ValidPlays) :-
   value(5, MinaX, MinaY, Board),
   calcDistances(ValidPlays, MinaX, MinaY, Distances),
   min_member(MaxD, Distances),
@@ -88,7 +88,7 @@ chooseBestPlay('Yuki', YukiX, YukiY, Board, ValidPlays) :-
 /**
  * Chooses the best play from the valid ones for Mina
  */
-chooseBestPlay('Mina', MinaX, MinaY, Board, ValidPlays) :-
+chooseBestPlay(mina, MinaX, MinaY, Board, ValidPlays) :-
   value(1, YukiX, YukiY, Board),
   calcDistances(ValidPlays, YukiX, YukiY, Distances),
   max_member(MaxD, Distances),
@@ -119,7 +119,7 @@ choosePlay(_Player, 1, X, Y, _Board, ValidPlays) :-
   chooseRandomPlay(X, Y, ValidPlays).
 
 /**
- * Chooses a random play for a player in hard difficulty
+ * Chooses a play for a player in hard difficulty
  */
 choosePlay(Player, 2, X, Y, Board, ValidPlays) :-
   chooseBestPlay(Player, X, Y, Board, ValidPlays).
