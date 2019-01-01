@@ -1320,7 +1320,7 @@ class MySceneGraph {
         for (var i = 0; i < children.length; i++) {
             var animation = [];
 
-            if (children[i].nodeName != "linear" && children[i].nodeName != "circular") {
+            if (children[i].nodeName != "linear" && children[i].nodeName != "circular" && children[i].nodeName != "bezier") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
@@ -1415,6 +1415,42 @@ class MySceneGraph {
               }
 
               this.animations[id] = new CircularAnimation(this.scene, span, centerFloat, radius, startang, rotang);
+            }
+            else if (children[i].nodeName == "bezier") {
+                var attrs = children[i].children;
+                var controlPoints = [];
+
+                if (attrs.length < 4) {
+                    return "At least 4 control points may be defined.";
+                }
+
+                for (var j = 0; j < attrs.length; j++) {
+                    if (attrs[j].nodeName != "controlpoint") {
+                        this.onXMLMinorError("unknown tag <" + attrs[0].nodeName + ">");
+                        continue;
+                    }
+
+                    var controlPoint = [];
+
+                    controlPoint.x = this.reader.getFloat(attrs[j], 'xx');
+                    if (controlPoint.x == null || isNaN(controlPoint.x)) {
+                        return "X element must not be null.";
+                    }
+
+                    controlPoint.y = this.reader.getFloat(attrs[j], 'yy');
+                    if (controlPoint.y == null || isNaN(controlPoint.y)) {
+                        return "Y element must not be null.";
+                    }
+
+                    controlPoint.z = this.reader.getFloat(attrs[j], 'zz');
+                    if (controlPoint.z == null || isNaN(controlPoint.z)) {
+                        return "Z element must not be null.";
+                    }
+
+                    controlPoints.push(controlPoint);
+                }
+
+                this.animations[id] = new BezierAnimation(this.scene, span, controlPoints)
             }
         }
     }
