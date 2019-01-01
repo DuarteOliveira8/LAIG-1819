@@ -17,6 +17,8 @@ class BezierAnimation extends Animation {
 	constructor(scene, time, controlPoints) {
 		super(scene, time);
 	    this.controlPoints = controlPoints;
+		this.delta = 0;
+		this.angle = 0;
 
 		this.point1 = this.controlPoints[0];
 		this.point2 = this.controlPoints[1];
@@ -72,6 +74,50 @@ class BezierAnimation extends Animation {
   apply() {
 	  if (this.currTime <= this.time) {
 
+		  	let newPoint = vec3.create();
+
+		  	newPoint[0] = Math.pow(1 - this.delta, 3) * this.point1.x
+			  				+ 3 * this.delta * Math.pow(1 - this.delta, 2) * this.point2.x
+							+ 3 * Math.pow(this.delta, 2) * (1 - this.delta) * this.point3.x
+							+ Math.pow(this.delta, 3) * this.point4.x;
+
+			newPoint[1] = Math.pow(1 - this.delta, 3) * this.point1.y
+				  				+ 3 * this.delta * Math.pow(1 - this.delta, 2) * this.point2.y
+								+ 3 * Math.pow(this.delta, 2) * (1 - this.delta) * this.point3.y
+								+ Math.pow(this.delta, 3) * this.point4.y;
+
+			newPoint[2] = Math.pow(1 - this.delta, 3) * this.point1.z
+								+ 3 * this.delta * Math.pow(1 - this.delta, 2) * this.point2.z
+								+ 3 * Math.pow(this.delta, 2) * (1 - this.delta) * this.point3.z
+								+ Math.pow(this.delta, 3) * this.point4.z;
+
+			let diffX = Math.abs(this.currPoint.x - newPoint[0]);
+			let diffY = this.currPoint.y - newPoint[1];
+			let diffZ = this.currPoint.z - newPoint[2];
+
+			this.angle = Math.atan2(newPoint[2] - this.currPoint.z, newPoint[0] - this.currPoint.x);
+
+			this.currPoint.x = newPoint[0];
+			this.currPoint.y = newPoint[1];
+			this.currPoint.z = newPoint[2];
+
+			this.transformation = mat4.create();
+			let dir = vec3.fromValues(0,1,0);
+
+			mat4.translate(this.transformation, this.transformation, this.currPoint);
+			mat4.rotate(this.transformation, this.transformation, Math.PI/2 - this.angle, dir);
+
+			if (this.previousTime != 0) {
+					this.deltaTime = this.scene.currentTime-this.previousTime;
+					this.delta = (this.totalDistance/this.time)*this.deltaTime;
+			}
+			this.previousTime = this.scene.currentTime;
+
+			this.currTime += this.deltaTime;
+
+	  }
+	  else {
+		  	this.finished = true;
 	  }
   };
 
