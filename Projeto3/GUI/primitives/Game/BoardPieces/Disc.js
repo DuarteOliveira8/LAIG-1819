@@ -30,6 +30,10 @@
     display() {
         var degToRad = Math.PI / 180;
 
+        if (this.animation !== null) {
+            this.animate();
+        }
+
         this.scene.pushMatrix();
             this.scene.translate(this.xPos, this.yPos, this.zPos);
             this.scene.scale(0.5, 0.5, 0.5);

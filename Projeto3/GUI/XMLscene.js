@@ -122,13 +122,14 @@ class XMLscene extends CGFscene {
     		if (this.pickResults != null && this.pickResults.length > 0) {
     			for (var i=0; i< this.pickResults.length; i++) {
     				var obj = this.pickResults[i][0];
-    				if (obj) {
+    				if (obj instanceof BoardPiece) {
+                        this.graph.primitives.game.setPlayerToMove(obj);
     					var customId = this.pickResults[i][1];
-    					console.log("Picked object with pick id " + customId + " and coordinates:");
-    					console.log("X:" + obj.xPos);
-    					console.log("Y:" + obj.yPos);
-    					console.log("Z:" + obj.zPos);
+    					console.log("Picked object with pick id " + customId);
     				}
+                    else if (obj instanceof BoardCell) {
+                        this.graph.primitives.game.movePlayer(obj.xPos, obj.yPos, obj.zPos);
+                    }
     			}
     			this.pickResults.splice(0,this.pickResults.length);
     		}

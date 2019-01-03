@@ -25,6 +25,11 @@ class BezierAnimation extends Animation {
 		this.point3 = this.controlPoints[2];
 		this.point4 = this.controlPoints[3];
 
+		this.currentPoint = [];
+		this.currentPoint.x = this.point1.x;
+		this.currentPoint.y = this.point1.y;
+		this.currentPoint.z = this.point1.z;
+
 		let vecP1 = vec3.fromValues(this.point1.x, this.point1.y, this.point1.z);
 		let vecP2 = vec3.fromValues(this.point2.x, this.point2.y, this.point2.z);
 		let vecP3 = vec3.fromValues(this.point3.x, this.point3.y, this.point3.z);
@@ -96,6 +101,10 @@ class BezierAnimation extends Animation {
 						  3 * distPerc * Math.pow((1-distPerc), 2) * this.point2.z +
 						  3 * Math.pow(distPerc, 2) * (1 - distPerc) * this.point3.z +
 						  Math.pow(distPerc, 3) * this.point4.z;
+
+			this.currentPoint.x = newPoint[0];
+			this.currentPoint.y = newPoint[1];
+			this.currentPoint.z = newPoint[2];
 
 			this.transformation = mat4.create();
 
