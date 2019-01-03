@@ -42,6 +42,7 @@ class Board extends CGFobject {
                 this.boardCells[i][j].display();
             }
         }
+
         this.scene.clearPickRegistration();
 
         this.boardWrapper.display();
