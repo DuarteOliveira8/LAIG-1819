@@ -131,6 +131,8 @@
                 <componentref id="chair-1" />
                 <componentref id="chair-2" />
                 <componentref id="floor" />
+                <componentref id="wall-1" />
+                <componentref id="wall-2" />
                 <componentref id="rug" />
                 <componentref id="present-group" />
                 <componentref id="christmas-tree" />
@@ -590,6 +592,41 @@
             <transformation>
                 <scale x="100" y="1" z="100" />
                 <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="floor-wood" length_s="0.25" length_t="0.25" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="wall-1">
+            <transformation>
+                <translate x="0" y="25" z="-50" />
+                <scale x="100" y="50" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="floor-wood" length_s="0.25" length_t="0.25" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="wall-2">
+            <transformation>
+                <translate x="-50" y="25" z="0" />
+                <rotate axis="y" angle="90" />
+                <scale x="100" y="50" z="1" />
             </transformation>
 
             <materials>
