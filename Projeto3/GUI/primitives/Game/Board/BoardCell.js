@@ -16,6 +16,7 @@ class BoardCell extends CGFobject {
         super(scene);
 
         this.xPos = xPos;
+        this.yPos = 0;
         this.zPos = zPos;
         this.pickingEnabled = true;
         this.highlighted = false;
@@ -43,7 +44,7 @@ class BoardCell extends CGFobject {
         var degToRad = Math.PI / 180;
 
         this.scene.pushMatrix();
-            this.scene.translate(this.xPos, 0, this.zPos);
+            this.scene.translate(this.xPos, this.yPos, this.zPos);
             this.scene.scale(1, 0.1, 1);
 
             this.whiteAppearance.apply();

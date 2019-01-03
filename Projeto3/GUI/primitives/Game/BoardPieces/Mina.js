@@ -16,7 +16,6 @@
         super(scene, xPos, yPos, zPos);
 
         this.pickingEnabled = true;
-        this.highlighted = false;
 
         this.minaDress = new MyCoveredCylinder(this.scene, 0.4, 0, 1, 32, 32);
         this.minaHead = new MySphere(this.scene, 0.3, 32, 32);

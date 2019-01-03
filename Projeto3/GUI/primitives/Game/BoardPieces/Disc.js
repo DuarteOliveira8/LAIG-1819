@@ -14,9 +14,6 @@
     */
     constructor(scene, xPos, yPos, zPos) {
         super(scene, xPos, yPos, zPos);
-        
-        this.pickingEnabled = true;
-        this.highlighted = false;
 
         this.disc = new MyCoveredCylinder(this.scene, 0.6, 0.6, 0.2, 32, 32);
 
