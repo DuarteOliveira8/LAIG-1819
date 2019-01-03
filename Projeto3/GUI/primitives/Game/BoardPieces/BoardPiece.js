@@ -49,8 +49,34 @@
      * Sets de piece animation with the new animation.
      * @param {New animation.} animation
      */
-    setAnimation(animation) {
-        this.animation = animation;
+    setAnimation(newX, newY, newZ) {
+        let controlPoints = [];
+
+        let cp1 = [];
+        cp1.x = this.xPos;
+        cp1.y = this.yPos;
+        cp1.z = this.zPos;
+        controlPoints.push(cp1);
+
+        let cp2 = [];
+        cp2.x = this.xPos;
+        cp2.y = this.yPos+5;
+        cp2.z = this.zPos;
+        controlPoints.push(cp2);
+
+        let cp3 = [];
+        cp3.x = newX;
+        cp3.y = newY+5;
+        cp3.z = newZ;
+        controlPoints.push(cp3);
+
+        let cp4 = [];
+        cp4.x = newX;
+        cp4.y = newY;
+        cp4.z = newZ;
+        controlPoints.push(cp4);
+
+        this.animation = new BezierAnimation(this.scene, 2000, controlPoints);
     }
 
     /**

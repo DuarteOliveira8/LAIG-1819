@@ -36,14 +36,8 @@ class Game extends CGFobject {
      */
     display() {
         this.board.display();
-
-        this.scene.pushMatrix();
-            this.scene.translate(this.boxOffset, 0, 0);
-            this.box.display();
-        this.scene.popMatrix();
-
+        this.box.display();
         this.mina.display();
-
         this.yuki.display();
 
         this.scene.clearPickRegistration();
@@ -79,35 +73,9 @@ class Game extends CGFobject {
             console.log("Moving yuki");
 
             let disc = this.box.discs.pop();
-            console.log(disc);
-
-            disc.setAnimation(
-                new BezierAnimation(
-                    this.scene,
-                    2000,
-                    [
-                        {"x":this.boxOffset+disc.xPos, "y":disc.yPos, "z":disc.zPos},
-                        {"x":this.boxOffset+disc.xPos, "y":disc.yPos+5, "z":disc.zPos},
-                        {"x":newX, "y":newY+5, "z":newZ},
-                        {"x":newX, "y":newY, "z":newZ}
-                    ]
-                )
-            );
-
+            disc.setAnimation(newX, newY, newZ);
             this.discs.push(disc);
-
-            this.yuki.setAnimation(
-                new BezierAnimation(
-                    this.scene,
-                    2000,
-                    [
-                        {"x":this.yuki.xPos, "y":this.yuki.yPos, "z":this.yuki.zPos},
-                        {"x":this.yuki.xPos, "y":this.yuki.yPos+5, "z":this.yuki.zPos},
-                        {"x":newX, "y":newY+5, "z":newZ},
-                        {"x":newX, "y":newY, "z":newZ}
-                    ]
-                )
-            );
+            this.yuki.setAnimation(newX, newY, newZ);
 
             this.currentTurn = this.turns.MINA;
             this.playerToMove = null;
@@ -117,18 +85,7 @@ class Game extends CGFobject {
         if (this.currentTurn === this.turns.MINA) {
             console.log("Moving mina");
 
-            this.mina.setAnimation(
-                new BezierAnimation(
-                    this.scene,
-                    2000,
-                    [
-                        {"x":this.mina.xPos, "y":this.mina.yPos, "z":this.mina.zPos},
-                        {"x":this.mina.xPos, "y":this.mina.yPos+5, "z":this.mina.zPos},
-                        {"x":newX, "y":newY+5, "z":newZ},
-                        {"x":newX, "y":newY, "z":newZ}
-                    ]
-                )
-            );
+            this.mina.setAnimation(newX, newY, newZ);
 
             this.currentTurn = this.turns.YUKI;
             this.playerToMove = null;

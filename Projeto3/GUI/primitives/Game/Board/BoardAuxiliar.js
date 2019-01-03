@@ -17,15 +17,15 @@ class BoardAuxiliar extends CGFobject {
 
         this.discs = [];
 
-        var x = -10, y = 0, z = -23;
+        var x = 70, y = 0, z = -23;
 
         for (var i = 0; i < 70; i++) {
             this.discs.push(new Disc(scene, x/10, y/10, z/10));
 
             if (y == 3) {
-                if (x == 11) {
+                if (x == 91) {
                     y = 0;
-                    x = -10;
+                    x = 70;
                     z += 7;
                 }
                 else {
@@ -68,63 +68,67 @@ class BoardAuxiliar extends CGFobject {
         this.woodAppearance.apply();
 
         this.scene.pushMatrix();
-            this.scene.scale(delta*1.5, 1, delta*3);
-            this.scene.rotate(-45*degToRad, 0, 1, 0);
-            this.scene.rotate(90*degToRad, 1, 0, 0);
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.translate(8, 0, 0);
 
-        this.scene.pushMatrix();
-            this.scene.translate(1.7, (delta/4)-0.2, 0);
-            this.scene.rotate(-90*degToRad, 0, 0, 1);
-            this.scene.scale(0.5, 1, delta*3);
-            this.scene.rotate(-45*degToRad, 0, 1, 0);
-            this.scene.rotate(90*degToRad, 1, 0, 0);
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.scale(delta*1.5, 1, delta*3);
+                this.scene.rotate(-45*degToRad, 0, 1, 0);
+                this.scene.rotate(90*degToRad, 1, 0, 0);
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(-1.5, (delta/4)-0.2, 0);
-            this.scene.rotate(-90*degToRad, 0, 0, 1);
-            this.scene.scale(0.5, 1, delta*3);
-            this.scene.rotate(-45*degToRad, 0, 1, 0);
-            this.scene.rotate(90*degToRad, 1, 0, 0);
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(1.7, (delta/4)-0.2, 0);
+                this.scene.rotate(-90*degToRad, 0, 0, 1);
+                this.scene.scale(0.5, 1, delta*3);
+                this.scene.rotate(-45*degToRad, 0, 1, 0);
+                this.scene.rotate(90*degToRad, 1, 0, 0);
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(0, (delta/4)-0.2, 2.8);
-            this.scene.scale(delta*1.5, 0.5, 1);
-            this.scene.rotate(-45*degToRad, 0, 0, 1);
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(-1.5, (delta/4)-0.2, 0);
+                this.scene.rotate(-90*degToRad, 0, 0, 1);
+                this.scene.scale(0.5, 1, delta*3);
+                this.scene.rotate(-45*degToRad, 0, 1, 0);
+                this.scene.rotate(90*degToRad, 1, 0, 0);
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(0, (delta/4)-0.2, -3);
-            this.scene.scale(delta*1.5, 0.5, 1);
-            this.scene.rotate(-45*degToRad, 0, 0, 1);
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, (delta/4)-0.2, 2.8);
+                this.scene.scale(delta*1.5, 0.5, 1);
+                this.scene.rotate(-45*degToRad, 0, 0, 1);
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(delta*2.1, delta-0.2, 0);
-            this.scene.rotate(-150*degToRad, 0, 0, 1);
-            this.scene.scale(delta*1.5, 1, delta*3);
-            this.scene.rotate(-45*degToRad, 0, 1, 0);
-            this.scene.rotate(90*degToRad, 1, 0, 0);
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0, (delta/4)-0.2, -3);
+                this.scene.scale(delta*1.5, 0.5, 1);
+                this.scene.rotate(-45*degToRad, 0, 0, 1);
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.metalAppearance.apply();
+            this.scene.pushMatrix();
+                this.scene.translate(delta*2.1, delta-0.2, 0);
+                this.scene.rotate(-150*degToRad, 0, 0, 1);
+                this.scene.scale(delta*1.5, 1, delta*3);
+                this.scene.rotate(-45*degToRad, 0, 1, 0);
+                this.scene.rotate(90*degToRad, 1, 0, 0);
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(1.7, 0.5, 1);
-            this.hinge.display();
-        this.scene.popMatrix();
+            this.metalAppearance.apply();
 
-        this.scene.pushMatrix();
-            this.scene.translate(1.7, 0.5, -2);
-            this.hinge.display();
+            this.scene.pushMatrix();
+                this.scene.translate(1.7, 0.5, 1);
+                this.hinge.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(1.7, 0.5, -2);
+                this.hinge.display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
 
