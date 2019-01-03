@@ -18,6 +18,8 @@
         this.xPos = xPos;
         this.yPos = yPos;
         this.zPos = zPos;
+        
+        this.highlighted = false;
     };
 
     /**
