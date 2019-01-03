@@ -64,6 +64,7 @@
         <texture id="pine" file="scenes/images/pine.jpg" />
         <texture id="floor-wood" file="scenes/images/dark-wood.jpg" />
         <texture id="rug" file="scenes/images/light-brown.jpg" />
+        <texture id="wall" file="scenes/images/wall.jpg" />
     </textures>
 
     <materials>
@@ -598,7 +599,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="floor-wood" length_s="0.25" length_t="0.25" />
+            <texture id="floor-wood" length_s="0.5" length_t="0.5" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -615,7 +616,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="floor-wood" length_s="0.25" length_t="0.25" />
+            <texture id="wall" length_s="0.5" length_t="0.5" />
 
             <children>
                 <primitiveref id="cube-face" />
@@ -633,7 +634,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="floor-wood" length_s="0.25" length_t="0.25" />
+            <texture id="wall" length_s="0.5" length_t="0.5" />
 
             <children>
                 <primitiveref id="cube-face" />
