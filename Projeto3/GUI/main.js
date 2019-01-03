@@ -41,6 +41,7 @@ serialInclude(['../lib/CGF.js',
                './animations/Animation.js',
                './animations/LinearAnimation.js',
                './animations/CircularAnimation.js',
+               './animations/BezierAnimation.js',
 
 
 main=function()
