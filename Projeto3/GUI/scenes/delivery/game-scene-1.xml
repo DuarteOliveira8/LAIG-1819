@@ -60,6 +60,8 @@
         <texture id="light-wood" file="scenes/images/light-wood.jpg" />
         <texture id="present-wrap" file="scenes/images/present-wrap.jpg" />
         <texture id="present-ribbon" file="scenes/images/present-ribbon.jpg" />
+        <texture id="trunk" file="scenes/images/trunk.jpeg" />
+        <texture id="pine" file="scenes/images/pine.jpg" />
     </textures>
 
     <materials>
@@ -83,6 +85,18 @@
     <primitives>
         <primitive id="cylinder">
             <cylinder base="0.5" top="0.5" height="1" slices="32" stacks="32" />
+        </primitive>
+
+        <primitive id="tree-part1">
+            <cylinder base="1" top="0" height="3" slices="5" stacks="10" />
+        </primitive>
+
+        <primitive id="tree-part2">
+            <cylinder base="1" top="0" height="3" slices="5" stacks="10" />
+        </primitive>
+
+        <primitive id="tree-trunk">
+            <cylinder base="1" top="1" height="3" slices="32" stacks="32" />
         </primitive>
 
         <primitive id="game">
@@ -117,6 +131,7 @@
                 <componentref id="floor" />
                 <componentref id="rug" />
                 <componentref id="present-group" />
+                <componentref id="christmas-tree" />
             </children>
         </component>
 
@@ -601,6 +616,91 @@
 
             <children>
                 <primitiveref id="rug" />
+            </children>
+        </component>
+
+        <component id="christmas-tree">
+            <transformation>
+                <translate x="-40" y="0" z="-40" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="tree-cone" />
+                <componentref id="tree-trunk" />
+            </children>
+        </component>
+
+        <component id="tree-cone">
+            <transformation>
+                <translate x="0" y="5" z="0" />
+                <scale x="10" y="10" z="10" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="tree-part1" />
+                <componentref id="tree-part2" />
+            </children>
+        </component>
+
+        <component id="tree-part1">
+            <transformation>
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="pine" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="tree-part1" />
+            </children>
+        </component>
+
+        <component id="tree-part2">
+            <transformation>
+                <rotate axis="y" angle="36" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="pine" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="tree-part2" />
+            </children>
+        </component>
+
+        <component id="tree-trunk">
+            <transformation>
+                <scale x="2" y="2" z="2" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="trunk" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="tree-trunk" />
             </children>
         </component>
 
