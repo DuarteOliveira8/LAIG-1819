@@ -82,20 +82,20 @@ class BezierAnimation extends Animation {
 		  	let newPoint = vec3.create();
 			let distPerc = this.currDistance/this.totalDistance;
 
-		  	newPoint[0] = (1-distPerc) * (1-distPerc) * (1-distPerc) * this.point1.x +
-						  3 * distPerc * (1-distPerc) * (1-distPerc) * this.point2.x +
-						  3 * distPerc * distPerc * (1 - distPerc) * this.point3.x +
-						  distPerc * distPerc * distPerc * this.point4.x;
+		  	newPoint[0] = Math.pow((1-distPerc), 3) * this.point1.x +
+						  3 * distPerc * Math.pow((1-distPerc), 2) * this.point2.x +
+						  3 * Math.pow(distPerc, 2) * (1 - distPerc) * this.point3.x +
+						  Math.pow(distPerc, 3) * this.point4.x;
 
-			newPoint[1] = (1-distPerc) * (1-distPerc) * (1-distPerc) * this.point1.y +
-						  3 * distPerc * (1-distPerc) * (1-distPerc) * this.point2.y +
-						  3 * distPerc * distPerc * (1 - distPerc) * this.point3.y +
-						  distPerc * distPerc * distPerc * this.point4.y;
+			newPoint[1] = Math.pow((1-distPerc), 3) * this.point1.y +
+						  3 * distPerc * Math.pow((1-distPerc), 2) * this.point2.y +
+						  3 * Math.pow(distPerc, 2) * (1 - distPerc) * this.point3.y +
+						  Math.pow(distPerc, 3) * this.point4.y;
 
-			newPoint[2] = (1-distPerc) * (1-distPerc) * (1-distPerc) * this.point1.z +
-						  3 * distPerc * (1-distPerc) * (1-distPerc) * this.point2.z +
-						  3 * distPerc * distPerc * (1 - distPerc) * this.point3.z +
-						  distPerc * distPerc * distPerc * this.point4.z;
+			newPoint[2] = Math.pow((1-distPerc), 3) * this.point1.z +
+						  3 * distPerc * Math.pow((1-distPerc), 2) * this.point2.z +
+						  3 * Math.pow(distPerc, 2) * (1 - distPerc) * this.point3.z +
+						  Math.pow(distPerc, 3) * this.point4.z;
 
 			this.transformation = mat4.create();
 
@@ -111,7 +111,6 @@ class BezierAnimation extends Animation {
 			this.currDistance += this.delta;
 	  	}
 	  	else {
-			console.log("finished");
 			this.finished = true;
 	  	}
   	};
