@@ -74,6 +74,20 @@
             <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
             <emission r="0" g="0" b="0" a="1.0" />
         </material>
+
+        <material id="wall" shininess="500" >
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.45" g="0.45" b="0.45" a="1.0" />
+            <emission r="0" g="0" b="0" a="1.0" />
+        </material>
+
+        <material id="floor" shininess="500" >
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="1" g="1" b="1" a="1.0" />
+            <emission r="0" g="0" b="0" a="1.0" />
+        </material>
     </materials>
 
     <transformations>
@@ -596,7 +610,7 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="floor" />
             </materials>
 
             <texture id="floor-wood" length_s="0.5" length_t="0.5" />
@@ -613,7 +627,7 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="wall" />
             </materials>
 
             <texture id="wall" length_s="0.5" length_t="0.5" />
@@ -631,7 +645,7 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="wall" />
             </materials>
 
             <texture id="wall" length_s="0.5" length_t="0.5" />
