@@ -148,6 +148,7 @@
                 <componentref id="floor" />
                 <componentref id="wall-1" />
                 <componentref id="wall-2" />
+                <componentref id="window" />
                 <componentref id="rug" />
                 <componentref id="present-group" />
                 <componentref id="christmas-tree" />
@@ -655,9 +656,85 @@
             </children>
         </component>
 
+        <component id="window">
+            <transformation>
+                <translate x="-10" y="15" z="-50" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="window-frame1" />
+                <componentref id="window-frame2" />
+                <componentref id="window-frame3" />
+                <componentref id="window-frame4" />
+            </children>
+        </component>
+
         <component id="window-frame1">
             <transformation>
-                <translate x="0" y="5" z="0" />
+                <scale x="20" y="1" z="1" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="window-frame2">
+            <transformation>
+                <translate x="0.3" y="-0.4" z="0" />
+                <scale x="1" y="20" z="1" />
+                <rotate axis="z" angle="90" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="window-frame3">
+            <transformation>
+                <translate x="19.7" y="-0.4" z="0" />
+                <scale x="1" y="20" z="1" />
+                <rotate axis="z" angle="90" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="window-frame4">
+            <transformation>
+                <translate x="0" y="19.15" z="0" />
+                <scale x="20" y="1" z="1" />
+                <rotate axis="y" angle="90" />
             </transformation>
 
             <materials>
