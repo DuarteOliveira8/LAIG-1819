@@ -16,6 +16,7 @@
         super(scene, xPos, yPos, zPos);
 
         this.pickingEnabled = true;
+        this.type = "player";
 
         this.yukiBody = new MySphere(this.scene, 0.5, 32, 32);
         this.yukiHead = new MySphere(this.scene, 0.3, 32, 32);
