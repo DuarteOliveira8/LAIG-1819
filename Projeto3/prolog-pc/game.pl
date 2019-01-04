@@ -33,15 +33,15 @@ eatTree(X, Y, Board, NBoard) :-
  * Player input is in the valid plays list
  */
 checkValidPlayerInput([NewX, NewY], ValidX, ValidY, ValidPlays) :-
-  member([NewX, NewY], ValidPlays),
-  ValidX is NewX,
-  ValidY is NewY.
+    member([NewX, NewY], ValidPlays),
+    ValidX is NewX,
+    ValidY is NewY.
 
 /**
  * Player input is not on the valid plays list
  */
 checkValidPlayerInput([NewX, NewY], ValidX, ValidY, ValidPlays) :-
-  \+ member([NewX, NewY], ValidPlays),
-  write('Invalid move!\n'),
-  inputPosition(NewX2, NewY2),
-  checkValidPlayerInput([NewX2, NewY2], ValidX, ValidY, ValidPlays).
+    \+ member([NewX, NewY], ValidPlays),
+    write('Invalid move!\n'),
+    inputPosition(NewX2, NewY2),
+    checkValidPlayerInput([NewX2, NewY2], ValidX, ValidY, ValidPlays).
