@@ -115,6 +115,9 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
 
     	this.setUpdatePeriod(this.period);
+
+        this.game = this.graph.primitives["game"];
+        this.interface.addOptionsGroup();
     }
 
     logPicking() {
@@ -123,12 +126,12 @@ class XMLscene extends CGFscene {
     			for (var i=0; i< this.pickResults.length; i++) {
     				var obj = this.pickResults[i][0];
     				if (obj instanceof BoardPiece) {
-                        this.graph.primitives.game.setPlayerToMove(obj);
+                        this.game.pickPlayer(obj);
     					var customId = this.pickResults[i][1];
     					console.log("Picked object with pick id " + customId);
     				}
                     else if (obj instanceof BoardCell) {
-                        this.graph.primitives.game.movePlayer(obj.xPos, obj.yPos, obj.zPos);
+                        this.game.movePlayer(obj.xPos, obj.yPos, obj.zPos);
                     }
     			}
     			this.pickResults.splice(0,this.pickResults.length);
@@ -205,5 +208,21 @@ class XMLscene extends CGFscene {
         this.graph.views.currCam = newCamera;
         this.camera = this.graph.views.cameras[this.graph.views.currCam];
         this.interface.setActiveCamera(this.camera);
+    }
+
+    startGame() {
+        this.game.start();
+    }
+
+    undoMove() {
+        // this.game.undo();
+    }
+
+    quitGame() {
+        this.game.quit();
+    }
+
+    gameMovie() {
+        // this.game.movie();
     }
 }

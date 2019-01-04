@@ -17,18 +17,25 @@ class Game extends CGFobject {
 
         this.board = new Board(scene);
         this.box = new BoardAuxiliar(scene);
-        this.boxOffset = 8;
         this.mina = new Mina(scene, 8, 0, 4);
         this.yuki = new Yuki(scene, 8, 0, -4);
         this.discs = [];
 
-        this.turns = {
-            YUKI: 1,
-            MINA: 2,
+        this.states = {
+            NOT_STARTED: -1,
+            FIRST_YUKI_PLAY: 1,
+            FIRST_MINA_PLAY: 2,
+            MOVING_PIECES: 3,
+            YUKI_PLAY: 4,
+            MINA_PLAY: 5,
+            QUIT: -2
         }
 
-        this.currentTurn = this.turns.YUKI;
-        this.playerToMove = null;
+        this.currentState = this.states.NOT_STARTED;
+        this.previousState = this.states.NOT_STARTED;
+        this.playerPicked = null;
+
+        this.server = new Server();
     };
 
     /**
@@ -47,16 +54,41 @@ class Game extends CGFobject {
         }
     }
 
-    setPlayerToMove(player) {
-        if (this.currentTurn === this.turns.YUKI && (player instanceof Yuki)) {
-            console.log("Yuki's turn");
-            this.playerToMove = player;
+    start() {
+        this.box.initDiscs();
+        this.mina.setCoordinates(8, 0, 4);
+        this.yuki.setCoordinates(8, 0, -4);
+        this.discs = [];
+        this.currentState = this.states.FIRST_YUKI_PLAY;
+        this.previousState = this.states.NOT_STARTED;
+        this.playerPicked = null;
+    }
+
+    quit() {
+        this.currentState = this.states.QUIT;
+        this.setState();
+    }
+
+    pickPlayer(player) {
+        if ((this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) && (player instanceof Yuki)) {
+            console.log("Yuki picked");
+            this.playerPicked = player;
             return;
         }
 
-        if (this.currentTurn === this.turns.MINA && (player instanceof Mina)) {
-            console.log("Mina's turn");
-            this.playerToMove = player;
+        if ((this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) && (player instanceof Mina)) {
+            console.log("Mina picked");
+            this.playerPicked = player;
+            return;
+        }
+
+        if (this.currentState === this.states.NOT_STARTED) {
+            console.log("The game hasn't started yet!");
+            return;
+        }
+
+        if (this.currentState === this.states.MOVING_PIECES) {
+            console.log("Currently on the move. Wait a minute!");
             return;
         }
 
@@ -64,33 +96,94 @@ class Game extends CGFobject {
     }
 
     movePlayer(newX, newY, newZ) {
-        if (this.playerToMove === null) {
+        if (this.playerPicked === null) {
             console.log("Please choose a player to move first!");
             return;
         }
 
-        if (this.currentTurn === this.turns.YUKI) {
-            console.log("Moving yuki");
-
+        if (this.currentState === this.states.YUKI_PLAY || this.currentState === this.states.FIRST_YUKI_PLAY) {
             let disc = this.box.discs.pop();
             disc.setAnimation(newX, newY, newZ);
             this.discs.push(disc);
             this.yuki.setAnimation(newX, newY, newZ);
 
-            this.currentTurn = this.turns.MINA;
-            this.playerToMove = null;
+            this.setState();
+            this.playerPicked = null;
             return;
         }
 
-        if (this.currentTurn === this.turns.MINA) {
-            console.log("Moving mina");
-
+        if (this.currentState === this.states.MINA_PLAY || this.currentState === this.states.FIRST_MINA_PLAY) {
             this.mina.setAnimation(newX, newY, newZ);
 
-            this.currentTurn = this.turns.YUKI;
-            this.playerToMove = null;
+            this.setState();
+            this.playerPicked = null;
             return;
         }
+    }
+
+    setState() {
+        let tempState = this.currentState;
+
+        switch (tempState) {
+            case this.states.NOT_STARTED:
+                console.log("Yuki's first play");
+                this.currentState = this.states.FIRST_YUKI_PLAY;
+                break;
+
+            case this.states.QUIT:
+                console.log("Game stopped");
+                this.currentState = this.states.NOT_STARTED;
+                break;
+
+            case this.states.FIRST_YUKI_PLAY:
+                console.log("Moving yuki");
+                this.currentState = this.states.MOVING_PIECES;
+                break;
+
+            case this.states.YUKI_PLAY:
+                console.log("Moving yuki");
+                this.currentState = this.states.MOVING_PIECES;
+                break;
+
+            case this.states.FIRST_MINA_PLAY:
+                console.log("Moving mina");
+                this.currentState = this.states.MOVING_PIECES;
+                break;
+
+            case this.states.MINA_PLAY:
+                console.log("Moving mina");
+                this.currentState = this.states.MOVING_PIECES;
+                break;
+
+            case this.states.MOVING_PIECES:
+                if (this.previousState === this.states.FIRST_YUKI_PLAY) {
+                    console.log("Mina's first turn");
+                    this.currentState = this.states.FIRST_MINA_PLAY;
+                    break;
+                }
+
+                if (this.previousState === this.states.YUKI_PLAY) {
+                    console.log("Mina's turn");
+                    this.currentState = this.states.MINA_PLAY;
+                    break;
+                }
+
+                if (this.previousState === this.states.FIRST_MINA_PLAY || this.previousState === this.states.MINA_PLAY) {
+                    console.log("Yuki's turn");
+                    this.currentState = this.states.YUKI_PLAY;
+                    break;
+                }
+
+                console.log("State logic error!");
+                break;
+
+            default:
+                console.log("State logic error!");
+                break;
+
+        }
+
+        this.previousState = tempState;
     }
 
     /**

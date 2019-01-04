@@ -67,6 +67,20 @@ class MyInterface extends CGFinterface {
     }
 
     /**
+     * Adds a folder containing game options.
+     * @param {array} lights
+     */
+    addOptionsGroup() {
+        var group = this.gui.addFolder("Game options");
+        group.open();
+
+        group.add(this.scene, "startGame").name("Start game");
+        group.add(this.scene, "undoMove").name("Undo move");
+        group.add(this.scene, "quitGame").name("Quit game");
+        group.add(this.scene, "gameMovie").name("Game movie");
+    }
+
+    /**
      * Initiates the keyboard keys.
      */
     initKeys() {

@@ -41,8 +41,12 @@
             );
         }
         else {
-            this.animation = null;
+            this.clearAnimation();
         }
+    }
+
+    clearAnimation() {
+        this.animation = null;
     }
 
     /**
