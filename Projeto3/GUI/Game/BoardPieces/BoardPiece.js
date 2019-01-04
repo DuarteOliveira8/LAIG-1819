@@ -19,6 +19,9 @@
         this.yPos = yPos;
         this.zPos = zPos;
 
+        this.row = -1;
+        this.col = -1;
+        
         this.highlighted = false;
         this.animation = null;
     };
@@ -93,6 +96,11 @@
         this.xPos = xPos;
         this.yPos = yPos;
         this.zPos = zPos;
+    }
+
+    setBoardCoordinates(row, col) {
+        this.row = row;
+        this.col = col;
     }
 
     /**

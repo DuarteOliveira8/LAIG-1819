@@ -131,7 +131,7 @@ class XMLscene extends CGFscene {
     					console.log("Picked object with pick id " + customId);
     				}
                     else if (obj instanceof BoardCell) {
-                        this.game.movePlayer(obj.xPos, obj.yPos, obj.zPos);
+                        this.game.movePlayer(obj.xPos, obj.yPos, obj.zPos, obj.row, obj.col);
                     }
     			}
     			this.pickResults.splice(0,this.pickResults.length);

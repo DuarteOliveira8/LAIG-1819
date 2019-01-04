@@ -95,7 +95,7 @@ class Game extends CGFobject {
         console.log("Wrong player!");
     }
 
-    movePlayer(newX, newY, newZ) {
+    movePlayer(newX, newY, newZ, row, col) {
         if (this.playerPicked === null) {
             console.log("Please choose a player to move first!");
             return;
@@ -104,8 +104,10 @@ class Game extends CGFobject {
         if (this.currentState === this.states.YUKI_PLAY || this.currentState === this.states.FIRST_YUKI_PLAY) {
             let disc = this.box.discs.pop();
             disc.setAnimation(newX, newY, newZ);
+            disc.setBoardCoordinates(row, col);
             this.discs.push(disc);
             this.yuki.setAnimation(newX, newY, newZ);
+            this.yuki.setBoardCoordinates(row, col);
 
             this.setState();
             this.playerPicked = null;
@@ -114,6 +116,7 @@ class Game extends CGFobject {
 
         if (this.currentState === this.states.MINA_PLAY || this.currentState === this.states.FIRST_MINA_PLAY) {
             this.mina.setAnimation(newX, newY, newZ);
+            this.mina.setBoardCoordinates(row, col);
 
             this.setState();
             this.playerPicked = null;
@@ -184,6 +187,30 @@ class Game extends CGFobject {
         }
 
         this.previousState = tempState;
+    }
+
+    createBoardArray() {
+        let boardArray = [];
+        for (var i = 0; i < 10; i++) {
+            let boardRow = [];
+            for (var j = 0; j < 10; j++) {
+                boardRow.push(3);
+            }
+            boardArray.push(boardRow);
+        }
+
+        for (var i = 0; i < this.discs.length; i++) {
+            boardArray[this.discs[i].row][this.discs[i].col] = 0;
+        }
+
+        if (this.mina.row !== -1) {
+            boardArray[this.mina.row][this.mina.col] += 2;
+        }
+        if (this.yuki.row !== -1) {
+            boardArray[this.yuki.row][this.yuki.col] += 1;
+        }
+
+        return boardArray;
     }
 
     /**

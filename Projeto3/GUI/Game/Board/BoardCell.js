@@ -12,12 +12,14 @@ class BoardCell extends CGFobject {
      * @constructor constructor of the class BoardCell.
      * @param {Scene of the application} scene
      */
-    constructor(scene, xPos, zPos) {
+    constructor(scene, xPos, zPos, row, col) {
         super(scene);
 
         this.xPos = xPos;
         this.yPos = 0;
         this.zPos = zPos;
+        this.row = row;
+        this.col = col;
         this.pickingEnabled = true;
         this.highlighted = false;
 

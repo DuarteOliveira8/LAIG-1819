@@ -22,7 +22,7 @@ class Board extends CGFobject {
         for (var i = 0; i < width; i++) {
             let boardCellsList = []
             for (var j = 0; j < height; j++) {
-                boardCellsList.push(new BoardCell(scene, -4.5+i, -4.5+j));
+                boardCellsList.push(new BoardCell(scene, -4.5+i, -4.5+j, j, i));
             }
             this.boardCells.push(boardCellsList);
         }
