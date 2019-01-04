@@ -67,6 +67,7 @@
         <texture id="wall" file="scenes/images/wall.jpg" />
         <texture id="window1" file="scenes/images/window1.jpeg" />
         <texture id="window2" file="scenes/images/window2.jpeg" />
+        <texture id="fireplace" file="scenes/images/fireplace.jpg" />
     </textures>
 
     <materials>
@@ -150,11 +151,13 @@
                 <componentref id="floor" />
                 <componentref id="wall-1" />
                 <componentref id="wall-2" />
+                <componentref id="wall-3" />
                 <componentref id="window-1" />
                 <componentref id="window-2" />
                 <componentref id="rug" />
                 <componentref id="present-group" />
                 <componentref id="christmas-tree" />
+                <componentref id="fireplace" />
             </children>
         </component>
 
@@ -645,6 +648,24 @@
             <transformation>
                 <translate x="-50" y="25" z="0" />
                 <rotate axis="y" angle="90" />
+                <scale x="100" y="50" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="wall" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="wall-3">
+            <transformation>
+                <translate x="50" y="25" z="0" />
+                <rotate axis="y" angle="-90" />
                 <scale x="100" y="50" z="1" />
             </transformation>
 
@@ -1232,6 +1253,95 @@
 
             <children>
                 <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="fireplace">
+            <transformation>
+                <translate x="25" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="wall" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="fireplace-frame1" />
+                <componentref id="fireplace-frame2" />
+                <componentref id="fireplace-frame3" />
+                <componentref id="fireplace-frame4" />
+            </children>
+        </component>
+
+        <component id="fireplace-frame1">
+            <transformation>
+                <translate x="21.5" y="8.5" z="-10" />
+                <rotate axis="x" angle="-90" />
+                <scale x="7" y="2" z="17" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="fireplace" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="fireplace-frame2">
+            <transformation>
+                <translate x="21.5" y="16" z="0" />
+                <scale x="7" y="2" z="20" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="fireplace" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="fireplace-frame3">
+            <transformation>
+                <translate x="21.5" y="8.5" z="10" />
+                <rotate axis="x" angle="-90" />
+                <scale x="7" y="2" z="17" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="fireplace" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="fireplace-frame4">
+            <transformation>
+                <translate x="21.5" y="1" z="0" />
+                <scale x="7" y="2" z="20" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="fireplace" length_s="100" length_t="100" />
+
+            <children>
+                <componentref id="cube" />
             </children>
         </component>
 
