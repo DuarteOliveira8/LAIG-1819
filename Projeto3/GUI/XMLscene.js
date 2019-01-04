@@ -117,6 +117,8 @@ class XMLscene extends CGFscene {
     	this.setUpdatePeriod(this.period);
 
         this.game = this.graph.primitives["game"];
+        this.interface.addModes();
+        this.interface.addDifficulties();
         this.interface.addOptionsGroup();
     }
 

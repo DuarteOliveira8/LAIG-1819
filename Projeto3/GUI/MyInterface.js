@@ -67,8 +67,21 @@ class MyInterface extends CGFinterface {
     }
 
     /**
+     * Adds a dropdown menu containing the game difficulties.
+     */
+    addModes() {
+        this.gui.add(this.scene.game, "currentMode", ["Player vs Player", "Player vs Computer", "Computer vs Computer"]).name("Game mode");
+    }
+
+    /**
+     * Adds a dropdown menu containing the game difficulties.
+     */
+    addDifficulties() {
+        this.gui.add(this.scene.game, "currentDifficulty", ["Easy", "Hard"]).name("Difficulty");
+    }
+
+    /**
      * Adds a folder containing game options.
-     * @param {array} lights
      */
     addOptionsGroup() {
         var group = this.gui.addFolder("Game options");
