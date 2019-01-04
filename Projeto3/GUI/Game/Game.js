@@ -386,6 +386,10 @@ class Game extends CGFobject {
         return pos;
     }
 
+    hasGameEnded() {
+        return this.currentState === this.states.NOT_STARTED;
+    }
+
     createBoardArray() {
         let boardArray = [];
         for (var i = 0; i < 10; i++) {

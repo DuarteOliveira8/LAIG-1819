@@ -93,7 +93,10 @@
 
     clearAnimation() {
         this.animation = null;
-        this.scene.game.setState();
+        
+        if (!this.scene.game.hasGameEnded()) {
+            this.scene.game.setState();
+        }
     }
 
     /**
