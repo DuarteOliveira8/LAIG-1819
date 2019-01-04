@@ -67,6 +67,33 @@ class MyInterface extends CGFinterface {
     }
 
     /**
+     * Adds a dropdown menu containing the game difficulties.
+     */
+    addModes() {
+        this.gui.add(this.scene.game, "currentMode", ["Player vs Player", "Player vs Computer", "Computer vs Computer"]).name("Game mode");
+    }
+
+    /**
+     * Adds a dropdown menu containing the game difficulties.
+     */
+    addDifficulties() {
+        this.gui.add(this.scene.game, "currentDifficulty", ["Easy", "Hard"]).name("Difficulty");
+    }
+
+    /**
+     * Adds a folder containing game options.
+     */
+    addOptionsGroup() {
+        var group = this.gui.addFolder("Game options");
+        group.open();
+
+        group.add(this.scene, "startGame").name("Start game");
+        group.add(this.scene, "undoMove").name("Undo move");
+        group.add(this.scene, "quitGame").name("Quit game");
+        group.add(this.scene, "gameMovie").name("Game movie");
+    }
+
+    /**
      * Initiates the keyboard keys.
      */
     initKeys() {

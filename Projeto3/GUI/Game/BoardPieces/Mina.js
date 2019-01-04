@@ -90,6 +90,11 @@
         this.scene.clearPickRegistration();
     }
 
+    clearAnimation() {
+        this.animation = null;
+        this.scene.game.setState();
+    }
+
     /**
     * Updates the texture coordinates.
     * @param {s texture coordinate} s
