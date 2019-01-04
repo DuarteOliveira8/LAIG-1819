@@ -68,6 +68,7 @@
         <texture id="window1" file="scenes/images/window1.jpeg" />
         <texture id="window2" file="scenes/images/window2.jpeg" />
         <texture id="fireplace" file="scenes/images/fireplace.jpg" />
+        <texture id="fire" file="scenes/images/fire.jpg" />
     </textures>
 
     <materials>
@@ -1272,6 +1273,9 @@
                 <componentref id="fireplace-frame2" />
                 <componentref id="fireplace-frame3" />
                 <componentref id="fireplace-frame4" />
+                <componentref id="fireplace-step" />
+                <componentref id="fireplace-top-cover" />
+                <componentref id="fireplace-view" />
             </children>
         </component>
 
@@ -1338,10 +1342,62 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="fireplace" length_s="100" length_t="100" />
+            <texture id="fireplace" length_s="1" length_t="1" />
 
             <children>
                 <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="fireplace-step">
+            <transformation>
+                <translate x="19" y="0" z="0" />
+                <scale x="7" y="2" z="20" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="fireplace" length_s="1" length_t="5" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="fireplace-top-cover">
+            <transformation>
+                <translate x="21" y="17" z="0" />
+                <scale x="8" y="1" z="25" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="fireplace" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="fireplace-view">
+            <transformation>
+                <translate x="20" y="9" z="0" />
+                <rotate axis="y" angle="-90" />
+                <scale x="20" y="15" z="15" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="fire" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
             </children>
         </component>
 
