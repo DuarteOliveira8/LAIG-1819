@@ -7,6 +7,21 @@ computerTurn(Player, Difficulty, Board, NewBoard) :-
     move(Player, NewX, NewY, Board, NewBoard).
 
 /**
+ * Manages computer first turn as yuki and chooses position based on difficulty
+ */
+computerFirstTurn(yuki, Difficulty, Board, NewBoard) :-
+    chooseFirstPlay(yuki, Difficulty, NewX, NewY, Board),
+    eatTree(NewX, NewY, Board, NoTreeBoard),
+    addPlayerPosition(1, NewX, NewY, NoTreeBoard, NewBoard).
+
+/**
+ * Manages computer first turn as mina and chooses position based on difficulty
+ */
+computerFirstTurn(mina, Difficulty, Board, NewBoard) :-
+    chooseFirstPlay(mina, Difficulty, NewX, NewY, Board),
+    addPlayerPosition(2, NewX, NewY, Board, NewBoard).
+
+/**
  * Move predicate for computer Yuki
  */
 move(yuki, X, Y, Board, NewBoard) :-

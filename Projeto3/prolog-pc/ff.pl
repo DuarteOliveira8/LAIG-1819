@@ -160,6 +160,18 @@ parse_input(valid_moves(_Board, _Player), Res) :-
 	Res = {Header:'"Valid moves error"'}.
 
 /**
+ * Gets computer's first play.
+ */
+parse_input(computerFirstTurn(Player, Difficulty, Board), Res) :-
+	computerFirstTurn(Player, Difficulty, Board, NewBoard),
+	getJSONHeader(s,Header),
+	Res = {Header:NewBoard}.
+
+parse_input(computerFirstTurn(_Player, _Difficulty, _Board), Res) :-
+	getJSONHeader(e,Header),
+	Res = {Header:'"Computer play error"'}.
+
+/**
  * Gets computer's play.
  */
 parse_input(computerTurn(Player, Difficulty, Board), Res) :-
