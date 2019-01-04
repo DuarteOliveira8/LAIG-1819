@@ -45,30 +45,3 @@ checkValidPlayerInput([NewX, NewY], ValidX, ValidY, ValidPlays) :-
   write('Invalid move!\n'),
   inputPosition(NewX2, NewY2),
   checkValidPlayerInput([NewX2, NewY2], ValidX, ValidY, ValidPlays).
-
-/**
- * First Mina play is valid because it is not visible to Yuki and Yuki is not on that position
- */
-isValidFirstPlay(MinaX, MinaY, ValidMinaX, ValidMinaY, YukiX, YukiY, Board) :-
-  \+ isVisible(MinaX, MinaY, YukiX, YukiY, Board),
-  \+ value(1, MinaX, MinaY, Board),
-  ValidMinaX is MinaX,
-  ValidMinaY is MinaY.
-
-/**
- * First Mina play is invalid because Mina is visible to Yuki in that position
- */
-isValidFirstPlay(MinaX, MinaY, ValidMinaX, ValidMinaY, YukiX, YukiY, Board) :-
-  isVisible(MinaX, MinaY, YukiX, YukiY, Board),
-  write('Invalid first coordinates! Try again:\n'),
-  inputPosition(MinaX2, MinaY2),
-  isValidFirstPlay(MinaX2, MinaY2, ValidMinaX, ValidMinaY, YukiX, YukiY, Board).
-
-/**
- * First Mina play is invalid because Yuki is on that position
- */
-isValidFirstPlay(MinaX, MinaY, ValidMinaX, ValidMinaY, YukiX, YukiY, Board) :-
-  value(1, MinaX, MinaY, Board),
-  write('Invalid first coordinates! Try again:\n'),
-  inputPosition(MinaX2, MinaY2),
-  isValidFirstPlay(MinaX2, MinaY2, ValidMinaX, ValidMinaY, YukiX, YukiY, Board).

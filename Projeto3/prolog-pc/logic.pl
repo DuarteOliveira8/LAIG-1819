@@ -26,6 +26,18 @@ checkTotal(Board, Value) :-
   sumMultList(0, Value, Board).
 
 /**
+ * Computes the valid moves for Mina considering the Board state.
+ */
+valid_first_moves(Board, mina, ValidPlays) :-
+  findall([X,Y], checkValidFirstMinaPlay(X, Y, Board), ValidPlays).
+
+/**
+ * Computes the valid moves for Mina considering the Board state.
+ */
+valid_first_moves(Board, yuki, ValidPlays) :-
+  findall([X,Y], checkValidFirstYukiPlay(X, Y, Board), ValidPlays).
+
+/**
  * Computes the valid moves for Yuki considering the Board state.
  */
 valid_moves(Board, yuki, ValidPlays) :-
@@ -36,6 +48,23 @@ valid_moves(Board, yuki, ValidPlays) :-
  */
 valid_moves(Board, mina, ValidPlays) :-
   findall([X,Y], checkValidMinaPlay(X, Y, Board), ValidPlays).
+
+/**
+ * First Mina play is valid because it is not visible to Yuki and Yuki is not on that position
+ */
+checkValidFirstYukiPlay(YukiX, YukiY, _Board) :-
+  between(1, 10, YukiX),
+  between(1, 10, YukiY).
+
+/**
+ * First Mina play is valid because it is not visible to Yuki and Yuki is not on that position
+ */
+checkValidFirstMinaPlay(MinaX, MinaY, Board) :-
+  between(1, 10, MinaX),
+  between(1, 10, MinaY),
+  getYukiPosition(YukiX, YukiY, Board),
+  \+ isVisible(MinaX, MinaY, YukiX, YukiY, Board),
+  \+ value(1, MinaX, MinaY, Board).
 
 /**
  * Checks if X and Y are valid coordinates for Yuki's next play considering the Board state. Checks if X and Y are in the board's limits, checks if Yuki doesn't move more than one block, checks if Mina, blank space or himself are not the new position and if Mina is visible from the new position.

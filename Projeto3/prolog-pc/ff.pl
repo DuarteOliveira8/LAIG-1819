@@ -63,8 +63,8 @@ close_stream(Stream) :- flush_output(Stream), close(Stream).
  * Returns 400 Bad Request on syntax error (received from parser) or on failure of parse_input
  */
 handle_request(Request, MyReply, '200 OK') :- catch(parse_input(Request, MyReply),error(_,_),fail), !.
-handle_request(syntax_error, '{"error":"Syntax Error"}', '400 Bad Request') :- !.
-handle_request(_, '{"error":"Bad Request"}', '400 Bad Request').
+handle_request(syntax_error, '{"success":false,"error":"Syntax Error"}', '400 Bad Request') :- !.
+handle_request(_, '{"success":false,"error":"Bad Request"}', '400 Bad Request').
 
 /**
  * Reads first Line of HTTP Header and parses request
@@ -134,6 +134,18 @@ parse_input(error, Res) :-
 parse_input(quit, Res) :-
 	getJSONHeader(s,Header),
 	Res = {Header:'"goodbye"'}.
+
+/**
+ * Gets player's valid moves.
+ */
+parse_input(valid_first_moves(Board, Player), Res) :-
+	valid_first_moves(Board, Player, ValidMoves),
+	getJSONHeader(s,Header),
+	Res = {Header:ValidMoves}.
+
+parse_input(valid_first_moves(_Board, _Player), Res) :-
+	getJSONHeader(e,Header),
+	Res = {Header:'"Valid moves error"'}.
 
 /**
  * Gets player's valid moves.
