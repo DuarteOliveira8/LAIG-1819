@@ -91,6 +91,7 @@ class MyInterface extends CGFinterface {
         group.add(this.scene, "undoMove").name("Undo move");
         group.add(this.scene, "quitGame").name("Quit game");
         group.add(this.scene, "gameMovie").name("Game movie");
+        group.add(this.scene.game, "help").name("Help");
     }
 
     /**
