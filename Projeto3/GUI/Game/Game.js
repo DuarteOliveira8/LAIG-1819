@@ -20,6 +20,7 @@ class Game extends CGFobject {
         this.mina = new Mina(scene, 8, 0, 4);
         this.yuki = new Yuki(scene, 8, 0, -4);
         this.discs = [];
+        this.gameBoards = [];
 
         this.states = {
             NOT_STARTED: -1,
@@ -63,6 +64,7 @@ class Game extends CGFobject {
         this.mina.setCoordinates(8, 0, 4);
         this.yuki.setCoordinates(8, 0, -4);
         this.discs = [];
+        this.gameBoards = [];
         this.playerPicked = null;
 
         switch (this.currentMode) {
@@ -193,21 +195,25 @@ class Game extends CGFobject {
 
             case this.states.FIRST_YUKI_PLAY:
                 console.log("Moving yuki");
+                this.saveGameState();
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.YUKI_PLAY:
                 console.log("Moving yuki");
+                this.saveGameState();
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.FIRST_MINA_PLAY:
                 console.log("Moving mina");
+                this.saveGameState();
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.MINA_PLAY:
                 console.log("Moving mina");
+                this.saveGameState();
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
@@ -443,6 +449,11 @@ class Game extends CGFobject {
 
     hasGameEnded() {
         return this.currentState === this.states.NOT_STARTED;
+    }
+
+    saveGameState() {
+        let boardArray = this.createBoardArray();
+        this.gameBoards.push(boardArray);
     }
 
     createBoardArray() {
