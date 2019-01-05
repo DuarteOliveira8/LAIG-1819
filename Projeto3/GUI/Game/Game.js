@@ -461,7 +461,7 @@ class Game extends CGFobject {
             return;
         }
 
-        if (this.currentState === this.states.FIRST_YUKI_PLAY) {
+        if (this.currentState === this.states.STARTED) {
             this.playerPicked = this.yuki;
             this.server.makeRequest("computerFirstTurn(yuki,"+difficulty+","+boardArray+")", onreadystatechange);
             return;
