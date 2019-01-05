@@ -99,6 +99,10 @@ class Game extends CGFobject {
         this.setState();
     }
 
+    undo() {
+        console.log("hello");
+    }
+
     pickPlayer(player) {
         if ((this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) && (player instanceof Yuki)) {
             console.log("Yuki picked");
