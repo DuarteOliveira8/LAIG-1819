@@ -89,6 +89,10 @@ class BoardCell extends CGFobject {
         this.scene.popMatrix();
     }
 
+    getCoords() {
+        return [this.xPos, this.yPos, this.zPos];
+    }
+
     /**
      * Updates the texture coordinates.
      * @param {s texture coordinate} s

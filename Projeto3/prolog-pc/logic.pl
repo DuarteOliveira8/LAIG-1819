@@ -1,17 +1,24 @@
 /**
  * Checks if the game is over by verifying if there's any valid play left.
  */
-game_over(Player, _Board, Winner, ValidPlays) :-
+game_over(Player, Board, Over) :-
+    valid_moves(Board, Player, ValidPlays),
     checkValidPlays(ValidPlays),
-    Winner = Player.
+    Over = true.
 
 /**
  * Checks if the game is over by verifying if the total sum of the board is equal to 93, which means that 70 trees were consumed.
  */
-game_over(Player, Board, Winner, _ValidPlays) :-
+game_over(_Player, Board, Over) :-
     checkTotal(Board, Value),
     Value == 93,
-    Winner = Player.
+    Over = true.
+
+/**
+ * The game is not over.
+ */
+game_over(_Player, _Board, Over) :-
+    Over = false.
 
 /**
  * Checks if the number of valid plays is equal to 0.

@@ -23,16 +23,13 @@ class Game extends CGFobject {
 
         this.states = {
             NOT_STARTED: -1,
-            FIRST_YUKI_PLAYER: 1,
-            FIRST_MINA_PLAYER: 2,
-            FIRST_YUKI_COMPUTER: 3,
-            FIRST_MINA_COMPUTER: 4,
+            FIRST_YUKI_PLAY: 1,
+            FIRST_MINA_PLAY: 2,
             MOVING_PIECES: 5,
-            YUKI_PLAYER: 6,
-            MINA_PLAYER: 7,
-            YUKI_COMPUTER: 8,
-            MINA_COMPUTER: 9,
-            QUIT: -2
+            YUKI_PLAY: 6,
+            MINA_PLAY: 7,
+            QUIT: -2,
+            GAME_OVER: -3
         };
 
         this.currentState = this.states.NOT_STARTED;
@@ -66,8 +63,35 @@ class Game extends CGFobject {
         this.mina.setCoordinates(8, 0, 4);
         this.yuki.setCoordinates(8, 0, -4);
         this.discs = [];
-        this.setState();
         this.playerPicked = null;
+
+        switch (this.currentMode) {
+            case "Player vs Player":
+                this.yuki.type = "player";
+                this.mina.type = "player";
+                break;
+
+            case "Player vs Computer":
+                this.yuki.type = "player";
+                this.mina.type = "computer";
+                break;
+
+            case "Computer vs Player":
+                this.yuki.type = "computer";
+                this.mina.type = "player";
+                break;
+
+            case "Computer vs Computer":
+                this.yuki.type = "computer";
+                this.mina.type = "computer";
+                break;
+
+            default:
+                console.log("Mode error!");
+                break;
+        }
+
+        this.setState();
     }
 
     quit() {
@@ -76,13 +100,13 @@ class Game extends CGFobject {
     }
 
     pickPlayer(player) {
-        if ((this.currentState === this.states.FIRST_YUKI_PLAYER || this.currentState === this.states.YUKI_PLAYER) && (player instanceof Yuki)) {
+        if ((this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) && (player instanceof Yuki)) {
             console.log("Yuki picked");
             this.playerPicked = player;
             return;
         }
 
-        if ((this.currentState === this.states.FIRST_MINA_PLAYER || this.currentState === this.states.MINA_PLAYER) && (player instanceof Mina)) {
+        if ((this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) && (player instanceof Mina)) {
             console.log("Mina picked");
             this.playerPicked = player;
             return;
@@ -107,8 +131,8 @@ class Game extends CGFobject {
             return;
         }
 
-        if (this.currentState === this.states.YUKI_PLAYER || this.currentState === this.states.FIRST_YUKI_PLAYER) {
-            if (this.isValidPlay(row, col)) {
+        if (this.currentState === this.states.YUKI_PLAY || this.currentState === this.states.FIRST_YUKI_PLAY) {
+            if (this.isValidPlay(row, col) || this.yuki.type === "computer") {
                 let disc = this.box.discs.pop();
                 disc.setAnimation(newX, newY, newZ);
                 disc.setBoardCoordinates(row, col);
@@ -124,8 +148,8 @@ class Game extends CGFobject {
             return;
         }
 
-        if (this.currentState === this.states.MINA_PLAYER || this.currentState === this.states.FIRST_MINA_PLAYER) {
-            if (this.isValidPlay(row, col)) {
+        if (this.currentState === this.states.MINA_PLAY || this.currentState === this.states.FIRST_MINA_PLAY) {
+            if (this.isValidPlay(row, col) || this.mina.type === "computer") {
                 this.mina.setAnimation(newX, newY, newZ);
                 this.mina.setBoardCoordinates(row, col);
 
@@ -146,8 +170,11 @@ class Game extends CGFobject {
         switch (tempState) {
             case this.states.NOT_STARTED:
                 console.log("Yuki's first play");
-                this.currentState = this.states.FIRST_YUKI_PLAYER;
-                this.getValidPlays();
+                this.currentState = this.states.FIRST_YUKI_PLAY;
+                if (this.yuki.type === "player")
+                    this.getValidPlays();
+                else if (this.yuki.type === "computer")
+                    this.getComputerPlay();
                 break;
 
             case this.states.QUIT:
@@ -155,45 +182,61 @@ class Game extends CGFobject {
                 this.currentState = this.states.NOT_STARTED;
                 break;
 
-            case this.states.FIRST_YUKI_PLAYER:
+            case this.states.GAME_OVER:
+                console.log("Game over");
+                this.currentState = this.states.NOT_STARTED;
+                break;
+
+            case this.states.FIRST_YUKI_PLAY:
                 console.log("Moving yuki");
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
-            case this.states.YUKI_PLAYER:
+            case this.states.YUKI_PLAY:
                 console.log("Moving yuki");
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
-            case this.states.FIRST_MINA_PLAYER:
+            case this.states.FIRST_MINA_PLAY:
                 console.log("Moving mina");
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
-            case this.states.MINA_PLAYER:
+            case this.states.MINA_PLAY:
                 console.log("Moving mina");
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.MOVING_PIECES:
-                if (this.previousState === this.states.FIRST_YUKI_PLAYER) {
+                if (this.previousState === this.states.FIRST_YUKI_PLAY) {
                     console.log("Mina's first turn");
-                    this.currentState = this.states.FIRST_MINA_PLAYER;
-                    this.getValidPlays();
+                    this.currentState = this.states.FIRST_MINA_PLAY;
+                    if (this.mina.type === "player")
+                        this.getValidPlays();
+                    else if (this.mina.type === "computer")
+                        this.getComputerPlay();
                     break;
                 }
 
-                if (this.previousState === this.states.YUKI_PLAYER) {
+                if (this.previousState === this.states.YUKI_PLAY) {
                     console.log("Mina's turn");
-                    this.currentState = this.states.MINA_PLAYER;
-                    this.getValidPlays();
+                    this.currentState = this.states.MINA_PLAY;
+                    this.checkGameOver();
+                    if (this.mina.type === "player")
+                        this.getValidPlays();
+                    else if (this.mina.type === "computer")
+                        this.getComputerPlay();
                     break;
                 }
 
-                if (this.previousState === this.states.FIRST_MINA_PLAYER || this.previousState === this.states.MINA_PLAYER) {
+                if (this.previousState === this.states.FIRST_MINA_PLAY || this.previousState === this.states.MINA_PLAY) {
                     console.log("Yuki's turn");
-                    this.currentState = this.states.YUKI_PLAYER;
-                    this.getValidPlays();
+                    this.currentState = this.states.YUKI_PLAY;
+                    this.checkGameOver();
+                    if (this.yuki.type === "player")
+                        this.getValidPlays();
+                    else if (this.yuki.type === "computer")
+                        this.getComputerPlay();
                     break;
                 }
 
@@ -232,22 +275,22 @@ class Game extends CGFobject {
             }
         }
 
-        if (this.currentState === this.states.FIRST_MINA_PLAYER) {
+        if (this.currentState === this.states.FIRST_MINA_PLAY) {
             this.server.makeRequest("valid_first_moves("+boardArray+",mina)", onreadystatechange);
             return;
         }
 
-        if (this.currentState === this.states.FIRST_YUKI_PLAYER) {
+        if (this.currentState === this.states.FIRST_YUKI_PLAY) {
             this.server.makeRequest("valid_first_moves("+boardArray+",yuki)", onreadystatechange);
             return;
         }
 
-        if (this.currentState === this.states.MINA_PLAYER) {
+        if (this.currentState === this.states.MINA_PLAY) {
             this.server.makeRequest("valid_moves("+boardArray+",mina)", onreadystatechange);
             return;
         }
 
-        if (this.currentState === this.states.YUKI_PLAYER) {
+        if (this.currentState === this.states.YUKI_PLAY) {
             this.server.makeRequest("valid_moves("+boardArray+",yuki)", onreadystatechange);
             return;
         }
@@ -266,6 +309,136 @@ class Game extends CGFobject {
         }
 
         return false;
+    }
+
+    getComputerPlay() {
+        let boardArray = JSON.stringify(this.createBoardArray());
+        let game = this;
+
+        let onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                let response = JSON.parse(this.responseText);
+                if (response.success) {
+                    game.makePlayFromBoard(response.data);
+                    return;
+                }
+
+                console.log(response.error);
+                return;
+            }
+
+            if (this.readyState === 4 && this.status !== 200) {
+                let response = JSON.parse(this.responseText);
+                console.log(response.error);
+                return;
+            }
+        }
+
+        let difficulty = (this.currentDifficulty === "Easy") ? 1 : 2;
+
+        if (this.currentState === this.states.FIRST_MINA_PLAY) {
+            this.playerPicked = this.mina;
+            this.server.makeRequest("computerFirstTurn(mina,"+difficulty+","+boardArray+")", onreadystatechange);
+            return;
+        }
+
+        if (this.currentState === this.states.FIRST_YUKI_PLAY) {
+            this.playerPicked = this.yuki;
+            this.server.makeRequest("computerFirstTurn(yuki,"+difficulty+","+boardArray+")", onreadystatechange);
+            return;
+        }
+
+        if (this.currentState === this.states.MINA_PLAY) {
+            this.playerPicked = this.mina;
+            this.server.makeRequest("computerTurn(mina,"+difficulty+","+boardArray+")", onreadystatechange);
+            return;
+        }
+
+        if (this.currentState === this.states.YUKI_PLAY) {
+            this.playerPicked = this.yuki;
+            this.server.makeRequest("computerTurn(yuki,"+difficulty+","+boardArray+")", onreadystatechange);
+            return;
+        }
+    }
+
+    makePlayFromBoard(boardArray) {
+        let newPos = this.getCurrentPlayerPosition(boardArray);
+        let newPosCoords = this.board.boardCells[newPos[0]][newPos[1]].getCoords();
+
+        this.movePlayer(newPosCoords[0], newPosCoords[1], newPosCoords[2], newPos[0], newPos[1]);
+    }
+
+    getCurrentPlayerPosition(boardArray) {
+        let pos = [];
+
+        for (var i = 0; i < boardArray.length; i++) {
+            for (var j = 0; j < boardArray[i].length; j++) {
+                if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
+                    if (boardArray[i][j] === 1) {
+                        pos.push(i);
+                        pos.push(j);
+                    }
+                    continue;
+                }
+
+                if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
+                    if (boardArray[i][j] === 2 || boardArray[i][j] === 5) {
+                        pos.push(i);
+                        pos.push(j);
+                    }
+                    continue;
+                }
+            }
+        }
+
+        return pos;
+    }
+
+    checkGameOver() {
+        let boardArray = JSON.stringify(this.createBoardArray());
+        let game = this;
+
+        let onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                let response = JSON.parse(this.responseText);
+                if (response.success) {
+                    if (response.data) {
+                        game.gameOver();
+                    }
+                    return;
+                }
+
+                console.log(response.error);
+                return;
+            }
+
+            if (this.readyState === 4 && this.status !== 200) {
+                let response = JSON.parse(this.responseText);
+                console.log(response.error);
+                return;
+            }
+        }
+
+        if (this.currentState === this.states.MINA_PLAY) {
+            this.playerPicked = this.mina;
+            this.server.makeRequest("game_over(mina,"+boardArray+")", onreadystatechange);
+            return;
+        }
+
+        if (this.currentState === this.states.YUKI_PLAY) {
+            this.playerPicked = this.yuki;
+            this.server.makeRequest("game_over(yuki,"+boardArray+")", onreadystatechange);
+            return;
+        }
+    }
+
+    gameOver() {
+        this.currentState = this.states.GAME_OVER;
+        this.setState();
+    }
+
+    hasGameEnded() {
+        return this.currentState === this.states.NOT_STARTED;
     }
 
     createBoardArray() {

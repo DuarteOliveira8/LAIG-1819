@@ -18,7 +18,7 @@ chooseBestFirstMinaPlay(MinaX, MinaY, Board) :-
 /**
  * Chooses a random first play out of the valid ones for Mina
  */
-chooseRandomFirstPlay('Mina', MinaX, MinaY, Board) :-
+chooseRandomFirstPlay(mina, MinaX, MinaY, Board) :-
     value(1, YukiX, YukiY, Board),
     findall([X,Y], (between(1,10,X), between(1,10,Y), \+isVisible(X, Y, YukiX, YukiY, Board)), ValidPlays),
     length(ValidPlays, Length),
@@ -31,7 +31,7 @@ chooseRandomFirstPlay('Mina', MinaX, MinaY, Board) :-
 /**
  * Chooses a random first play out of the valid ones for Yuki
  */
-chooseRandomFirstPlay('Yuki', YukiX, YukiY, _Board) :-
+chooseRandomFirstPlay(yuki, YukiX, YukiY, _Board) :-
     random(1, 11, YukiX),
     random(1, 11, YukiY).
 
@@ -44,14 +44,14 @@ chooseFirstPlay(Player, 1, X, Y, Board) :-
 /**
  * Chooses the best first play for Mina on hard difficulty
  */
-chooseFirstPlay('Mina', 2, X, Y, Board) :-
+chooseFirstPlay(mina, 2, X, Y, Board) :-
     chooseBestFirstMinaPlay(X, Y, Board).
 
 /**
  * Chooses a random first play for Yuki on hard difficulty
  */
-chooseFirstPlay('Yuki', 2, X, Y, Board) :-
-    chooseRandomFirstPlay('Yuki', X, Y, Board).
+chooseFirstPlay(yuki, 2, X, Y, Board) :-
+    chooseRandomFirstPlay(yuki, X, Y, Board).
 
 /**
  * Chooses the best play from the valid ones for Yuki (Mina with value 2 - on empty spot)

@@ -145,7 +145,7 @@ parse_input(valid_first_moves(Board, Player), Res) :-
 
 parse_input(valid_first_moves(_Board, _Player), Res) :-
 	getJSONHeader(e,Header),
-	Res = {Header:'"Valid moves error"'}.
+	Res = {Header:'"Valid first moves error"'}.
 
 /**
  * Gets player's valid moves.
@@ -160,6 +160,18 @@ parse_input(valid_moves(_Board, _Player), Res) :-
 	Res = {Header:'"Valid moves error"'}.
 
 /**
+ * Gets computer's first play.
+ */
+parse_input(computerFirstTurn(Player, Difficulty, Board), Res) :-
+	computerFirstTurn(Player, Difficulty, Board, NewBoard),
+	getJSONHeader(s,Header),
+	Res = {Header:NewBoard}.
+
+parse_input(computerFirstTurn(_Player, _Difficulty, _Board), Res) :-
+	getJSONHeader(e,Header),
+	Res = {Header:'"Computer first play error"'}.
+
+/**
  * Gets computer's play.
  */
 parse_input(computerTurn(Player, Difficulty, Board), Res) :-
@@ -170,3 +182,15 @@ parse_input(computerTurn(Player, Difficulty, Board), Res) :-
 parse_input(computerTurn(_Player, _Difficulty, _Board), Res) :-
 	getJSONHeader(e,Header),
 	Res = {Header:'"Computer play error"'}.
+
+/**
+ * Checks if the game is over.
+ */
+parse_input(game_over(Player, Board), Res) :-
+	game_over(Player, Board, Over),
+	getJSONHeader(s,Header),
+	Res = {Header:Over}.
+
+parse_input(game_over(_Player, _Difficulty, _Board), Res) :-
+	getJSONHeader(e,Header),
+	Res = {Header:'"Game over error"'}.

@@ -16,6 +16,7 @@
         super(scene, xPos, yPos, zPos);
 
         this.pickingEnabled = true;
+        this.type = "player";
 
         this.minaDress = new MyCoveredCylinder(this.scene, 0.4, 0, 1, 32, 32);
         this.minaHead = new MySphere(this.scene, 0.3, 32, 32);
@@ -92,7 +93,10 @@
 
     clearAnimation() {
         this.animation = null;
-        this.scene.game.setState();
+        
+        if (!this.scene.game.hasGameEnded()) {
+            this.scene.game.setState();
+        }
     }
 
     /**
