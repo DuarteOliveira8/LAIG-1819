@@ -28,7 +28,8 @@ class Game extends CGFobject {
             MOVING_PIECES: 5,
             YUKI_PLAY: 6,
             MINA_PLAY: 7,
-            QUIT: -2
+            QUIT: -2,
+            GAME_OVER: -3
         };
 
         this.currentState = this.states.NOT_STARTED;
@@ -181,6 +182,11 @@ class Game extends CGFobject {
                 this.currentState = this.states.NOT_STARTED;
                 break;
 
+            case this.states.GAME_OVER:
+                console.log("Game over");
+                this.currentState = this.states.NOT_STARTED;
+                break;
+
             case this.states.FIRST_YUKI_PLAY:
                 console.log("Moving yuki");
                 this.currentState = this.states.MOVING_PIECES;
@@ -215,6 +221,7 @@ class Game extends CGFobject {
                 if (this.previousState === this.states.YUKI_PLAY) {
                     console.log("Mina's turn");
                     this.currentState = this.states.MINA_PLAY;
+                    this.checkGameOver();
                     if (this.mina.type === "player")
                         this.getValidPlays();
                     else if (this.mina.type === "computer")
@@ -225,6 +232,7 @@ class Game extends CGFobject {
                 if (this.previousState === this.states.FIRST_MINA_PLAY || this.previousState === this.states.MINA_PLAY) {
                     console.log("Yuki's turn");
                     this.currentState = this.states.YUKI_PLAY;
+                    this.checkGameOver();
                     if (this.yuki.type === "player")
                         this.getValidPlays();
                     else if (this.yuki.type === "computer")
@@ -384,6 +392,50 @@ class Game extends CGFobject {
         }
 
         return pos;
+    }
+
+    checkGameOver() {
+        let boardArray = JSON.stringify(this.createBoardArray());
+        let game = this;
+
+        let onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                let response = JSON.parse(this.responseText);
+                if (response.success) {
+                    if (response.data) {
+                        game.gameOver();
+                    }
+                    console.log("Game over: "+response.data);
+                    return;
+                }
+
+                console.log(response.error);
+                return;
+            }
+
+            if (this.readyState === 4 && this.status !== 200) {
+                let response = JSON.parse(this.responseText);
+                console.log(response.error);
+                return;
+            }
+        }
+
+        if (this.currentState === this.states.MINA_PLAY) {
+            this.playerPicked = this.mina;
+            this.server.makeRequest("game_over(mina,"+boardArray+")", onreadystatechange);
+            return;
+        }
+
+        if (this.currentState === this.states.YUKI_PLAY) {
+            this.playerPicked = this.yuki;
+            this.server.makeRequest("game_over(yuki,"+boardArray+")", onreadystatechange);
+            return;
+        }
+    }
+
+    gameOver() {
+        this.currentState = this.states.GAME_OVER;
+        this.setState();
     }
 
     hasGameEnded() {
