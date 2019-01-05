@@ -120,6 +120,14 @@
             <cylinder base="1" top="1" height="3" slices="32" stacks="32" />
         </primitive>
 
+        <primitive id="chimney-base">
+            <cylinder base="1" top="0.4" height="3" slices="4" stacks="4" />
+        </primitive>
+
+        <primitive id="fireplace-frame">
+            <cylinder base="1" top="1" height="1" slices="4" stacks="4" />
+        </primitive>
+
         <primitive id="game">
             <game />
         </primitive>
@@ -1276,111 +1284,173 @@
                 <componentref id="fireplace-frame4" />
                 <componentref id="fireplace-step" />
                 <componentref id="fireplace-top-cover" />
+                <componentref id="fireplace-chimney" />
                 <componentref id="fireplace-view" />
             </children>
         </component>
 
         <component id="fireplace-frame1">
             <transformation>
-                <translate x="21.5" y="8.5" z="-10" />
+                <translate x="21.5" y="0" z="-10" />
+                <scale x="5" y="17" z="2" />
+                <rotate axis="y" angle="45" />
                 <rotate axis="x" angle="-90" />
-                <scale x="7" y="2" z="17" />
             </transformation>
 
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="fireplace" length_s="1" length_t="1" />
+            <texture id="fireplace" length_s="5" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <primitiveref id="fireplace-frame" />
             </children>
         </component>
 
         <component id="fireplace-frame2">
             <transformation>
-                <translate x="21.5" y="16" z="0" />
-                <scale x="7" y="2" z="20" />
+                <translate x="21.5" y="16" z="-11.5" />
+
+                <scale x="5.5" y="2" z="23" />
+                <rotate axis="z" angle="45" />
             </transformation>
 
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="fireplace" length_s="1" length_t="1" />
+            <texture id="fireplace" length_s="5" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <primitiveref id="fireplace-frame" />
             </children>
         </component>
 
         <component id="fireplace-frame3">
             <transformation>
-                <translate x="21.5" y="8.5" z="10" />
+                <translate x="21.5" y="0" z="10" />
+                <scale x="5" y="17" z="2" />
+                <rotate axis="y" angle="45" />
                 <rotate axis="x" angle="-90" />
-                <scale x="7" y="2" z="17" />
             </transformation>
 
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="fireplace" length_s="1" length_t="1" />
+            <texture id="fireplace" length_s="5" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <primitiveref id="fireplace-frame" />
             </children>
         </component>
 
         <component id="fireplace-frame4">
             <transformation>
-                <translate x="21.5" y="1" z="0" />
-                <scale x="7" y="2" z="20" />
+                <translate x="20" y="1" z="-11.4" />
+                <scale x="7" y="2" z="22.8" />
+                <rotate axis="z" angle="45" />
             </transformation>
 
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="fireplace" length_s="1" length_t="1" />
+            <texture id="fireplace" length_s="5" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <primitiveref id="fireplace-frame" />
             </children>
         </component>
 
         <component id="fireplace-step">
             <transformation>
-                <translate x="19" y="0" z="0" />
-                <scale x="7" y="2" z="20" />
+                <translate x="18" y="0" z="-11.4" />
+                <scale x="7" y="1.5" z="22.8" />
+                <rotate axis="z" angle="45" />
             </transformation>
 
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="fireplace" length_s="1" length_t="5" />
+            <texture id="fireplace" length_s="5" length_t="1" />
 
             <children>
-                <componentref id="cube" />
+                <primitiveref id="fireplace-frame" />
             </children>
         </component>
 
         <component id="fireplace-top-cover">
             <transformation>
-                <translate x="21" y="17" z="0" />
-                <scale x="8" y="1" z="25" />
+                <translate x="21" y="17.8" z="-11.55" />
+                <scale x="6.5" y="0.5" z="23.1" />
+                <rotate axis="z" angle="45" />
             </transformation>
 
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="fireplace" length_s="1" length_t="1" />
+            <texture id="fireplace" length_s="5" length_t="2" />
 
             <children>
-                <componentref id="cube" />
+                <primitiveref id="fireplace-frame" />
+            </children>
+        </component>
+
+        <component id="fireplace-chimney">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="fireplace-chimney-bottom" />
+                <componentref id="fireplace-chimney-top" />
+            </children>
+        </component>
+
+        <component id="fireplace-chimney-bottom">
+            <transformation>
+                <translate x="25" y="17.5" z="0" />
+                <scale x="10" y="2" z="10" />
+                <rotate axis="y" angle="45" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="fireplace" length_s="5" length_t="10" />
+
+            <children>
+                <primitiveref id="chimney-base" />
+            </children>
+        </component>
+
+        <component id="fireplace-chimney-top">
+            <transformation>
+                <translate x="25" y="50" z="0" />
+                <scale x="3" y="30" z="3" />
+                <rotate axis="y" angle="45" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="fireplace" length_s="10" length_t="1" />
+
+            <children>
+                <primitiveref id="fireplace-frame" />
             </children>
         </component>
 
