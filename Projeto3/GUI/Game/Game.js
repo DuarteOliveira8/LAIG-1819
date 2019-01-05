@@ -24,6 +24,7 @@ class Game extends CGFobject {
 
         this.states = {
             NOT_STARTED: -1,
+            STARTED: 0,
             FIRST_YUKI_PLAY: 1,
             FIRST_MINA_PLAY: 2,
             MOVING_PIECES: 5,
@@ -102,7 +103,39 @@ class Game extends CGFobject {
     }
 
     undo() {
-        console.log("hello");
+        if (this.gameBoards.length > 0) {
+            this.gameBoards.pop();
+
+            if (this.gameBoards.length > 1) {
+                let board = this.gameBoards[this.gameBoards.length-1];
+
+                if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
+                    let play = this.makePlayFromBoard("mina", board);
+                    this.mina.move(play[0], play[1], play[2], play[3], play[4]);
+                }
+                else if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
+                    let play = this.makePlayFromBoard("yuki", board);
+                    this.yuki.move(play[0], play[1], play[2], play[3], play[4]);
+                    let disc = this.discs.pop();
+                    this.box.putBack(disc);
+                }
+
+                this.setState();
+            }
+            else {
+                if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
+                    this.mina.move(8, 0, 4, -1, -1);
+                    this.previousState = this.states.FIRST_YUKI_PLAY;
+                    this.currentState = this.states.MOVING_PIECES;
+                }
+                else if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
+                    this.yuki.move(8, 0, -4, -1, -1);
+                    let disc = this.discs.pop();
+                    this.box.putBack(disc);
+                    this.currentState = this.states.STARTED;
+                }
+            }
+        }
     }
 
     pickPlayer(player) {
@@ -140,13 +173,9 @@ class Game extends CGFobject {
         if (this.currentState === this.states.YUKI_PLAY || this.currentState === this.states.FIRST_YUKI_PLAY) {
             if (this.isValidPlay(row, col) || this.yuki.type === "computer") {
                 let disc = this.box.discs.pop();
-                disc.setAnimation(newX, newY, newZ);
-                disc.setBoardCoordinates(row, col);
+                disc.move(newX, newY, newZ, row, col);
                 this.discs.push(disc);
-
-                this.yuki.setAnimation(newX, newY, newZ);
-                this.yuki.setBoardCoordinates(row, col);
-
+                this.yuki.move(newX, newY, newZ, row, col);
                 this.setState();
             }
 
@@ -156,9 +185,7 @@ class Game extends CGFobject {
 
         if (this.currentState === this.states.MINA_PLAY || this.currentState === this.states.FIRST_MINA_PLAY) {
             if (this.isValidPlay(row, col) || this.mina.type === "computer") {
-                this.mina.setAnimation(newX, newY, newZ);
-                this.mina.setBoardCoordinates(row, col);
-
+                this.mina.move(newX, newY, newZ, row, col);
                 this.setState();
             }
             else {
@@ -175,6 +202,15 @@ class Game extends CGFobject {
 
         switch (tempState) {
             case this.states.NOT_STARTED:
+                console.log("Yuki's first play");
+                this.currentState = this.states.FIRST_YUKI_PLAY;
+                if (this.yuki.type === "player")
+                    this.getValidPlays();
+                else if (this.yuki.type === "computer")
+                    this.getComputerPlay();
+                break;
+
+            case this.states.STARTED:
                 console.log("Yuki's first play");
                 this.currentState = this.states.FIRST_YUKI_PLAY;
                 if (this.yuki.type === "player")
@@ -416,6 +452,7 @@ class Game extends CGFobject {
             }
         }
 
+        console.log(pos);
         return pos;
     }
 

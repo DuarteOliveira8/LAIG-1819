@@ -143,6 +143,32 @@ class BoardAuxiliar extends CGFobject {
         }
     }
 
+    putBack(disc) {
+        let lastDisc = this.discs[this.discs.length-1];
+        var newX, newY, newZ;
+
+        if (lastDisc.yPos*10 == 3) {
+            if (lastDisc.xPos*10 == 91) {
+                newY = 0;
+                newX = 7;
+                newZ = lastDisc.zPos+0.7;
+            }
+            else {
+                newY = 0;
+                newX = lastDisc.xPos+0.7;
+                newZ = lastDisc.zPos;
+            }
+        }
+        else {
+            newX = lastDisc.xPos;
+            newY = lastDisc.yPos+0.1;
+            newZ = lastDisc.zPos;
+        }
+
+        disc.move(newX, newY, newZ, -1, -1);
+        this.discs.push(disc);
+    }
+
     /**
      * Updates the texture coordinates.
      * @param {s texture coordinate} s
