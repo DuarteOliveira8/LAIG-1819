@@ -329,7 +329,7 @@ class Game extends CGFobject {
             if (this.readyState === 4 && this.status === 200) {
                 let response = JSON.parse(this.responseText);
                 if (response.success) {
-                    game.makePlayFromBoard(response.data);
+                    game.makeComputerPlay(response.data);
                     return;
                 }
 
@@ -371,19 +371,34 @@ class Game extends CGFobject {
         }
     }
 
-    makePlayFromBoard(boardArray) {
-        let newPos = this.getCurrentPlayerPosition(boardArray);
-        let newPosCoords = this.board.boardCells[newPos[0]][newPos[1]].getCoords();
+    makeComputerPlay(boardArray) {
+        var play;
 
-        this.movePlayer(newPosCoords[0], newPosCoords[1], newPosCoords[2], newPos[0], newPos[1]);
+        if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
+            play = this.makePlayFromBoard("yuki", boardArray);
+        }
+
+        if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
+            play = this.makePlayFromBoard("mina", boardArray);
+        }
+
+        this.movePlayer(play[0], play[1], play[2], play[3], play[4]);
     }
 
-    getCurrentPlayerPosition(boardArray) {
+    makePlayFromBoard(player, boardArray) {
+        let newPos = this.getCurrentPlayerPosition(player, boardArray);
+        let newPosCoords = this.board.boardCells[newPos[0]][newPos[1]].getCoords();
+        let play = newPosCoords.concat(newPos);
+
+        return play;
+    }
+
+    getCurrentPlayerPosition(player, boardArray) {
         let pos = [];
 
         for (var i = 0; i < boardArray.length; i++) {
             for (var j = 0; j < boardArray[i].length; j++) {
-                if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
+                if (player === "yuki") {
                     if (boardArray[i][j] === 1) {
                         pos.push(i);
                         pos.push(j);
@@ -391,7 +406,7 @@ class Game extends CGFobject {
                     continue;
                 }
 
-                if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
+                if (player === "mina") {
                     if (boardArray[i][j] === 2 || boardArray[i][j] === 5) {
                         pos.push(i);
                         pos.push(j);
