@@ -69,6 +69,8 @@
         <texture id="window2" file="scenes/images/window2.jpeg" />
         <texture id="fireplace" file="scenes/images/fireplace.jpg" />
         <texture id="fire" file="scenes/images/fire.jpg" />
+        <texture id="metal" file="scenes/images/metal.png" />
+        <texture id="lamp" file="scenes/images/lamp.jpg" />
     </textures>
 
     <materials>
@@ -120,6 +122,10 @@
             <cylinder base="1" top="1" height="3" slices="32" stacks="32" />
         </primitive>
 
+        <primitive id="lamp-base">
+            <cylinder base="1" top="0.2" height="1" slices="32" stacks="32" />
+        </primitive>
+
         <primitive id="chimney-base">
             <cylinder base="1" top="0.4" height="3" slices="4" stacks="4" />
         </primitive>
@@ -157,16 +163,19 @@
                 <componentref id="table" />
                 <componentref id="chair-1" />
                 <componentref id="chair-2" />
+                <componentref id="chair-3" />
                 <componentref id="floor" />
                 <componentref id="wall-1" />
                 <componentref id="wall-2" />
                 <componentref id="wall-3" />
+                <componentref id="wall-4" />
                 <componentref id="window-1" />
                 <componentref id="window-2" />
                 <componentref id="rug" />
                 <componentref id="present-group" />
                 <componentref id="christmas-tree" />
                 <componentref id="fireplace" />
+                <componentref id="reading-lamp" />
             </children>
         </component>
 
@@ -312,6 +321,24 @@
                 <translate x="0" y="0" z="16" />
                 <scale x="3" y="3" z="3" />
                 <rotate axis="y" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="light-wood" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="chair" />
+            </children>
+        </component>
+
+        <component id="chair-3">
+            <transformation>
+                <translate x="-40" y="0" z="40" />
+                <scale x="3" y="3" z="3" />
+                <rotate axis="y" angle="135" />
             </transformation>
 
             <materials>
@@ -675,6 +702,24 @@
             <transformation>
                 <translate x="50" y="25" z="0" />
                 <rotate axis="y" angle="-90" />
+                <scale x="100" y="50" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="wall" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="wall-4">
+            <transformation>
+                <translate x="0" y="25" z="50" />
+                <rotate axis="y" angle="-180" />
                 <scale x="100" y="50" z="1" />
             </transformation>
 
@@ -1469,6 +1514,79 @@
 
             <children>
                 <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="reading-lamp">
+            <transformation>
+                <translate x="-30" y="0" z="45" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="lamp-base" />
+                <componentref id="lamp-post" />
+                <componentref id="lamp-head" />
+            </children>
+        </component>
+
+        <component id="lamp-base">
+            <transformation>
+                <rotate axis="y" angle="-90" />
+                <scale x="3" y="1.25" z="3" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="metal" length_s="5" length_t="5" />
+
+            <children>
+                <primitiveref id="lamp-base" />
+            </children>
+        </component>
+
+        <component id="lamp-post">
+            <transformation>
+                <rotate axis="y" angle="-90" />
+                <scale x="1" y="25" z="1" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="metal" length_s="5" length_t="5" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="lamp-head">
+            <transformation>
+                <translate x="0" y="25" z="0" />
+                <rotate axis="y" angle="-90" />
+                <scale x="5" y="5" z="5" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="lamp" length_s="5" length_t="5" />
+
+            <children>
+                <primitiveref id="lamp-base" />
             </children>
         </component>
 
