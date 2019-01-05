@@ -225,6 +225,6 @@ class XMLscene extends CGFscene {
     }
 
     gameMovie() {
-        // this.game.movie();
+        this.game.movie();
     }
 }

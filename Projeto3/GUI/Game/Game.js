@@ -138,6 +138,20 @@ class Game extends CGFobject {
         }
     }
 
+    movie() {
+        if (this.currentState !== this.states.NOT_STARTED) {
+            console.log("Game is still running");
+            return;
+        }
+
+        if (this.gameBoards.length < 1) {
+            console.log("no game has been played");
+            return;
+        }
+
+        console.log("movie");
+    }
+
     pickPlayer(player) {
         if ((this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) && (player instanceof Yuki)) {
             console.log("Yuki picked");
