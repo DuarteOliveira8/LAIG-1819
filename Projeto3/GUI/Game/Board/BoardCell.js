@@ -37,6 +37,13 @@ class BoardCell extends CGFobject {
         this.whiteAppearance.setDiffuse(0.6,0.6,0.6,1);
         this.whiteAppearance.setSpecular(0.3,0.3,0.3,1);
         this.whiteAppearance.setShininess(150);
+
+        this.highlightedAppearance = new CGFappearance(this.scene);
+        this.highlightedAppearance.setAmbient(0.07,0.1,0.07,1);
+        this.highlightedAppearance.setDiffuse(0.4,0.6,0.4,1);
+        this.highlightedAppearance.setSpecular(0.2,0.3,0.2,1);
+        this.highlightedAppearance.setShininess(150);
+        this.highlightedAppearance.loadTexture("../scenes/images/boardCell.jpg");
     };
 
     /**
@@ -83,7 +90,12 @@ class BoardCell extends CGFobject {
             this.scene.pushMatrix();
                 this.scene.translate(0, 0.5, 0);
                 this.scene.rotate(-90*degToRad, 1, 0, 0);
-                this.topCellAppearance.apply();
+
+                if (this.highlighted)
+                    this.highlightedAppearance.apply();
+                else
+                    this.topCellAppearance.apply();
+
                 this.quad.display();
             this.scene.popMatrix();
         this.scene.popMatrix();

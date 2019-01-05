@@ -39,6 +39,7 @@ class Game extends CGFobject {
         this.previousState = this.states.NOT_STARTED;
         this.currentMode = "Player vs Player";
         this.currentDifficulty = "Easy";
+        this.help = true;
         this.playerPicked = null;
         this.validPlays = [];
 
@@ -105,6 +106,7 @@ class Game extends CGFobject {
 
     quit() {
         this.currentState = this.states.QUIT;
+        this.validPlays = [];
         this.setState();
     }
 
@@ -266,11 +268,11 @@ class Game extends CGFobject {
 
             case this.states.STARTED:
                 console.log("Yuki's first play");
-                this.currentState = this.states.FIRST_YUKI_PLAY;
                 if (this.yuki.type === "player")
                     this.getValidPlays();
                 else if (this.yuki.type === "computer")
                     this.getComputerPlay();
+                this.currentState = this.states.FIRST_YUKI_PLAY;
                 break;
 
             case this.states.QUIT:
@@ -286,34 +288,52 @@ class Game extends CGFobject {
             case this.states.FIRST_YUKI_PLAY:
                 console.log("Moving yuki");
                 this.saveGameState();
+                if (this.mina.type === "player")
+                    this.getValidPlays();
+                else
+                    this.validPlays = [];
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.YUKI_PLAY:
                 console.log("Moving yuki");
                 this.saveGameState();
+                if (this.mina.type === "player")
+                    this.getValidPlays();
+                else
+                    this.validPlays = [];
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.FIRST_MINA_PLAY:
                 console.log("Moving mina");
                 this.saveGameState();
+                if (this.yuki.type === "player")
+                    this.getValidPlays();
+                else
+                    this.validPlays = [];
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.MINA_PLAY:
                 console.log("Moving mina");
                 this.saveGameState();
+                if (this.yuki.type === "player")
+                    this.getValidPlays();
+                else
+                    this.validPlays = [];
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.MOVING_PIECES:
+                if (this.help) {
+                    this.highlight();
+                }
+
                 if (this.previousState === this.states.FIRST_YUKI_PLAY) {
                     console.log("Mina's first turn");
                     this.currentState = this.states.FIRST_MINA_PLAY;
-                    if (this.mina.type === "player")
-                        this.getValidPlays();
-                    else if (this.mina.type === "computer")
+                    if (this.mina.type === "computer")
                         this.getComputerPlay();
                     break;
                 }
@@ -322,9 +342,7 @@ class Game extends CGFobject {
                     console.log("Mina's turn");
                     this.currentState = this.states.MINA_PLAY;
                     this.checkGameOver();
-                    if (this.mina.type === "player")
-                        this.getValidPlays();
-                    else if (this.mina.type === "computer")
+                    if (this.mina.type === "computer")
                         this.getComputerPlay();
                     break;
                 }
@@ -333,9 +351,7 @@ class Game extends CGFobject {
                     console.log("Yuki's turn");
                     this.currentState = this.states.YUKI_PLAY;
                     this.checkGameOver();
-                    if (this.yuki.type === "player")
-                        this.getValidPlays();
-                    else if (this.yuki.type === "computer")
+                    if (this.yuki.type === "computer")
                         this.getComputerPlay();
                     break;
                 }
@@ -375,30 +391,33 @@ class Game extends CGFobject {
             }
         }
 
-        if (this.currentState === this.states.FIRST_MINA_PLAY) {
+        if (this.currentState === this.states.FIRST_YUKI_PLAY) {
             this.server.makeRequest("valid_first_moves("+boardArray+",mina)", onreadystatechange);
             return;
         }
 
-        if (this.currentState === this.states.FIRST_YUKI_PLAY) {
+        if (this.currentState === this.states.STARTED) {
             this.server.makeRequest("valid_first_moves("+boardArray+",yuki)", onreadystatechange);
             return;
         }
 
-        if (this.currentState === this.states.MINA_PLAY) {
+        if (this.currentState === this.states.YUKI_PLAY) {
+            console.log("yukiplay");
             this.server.makeRequest("valid_moves("+boardArray+",mina)", onreadystatechange);
             return;
         }
 
-        if (this.currentState === this.states.YUKI_PLAY) {
+        if (this.currentState === this.states.MINA_PLAY || this.currentState === this.states.FIRST_MINA_PLAY) {
+            console.log("minaplay");
             this.server.makeRequest("valid_moves("+boardArray+",yuki)", onreadystatechange);
             return;
         }
+
+        console.log(this.currentState);
     }
 
     setValidPlays(validPlays) {
         this.validPlays = validPlays;
-        console.log(validPlays);
     }
 
     isValidPlay(row, col) {
@@ -583,6 +602,18 @@ class Game extends CGFobject {
         }
 
         return boardArray;
+    }
+
+    highlight() {
+        for (var i = 0; i < this.board.boardCells.length; i++) {
+            for (var j = 0; j < this.board.boardCells[i].length; j++) {
+                this.board.boardCells[i][j].highlighted = false;
+            }
+        }
+
+        for (var i = 0; i < this.validPlays.length; i++) {
+            this.board.boardCells[this.validPlays[i][1]-1][this.validPlays[i][0]-1].highlighted = true;
+        }
     }
 
     /**
