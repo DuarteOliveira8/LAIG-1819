@@ -405,7 +405,6 @@ class Game extends CGFobject {
                     if (response.data) {
                         game.gameOver();
                     }
-                    console.log("Game over: "+response.data);
                     return;
                 }
 
