@@ -171,6 +171,7 @@
                 <componentref id="wall-2" />
                 <componentref id="wall-3" />
                 <componentref id="wall-4" />
+                <componentref id="ceiling" />
                 <componentref id="window-1" />
                 <componentref id="window-2" />
                 <componentref id="rug" />
@@ -180,6 +181,7 @@
                 <componentref id="reading-lamp" />
                 <componentref id="kitchen-door" />
                 <componentref id="livingroom-door" />
+                <componentref id="table-lamp" />
             </children>
         </component>
 
@@ -725,6 +727,24 @@
                 <translate x="0" y="25" z="50" />
                 <rotate axis="y" angle="-180" />
                 <scale x="100" y="50" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="wall" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="ceiling">
+            <transformation>
+                <translate x="0" y="50" z="0" />
+                <rotate axis="x" angle="90" />
+                <scale x="100" y="100" z="1" />
             </transformation>
 
             <materials>
@@ -1719,6 +1739,24 @@
 
             <children>
                 <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="table-lamp">
+            <transformation>
+                <translate x="0" y="47" z="0" />
+                <rotate axis="x" angle="-90" />
+                <scale x="3" y="3" z="3" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="metal" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="lamp-base" />
             </children>
         </component>
 
