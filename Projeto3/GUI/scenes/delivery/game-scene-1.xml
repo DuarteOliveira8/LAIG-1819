@@ -71,6 +71,8 @@
         <texture id="fire" file="scenes/images/fire.jpg" />
         <texture id="metal" file="scenes/images/metal.png" />
         <texture id="lamp" file="scenes/images/lamp.jpg" />
+        <texture id="kitchen" file="scenes/images/kitchen.jpg" />
+        <texture id="livingroom" file="scenes/images/livingroom.jpg" />
     </textures>
 
     <materials>
@@ -176,6 +178,8 @@
                 <componentref id="christmas-tree" />
                 <componentref id="fireplace" />
                 <componentref id="reading-lamp" />
+                <componentref id="kitchen-door" />
+                <componentref id="livingroom-door" />
             </children>
         </component>
 
@@ -1587,6 +1591,134 @@
 
             <children>
                 <primitiveref id="lamp-base" />
+            </children>
+        </component>
+
+        <component id="livingroom-door">
+            <transformation>
+                <translate x="-10" y="0" z="-50" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="livingroom-door-view" />
+                <componentref id="door-frame1" />
+                <componentref id="door-frame2" />
+                <componentref id="door-frame3" />
+            </children>
+        </component>
+
+        <component id="kitchen-door">
+            <transformation>
+                <translate x="-10" y="0" z="50" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="kitchen-door-view" />
+                <componentref id="door-frame1" />
+                <componentref id="door-frame2" />
+                <componentref id="door-frame3" />
+            </children>
+        </component>
+
+        <component id="door-frame1">
+            <transformation>
+                <scale x="2" y="35.75" z="1" />
+                <rotate axis="z" angle="90" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="wall" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="door-frame2">
+            <transformation>
+                <translate x="-0.5" y="34.75" z="0" />
+                <scale x="21" y="2" z="1" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="wall" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="door-frame3">
+            <transformation>
+                <translate x="20" y="0" z="0" />
+                <scale x="2" y="35.75" z="1" />
+                <rotate axis="z" angle="90" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="wall" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="kitchen-door-view">
+            <transformation>
+                <translate x="10" y="17.25" z="-0.1" />
+                <scale x="20" y="34.5" z="20" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="kitchen" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="livingroom-door-view">
+            <transformation>
+                <translate x="10" y="17.25" z="0.1" />
+                <scale x="20" y="34.5" z="20" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="livingroom" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
             </children>
         </component>
 
