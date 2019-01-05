@@ -93,8 +93,8 @@
 
     clearAnimation() {
         this.animation = null;
-        
-        if (!this.scene.game.hasGameEnded()) {
+
+        if (!this.scene.game.hasGameEnded() && !this.scene.game.isPlayingMovie()) {
             this.scene.game.setState();
         }
     }
