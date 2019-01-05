@@ -20,9 +20,11 @@ class Game extends CGFobject {
         this.mina = new Mina(scene, 8, 0, 4);
         this.yuki = new Yuki(scene, 8, 0, -4);
         this.discs = [];
+        this.gameBoards = [];
 
         this.states = {
             NOT_STARTED: -1,
+            STARTED: 0,
             FIRST_YUKI_PLAY: 1,
             FIRST_MINA_PLAY: 2,
             MOVING_PIECES: 5,
@@ -63,6 +65,7 @@ class Game extends CGFobject {
         this.mina.setCoordinates(8, 0, 4);
         this.yuki.setCoordinates(8, 0, -4);
         this.discs = [];
+        this.gameBoards = [];
         this.playerPicked = null;
 
         switch (this.currentMode) {
@@ -97,6 +100,42 @@ class Game extends CGFobject {
     quit() {
         this.currentState = this.states.QUIT;
         this.setState();
+    }
+
+    undo() {
+        if (this.gameBoards.length > 0) {
+            this.gameBoards.pop();
+
+            if (this.gameBoards.length > 1) {
+                let board = this.gameBoards[this.gameBoards.length-1];
+
+                if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
+                    let play = this.makePlayFromBoard("mina", board);
+                    this.mina.move(play[0], play[1], play[2], play[3], play[4]);
+                }
+                else if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
+                    let play = this.makePlayFromBoard("yuki", board);
+                    this.yuki.move(play[0], play[1], play[2], play[3], play[4]);
+                    let disc = this.discs.pop();
+                    this.box.putBack(disc);
+                }
+
+                this.setState();
+            }
+            else {
+                if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
+                    this.mina.move(8, 0, 4, -1, -1);
+                    this.previousState = this.states.FIRST_YUKI_PLAY;
+                    this.currentState = this.states.MOVING_PIECES;
+                }
+                else if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
+                    this.yuki.move(8, 0, -4, -1, -1);
+                    let disc = this.discs.pop();
+                    this.box.putBack(disc);
+                    this.currentState = this.states.STARTED;
+                }
+            }
+        }
     }
 
     pickPlayer(player) {
@@ -134,13 +173,9 @@ class Game extends CGFobject {
         if (this.currentState === this.states.YUKI_PLAY || this.currentState === this.states.FIRST_YUKI_PLAY) {
             if (this.isValidPlay(row, col) || this.yuki.type === "computer") {
                 let disc = this.box.discs.pop();
-                disc.setAnimation(newX, newY, newZ);
-                disc.setBoardCoordinates(row, col);
+                disc.move(newX, newY, newZ, row, col);
                 this.discs.push(disc);
-
-                this.yuki.setAnimation(newX, newY, newZ);
-                this.yuki.setBoardCoordinates(row, col);
-
+                this.yuki.move(newX, newY, newZ, row, col);
                 this.setState();
             }
 
@@ -150,9 +185,7 @@ class Game extends CGFobject {
 
         if (this.currentState === this.states.MINA_PLAY || this.currentState === this.states.FIRST_MINA_PLAY) {
             if (this.isValidPlay(row, col) || this.mina.type === "computer") {
-                this.mina.setAnimation(newX, newY, newZ);
-                this.mina.setBoardCoordinates(row, col);
-
+                this.mina.move(newX, newY, newZ, row, col);
                 this.setState();
             }
             else {
@@ -177,6 +210,15 @@ class Game extends CGFobject {
                     this.getComputerPlay();
                 break;
 
+            case this.states.STARTED:
+                console.log("Yuki's first play");
+                this.currentState = this.states.FIRST_YUKI_PLAY;
+                if (this.yuki.type === "player")
+                    this.getValidPlays();
+                else if (this.yuki.type === "computer")
+                    this.getComputerPlay();
+                break;
+
             case this.states.QUIT:
                 console.log("Game stopped");
                 this.currentState = this.states.NOT_STARTED;
@@ -189,21 +231,25 @@ class Game extends CGFobject {
 
             case this.states.FIRST_YUKI_PLAY:
                 console.log("Moving yuki");
+                this.saveGameState();
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.YUKI_PLAY:
                 console.log("Moving yuki");
+                this.saveGameState();
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.FIRST_MINA_PLAY:
                 console.log("Moving mina");
+                this.saveGameState();
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
             case this.states.MINA_PLAY:
                 console.log("Moving mina");
+                this.saveGameState();
                 this.currentState = this.states.MOVING_PIECES;
                 break;
 
@@ -319,7 +365,7 @@ class Game extends CGFobject {
             if (this.readyState === 4 && this.status === 200) {
                 let response = JSON.parse(this.responseText);
                 if (response.success) {
-                    game.makePlayFromBoard(response.data);
+                    game.makeComputerPlay(response.data);
                     return;
                 }
 
@@ -361,19 +407,34 @@ class Game extends CGFobject {
         }
     }
 
-    makePlayFromBoard(boardArray) {
-        let newPos = this.getCurrentPlayerPosition(boardArray);
-        let newPosCoords = this.board.boardCells[newPos[0]][newPos[1]].getCoords();
+    makeComputerPlay(boardArray) {
+        var play;
 
-        this.movePlayer(newPosCoords[0], newPosCoords[1], newPosCoords[2], newPos[0], newPos[1]);
+        if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
+            play = this.makePlayFromBoard("yuki", boardArray);
+        }
+
+        if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
+            play = this.makePlayFromBoard("mina", boardArray);
+        }
+
+        this.movePlayer(play[0], play[1], play[2], play[3], play[4]);
     }
 
-    getCurrentPlayerPosition(boardArray) {
+    makePlayFromBoard(player, boardArray) {
+        let newPos = this.getCurrentPlayerPosition(player, boardArray);
+        let newPosCoords = this.board.boardCells[newPos[0]][newPos[1]].getCoords();
+        let play = newPosCoords.concat(newPos);
+
+        return play;
+    }
+
+    getCurrentPlayerPosition(player, boardArray) {
         let pos = [];
 
         for (var i = 0; i < boardArray.length; i++) {
             for (var j = 0; j < boardArray[i].length; j++) {
-                if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
+                if (player === "yuki") {
                     if (boardArray[i][j] === 1) {
                         pos.push(i);
                         pos.push(j);
@@ -381,7 +442,7 @@ class Game extends CGFobject {
                     continue;
                 }
 
-                if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
+                if (player === "mina") {
                     if (boardArray[i][j] === 2 || boardArray[i][j] === 5) {
                         pos.push(i);
                         pos.push(j);
@@ -391,6 +452,7 @@ class Game extends CGFobject {
             }
         }
 
+        console.log(pos);
         return pos;
     }
 
@@ -439,6 +501,11 @@ class Game extends CGFobject {
 
     hasGameEnded() {
         return this.currentState === this.states.NOT_STARTED;
+    }
+
+    saveGameState() {
+        let boardArray = this.createBoardArray();
+        this.gameBoards.push(boardArray);
     }
 
     createBoardArray() {

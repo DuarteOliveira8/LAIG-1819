@@ -217,7 +217,7 @@ class XMLscene extends CGFscene {
     }
 
     undoMove() {
-        // this.game.undo();
+        this.game.undo();
     }
 
     quitGame() {

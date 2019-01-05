@@ -21,7 +21,7 @@
 
         this.row = -1;
         this.col = -1;
-        
+
         this.highlighted = false;
         this.animation = null;
     };
@@ -30,6 +30,11 @@
      * BoardPiece Display function.
      */
     display() {};
+
+    move(newX, newY, newZ, row, col) {
+        this.setAnimation(newX, newY, newZ);
+        this.setBoardCoordinates(row, col);
+    }
 
     /**
      * Animates the board piece.
