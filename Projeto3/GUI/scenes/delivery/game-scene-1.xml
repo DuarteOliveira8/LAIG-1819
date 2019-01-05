@@ -683,7 +683,8 @@
 
         <component id="window-1">
             <transformation>
-                <translate x="-10" y="15" z="-50" />
+                <translate x="50" y="15" z="-40" />
+                <rotate axis="y" angle="-90" />
             </transformation>
 
             <materials>
@@ -705,8 +706,8 @@
 
         <component id="window-2">
             <transformation>
-                <translate x="-50" y="15" z="10" />
-                <rotate axis="y" angle="90" />
+                <translate x="50" y="15" z="20" />
+                <rotate axis="y" angle="-90" />
             </transformation>
 
             <materials>
