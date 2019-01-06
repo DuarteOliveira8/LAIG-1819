@@ -1,0 +1,57 @@
+body, html {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.game-panel {
+    top: 10px;
+    left: 10px;
+    background-image: url('scenes/images/cork-board-2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    padding: 30px;
+    border-radius: 4px;
+}
+
+.game-panel .game-title {
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.game-panel .game-state {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.game-panel .score {
+    margin-bottom: 10px;
+}
+
+.game-panel .title {
+    font-weight: 600;
+    text-align: center;
+}
+
+.game-panel .score .content {
+    text-align: center;
+    font-size: 30px;
+}
+
+.game-panel .guides {
+    margin-bottom: 10px;
+}
+
+.game-panel .guides .content {
+    text-align: center;
+}
