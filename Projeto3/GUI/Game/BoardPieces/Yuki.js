@@ -4,14 +4,18 @@
  * @constructor
  */
 
- /**
-  * Yuki class, representing a 3D object: the Yuki character.
-  */
- class Yuki extends BoardPiece {
+/**
+ * Yuki class, representing a 3D object: the Yuki character.
+ * @extends BoardPiece
+ */
+class Yuki extends BoardPiece {
     /**
-    * @constructor constructor of the class Yuki.
-    * @param {Scene of the application} scene
-    */
+     * Constructor of the class Yuki.
+     * @param {CGFscene} scene Scene of the application.
+     * @param {Number} xPos X coordinate of the Yuki character.
+     * @param {Number} yPos Y coordinate of the Yuki character.
+     * @param {Number} zPos Z coordinate of the Yuki character.
+     */
     constructor(scene, xPos, yPos, zPos) {
         super(scene, xPos, yPos, zPos);
 
@@ -47,8 +51,8 @@
     };
 
     /**
-    * Yuki Display function.
-    */
+     * Yuki Display function.
+     */
     display() {
         this.scene.registerForPick(101, this);
 
@@ -109,6 +113,10 @@
         this.scene.clearPickRegistration();
     }
 
+    /**
+     * Clears the animation variable by setting it to null.
+     * If the game is still playing or the movie is not playing, the game state updates.
+     */
     clearAnimation() {
         this.animation = null;
 
@@ -118,10 +126,10 @@
     }
 
     /**
-    * Updates the texture coordinates.
-    * @param {s texture coordinate} s
-    * @param {t texture coordinate} t
-    */
+     * Updates the texture coordinates.
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
+     */
     updateTexCoords(s, t) {};
 
  }

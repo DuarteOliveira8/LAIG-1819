@@ -6,11 +6,12 @@
 
 /**
  * Board class, a 3D representation of our game board.
+ * @extends CGFobject
  */
 class Board extends CGFobject {
     /**
-     * @constructor constructor of the class Board.
-     * @param {Scene of the application} scene
+     * Constructor of the class Board.
+     * @param {CGFscene} scene Scene of the application.
      */
     constructor(scene) {
         super(scene);
@@ -31,7 +32,7 @@ class Board extends CGFobject {
     };
 
     /**
-     * Board Display function.
+     * Board Display function. Displays all the board cells and registers them for picking.
      */
     display() {
         var degToRad = Math.PI / 180;
@@ -50,8 +51,8 @@ class Board extends CGFobject {
 
     /**
      * Updates the texture coordinates.
-     * @param {s texture coordinate} s
-     * @param {t texture coordinate} t
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
      */
     updateTexCoords(s, t) {};
 

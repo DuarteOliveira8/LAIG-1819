@@ -4,14 +4,18 @@
  * @constructor
  */
 
- /**
-  * Disc class, representing a 3D object: a disc.
-  */
- class Disc extends BoardPiece {
+/**
+ * Disc class, a 3D representation of a disc piece.
+ * @extends BoardPiece
+ */
+class Disc extends BoardPiece {
     /**
-    * @constructor constructor of the class Disc.
-    * @param {Scene of the application} scene
-    */
+     * Constructor of the class Disc.
+     * @param {CGFscene} scene Scene of the application.
+     * @param {Number} xPos X coordinate of the disc.
+     * @param {Number} yPos Y coordinate of the disc.
+     * @param {Number} zPos Z coordinate of the disc.
+     */
     constructor(scene, xPos, yPos, zPos) {
         super(scene, xPos, yPos, zPos);
 
@@ -25,8 +29,8 @@
     };
 
     /**
-    * Disc Display function.
-    */
+     * Disc Display function.
+     */
     display() {
         var degToRad = Math.PI / 180;
 
@@ -44,10 +48,10 @@
     }
 
     /**
-    * Updates the texture coordinates.
-    * @param {s texture coordinate} s
-    * @param {t texture coordinate} t
-    */
+     * Updates the texture coordinates.
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
+     */
     updateTexCoords(s, t) {};
 
  }

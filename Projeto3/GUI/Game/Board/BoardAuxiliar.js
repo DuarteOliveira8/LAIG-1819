@@ -6,11 +6,12 @@
 
 /**
  * BoardAuxiliar class, a 3D representation of our game board auxiliar support for white discs.
+ * @extends CGFobject
  */
 class BoardAuxiliar extends CGFobject {
     /**
-     * @constructor constructor of the class BoardAuxiliary.
-     * @param {Scene of the application} scene
+     * Constructor of the class BoardAuxiliary.
+     * @param {CGFscene} scene Scene of the application.
      */
     constructor(scene) {
         super(scene);
@@ -37,7 +38,7 @@ class BoardAuxiliar extends CGFobject {
     };
 
     /**
-     * BoardAuxiliar Display function.
+     * BoardAuxiliar Display function. Displays the box and all discs inside it.
      */
     display() {
         var degToRad = Math.PI / 180;
@@ -118,6 +119,9 @@ class BoardAuxiliar extends CGFobject {
         }
     }
 
+    /**
+     * Creates all the discs and places them in the box.
+     */
     initDiscs() {
         this.discs = [];
 
@@ -143,6 +147,10 @@ class BoardAuxiliar extends CGFobject {
         }
     }
 
+    /**
+     * Puts a disc back to the auxiliar box.
+     * @param {Disc} disc The disc to be placed back in the box.
+     */
     putBack(disc) {
         let lastDisc = this.discs[this.discs.length-1];
         var newX, newY, newZ;
@@ -171,8 +179,8 @@ class BoardAuxiliar extends CGFobject {
 
     /**
      * Updates the texture coordinates.
-     * @param {s texture coordinate} s
-     * @param {t texture coordinate} t
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
      */
     updateTexCoords(s, t) {};
 }

@@ -4,13 +4,17 @@
  * @constructor
  */
 
- /**
-  * Disc class, representing a 3D object: a disc.
-  */
- class BoardPiece extends CGFobject {
+/**
+ * Disc class, representing a 3D object: a disc.
+ * @extends CGFobject
+ */
+class BoardPiece extends CGFobject {
     /**
-     * @constructor constructor of the class BoardPiece.
-     * @param {Scene of the application} scene
+     * Constructor of the class BoardPiece.
+     * @param {CGFscene} scene Scene of the application.
+     * @param {Number} xPos X coordinate of the piece.
+     * @param {Number} yPos Y coordinate of the piece.
+     * @param {Number} zPos Z coordinate of the piece.
      */
     constructor(scene, xPos, yPos, zPos) {
         super(scene);
@@ -27,17 +31,27 @@
     };
 
     /**
-     * BoardPiece Display function.
+     * BoardPiece Display abstract function.
      */
     display() {};
 
+    /**
+     * Starts the piece movement by setting the animation wiht the given coordinates.
+     * Sets the piece position on the board with the row and column given.
+     * @param  {Number} newX New X coordinate of the piece.
+     * @param  {Number} newY New Y coordinate of the piece.
+     * @param  {Number} newZ New Z coordinate of the piece.
+     * @param  {Number} row New row of the piece.
+     * @param  {Number} col New column of the piece.
+     */
     move(newX, newY, newZ, row, col) {
         this.setAnimation(newX, newY, newZ);
         this.setBoardCoordinates(row, col);
     }
 
     /**
-     * Animates the board piece.
+     * Animates the board piece by updating the animation and setting the new coordinates.
+     * If the animation has ended, this function clears the animation variable.
      */
     animate() {
         if (!this.animation.hasFinished()) {
@@ -53,13 +67,18 @@
         }
     }
 
+    /**
+     * Clears the animation variable by setting it to null.
+     */
     clearAnimation() {
         this.animation = null;
     }
 
     /**
-     * Sets de piece animation with the new animation.
-     * @param {New animation.} animation
+     * Sets de piece animation with a new animation based on the lastcontrolpoint coordinates given.
+     * @param {Number} newX New X coordinate of the piece.
+     * @param {Number} newY New Y coordinate of the piece.
+     * @param {Number} newZ New Z coordinate of the piece.
      */
     setAnimation(newX, newY, newZ) {
         let controlPoints = [];
@@ -92,10 +111,10 @@
     }
 
     /**
-     * Sets de coordinates with the new coordinates.
-     * @param {New X coordinate.} xPos
-     * @param {New Y coordinate.} yPos
-     * @param {New Z coordinate.} zPos
+     * Sets the coordinates with the new coordinates.
+     * @param {Number} xPos New X coordinate of the piece.
+     * @param {Number} yPos New Y coordinate of the piece.
+     * @param {Number} zPos New Z coordinate of the piece.
      */
     setCoordinates(xPos, yPos, zPos) {
         this.xPos = xPos;
@@ -103,6 +122,11 @@
         this.zPos = zPos;
     }
 
+    /**
+     * Sets the row and column with the new row and column given.
+     * @param {Number} row New row of the piece.
+     * @param {Number} col New column of the piece.
+     */
     setBoardCoordinates(row, col) {
         this.row = row;
         this.col = col;
@@ -110,8 +134,8 @@
 
     /**
      * Updates the texture coordinates.
-     * @param {s texture coordinate} s
-     * @param {t texture coordinate} t
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
      */
     updateTexCoords(s, t) {};
 

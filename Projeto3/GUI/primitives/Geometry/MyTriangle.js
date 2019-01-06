@@ -4,23 +4,25 @@
  * @constructor
  */
 
-class MyTriangle extends CGFobject
-{
+/**
+ * MyTriangle class, representing the triangle primitive.
+ * @extends CGFobject
+ */
+class MyTriangle extends CGFobject {
 	/**
 	 * MyTriangle class, representing the triangle primitive.
- 	 * @param {Scene of the application.} scene
- 	 * @param {x coordinate of the first vertex.} x1
- 	 * @param {y coordinate of the first vertex.} y1
- 	 * @param {z coordinate of the first vertex.} z1
- 	 * @param {x coordinate of the second vertex.} x2
- 	 * @param {y coordinate of the second vertex.} y2
- 	 * @param {z coordinate of the second vertex.} z2
- 	 * @param {x coordinate of the third vertex.} x3
- 	 * @param {y coordinate of the third vertex.} y3
- 	 * @param {z coordinate of the third vertex.} z3
+	 * @param {CGFscene} scene Scene of the application.
+	 * @param {Number} x1 x coordinate of the first vertex.
+	 * @param {Number} y1 y coordinate of the first vertex.
+	 * @param {Number} z1 z coordinate of the first vertex.
+	 * @param {Number} x2 x coordinate of the second vertex.
+	 * @param {Number} y2 y coordinate of the second vertex.
+	 * @param {Number} z2 z coordinate of the second vertex.
+	 * @param {Number} x3 x coordinate of the third vertex.
+	 * @param {Number} y3 y coordinate of the third vertex.
+	 * @param {Number} z3 z coordinate of the third vertex.
 	 */
-	constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3)
-	{
+	constructor(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3) {
 		super(scene);
 
 		this.minS = 0.0;
@@ -46,8 +48,7 @@ class MyTriangle extends CGFobject
 	/**
 	 * Prepares the buffers to display the triangle primitive.
 	 */
-	initBuffers()
-	{
+	initBuffers() {
 		this.vertices = [
 			this.x1, this.y1, this.z1,
 			this.x2, this.y2, this.z2,
@@ -101,19 +102,19 @@ class MyTriangle extends CGFobject
 	};
 
 	/**
-	 * Updates the texture coordinates.
- 	 * @param {s texture coordinate.} s
- 	 * @param {t texture coordinate.} t
-	 */
+     * Updates the texture coordinates.
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
+     */
 	updateTexCoords(s, t) {
-			this.texCoords = this.originalTexCoords.slice();
+		this.texCoords = this.originalTexCoords.slice();
 
-			for (var i = 0; i < this.texCoords.length; i++) {
-					this.texCoords[i] /= s;
-					this.texCoords[++i] /= t;
-			}
+		for (var i = 0; i < this.texCoords.length; i++) {
+			this.texCoords[i] /= s;
+			this.texCoords[++i] /= t;
+		}
 
-			this.updateTexCoordsGLBuffers();
+		this.updateTexCoordsGLBuffers();
 	};
 
 };

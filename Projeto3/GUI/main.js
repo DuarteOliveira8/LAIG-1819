@@ -6,10 +6,11 @@ function getUrlVars() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
     function(m,key,value) {
-      vars[decodeURIComponent(key)] = decodeURIComponent(value);
+        vars[decodeURIComponent(key)] = decodeURIComponent(value);
     });
     return vars;
 }
+
 //Include additional files here
 serialInclude(['../lib/CGF.js',
                'XMLscene.js',
@@ -45,8 +46,7 @@ serialInclude(['../lib/CGF.js',
                './animations/BezierAnimation.js',
 
 
-main=function()
-{
+main = function() {
 	// Standard application, scene and interface setup
     var app = new CGFapplication(document.body);
     var myInterface = new MyInterface();

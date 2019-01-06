@@ -4,15 +4,16 @@
  * @constructor
  */
 
- /**
-  * BezierAnimation class, representing an object's bezier curve animation.
-  */
+/**
+ * BezierAnimation class, representing an object's bezier curve animation.
+ * @extends Animation
+ */
 class BezierAnimation extends Animation {
 	/**
-	 * @constructor constructor of the class BezierAnimation.
-	 * @param {Scene of the application.} scene
-	 * @param {Total time of the animation in ms.} time
-	 * @param {Array containing the control points of the animation.} controlPoints
+	 * Constructor of the class BezierAnimation.
+	 * @param {CGFscene} scene Scene of the application.
+	 * @param {Number} time Total time of the animation in ms.
+	 * @param {Number[][]} controlPoints Array containing the control points of the animation.
 	 */
 	constructor(scene, time, controlPoints) {
 		super(scene, time);
@@ -79,7 +80,7 @@ class BezierAnimation extends Animation {
   	};
 
   	/**
-	 * Applies the current animation state to the transformation matrix and prepares the next transformation.
+	 * Applies the current animation state to the transformation matrix and prepares the next transformation and saves the current controlpoint.
 	 * When the current time of the animation exceeds the span specified, it terminates the animation.
 	 */
   	apply() {
@@ -124,8 +125,9 @@ class BezierAnimation extends Animation {
 	  	}
   	};
 
-  	/**
+   	/**
    	 * Returns a copy the current class.
+   	 * @return {BezierAnimation} Copy of the instance of a bezier animation.
    	 */
   	copy() {
         return new BezierAnimation(this.scene, this.time, this.controlPoints);

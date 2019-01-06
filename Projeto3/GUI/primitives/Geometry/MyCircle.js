@@ -4,19 +4,18 @@
  * @constructor
  */
 
- /**
-  * MyCircle class, representing the circle primitive.
-  */
-class MyCircle extends CGFobject
-{
+/**
+ * MyCircle class, representing the circle primitive.
+ * @extends CGFobject
+ */
+class MyCircle extends CGFobject {
 	/**
-	 * @constructor constructor of the class MyCircle.
-	 * @param {Scene of the application.} scene
-	 * @param {Number of circle slices.} slices
-	 * @param {Circle radius.} radius
+	 * Constructor of the class MyCircle.
+	 * @param {CGFscene} scene  Scene of the application.
+	 * @param {Number} slices Number of circle slices.
+	 * @param {Number} radius Circle radius.
 	 */
-	constructor(scene, slices, radius)
-	{
+	constructor(scene, slices, radius) {
 		super(scene);
 		this.radius = radius;
 		this.slices = slices;
@@ -27,13 +26,12 @@ class MyCircle extends CGFobject
 		this.texCoords = [];
 
 		this.initBuffers();
-  };
+  	};
 
 	/**
-	*	Prepares the buffer to display the circle primitive.
-	*/
-	initBuffers()
-	{
+	 * Prepares the buffer to display the circle primitive.
+	 */
+	initBuffers() {
 		// VERTICES DEFINITION
 		var degToRad = Math.PI / 180;
 
@@ -71,18 +69,18 @@ class MyCircle extends CGFobject
 	};
 
 	/**
-	* Updates the texture coordinates.
-	* @param {s texture coordinate.} s
-	* @param {t texture coordinate.} t
-	*/
+     * Updates the texture coordinates.
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
+     */
 	updateTexCoords(s, t) {
-			this.texCoords = this.originalTexCoords.slice();
+		this.texCoords = this.originalTexCoords.slice();
 
-			for (var i = 0; i < this.texCoords.length; i+=2) {
-					this.texCoords[i] /= s;
-					this.texCoords[i+1] /= t;
-			}
+		for (var i = 0; i < this.texCoords.length; i+=2) {
+			this.texCoords[i] /= s;
+			this.texCoords[i+1] /= t;
+		}
 
-			this.updateTexCoordsGLBuffers();
+		this.updateTexCoordsGLBuffers();
 	}
 };

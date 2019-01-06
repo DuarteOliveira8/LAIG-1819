@@ -6,11 +6,16 @@
 
 /**
  * BoardCell class, a 3D representation of our game board cell.
+ * @extends CGFobject
  */
 class BoardCell extends CGFobject {
     /**
-     * @constructor constructor of the class BoardCell.
-     * @param {Scene of the application} scene
+     * Constructor of the class BoardCell.
+     * @param {CGFscene} scene Scene of the application.
+     * @param {Number} xPos X coordinate of the board cell.
+     * @param {Number} zPos Z coordinate of the board cell.
+     * @param {Number} row Row of the board cell in the board.
+     * @param {Number} col Column of the board cell in the board.
      */
     constructor(scene, xPos, zPos, row, col) {
         super(scene);
@@ -47,7 +52,7 @@ class BoardCell extends CGFobject {
     };
 
     /**
-     * BoardCell Display function.
+     * BoardCell Display function. Displays the cell and if it is highlighted, the cell becomes green.
      */
     display() {
         var degToRad = Math.PI / 180;
@@ -101,14 +106,18 @@ class BoardCell extends CGFobject {
         this.scene.popMatrix();
     }
 
+    /**
+     * Gets the coordinates of the cell.
+     * @return {Number[]} Coordinates of the cell.
+     */
     getCoords() {
         return [this.xPos, this.yPos, this.zPos];
     }
 
     /**
      * Updates the texture coordinates.
-     * @param {s texture coordinate} s
-     * @param {t texture coordinate} t
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
      */
     updateTexCoords(s, t) {};
 
