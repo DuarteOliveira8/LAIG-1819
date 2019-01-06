@@ -51,6 +51,7 @@ class Game extends CGFobject {
         this.rotationCamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 60, -60), vec3.fromValues(0, 10, 0));
         this.rotationAngle = 0;
         this.currentCameraState = this.cameraStates.YUKI;
+        this.cameraAngle = "Rotating";
 
         this.server = new Server(this);
     };
@@ -298,7 +299,7 @@ class Game extends CGFobject {
 
             case this.states.FIRST_YUKI_PLAY:
                 console.log("Moving yuki");
-                if (this.scene.currentCamera === "rotation") {
+                if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
                     this.setRotation();
                 }
                 this.saveGameState();
@@ -311,7 +312,7 @@ class Game extends CGFobject {
 
             case this.states.YUKI_PLAY:
                 console.log("Moving yuki");
-                if (this.scene.currentCamera === "rotation") {
+                if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
                     this.setRotation();
                 }
                 this.saveGameState();
@@ -324,7 +325,7 @@ class Game extends CGFobject {
 
             case this.states.FIRST_MINA_PLAY:
                 console.log("Moving mina");
-                if (this.scene.currentCamera === "rotation") {
+                if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
                     this.setRotation();
                 }
                 this.saveGameState();
@@ -337,7 +338,7 @@ class Game extends CGFobject {
 
             case this.states.MINA_PLAY:
                 console.log("Moving mina");
-                if (this.scene.currentCamera === "rotation") {
+                if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
                     this.setRotation();
                 }
                 this.saveGameState();
@@ -662,6 +663,16 @@ class Game extends CGFobject {
     }
 
     setCameraAngle() {
+        if (this.cameraAngle === "Yuki") {
+            this.setCameraYuki();
+            return;
+        }
+
+        if (this.cameraAngle === "Mina") {
+            this.setCameraMina();
+            return;
+        }
+
         if (this.currentState === this.states.NOT_STARTED) {
             this.setCameraYuki();
             return;

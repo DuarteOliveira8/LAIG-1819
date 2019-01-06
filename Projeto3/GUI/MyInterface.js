@@ -63,7 +63,7 @@ class MyInterface extends CGFinterface {
 
         controller.onChange(function(value) {
             scene.updateCamera(value);
-            if (value === "rotation") {
+            if (value === "rotation" && scene.game.cameraAngle === "Rotating") {
                 scene.game.setCameraAngle();
             }
         });
@@ -95,6 +95,12 @@ class MyInterface extends CGFinterface {
         group.add(this.scene, "quitGame").name("Quit game");
         group.add(this.scene, "gameMovie").name("Game movie");
         group.add(this.scene.game, "help").name("Help");
+        var controller = group.add(this.scene.game, "cameraAngle", ["Rotating", "Yuki", "Mina"]).name("Dynamic camera angle");
+
+        var scene = this.scene;
+        controller.onChange(function(value) {
+            scene.game.setCameraAngle();
+        });
     }
 
     /**
