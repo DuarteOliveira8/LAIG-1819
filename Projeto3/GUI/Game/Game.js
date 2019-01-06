@@ -54,6 +54,7 @@ class Game extends CGFobject {
         this.cameraAngle = "Rotating";
 
         this.turnTime = 0;
+        this.settingsTurnTime = 60;
 
         this.server = new Server(this);
     };
@@ -601,11 +602,12 @@ class Game extends CGFobject {
     }
 
     setTurnTime() {
-        this.turnTime = 60000;
+        this.turnTime = this.settingsTurnTime*1000;
     }
 
     updateTurnTime(deltaTime) {
         this.turnTime -= deltaTime;
+        console.log(Math.floor(this.turnTime/1000));
 
         if (this.turnTime <= 0 && this.currentState !== this.states.MOVING_PIECES) {
             this.gameOver();

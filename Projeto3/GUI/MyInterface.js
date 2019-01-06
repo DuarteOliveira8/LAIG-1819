@@ -56,6 +56,8 @@ class MyInterface extends CGFinterface {
 
         group.add(this.scene.game, "currentMode", ["Player vs Player", "Player vs Computer", "Computer vs Player", "Computer vs Computer"]).name("Game mode");
         group.add(this.scene.game, "currentDifficulty", ["Easy", "Hard"]).name("Difficulty");
+        group.add(this.scene.game, "help").name("Help");
+        group.add(this.scene.game, "settingsTurnTime").name("Turn time");
         var dynamicCamera = group.add(this.scene.game, "cameraAngle", ["Rotating", "Yuki", "Mina"]).name("Dynamic camera");
 
         dynamicCamera.onChange(function(value) {
@@ -87,7 +89,6 @@ class MyInterface extends CGFinterface {
         group.add(this.scene, "undoMove").name("Undo move");
         group.add(this.scene, "quitGame").name("Quit game");
         group.add(this.scene, "gameMovie").name("Game movie");
-        group.add(this.scene.game, "help").name("Help");
     }
 
     /**
