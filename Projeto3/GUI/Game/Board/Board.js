@@ -10,7 +10,7 @@
 class Board extends CGFobject {
     /**
      * @constructor constructor of the class Board.
-     * @param {Scene of the application} scene
+     * @param {Scene of the application.} scene
      */
     constructor(scene) {
         super(scene);
@@ -31,7 +31,7 @@ class Board extends CGFobject {
     };
 
     /**
-     * Board Display function.
+     * Board Display function. Displays all the board cells and registers them for picking.
      */
     display() {
         var degToRad = Math.PI / 180;
