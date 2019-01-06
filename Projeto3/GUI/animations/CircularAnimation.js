@@ -4,29 +4,30 @@
  * @constructor
  */
 
- /**
-  * CircularAnimation class, representing an object's circular animation.
-  */
+/**
+ * CircularAnimation class, representing an object's circular animation.
+ * @extends Animation
+ */
 class CircularAnimation extends Animation {
 	/**
-	 * @constructor constructor of the class CircularAnimation.
-	 * @param {Scene of the application.} scene
-	 * @param {Total time of the animation in ms.} time
-	 * @param {Center point of the animation rotation.} center
-	 * @param {Radius of the animation rotation.} radius
-	 * @param {Initial Animation Rotation Angle. If 0, it's located in the x axis.} initAngle
-	 * @param {Total rotation angle.} rotAngle
+	 * Constructor of the class CircularAnimation.
+	 * @param {CGFscene} scene Scene of the application.
+	 * @param {Number} time Total time of the animation in ms.
+	 * @param {Number[]} center Center point of the animation rotation.
+	 * @param {Number} radius Radius of the animation rotation.
+	 * @param {Number} initAngle Initial Animation Rotation Angle. If 0, it's located in the x axis.
+	 * @param {Number} rotAngle Total rotation angle.
 	 */
 	constructor(scene, time, center, radius, initAngle, rotAngle) {
-			super(scene, time);
+		super(scene, time);
 
-			this.center = center;
-			this.radius = radius;
-			this.angle = initAngle;
-			this.rotAngle = rotAngle;
+		this.center = center;
+		this.radius = radius;
+		this.angle = initAngle;
+		this.rotAngle = rotAngle;
 
-			this.delta = (this.rotAngle/this.time)*this.scene.period;
-  };
+		this.delta = (this.rotAngle/this.time)*this.scene.period;
+  	};
 
 	/**
 	* Applies the current animation state to the transformation matrix and prepares the next transformation.
