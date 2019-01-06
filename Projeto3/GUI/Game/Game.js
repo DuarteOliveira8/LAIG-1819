@@ -117,10 +117,12 @@ class Game extends CGFobject {
     }
 
     quit() {
-        this.currentState = this.states.QUIT;
-        this.validPlays = [];
-        this.highlight();
-        this.setState();
+        if (this.currentState !== this.states.MOVIE && this.currentState !== this.states.NOT_STARTED) {
+            this.currentState = this.states.QUIT;
+            this.validPlays = [];
+            this.highlight();
+            this.setState();
+        }
     }
 
     undo() {
@@ -184,10 +186,13 @@ class Game extends CGFobject {
                     let disc = this.box.discs.pop();
                     disc.move(play[0], play[1], play[2], play[3], play[4]);
                     this.discs.push(disc);
+                    this.updateGamePanel("guides", "Moving Yuki...");
+                    this.updateGamePanel("score", this.box.discs.length);
                 }
                 else {
                     let play = this.makePlayFromBoard("mina", board);
                     this.mina.move(play[0], play[1], play[2], play[3], play[4]);
+                    this.updateGamePanel("guides", "Moving Mina...");
                 }
             }.bind(this), 2000*i);
         }
