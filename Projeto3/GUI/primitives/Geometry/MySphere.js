@@ -4,20 +4,19 @@
  * @constructor
  */
 
- /**
-  * MySphere class, representing the sphere primitive.
-  */
-class MySphere extends CGFobject
-{
+/**
+ * MySphere class, representing the sphere primitive.
+ * @extends CGFobject
+ */
+class MySphere extends CGFobject {
 	/**
-	 * @constructor constructor of the class MySphere.
-	 * @param {Scene of the application.} scene
-	 * @param {Sphere radius.} radius
-	 * @param {Number of sphere slices.} slices
-	 * @param {Number of sphere stacks.} stacks
+	 * Constructor of the class MySphere.
+	 * @param {CGFscene} scene Scene of the application.
+	 * @param {Number} radius Sphere radius.
+	 * @param {Number} slices Number of sphere slices.
+	 * @param {Number} stacks Number of sphere stacks.
 	 */
-	constructor(scene, radius, slices, stacks)
-	{
+	constructor(scene, radius, slices, stacks) {
 		super(scene);
 
 		this.radius = radius;
@@ -38,10 +37,9 @@ class MySphere extends CGFobject
 	};
 
 	/**
-	*	Prepares the buffer to display the sphere primitive.
-	*/
-	initBuffers()
-	{
+	 * Prepares the buffer to display the sphere primitive.
+	 */
+	initBuffers() {
 		// VERTICES DEFINITION
 		var degToRad = Math.PI / 180;
 		var k = 0;
@@ -65,9 +63,9 @@ class MySphere extends CGFobject
 
 				// INDICES DEFINITION
 				if (i != this.slices) {
-						this.indices.push(k, k+1, k+2);
-						this.indices.push(k+3, k+2, k+1);
-						k += 2;
+					this.indices.push(k, k+1, k+2);
+					this.indices.push(k+3, k+2, k+1);
+					k += 2;
 				}
 
 				// NORMALS DEFINITION
@@ -100,19 +98,19 @@ class MySphere extends CGFobject
 	};
 
 	/**
-	* Updates the texture coordinates.
-	* @param {s texture coordinate.} s
-	* @param {t texture coordinate.} t
-	*/
+     * Updates the texture coordinates.
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
+     */
 	updateTexCoords(s, t) {
-			this.texCoords = this.originalTexCoords.slice();
+		this.texCoords = this.originalTexCoords.slice();
 
-			for (var i = 0; i < this.texCoords.length; i+=2) {
-					this.texCoords[i] /= s;
-					this.texCoords[i+1] /= t;
-			}
+		for (var i = 0; i < this.texCoords.length; i+=2) {
+			this.texCoords[i] /= s;
+			this.texCoords[i+1] /= t;
+		}
 
-			this.updateTexCoordsGLBuffers();
+		this.updateTexCoordsGLBuffers();
 	};
 
 };

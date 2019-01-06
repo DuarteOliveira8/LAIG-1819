@@ -4,22 +4,21 @@
  * @constructor
  */
 
- /**
-  * MyCylinder class, representing the cylinder primitive without covers.
-  */
-class MyCylinder extends CGFobject
-{
+/**
+ * MyCylinder class, representing the cylinder primitive without covers.
+ * @extends CGFobject
+ */
+class MyCylinder extends CGFobject {
 	/**
-	 * @constructor Constructor of the class MyCylinder.
- 	 * @param {Scene of the application.} scene
- 	 * @param {Base radius.} base
- 	 * @param {Top radius.} top
- 	 * @param {Height of the cylinder.} height
- 	 * @param {Slices of the cylinder.} slices
- 	 * @param {Stacks of the cylinder.} stacks
+	 * Constructor of the class MyCylinder.
+	 * @param {CGFscene} scene Scene of the application.
+	 * @param {Number} base Base radius.
+	 * @param {Number} top Top radius.
+	 * @param {Number} height Height of the cylinder.
+	 * @param {Number} slices Slices of the cylinder.
+	 * @param {Number} stacks Stacks of the cylinder.
 	 */
-	constructor(scene, base, top, height, slices, stacks)
-	{
+	constructor(scene, base, top, height, slices, stacks) {
 		super(scene);
 
 		this.base = base;
@@ -44,8 +43,7 @@ class MyCylinder extends CGFobject
 	/**
 	 * Prepares the buffers to display the cylinder.
 	 */
-	initBuffers()
-	{
+	initBuffers() {
 		// VERTICES DEFINITION
 		var degToRad = Math.PI / 180;
 		var substack = this.height/this.stacks;
@@ -107,19 +105,19 @@ class MyCylinder extends CGFobject
 	};
 
 	/**
-	 * Updates the texture coordinates.
- 	 * @param {s texture coordinate.} s
- 	 * @param {t texture coordinate.} t
-	 */
+     * Updates the texture coordinates.
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
+     */
 	updateTexCoords(s, t) {
-			this.texCoords = this.originalTexCoords.slice();
+		this.texCoords = this.originalTexCoords.slice();
 
-			for (var i = 0; i < this.texCoords.length; i+=2) {
-					this.texCoords[i] /= s;
-					this.texCoords[i+1] /= t;
-			}
+		for (var i = 0; i < this.texCoords.length; i+=2) {
+			this.texCoords[i] /= s;
+			this.texCoords[i+1] /= t;
+		}
 
-			this.updateTexCoordsGLBuffers();
+		this.updateTexCoordsGLBuffers();
 	}
 
 };
