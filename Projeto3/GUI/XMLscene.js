@@ -211,6 +211,10 @@ class XMLscene extends CGFscene {
         if (this.rotatingCamera) {
             this.game.rotateCamera(this.currentTime-this.previousTime);
         }
+
+        if (!this.game.hasGameEnded() && this.game.turnTime > 0) {
+            this.game.updateTurnTime(this.currentTime-this.previousTime);
+        }
     }
 
     /**
