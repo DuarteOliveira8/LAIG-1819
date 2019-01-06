@@ -57,6 +57,8 @@ class Game extends CGFobject {
         this.turnTime = 0;
         this.settingsTurnTime = 60;
 
+        this.panel = true;
+
         this.server = new Server(this);
     };
 
@@ -341,7 +343,7 @@ class Game extends CGFobject {
             return;
         }
     }
-  
+
     /**
      * Sets the current state to a new state according to the current and/or the previous state.
      * Prepares the current state by getting valid plays and highlighting them, moving the computer, rotating the camera, setting turn times or updating game panel.
@@ -938,6 +940,16 @@ class Game extends CGFobject {
             default:
                 document.querySelector(".errors").textContent = "There's no such section in this panel!";
         }
+    }
+
+    /**
+     * Toggles panel visibility.
+     */
+    showPanel() {
+        if (this.panel)
+            document.querySelector(".game-panel").hidden = false;
+        else
+            document.querySelector(".game-panel").hidden = true;
     }
 
     /**
