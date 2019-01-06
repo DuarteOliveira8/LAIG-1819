@@ -34,7 +34,6 @@ class MyInterface extends CGFinterface {
      */
     addLightsGroup(lights) {
         var group = this.gui.addFolder("Lights");
-        group.open();
 
         // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
         // e.g. this.option1=true; this.option2=false;
@@ -48,36 +47,34 @@ class MyInterface extends CGFinterface {
     }
 
     /**
-     * Adds a dropdown menu containing the IDs of the cameras passed as parameter.
-     * @param {array} cameras
+     * Adds a dropdown menu containing the game settings.
      */
-    addCameras(cameras) {
+    addSettings(cameras) {
+        var scene = this.scene;
+
+        var group = this.gui.addFolder("Game settings");
+
+        group.add(this.scene.game, "currentMode", ["Player vs Player", "Player vs Computer", "Computer vs Player", "Computer vs Computer"]).name("Game mode");
+        group.add(this.scene.game, "currentDifficulty", ["Easy", "Hard"]).name("Difficulty");
+        var dynamicCamera = group.add(this.scene.game, "cameraAngle", ["Rotating", "Yuki", "Mina"]).name("Dynamic camera");
+
+        dynamicCamera.onChange(function(value) {
+            scene.game.setCameraAngle();
+        });
+
         var cameraID = [];
 
         for (var key in cameras)
             cameraID.push(key);
 
-        var scene = this.scene;
+        var cameras = group.add(this.scene.graph.views, "currCam", cameraID).name("Cameras");
 
-        var controller = this.gui.add(this.scene.graph.views, "currCam", cameraID).name("Cameras");
-
-        controller.onChange(function(value) {
+        cameras.onChange(function(value) {
             scene.updateCamera(value);
+            if (value === "rotation" && scene.game.cameraAngle === "Rotating") {
+                scene.game.setCameraAngle();
+            }
         });
-    }
-
-    /**
-     * Adds a dropdown menu containing the game difficulties.
-     */
-    addModes() {
-        this.gui.add(this.scene.game, "currentMode", ["Player vs Player", "Player vs Computer", "Computer vs Player", "Computer vs Computer"]).name("Game mode");
-    }
-
-    /**
-     * Adds a dropdown menu containing the game difficulties.
-     */
-    addDifficulties() {
-        this.gui.add(this.scene.game, "currentDifficulty", ["Easy", "Hard"]).name("Difficulty");
     }
 
     /**
@@ -85,7 +82,6 @@ class MyInterface extends CGFinterface {
      */
     addOptionsGroup() {
         var group = this.gui.addFolder("Game options");
-        group.open();
 
         group.add(this.scene, "startGame").name("Start game");
         group.add(this.scene, "undoMove").name("Undo move");

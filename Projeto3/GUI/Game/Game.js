@@ -35,6 +35,11 @@ class Game extends CGFobject {
             MOVIE: -4
         };
 
+        this.cameraStates = {
+            YUKI: 1,
+            MINA: 2
+        }
+
         this.currentState = this.states.NOT_STARTED;
         this.previousState = this.states.NOT_STARTED;
         this.currentMode = "Player vs Player";
@@ -42,6 +47,11 @@ class Game extends CGFobject {
         this.help = true;
         this.playerPicked = null;
         this.validPlays = [];
+
+        this.rotationCamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 60, -60), vec3.fromValues(0, 10, 0));
+        this.rotationAngle = 0;
+        this.currentCameraState = this.cameraStates.YUKI;
+        this.cameraAngle = "Rotating";
 
         this.server = new Server(this);
     };
@@ -94,6 +104,7 @@ class Game extends CGFobject {
         }
 
         this.currentState = this.states.STARTED;
+        this.setCameraYuki();
         this.setState();
     }
 
@@ -107,6 +118,7 @@ class Game extends CGFobject {
     quit() {
         this.currentState = this.states.QUIT;
         this.validPlays = [];
+        this.highlight();
         this.setState();
     }
 
@@ -287,6 +299,9 @@ class Game extends CGFobject {
 
             case this.states.FIRST_YUKI_PLAY:
                 console.log("Moving yuki");
+                if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
+                    this.setRotation();
+                }
                 this.saveGameState();
                 if (this.mina.type === "player")
                     this.getValidPlays();
@@ -297,6 +312,9 @@ class Game extends CGFobject {
 
             case this.states.YUKI_PLAY:
                 console.log("Moving yuki");
+                if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
+                    this.setRotation();
+                }
                 this.saveGameState();
                 if (this.mina.type === "player")
                     this.getValidPlays();
@@ -307,6 +325,9 @@ class Game extends CGFobject {
 
             case this.states.FIRST_MINA_PLAY:
                 console.log("Moving mina");
+                if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
+                    this.setRotation();
+                }
                 this.saveGameState();
                 if (this.yuki.type === "player")
                     this.getValidPlays();
@@ -317,6 +338,9 @@ class Game extends CGFobject {
 
             case this.states.MINA_PLAY:
                 console.log("Moving mina");
+                if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
+                    this.setRotation();
+                }
                 this.saveGameState();
                 if (this.yuki.type === "player")
                     this.getValidPlays();
@@ -614,6 +638,82 @@ class Game extends CGFobject {
         for (var i = 0; i < this.validPlays.length; i++) {
             this.board.boardCells[this.validPlays[i][1]-1][this.validPlays[i][0]-1].highlighted = true;
         }
+    }
+
+    setRotation() {
+        this.rotationAngle = Math.PI;
+        this.scene.rotatingCamera = true;
+
+        if (this.currentCameraState === this.cameraStates.YUKI) {
+            this.rotationCamera.setPosition(vec3.fromValues(0, 60, -60));
+        }
+        else if (this.currentCameraState === this.cameraStates.MINA) {
+            this.rotationCamera.setPosition(vec3.fromValues(0, 60, 60));
+        }
+    }
+
+    setCameraYuki() {
+        this.rotationCamera.setPosition(vec3.fromValues(0, 60, -60));
+        this.currentCameraState = this.cameraStates.YUKI;
+    }
+
+    setCameraMina() {
+        this.rotationCamera.setPosition(vec3.fromValues(0, 60, 60));
+        this.currentCameraState = this.cameraStates.MINA;
+    }
+
+    setCameraAngle() {
+        if (this.cameraAngle === "Yuki") {
+            this.setCameraYuki();
+            return;
+        }
+
+        if (this.cameraAngle === "Mina") {
+            this.setCameraMina();
+            return;
+        }
+
+        if (this.currentState === this.states.NOT_STARTED) {
+            this.setCameraYuki();
+            return;
+        }
+
+        if (this.currentState === this.states.FIRST_YUKI_PLAY ||
+            this.currentState === this.states.YUKI_PLAY ||
+            this.previousState === this.states.FIRST_MINA_PLAY ||
+            this.previousState === this.states.MINA_PLAY) {
+            this.setCameraYuki();
+            return;
+        }
+
+        if (this.currentState === this.states.FIRST_MINA_PLAY ||
+            this.currentState === this.states.MINA_PLAY ||
+            this.previousState === this.states.FIRST_YUKI_PLAY ||
+            this.previousState === this.states.YUKI_PLAY) {
+            this.setCameraMina();
+            return;
+        }
+    }
+
+    rotateCamera(deltaTime) {
+        let delta = (Math.PI/2000)*deltaTime;
+
+        if (this.rotationAngle < 0) {
+            this.scene.rotatingCamera = false;
+            if (this.currentCameraState === this.cameraStates.YUKI) {
+                this.rotationCamera.setPosition(vec3.fromValues(0, 60, 60));
+                this.currentCameraState = this.cameraStates.MINA;
+            }
+            else if (this.currentCameraState === this.cameraStates.MINA) {
+                this.rotationCamera.setPosition(vec3.fromValues(0, 60, -60));
+                this.currentCameraState = this.cameraStates.YUKI;
+            }
+        }
+        else {
+            this.rotationCamera.orbit(vec3.fromValues(0, 1, 0), delta);
+        }
+
+        this.rotationAngle -= delta;
     }
 
     /**

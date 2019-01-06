@@ -39,6 +39,9 @@ class XMLscene extends CGFscene {
 
         this.period = 10;
         this.currentTime = 0;
+        this.previousTime = 0;
+
+        this.rotatingCamera = false;
 
         this.setPickEnabled(true);
     }
@@ -47,7 +50,10 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+        this.cameras = [];
+        this.cameras.default = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 80, 150), vec3.fromValues(0, 10, 0));
+        this.currentCamera = "default";
+        this.camera = this.cameras.default;
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -94,7 +100,9 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-        this.camera = this.graph.views.cameras[this.graph.views.currCam];
+        this.addCameras(this.graph.views.cameras);
+        this.currentCamera = this.graph.views.currCam;
+        this.camera = this.cameras[this.currentCamera];
         this.interface.setActiveCamera(this.camera);
 
         //TODO: Change reference length according to parsed graph
@@ -109,16 +117,13 @@ class XMLscene extends CGFscene {
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
-        // Adds camera dropdown
-        this.interface.addCameras(this.graph.views.cameras);
-
         this.sceneInited = true;
 
     	this.setUpdatePeriod(this.period);
 
         this.game = this.graph.primitives["game"];
-        this.interface.addModes();
-        this.interface.addDifficulties();
+        this.cameras.rotation = this.game.rotationCamera;
+        this.interface.addSettings(this.cameras);
         this.interface.addOptionsGroup();
     }
 
@@ -200,16 +205,27 @@ class XMLscene extends CGFscene {
      * Updates the components' animations and water movement.
      */
     update(currTime) {
+        this.previousTime = this.currentTime;
         this.currentTime = currTime;
+
+        if (this.rotatingCamera) {
+            this.game.rotateCamera(this.currentTime-this.previousTime);
+        }
     }
 
     /**
      * Updates the camera to the new chosen camera
      */
     updateCamera(newCamera) {
-        this.graph.views.currCam = newCamera;
-        this.camera = this.graph.views.cameras[this.graph.views.currCam];
+        this.currentCamera = newCamera;
+        this.camera = this.cameras[this.currentCamera];
         this.interface.setActiveCamera(this.camera);
+    }
+
+    addCameras(cameras) {
+        for (var key in cameras) {
+            this.cameras[key] = cameras[key];
+        }
     }
 
     startGame() {
