@@ -4,14 +4,18 @@
  * @constructor
  */
 
- /**
-  * Mina class, representing a 3D object: the Mina character.
-  */
- class Mina extends BoardPiece {
+/**
+ * Mina class, a 3D representation of the Mina character.
+ * @extends BoardPiece
+ */
+class Mina extends BoardPiece {
     /**
-    * @constructor constructor of the class Mina.
-    * @param {Scene of the application} scene
-    */
+     * Constructor of the class Mina.
+     * @param {CGFscene} scene Scene of the application.
+     * @param {Number} xPos X coordinate of the Mina character.
+     * @param {Number} yPos Y coordinate of the Mina character.
+     * @param {Number} zPos Z coordinate of the Mina character.
+     */
     constructor(scene, xPos, yPos, zPos) {
         super(scene, xPos, yPos, zPos);
 
@@ -46,8 +50,8 @@
     };
 
     /**
-    * Mina Display function.
-    */
+     * Mina Display function.
+     */
     display() {
         this.scene.registerForPick(102, this);
 
@@ -91,6 +95,10 @@
         this.scene.clearPickRegistration();
     }
 
+    /**
+     * Clears the animation variable by setting it to null.
+     * If the game is still playing or the movie is not playing, the game state updates.
+     */
     clearAnimation() {
         this.animation = null;
 
@@ -100,10 +108,10 @@
     }
 
     /**
-    * Updates the texture coordinates.
-    * @param {s texture coordinate} s
-    * @param {t texture coordinate} t
-    */
+     * Updates the texture coordinates.
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
+     */
     updateTexCoords(s, t) {};
 
  }
