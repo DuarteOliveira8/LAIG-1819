@@ -116,6 +116,8 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
+        this.currentScene = this.graph.filename.slice(0, -4);
+
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
@@ -127,6 +129,8 @@ class XMLscene extends CGFscene {
         this.cameras.rotation = this.game.rotationCamera;
         this.interface.addSettings(this.cameras);
         this.interface.addOptionsGroup();
+
+
     }
 
     /**
@@ -242,6 +246,14 @@ class XMLscene extends CGFscene {
         for (var key in cameras) {
             this.cameras[key] = cameras[key];
         }
+    }
+
+    /**
+    *  Switches the current scene to the given one.
+    */
+    switchScene(filename) {
+        this.graph.isSwitchingScene = true;
+        this.graph.reader.open('scenes/delivery/' + filename + '.xml', this.graph);
     }
 
     /**

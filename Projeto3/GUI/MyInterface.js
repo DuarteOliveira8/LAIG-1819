@@ -88,6 +88,13 @@ class MyInterface extends CGFinterface {
                 scene.game.setCameraAngle();
             }
         });
+
+        var scenes = group.add(this.scene, "currentScene" , ["game-scene-1", "game-scene-2"]).name("Current Scene");
+
+        scenes.onChange(function(value) {
+            scene.switchScene(value);
+        });
+
     }
 
     /**
