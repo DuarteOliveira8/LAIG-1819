@@ -1,0 +1,869 @@
+<yas>
+    <scene root="root" axis_length="5" />
+
+    <views default="cam0">
+        <perspective id="cam0" near="0.1" far="500" angle="23">
+            <from x="100" y="100" z="100" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
+        <ortho id="cam1" near="0.1" far="500" left="0" right="10" top="6" bottom="0">
+            <from x="50" y="0" z="5" />
+            <to x="5" y="0" z="0" />
+        </ortho>
+    </views>
+
+    <ambient>
+        <ambient r="0" g="0" b="0" a="1" />
+        <background r="0.1" g="0.1" b="0.1" a="1" />
+    </ambient>
+
+    <lights>
+        <omni id="light0" enabled="1" >
+            <location x="16" y="20" z="10" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </omni>
+
+        <omni id="light1" enabled="1" >
+            <location x="-16" y="20" z="10" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </omni>
+
+        <omni id="light2" enabled="1" >
+            <location x="16" y="20" z="-10" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </omni>
+
+        <omni id="light3" enabled="1" >
+            <location x="-16" y="20" z="-10" w="1" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </omni>
+
+        <spot id="light4" enabled="1" angle="23" exponent="1">
+            <location x="0" y="20" z="0" w="10" />
+            <target x="0" y="0" z="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="0.3" g="0.3" b="0.3" a="1" />
+        </spot>
+    </lights>
+
+    <textures>
+        <texture id="light-wood" file="scenes/images/light-wood.jpg" />
+        <texture id="metal" file="scenes/images/metal.png" />
+        <texture id="lamp" file="scenes/images/lamp.jpg" />
+        <texture id="ice-floor" file="scenes/images/icefloor.jpg" />
+        <texture id="iglu" file="scenes/images/iglu.jpeg" />
+        <texture id="ice-table" file="scenes/images/icetable.jpg" />
+        <texture id="iglu-entrance" file="scenes/images/igloo-entrance.jpg" />
+        <texture id="iglu-wall" file="scenes/images/igloo-wall.jpg" />
+        <texture id="rug-ice" file="scenes/images/rug-ice.png" />
+        <texture id="snowman-nose" file="scenes/images/orange.jpg" />
+        <texture id="black" file="scenes/images/black.jpg" />
+        <texture id="welcome" file="scenes/images/welcome.jpg" />
+    </textures>
+
+    <materials>
+        <material id="root" shininess="500" >
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <emission r="0" g="0" b="0" a="1.0" />
+        </material>
+
+        <material id="wall" shininess="1000" >
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.45" g="0.45" b="0.45" a="1.0" />
+            <emission r="0" g="0" b="0" a="1.0" />
+        </material>
+
+        <material id="floor" shininess="1000" >
+            <specular r="0.4" g="0.4" b="0.4" a="1.0" />
+            <ambient r="0.6" g="0.6" b="0.6" a="1.0" />
+            <diffuse r="1" g="1" b="1" a="1.0" />
+            <emission r="0" g="0" b="0" a="1.0" />
+        </material>
+
+        <material id="table" shininess="1000" >
+            <specular r="0.6" g="0.6" b="0.6" a="1.0" />
+            <ambient r="0.8" g="0.8" b="0.8" a="1.0" />
+            <diffuse r="1" g="1" b="1" a="1.0" />
+            <emission r="0" g="0" b="0" a="1.0" />
+        </material>
+    </materials>
+
+    <transformations>
+        <transformation id="boat-transf">
+            <translate x="0" y="0" z="0" />
+        </transformation>
+    </transformations>
+
+    <animations>
+    </animations>
+
+    <primitives>
+        <primitive id="cylinder">
+            <cylinder base="0.5" top="0.5" height="1" slices="32" stacks="32" />
+        </primitive>
+
+        <primitive id="lamp-base">
+            <cylinder base="1" top="0.2" height="1" slices="32" stacks="32" />
+        </primitive>
+
+        <primitive id="table">
+            <cylinder base="0.3" top="0.7" height="1" slices="32" stacks="32" />
+        </primitive>
+
+        <primitive id="carpet">
+            <cylinder base="0.5" top="0.5" height="1" slices="4" stacks="4" />
+        </primitive>
+
+        <primitive id="game">
+            <game />
+        </primitive>
+
+        <primitive id="rug">
+            <cylinder base="0.5" top="0.5" height="0.1" slices="64" stacks="64" />
+        </primitive>
+
+        <primitive id="cube-face">
+            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+        </primitive>
+
+        <primitive id="snowman-sphere">
+            <sphere radius="1" slices="30" stacks="30" />
+        </primitive>
+
+        <primitive id="snowman-nose">
+            <cylinder base="0.5" top="0.1" height="1" slices="32" stacks="32" />
+        </primitive>
+
+        <primitive id="iglu">
+            <patch npointsU="3" npointsV="4" npartsU="8" npartsV="8" >
+                <controlpoint xx="-0.25" yy="0" zz="0.75" />
+                <controlpoint xx="-0.25" yy="0.25" zz="0.75" />
+                <controlpoint xx="0.25" yy="0.25" zz="0.75" />
+                <controlpoint xx="0.25" yy="0" zz="0.75" />
+                <controlpoint xx="-1" yy="0" zz="0" />
+                <controlpoint xx="-1" yy="1" zz="0" />
+                <controlpoint xx="1" yy="1" zz="0" />
+                <controlpoint xx="1" yy="0" zz="0" />
+                <controlpoint xx="-0.25" yy="0" zz="-0.75" />
+                <controlpoint xx="-0.25" yy="0.25" zz="-0.75" />
+                <controlpoint xx="0.25" yy="0.25" zz="-0.75" />
+                <controlpoint xx="0.25" yy="0" zz="-0.75" />
+            </patch>
+        </primitive>
+    </primitives>
+
+    <components>
+        <component id="root">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="root" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="game" />
+                <componentref id="ice-table" />
+                <componentref id="ice-seat1" />
+                <componentref id="ice-seat2" />
+                <componentref id="floor" />
+                <componentref id="rug" />
+                <componentref id="table-lamp" />
+                <componentref id="iglu" />
+                <componentref id="iglu-entrance" />
+                <componentref id="iglu-wall" />
+                <componentref id="snowman" />
+                <componentref id="stalactite-group" />
+                <componentref id="welcome-carpet" />
+            </children>
+        </component>
+
+        <component id="game">
+            <transformation>
+                <translate x="0" y="12.7" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="game" />
+            </children>
+        </component>
+
+        <component id="iglu">
+            <transformation>
+                <scale x="100" y="200" z="100" />
+                <translate x="0" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="iglu" length_s="10" length_t="10" />
+
+            <children>
+                <primitiveref id="iglu" />
+            </children>
+        </component>
+
+        <component id="snowman">
+            <transformation>
+                <translate x="15" y="0" z="60" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="ice-table" length_s="10" length_t="10" />
+
+            <children>
+                <componentref id="snowman-body" />
+                <componentref id="snowman-head" />
+                <componentref id="snowman-nose" />
+                <componentref id="snowman-eye1" />
+                <componentref id="snowman-eye2" />
+            </children>
+        </component>
+
+        <component id="snowman-body">
+            <transformation>
+                <translate x="0" y="4" z="0" />
+                <scale x="7" y="11" z="7" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="ice-table" length_s="10" length_t="10" />
+
+            <children>
+                <primitiveref id="snowman-sphere" />
+            </children>
+        </component>
+
+        <component id="snowman-head">
+            <transformation>
+                <translate x="0" y="16" z="0" />
+                <scale x="4" y="4" z="4" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="ice-table" length_s="10" length_t="10" />
+
+            <children>
+                <primitiveref id="snowman-sphere" />
+            </children>
+        </component>
+
+        <component id="snowman-nose">
+            <transformation>
+                <translate x="0" y="16.5" z="-2" />
+                <scale x="1.5" y="1.5" z="4" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="snowman-nose" length_s="10" length_t="10" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="snowman-eye1">
+            <transformation>
+                <translate x="1.25" y="17.5" z="-3" />
+                <scale x="0.75" y="0.75" z="0.75" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="black" length_s="10" length_t="10" />
+
+            <children>
+                <primitiveref id="snowman-sphere" />
+            </children>
+        </component>
+
+        <component id="snowman-eye2">
+            <transformation>
+                <translate x="-1.25" y="17.5" z="-3" />
+                <scale x="0.75" y="0.75" z="0.75" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="black" length_s="10" length_t="10" />
+
+            <children>
+                <primitiveref id="snowman-sphere" />
+            </children>
+        </component>
+
+        <component id="welcome-carpet">
+            <transformation>
+                <translate x="0" y="0.1" z="-62" />
+                <rotate axis="y" angle="180" />
+                <scale x="25" y="0.1" z="10" />
+                <rotate axis="z" angle="45" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="welcome" length_s="0.8" length_t="1" />
+
+            <children>
+                <primitiveref id="carpet" />
+            </children>
+        </component>
+
+        <component id="ice-table">
+            <transformation>
+                <scale x="18" y="12.5" z="18" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="table" />
+            </children>
+        </component>
+
+        <component id="stalactite-group">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <componentref id="stalactite1" />
+                <componentref id="stalactite2" />
+                <componentref id="stalactite3" />
+                <componentref id="stalactite4" />
+                <componentref id="stalactite5" />
+                <componentref id="stalactite6" />
+                <componentref id="stalactite7" />
+                <componentref id="stalactite8" />
+                <componentref id="stalactite9" />
+                <componentref id="stalactite10" />
+                <componentref id="stalactite11" />
+                <componentref id="stalactite12" />
+            </children>
+        </component>
+
+        <component id="stalactite1">
+            <transformation>
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="5" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite2">
+            <transformation>
+                <rotate axis="y" angle="30" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="3" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite3">
+            <transformation>
+                <rotate axis="y" angle="60" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="5" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite4">
+            <transformation>
+                <rotate axis="y" angle="90" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="3" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite5">
+            <transformation>
+                <rotate axis="y" angle="120" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="5" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite6">
+            <transformation>
+                <rotate axis="y" angle="150" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="3" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite7">
+            <transformation>
+                <rotate axis="y" angle="180" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="5" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite8">
+            <transformation>
+                <rotate axis="y" angle="210" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="3" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite9">
+            <transformation>
+                <rotate axis="y" angle="240" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="5" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite10">
+            <transformation>
+                <rotate axis="y" angle="270" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="3" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite11">
+            <transformation>
+                <rotate axis="y" angle="300" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="5" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="stalactite12">
+            <transformation>
+                <rotate axis="y" angle="330" />
+                <translate x="12.25" y="12.5" z="0" />
+                <scale x="0.5" y="3" z="0.5" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="table" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="snowman-nose" />
+            </children>
+        </component>
+
+        <component id="ice-seat1">
+            <transformation>
+                <translate x="0" y="0" z="20" />
+                <scale x="10" y="8" z="10" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="floor" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="ice-seat2">
+            <transformation>
+                <translate x="0" y="0" z="-20" />
+                <scale x="10" y="8" z="10" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="floor" />
+            </materials>
+
+            <texture id="ice-table" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="floor">
+            <transformation>
+                <scale x="150" y="1" z="150" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="floor" />
+            </materials>
+
+            <texture id="ice-floor" length_s="0.5" length_t="0.5" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="iglu-entrance">
+            <transformation>
+                <translate x="0" y="20" z="-75" />
+                <scale x="50" y="50" z="50" />
+            </transformation>
+
+            <materials>
+                <material id="floor" />
+            </materials>
+
+            <texture id="iglu-entrance" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="iglu-wall">
+            <transformation>
+                <translate x="0" y="20" z="75" />
+                <scale x="50" y="50" z="50" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="floor" />
+            </materials>
+
+            <texture id="iglu-wall" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="rug">
+            <transformation>
+                <translate x="0" y="0.1" z="0" />
+                <scale x="60" y="1" z="50" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="rug-ice" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="rug" />
+            </children>
+        </component>
+
+        <component id="table-lamp">
+            <transformation>
+                <translate x="0" y="90" z="0" />
+                <rotate axis="x" angle="-90" />
+                <scale x="3" y="3" z="3" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="metal" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="lamp-base" />
+            </children>
+        </component>
+
+        <component id="cube">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="root" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="face1" />
+                <componentref id="face2" />
+                <componentref id="face3" />
+                <componentref id="face4" />
+                <componentref id="face5" />
+                <componentref id="face6" />
+            </children>
+        </component>
+
+        <component id="face1">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="face2">
+            <transformation>
+                <translate x="-0.5" y="0" z="0" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="face3">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="face4">
+            <transformation>
+                <translate x="0.5" y="0" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="face5">
+            <transformation>
+                <translate x="0" y="-0.5" z="0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+
+        <component id="face6">
+            <transformation>
+                <translate x="0" y="0.5" z="0" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="cube-face" />
+            </children>
+        </component>
+    </components>
+</yas>
