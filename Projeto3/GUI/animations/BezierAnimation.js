@@ -79,7 +79,7 @@ class BezierAnimation extends Animation {
   	};
 
   	/**
-	 * Applies the current animation state to the transformation matrix and prepares the next transformation.
+	 * Applies the current animation state to the transformation matrix and prepares the next transformation and saves the current controlpoint.
 	 * When the current time of the animation exceeds the span specified, it terminates the animation.
 	 */
   	apply() {
