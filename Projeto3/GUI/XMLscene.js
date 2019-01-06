@@ -117,18 +117,13 @@ class XMLscene extends CGFscene {
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
-        this.game = this.graph.primitives["game"];
-
-        // Adds camera dropdown
-        this.cameras.rotation = this.game.rotationCamera;
-        this.interface.addCameras(this.cameras);
-
         this.sceneInited = true;
 
     	this.setUpdatePeriod(this.period);
 
-        this.interface.addModes();
-        this.interface.addDifficulties();
+        this.game = this.graph.primitives["game"];
+        this.cameras.rotation = this.game.rotationCamera;
+        this.interface.addSettings(this.cameras);
         this.interface.addOptionsGroup();
     }
 
