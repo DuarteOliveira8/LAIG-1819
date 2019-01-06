@@ -6,11 +6,12 @@
 
 /**
  * BoardWrapper class, a wrapper for the board game.
+ * @extends CGFobject
  */
 class BoardWrapper extends CGFobject {
     /**
-     * @constructor constructor of the class BoardWrapper.
-     * @param {Scene of the application} scene
+     * Constructor of the class BoardWrapper.
+     * @param {CGFscene} scene Scene of the application.
      */
     constructor(scene) {
         super(scene);
@@ -69,8 +70,8 @@ class BoardWrapper extends CGFobject {
 
     /**
      * Updates the texture coordinates.
-     * @param {s texture coordinate} s
-     * @param {t texture coordinate} t
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
      */
     updateTexCoords(s, t) {};
 
