@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700');
+
+body, html {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.game-panel {
+    top: 10px;
+    left: 10px;
+    width: 300px;
+    background-image: url('scenes/images/frozen-board.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    border-radius: 10px;
+    font-family: 'Amatic SC', cursive;
+    border: 5px solid #fff;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    z-index: 2;
+}
+
+.content {
+    padding: 30px;
+    position: relative;
+    z-index: 3;
+}
+
+.game-panel .game-title {
+    font-weight: 700;
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.game-panel .game-state {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.game-panel .score {
+    margin-bottom: 10px;
+}
+
+.game-panel .score .score-title, .game-panel .guides .guides-title {
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+}
+
+.game-panel .score .score-content {
+    text-align: center;
+    font-size: 40px;
+}
+
+.game-panel .guides {
+    margin-bottom: 10px;
+}
+
+.game-panel .guides .guides-content {
+    text-align: center;
+    font-size: 25px;
+}
+
+.game-panel .errors {
+    color: #a00;
+    text-align: center;
+    font-size: 25px;
+}

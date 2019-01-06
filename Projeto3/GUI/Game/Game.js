@@ -104,6 +104,7 @@ class Game extends CGFobject {
         }
 
         this.currentState = this.states.STARTED;
+        this.updateGamePanel("state", "Game is running");
         this.setCameraYuki();
         this.setState();
     }
@@ -116,10 +117,12 @@ class Game extends CGFobject {
     }
 
     quit() {
-        this.currentState = this.states.QUIT;
-        this.validPlays = [];
-        this.highlight();
-        this.setState();
+        if (this.currentState !== this.states.MOVIE && this.currentState !== this.states.NOT_STARTED) {
+            this.currentState = this.states.QUIT;
+            this.validPlays = [];
+            this.highlight();
+            this.setState();
+        }
     }
 
     undo() {
@@ -160,17 +163,17 @@ class Game extends CGFobject {
 
     movie() {
         if (this.currentState !== this.states.NOT_STARTED) {
-            console.log("Game is still running");
+            this.updateGamePanel("error", "Game is still running");
             return;
         }
 
         if (this.gameBoards.length < 1) {
-            console.log("no game has been played");
+            this.updateGamePanel("error", "No game has been played.");
             return;
         }
 
         this.initBoard();
-        console.log("movie");
+        this.updateGamePanel("state", "Movie is being played.");
         this.currentState = this.states.MOVIE;
 
         for (var i = 0; i < this.gameBoards.length; i++) {
@@ -183,16 +186,20 @@ class Game extends CGFobject {
                     let disc = this.box.discs.pop();
                     disc.move(play[0], play[1], play[2], play[3], play[4]);
                     this.discs.push(disc);
+                    this.updateGamePanel("guides", "Moving Yuki...");
+                    this.updateGamePanel("score", this.box.discs.length);
                 }
                 else {
                     let play = this.makePlayFromBoard("mina", board);
                     this.mina.move(play[0], play[1], play[2], play[3], play[4]);
+                    this.updateGamePanel("guides", "Moving Mina...");
                 }
             }.bind(this), 2000*i);
         }
 
         setTimeout(function(){
             this.currentState = this.states.NOT_STARTED;
+            this.updateGamePanel("state", "The game hasn't started yet.");
         }.bind(this), 2000*this.gameBoards.length);
 
     }
@@ -203,38 +210,38 @@ class Game extends CGFobject {
 
     pickPlayer(player) {
         if ((this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) && (player instanceof Yuki)) {
-            console.log("Yuki picked");
+            this.updateGamePanel("guides", "Yuki picked.");
             this.playerPicked = player;
             return;
         }
 
         if ((this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) && (player instanceof Mina)) {
-            console.log("Mina picked");
+            this.updateGamePanel("guides", "Mina picked.");
             this.playerPicked = player;
             return;
         }
 
         if (this.currentState === this.states.NOT_STARTED) {
-            console.log("The game hasn't started yet!");
+            this.updateGamePanel("error", "The game hasn't started yet!");
             return;
         }
 
         if (this.currentState === this.states.MOVING_PIECES) {
-            console.log("Currently on the move. Wait a minute!");
+            this.updateGamePanel("error", "Currently on the move. Wait a minute!");
             return;
         }
 
         if (this.currentState === this.states.MOVIE) {
-            console.log("Currently playing the last game movie");
+            this.updateGamePanel("error", "Currently playing the last game movie.");
             return;
         }
 
-        console.log("Wrong player!");
+        this.updateGamePanel("error", "Wrong player!");
     }
 
     movePlayer(newX, newY, newZ, row, col) {
         if (this.playerPicked === null) {
-            console.log("Please choose a player to move first!");
+            this.updateGamePanel("error", "Please choose a player to move first!");
             return;
         }
 
@@ -257,7 +264,7 @@ class Game extends CGFobject {
                 this.setState();
             }
             else {
-                console.log("Wrong move!");
+                this.updateGamePanel("error", "Wrong move!");
             }
 
             this.playerPicked = null;
@@ -279,7 +286,7 @@ class Game extends CGFobject {
             //     break;
 
             case this.states.STARTED:
-                console.log("Yuki's first play");
+                this.updateGamePanel("guides", "Yuki's first play.");
                 if (this.yuki.type === "player")
                     this.getValidPlays();
                 else if (this.yuki.type === "computer")
@@ -288,17 +295,22 @@ class Game extends CGFobject {
                 break;
 
             case this.states.QUIT:
-                console.log("Game stopped");
+                this.updateGamePanel("state", "The game hasn't started yet.");
+                this.updateGamePanel("guides", "Start the game!");
                 this.currentState = this.states.NOT_STARTED;
                 break;
 
             case this.states.GAME_OVER:
-                console.log("Game over");
+                this.updateGamePanel("state", "The game hasn't started yet.");
+                this.updateGamePanel("score", this.box.discs.length);
+                this.updateGamePanel("guides", "Game Over! Play again!");
                 this.currentState = this.states.NOT_STARTED;
                 break;
 
             case this.states.FIRST_YUKI_PLAY:
                 console.log("Moving yuki");
+                this.updateGamePanel("guides", "Moving yuki...");
+                this.updateGamePanel("score", this.box.discs.length);
                 if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
                     this.setRotation();
                 }
@@ -311,7 +323,8 @@ class Game extends CGFobject {
                 break;
 
             case this.states.YUKI_PLAY:
-                console.log("Moving yuki");
+                this.updateGamePanel("guides", "Moving Yuki...");
+                this.updateGamePanel("score", this.box.discs.length);
                 if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
                     this.setRotation();
                 }
@@ -324,7 +337,7 @@ class Game extends CGFobject {
                 break;
 
             case this.states.FIRST_MINA_PLAY:
-                console.log("Moving mina");
+                this.updateGamePanel("guides", "Moving Mina...");
                 if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
                     this.setRotation();
                 }
@@ -337,7 +350,7 @@ class Game extends CGFobject {
                 break;
 
             case this.states.MINA_PLAY:
-                console.log("Moving mina");
+                this.updateGamePanel("guides", "Moving Mina...");
                 if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
                     this.setRotation();
                 }
@@ -355,7 +368,7 @@ class Game extends CGFobject {
                 }
 
                 if (this.previousState === this.states.FIRST_YUKI_PLAY) {
-                    console.log("Mina's first turn");
+                    this.updateGamePanel("guides", "Mina's first turn");
                     this.currentState = this.states.FIRST_MINA_PLAY;
                     if (this.mina.type === "computer")
                         this.getComputerPlay();
@@ -363,7 +376,7 @@ class Game extends CGFobject {
                 }
 
                 if (this.previousState === this.states.YUKI_PLAY) {
-                    console.log("Mina's turn");
+                    this.updateGamePanel("guides", "Mina's turn");
                     this.currentState = this.states.MINA_PLAY;
                     this.checkGameOver();
                     if (this.mina.type === "computer")
@@ -372,7 +385,7 @@ class Game extends CGFobject {
                 }
 
                 if (this.previousState === this.states.FIRST_MINA_PLAY || this.previousState === this.states.MINA_PLAY) {
-                    console.log("Yuki's turn");
+                    this.updateGamePanel("guides", "Yuki's turn");
                     this.currentState = this.states.YUKI_PLAY;
                     this.checkGameOver();
                     if (this.yuki.type === "computer")
@@ -426,18 +439,14 @@ class Game extends CGFobject {
         }
 
         if (this.currentState === this.states.YUKI_PLAY) {
-            console.log("yukiplay");
             this.server.makeRequest("valid_moves("+boardArray+",mina)", onreadystatechange);
             return;
         }
 
         if (this.currentState === this.states.MINA_PLAY || this.currentState === this.states.FIRST_MINA_PLAY) {
-            console.log("minaplay");
             this.server.makeRequest("valid_moves("+boardArray+",yuki)", onreadystatechange);
             return;
         }
-
-        console.log(this.currentState);
     }
 
     setValidPlays(validPlays) {
@@ -714,6 +723,32 @@ class Game extends CGFobject {
         }
 
         this.rotationAngle -= delta;
+    }
+
+    updateGamePanel(section, message) {
+        switch (section) {
+            case "state":
+                document.querySelector(".game-state").textContent = message;
+                document.querySelector(".errors").textContent = "";
+                break;
+
+            case "score":
+                document.querySelector(".score-content").textContent = message;
+                document.querySelector(".errors").textContent = "";
+                break;
+
+            case "guides":
+                document.querySelector(".guides-content").textContent = message;
+                document.querySelector(".errors").textContent = "";
+                break;
+
+            case "error":
+                document.querySelector(".errors").textContent = message;
+                break;
+
+            default:
+                document.querySelector(".errors").textContent = "There's no such section in this panel!";
+        }
     }
 
     /**

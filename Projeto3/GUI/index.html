@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>CGFexample</title>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Frozen Forest</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
 
-<style>
-body, html {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-}
+        <div class="game-panel">
+            <div class="overlay"></div>
 
-canvas {
-    width: 100%;
-    height: 100%;
-}
-</style>
-</head>
-<body>
+            <div class="content">
+                <div class="game-title">
+                    Frozen Forest
+                </div>
 
-<script src="main.js"></script>
+                <div class="game-state">
+                    The game hasn't started yet.
+                </div>
 
-</body>
+                <div class="score">
+                    <div class="score-title">
+                        Trees eaten
+                    </div>
+
+                    <div class="score-content">
+                        70
+                    </div>
+                </div>
+
+                <div class="guides">
+                    <div class="guides-title">
+                        Guides
+                    </div>
+
+                    <div class="guides-content">
+                        Start the game!
+                    </div>
+                </div>
+
+                <div class="errors"></div>
+            </div>
+        </div>
+
+        <script src="main.js"></script>
+
+    </body>
 </html>
