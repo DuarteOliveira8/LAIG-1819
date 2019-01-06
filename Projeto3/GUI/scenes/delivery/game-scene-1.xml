@@ -3,14 +3,25 @@
 
     <views default="cam0">
         <perspective id="cam0" near="0.1" far="500" angle="23">
-            <from x="100" y="100" z="100" />
-            <to x="0" y="0" z="0" />
+            <from x="-150" y="40" z="0" />
+            <to x="0" y="20" z="0" />
         </perspective>
 
-        <ortho id="cam1" near="0.1" far="500" left="0" right="10" top="6" bottom="0">
-            <from x="50" y="0" z="5" />
-            <to x="5" y="0" z="0" />
-        </ortho>
+        <perspective id="cam-reading" near="0.1" far="500" angle="23">
+            <from x="-50" y="20" z="30" />
+            <to x="0" y="15" z="0" />
+        </perspective>
+
+        <perspective id="cam-painting" near="0.1" far="500" angle="23">
+            <from x="30" y="30" z="0" />
+            <to x="30" y="30" z="50" />
+        </perspective>
+
+        <perspective id="cam-christmas" near="0.1" far="500" angle="23">
+            <from x="-40" y="20" z="60" />
+            <to x="-30" y="15" z="-40" />
+        </perspective>
+
     </views>
 
     <ambient>
