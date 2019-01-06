@@ -114,6 +114,7 @@ class Game extends CGFobject {
 
         this.currentState = this.states.STARTED;
         this.updateGamePanel("state", "Game is running");
+        this.setCamera("rotation");
         this.setCameraYuki();
         this.setState();
     }
@@ -137,6 +138,7 @@ class Game extends CGFobject {
             this.validPlays = [];
             this.dehighlight();
             this.setState();
+            this.setCamera("default");
         }
     }
 
@@ -724,6 +726,7 @@ class Game extends CGFobject {
      */
     gameOver() {
         this.currentState = this.states.GAME_OVER;
+        this.setCamera("default");
         this.setState();
     }
 
@@ -792,6 +795,15 @@ class Game extends CGFobject {
         for (var i = 0; i < validPlays.length; i++) {
             this.board.boardCells[validPlays[i][1]-1][validPlays[i][0]-1].highlighted = true;
         }
+    }
+
+    /**
+     * Sets the scene camera to the camera given.
+     * @param {String} camera New camera to be set.
+     */
+    setCamera(camera) {
+        this.scene.updateCamera(camera);
+        document.querySelectorAll('select')[3].value = camera;
     }
 
     /**
