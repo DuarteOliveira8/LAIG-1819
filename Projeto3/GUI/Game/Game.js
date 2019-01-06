@@ -123,7 +123,8 @@ class Game extends CGFobject {
         if (this.currentState !== this.states.MOVIE && this.currentState !== this.states.NOT_STARTED) {
             this.currentState = this.states.QUIT;
             this.validPlays = [];
-            this.highlight();
+            this.previousValidPlays = [];
+            this.highlight(this.validPlays);
             this.setState();
         }
     }
@@ -147,18 +148,25 @@ class Game extends CGFobject {
                 }
 
                 this.setState();
+                this.setRotation();
+                this.validPlays.pop();
             }
             else {
                 if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
                     this.mina.move(8, 0, 4, -1, -1);
                     this.previousState = this.states.FIRST_YUKI_PLAY;
                     this.currentState = this.states.MOVING_PIECES;
+                    this.setRotation();
+                    this.validPlays.pop();
+                    this.highlight(this.validPlays[this.validPlays.length-1]);
                 }
                 else if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
                     this.yuki.move(8, 0, -4, -1, -1);
                     let disc = this.discs.pop();
                     this.box.putBack(disc);
                     this.currentState = this.states.STARTED;
+                    this.setRotation();
+                    this.dehighlight();
                 }
             }
         }
@@ -360,7 +368,7 @@ class Game extends CGFobject {
 
             case this.states.MOVING_PIECES:
                 if (this.help) {
-                    this.highlight();
+                    this.highlight(this.validPlays[this.validPlays.length-1]);
                 }
 
                 if (this.previousState === this.states.FIRST_YUKI_PLAY) {
@@ -452,12 +460,14 @@ class Game extends CGFobject {
     }
 
     setValidPlays(validPlays) {
-        this.validPlays = validPlays;
+        this.validPlays.push(validPlays);
     }
 
     isValidPlay(row, col) {
-        for (var i = 0; i < this.validPlays.length; i++) {
-            if (row == this.validPlays[i][1]-1 && col == this.validPlays[i][0]-1) {
+        let validPlays = this.validPlays[this.validPlays.length-1];
+
+        for (var i = 0; i < validPlays.length; i++) {
+            if (row == validPlays[i][1]-1 && col == validPlays[i][0]-1) {
                 return true;
             }
         }
@@ -639,15 +649,19 @@ class Game extends CGFobject {
         return boardArray;
     }
 
-    highlight() {
+    dehighlight() {
         for (var i = 0; i < this.board.boardCells.length; i++) {
             for (var j = 0; j < this.board.boardCells[i].length; j++) {
                 this.board.boardCells[i][j].highlighted = false;
             }
         }
+    }
 
-        for (var i = 0; i < this.validPlays.length; i++) {
-            this.board.boardCells[this.validPlays[i][1]-1][this.validPlays[i][0]-1].highlighted = true;
+    highlight(validPlays) {
+        this.dehighlight();
+
+        for (var i = 0; i < validPlays.length; i++) {
+            this.board.boardCells[validPlays[i][1]-1][validPlays[i][0]-1].highlighted = true;
         }
     }
 
