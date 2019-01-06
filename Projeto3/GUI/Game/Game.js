@@ -942,6 +942,9 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Toggles panel visibility.
+     */
     showPanel() {
         if (this.panel)
             document.querySelector(".game-panel").hidden = false;
