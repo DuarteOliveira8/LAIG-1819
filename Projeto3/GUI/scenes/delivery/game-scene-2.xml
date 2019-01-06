@@ -68,6 +68,7 @@
         <texture id="rug-ice" file="scenes/images/rug-ice.png" />
         <texture id="snowman-nose" file="scenes/images/orange.jpg" />
         <texture id="black" file="scenes/images/black.jpg" />
+        <texture id="welcome" file="scenes/images/welcome.jpg" />
     </textures>
 
     <materials>
@@ -120,6 +121,10 @@
 
         <primitive id="table">
             <cylinder base="0.3" top="0.7" height="1" slices="32" stacks="32" />
+        </primitive>
+
+        <primitive id="carpet">
+            <cylinder base="0.5" top="0.5" height="1" slices="4" stacks="4" />
         </primitive>
 
         <primitive id="game">
@@ -184,6 +189,7 @@
                 <componentref id="iglu-wall" />
                 <componentref id="snowman" />
                 <componentref id="stalactite-group" />
+                <componentref id="welcome-carpet" />
             </children>
         </component>
 
@@ -323,6 +329,25 @@
 
             <children>
                 <primitiveref id="snowman-sphere" />
+            </children>
+        </component>
+
+        <component id="welcome-carpet">
+            <transformation>
+                <translate x="0" y="0.1" z="-62" />
+                <rotate axis="y" angle="180" />
+                <scale x="25" y="0.1" z="10" />
+                <rotate axis="z" angle="45" />
+            </transformation>
+
+            <materials>
+                <material id="wall" />
+            </materials>
+
+            <texture id="welcome" length_s="0.8" length_t="1" />
+
+            <children>
+                <primitiveref id="carpet" />
             </children>
         </component>
 
