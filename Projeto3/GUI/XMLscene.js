@@ -223,11 +223,15 @@ class XMLscene extends CGFscene {
 
     /**
      * Updates the camera to the new chosen camera
+     * @param  {String} newCamera ID of the new camera.
      */
     updateCamera(newCamera) {
         this.currentCamera = newCamera;
         this.camera = this.cameras[this.currentCamera];
-        this.interface.setActiveCamera(this.camera);
+        if (this.currentCamera === "rotation")
+            this.interface.setActiveCamera(null);
+        else
+            this.interface.setActiveCamera(this.camera);
     }
 
     /**
