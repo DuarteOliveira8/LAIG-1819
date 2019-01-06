@@ -661,6 +661,29 @@ class Game extends CGFobject {
         this.currentCameraState = this.cameraStates.MINA;
     }
 
+    setCameraAngle() {
+        if (this.currentState === this.states.NOT_STARTED) {
+            this.setCameraYuki();
+            return;
+        }
+
+        if (this.currentState === this.states.FIRST_YUKI_PLAY ||
+            this.currentState === this.states.YUKI_PLAY ||
+            this.previousState === this.states.FIRST_MINA_PLAY ||
+            this.previousState === this.states.MINA_PLAY) {
+            this.setCameraYuki();
+            return;
+        }
+
+        if (this.currentState === this.states.FIRST_MINA_PLAY ||
+            this.currentState === this.states.MINA_PLAY ||
+            this.previousState === this.states.FIRST_YUKI_PLAY ||
+            this.previousState === this.states.YUKI_PLAY) {
+            this.setCameraMina();
+            return;
+        }
+    }
+
     rotateCamera(deltaTime) {
         let delta = (Math.PI/2000)*deltaTime;
 

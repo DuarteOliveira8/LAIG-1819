@@ -63,6 +63,9 @@ class MyInterface extends CGFinterface {
 
         controller.onChange(function(value) {
             scene.updateCamera(value);
+            if (value === "rotation") {
+                scene.game.setCameraAngle();
+            }
         });
     }
 
