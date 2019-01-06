@@ -103,6 +103,7 @@ class Game extends CGFobject {
         }
 
         this.currentState = this.states.STARTED;
+        this.setCameraYuki();
         this.setState();
     }
 
@@ -116,6 +117,7 @@ class Game extends CGFobject {
     quit() {
         this.currentState = this.states.QUIT;
         this.validPlays = [];
+        this.highlight();
         this.setState();
     }
 
@@ -647,6 +649,16 @@ class Game extends CGFobject {
         else if (this.currentCameraState === this.cameraStates.MINA) {
             this.rotationCamera.setPosition(vec3.fromValues(0, 60, 60));
         }
+    }
+
+    setCameraYuki() {
+        this.rotationCamera.setPosition(vec3.fromValues(0, 60, -60));
+        this.currentCameraState = this.cameraStates.YUKI;
+    }
+
+    setCameraMina() {
+        this.rotationCamera.setPosition(vec3.fromValues(0, 60, 60));
+        this.currentCameraState = this.cameraStates.MINA;
     }
 
     rotateCamera(deltaTime) {
