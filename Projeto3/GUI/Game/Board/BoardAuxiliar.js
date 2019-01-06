@@ -10,7 +10,7 @@
 class BoardAuxiliar extends CGFobject {
     /**
      * @constructor constructor of the class BoardAuxiliary.
-     * @param {Scene of the application} scene
+     * @param {Scene of the application.} scene
      */
     constructor(scene) {
         super(scene);
@@ -118,6 +118,9 @@ class BoardAuxiliar extends CGFobject {
         }
     }
 
+    /**
+     * Creates all the discs and places them in the box.
+     */
     initDiscs() {
         this.discs = [];
 
@@ -143,6 +146,10 @@ class BoardAuxiliar extends CGFobject {
         }
     }
 
+    /**
+     * Puts a disc back to the auxiliar box.
+     * @param {The disc to put back in the box.} disc
+     */
     putBack(disc) {
         let lastDisc = this.discs[this.discs.length-1];
         var newX, newY, newZ;
