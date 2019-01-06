@@ -38,12 +38,12 @@ canvas {
     margin-bottom: 10px;
 }
 
-.game-panel .title {
+.game-panel .score .score-title, .game-panel .guides .guides-title {
     font-weight: 600;
     text-align: center;
 }
 
-.game-panel .score .content {
+.game-panel .score .score-content {
     text-align: center;
     font-size: 30px;
 }
@@ -52,6 +52,6 @@ canvas {
     margin-bottom: 10px;
 }
 
-.game-panel .guides .content {
+.game-panel .guides .guides-content {
     text-align: center;
 }
