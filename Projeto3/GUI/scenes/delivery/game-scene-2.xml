@@ -118,35 +118,19 @@
         </primitive>
 
         <primitive id="iglu">
-            <patch npointsU="7" npointsV="4" npartsU="7" npartsV="4" >
-                <controlpoint xx="0.25" yy="0" zz="0.75" />
+            <patch npointsU="3" npointsV="4" npartsU="8" npartsV="8" >
+                <controlpoint xx="-0.25" yy="0" zz="0.75" />
+                <controlpoint xx="-0.25" yy="0.25" zz="0.75" />
                 <controlpoint xx="0.25" yy="0.25" zz="0.75" />
-                <controlpoint xx="0.25" yy="0.25" zz="0.75" />
                 <controlpoint xx="0.25" yy="0" zz="0.75" />
-                <controlpoint xx="0.5" yy="0" zz="0.5" />
-                <controlpoint xx="0.5" yy="0.5" zz="0.5" />
-                <controlpoint xx="-0.5" yy="0.5" zz="0.5" />
-                <controlpoint xx="-0.5" yy="0" zz="0.5" />
-                <controlpoint xx="0.75" yy="0" zz="0.25" />
-                <controlpoint xx="0.75" yy="0.75" zz="0.25" />
-                <controlpoint xx="-0.75" yy="0.75" zz="0.25" />
-                <controlpoint xx="-0.75" yy="0" zz="0.25" />
-                <controlpoint xx="1" yy="0" zz="0" />
-                <controlpoint xx="1" yy="1" zz="0" />
-                <controlpoint xx="-1" yy="1" zz="0" />
                 <controlpoint xx="-1" yy="0" zz="0" />
-                <controlpoint xx="0.75" yy="0" zz="-0.25" />
-                <controlpoint xx="0.75" yy="0.75" zz="-0.25" />
-                <controlpoint xx="-0.75" yy="0.75" zz="-0.25" />
-                <controlpoint xx="-0.75" yy="0" zz="-0.25" />
-                <controlpoint xx="0.5" yy="0" zz="-0.5" />
-                <controlpoint xx="0.5" yy="0.5" zz="-0.5" />
-                <controlpoint xx="-0.5" yy="0.5" zz="-0.5" />
-                <controlpoint xx="-0.5" yy="0" zz="-0.5" />
-                <controlpoint xx="0.25" yy="0" zz="-0.75" />
-                <controlpoint xx="0.25" yy="0.25" zz="-0.75" />
-                <controlpoint xx="-0.25" yy="0.25" zz="-0.75" />
+                <controlpoint xx="-1" yy="1" zz="0" />
+                <controlpoint xx="1" yy="1" zz="0" />
+                <controlpoint xx="1" yy="0" zz="0" />
                 <controlpoint xx="-0.25" yy="0" zz="-0.75" />
+                <controlpoint xx="-0.25" yy="0.25" zz="-0.75" />
+                <controlpoint xx="0.25" yy="0.25" zz="-0.75" />
+                <controlpoint xx="0.25" yy="0" zz="-0.75" />
             </patch>
         </primitive>
     </primitives>
@@ -193,7 +177,8 @@
 
         <component id="iglu">
             <transformation>
-                <translate x="0" y="20" z="0" />
+                <scale x="100" y="100" z="100" />
+                <translate x="0" y="0" z="0" />
             </transformation>
 
             <materials>
