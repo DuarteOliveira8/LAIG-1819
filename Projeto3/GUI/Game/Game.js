@@ -53,6 +53,9 @@ class Game extends CGFobject {
         this.currentCameraState = this.cameraStates.YUKI;
         this.cameraAngle = "Rotating";
 
+        this.turnTime = 0;
+        this.settingsTurnTime = 60;
+
         this.server = new Server(this);
     };
 
@@ -120,7 +123,8 @@ class Game extends CGFobject {
         if (this.currentState !== this.states.MOVIE && this.currentState !== this.states.NOT_STARTED) {
             this.currentState = this.states.QUIT;
             this.validPlays = [];
-            this.highlight();
+            this.previousValidPlays = [];
+            this.highlight(this.validPlays);
             this.setState();
         }
     }
@@ -144,18 +148,25 @@ class Game extends CGFobject {
                 }
 
                 this.setState();
+                this.setRotation();
+                this.validPlays.pop();
             }
             else {
                 if (this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) {
                     this.mina.move(8, 0, 4, -1, -1);
                     this.previousState = this.states.FIRST_YUKI_PLAY;
                     this.currentState = this.states.MOVING_PIECES;
+                    this.setRotation();
+                    this.validPlays.pop();
+                    this.highlight(this.validPlays[this.validPlays.length-1]);
                 }
                 else if (this.currentState === this.states.FIRST_MINA_PLAY || this.currentState === this.states.MINA_PLAY) {
                     this.yuki.move(8, 0, -4, -1, -1);
                     let disc = this.discs.pop();
                     this.box.putBack(disc);
                     this.currentState = this.states.STARTED;
+                    this.setRotation();
+                    this.dehighlight();
                 }
             }
         }
@@ -276,19 +287,12 @@ class Game extends CGFobject {
         let tempState = this.currentState;
 
         switch (tempState) {
-            // case this.states.NOT_STARTED:
-            //     console.log("Yuki's first play");
-            //     this.currentState = this.states.FIRST_YUKI_PLAY;
-            //     if (this.yuki.type === "player")
-            //         this.getValidPlays();
-            //     else if (this.yuki.type === "computer")
-            //         this.getComputerPlay();
-            //     break;
-
             case this.states.STARTED:
                 this.updateGamePanel("guides", "Yuki's first play.");
-                if (this.yuki.type === "player")
+                if (this.yuki.type === "player") {
                     this.getValidPlays();
+                    this.setTurnTime();
+                }
                 else if (this.yuki.type === "computer")
                     this.getComputerPlay();
                 this.currentState = this.states.FIRST_YUKI_PLAY;
@@ -364,13 +368,15 @@ class Game extends CGFobject {
 
             case this.states.MOVING_PIECES:
                 if (this.help) {
-                    this.highlight();
+                    this.highlight(this.validPlays[this.validPlays.length-1]);
                 }
 
                 if (this.previousState === this.states.FIRST_YUKI_PLAY) {
                     this.updateGamePanel("guides", "Mina's first turn");
                     this.currentState = this.states.FIRST_MINA_PLAY;
-                    if (this.mina.type === "computer")
+                    if (this.mina.type === "player")
+                        this.setTurnTime();
+                    else if (this.mina.type === "computer")
                         this.getComputerPlay();
                     break;
                 }
@@ -379,7 +385,9 @@ class Game extends CGFobject {
                     this.updateGamePanel("guides", "Mina's turn");
                     this.currentState = this.states.MINA_PLAY;
                     this.checkGameOver();
-                    if (this.mina.type === "computer")
+                    if (this.mina.type === "player")
+                        this.setTurnTime();
+                    else if (this.mina.type === "computer")
                         this.getComputerPlay();
                     break;
                 }
@@ -388,7 +396,9 @@ class Game extends CGFobject {
                     this.updateGamePanel("guides", "Yuki's turn");
                     this.currentState = this.states.YUKI_PLAY;
                     this.checkGameOver();
-                    if (this.yuki.type === "computer")
+                    if (this.yuki.type === "player")
+                        this.setTurnTime();
+                    else if (this.yuki.type === "computer")
                         this.getComputerPlay();
                     break;
                 }
@@ -450,12 +460,14 @@ class Game extends CGFobject {
     }
 
     setValidPlays(validPlays) {
-        this.validPlays = validPlays;
+        this.validPlays.push(validPlays);
     }
 
     isValidPlay(row, col) {
-        for (var i = 0; i < this.validPlays.length; i++) {
-            if (row == this.validPlays[i][1]-1 && col == this.validPlays[i][0]-1) {
+        let validPlays = this.validPlays[this.validPlays.length-1];
+
+        for (var i = 0; i < validPlays.length; i++) {
+            if (row == validPlays[i][1]-1 && col == validPlays[i][0]-1) {
                 return true;
             }
         }
@@ -637,15 +649,19 @@ class Game extends CGFobject {
         return boardArray;
     }
 
-    highlight() {
+    dehighlight() {
         for (var i = 0; i < this.board.boardCells.length; i++) {
             for (var j = 0; j < this.board.boardCells[i].length; j++) {
                 this.board.boardCells[i][j].highlighted = false;
             }
         }
+    }
 
-        for (var i = 0; i < this.validPlays.length; i++) {
-            this.board.boardCells[this.validPlays[i][1]-1][this.validPlays[i][0]-1].highlighted = true;
+    highlight(validPlays) {
+        this.dehighlight();
+
+        for (var i = 0; i < validPlays.length; i++) {
+            this.board.boardCells[validPlays[i][1]-1][validPlays[i][0]-1].highlighted = true;
         }
     }
 
@@ -725,6 +741,20 @@ class Game extends CGFobject {
         this.rotationAngle -= delta;
     }
 
+    setTurnTime() {
+        this.turnTime = this.settingsTurnTime*1000;
+    }
+
+    updateTurnTime(deltaTime) {
+        this.turnTime -= deltaTime;
+
+        this.updateGamePanel("time", Math.floor(Math.ceil(this.turnTime/1000)/60)+":"+Math.floor(Math.ceil(this.turnTime/1000)%60));
+
+        if (this.turnTime <= 0 && this.currentState !== this.states.MOVING_PIECES) {
+            this.gameOver();
+        }
+    }
+
     updateGamePanel(section, message) {
         switch (section) {
             case "state":
@@ -740,6 +770,10 @@ class Game extends CGFobject {
             case "guides":
                 document.querySelector(".guides-content").textContent = message;
                 document.querySelector(".errors").textContent = "";
+                break;
+
+            case "time":
+                document.querySelector(".time-content").textContent = message;
                 break;
 
             case "error":

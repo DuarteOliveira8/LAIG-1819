@@ -57,13 +57,13 @@ canvas {
     margin-bottom: 10px;
 }
 
-.game-panel .score .score-title, .game-panel .guides .guides-title {
+.game-panel .score .score-title, .game-panel .guides .guides-title, .game-panel .time .time-title {
     font-weight: 600;
     font-size: 30px;
     text-align: center;
 }
 
-.game-panel .score .score-content {
+.game-panel .score .score-content, .game-panel .time .time-content {
     text-align: center;
     font-size: 40px;
 }
