@@ -601,19 +601,6 @@ class Game extends CGFobject {
         }
     }
 
-    setTurnTime() {
-        this.turnTime = this.settingsTurnTime*1000;
-    }
-
-    updateTurnTime(deltaTime) {
-        this.turnTime -= deltaTime;
-        console.log(Math.floor(this.turnTime/1000));
-
-        if (this.turnTime <= 0 && this.currentState !== this.states.MOVING_PIECES) {
-            this.gameOver();
-        }
-    }
-
     gameOver() {
         this.currentState = this.states.GAME_OVER;
         this.setState();
@@ -740,6 +727,20 @@ class Game extends CGFobject {
         this.rotationAngle -= delta;
     }
 
+    setTurnTime() {
+        this.turnTime = this.settingsTurnTime*1000;
+    }
+
+    updateTurnTime(deltaTime) {
+        this.turnTime -= deltaTime;
+
+        this.updateGamePanel("time", Math.floor(Math.ceil(this.turnTime/1000)/60)+":"+Math.floor(Math.ceil(this.turnTime/1000)%60));
+
+        if (this.turnTime <= 0 && this.currentState !== this.states.MOVING_PIECES) {
+            this.gameOver();
+        }
+    }
+
     updateGamePanel(section, message) {
         switch (section) {
             case "state":
@@ -755,6 +756,10 @@ class Game extends CGFobject {
             case "guides":
                 document.querySelector(".guides-content").textContent = message;
                 document.querySelector(".errors").textContent = "";
+                break;
+
+            case "time":
+                document.querySelector(".time-content").textContent = message;
                 break;
 
             case "error":
