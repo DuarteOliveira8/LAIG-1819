@@ -6,27 +6,26 @@
 
 /**
  * MyCoveredCylinder class, representing the cylinder primitive with covers on each side.
+ * @extends CGFobject
  */
-class MyCoveredCylinder extends CGFobject
-{
+class MyCoveredCylinder extends CGFobject {
 	/**
-	 * @constructor Constructor of the class MyCoveredCylinder.
- 	 * @param {Scene of the application.} scene
- 	 * @param {Base radius.} base
- 	 * @param {Top radius.} top
- 	 * @param {Height of the cylinder.} height
- 	 * @param {Slices of the cylinder.} slices
- 	 * @param {Stacks of the cylinder.} stacks
+	 * Constructor of the class CoveredCylinder.
+	 * @param {CGFscene} scene Scene of the application.
+	 * @param {Number} base Base radius.
+	 * @param {Number} top Top radius.
+	 * @param {Number} height Height of the cylinder.
+	 * @param {Number} slices Slices of the cylinder.
+	 * @param {Number} stacks Stacks of the cylinder.
 	 */
-	constructor(scene, base, top, height, slices, stacks)
-	{
-      super(scene);
+	constructor(scene, base, top, height, slices, stacks) {
+		super(scene);
 
-      this.height = height;
-      this.cylinder = new MyCylinder(scene, base, top, height, slices, stacks);
-      this.circleBase = new MyCircle(scene, slices, base);
-      this.circleTop = new MyCircle(scene, slices, top);
-  };
+		this.height = height;
+		this.cylinder = new MyCylinder(scene, base, top, height, slices, stacks);
+		this.circleBase = new MyCircle(scene, slices, base);
+		this.circleTop = new MyCircle(scene, slices, top);
+  	};
 
 	/**
 	 * Positions the covers on the cylinder primitive and displays the result.
@@ -52,10 +51,10 @@ class MyCoveredCylinder extends CGFobject
 	};
 
 	/**
-	 * Updates the texture coordinates.
- 	 * @param {s texture coordinate.} s
- 	 * @param {t texture coordinate.} t
-	 */
+     * Updates the texture coordinates.
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
+     */
 	updateTexCoords(s, t) {
 			this.cylinder.updateTexCoords(s, t);
 			this.circleBase.updateTexCoords(s, t);
