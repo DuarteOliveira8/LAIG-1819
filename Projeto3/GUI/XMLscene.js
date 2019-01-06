@@ -39,6 +39,9 @@ class XMLscene extends CGFscene {
 
         this.period = 10;
         this.currentTime = 0;
+        this.previousTime = 0;
+
+        this.rotatingCamera = false;
 
         this.setPickEnabled(true);
     }
@@ -50,7 +53,7 @@ class XMLscene extends CGFscene {
         this.cameras = [];
         this.cameras.default = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 80, 150), vec3.fromValues(0, 10, 0));
         this.currentCamera = "default";
-        this.camera = this.cameras.main;
+        this.camera = this.cameras.default;
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -114,14 +117,16 @@ class XMLscene extends CGFscene {
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
+        this.game = this.graph.primitives["game"];
+
         // Adds camera dropdown
+        this.cameras.rotation = this.game.rotationCamera;
         this.interface.addCameras(this.cameras);
 
         this.sceneInited = true;
 
     	this.setUpdatePeriod(this.period);
 
-        this.game = this.graph.primitives["game"];
         this.interface.addModes();
         this.interface.addDifficulties();
         this.interface.addOptionsGroup();
@@ -205,7 +210,12 @@ class XMLscene extends CGFscene {
      * Updates the components' animations and water movement.
      */
     update(currTime) {
+        this.previousTime = this.currentTime;
         this.currentTime = currTime;
+
+        if (this.rotatingCamera) {
+            this.game.rotateCamera(this.currentTime-this.previousTime);
+        }
     }
 
     /**
