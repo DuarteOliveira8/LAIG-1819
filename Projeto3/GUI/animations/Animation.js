@@ -4,14 +4,15 @@
  * @constructor
  */
 
- /**
-  * Animation class, representing an object's animation.
-  */
+/**
+ * Animation class, representing an object's animation.
+ * @extends CGFobject
+ */
 class Animation extends CGFobject {
 	/**
-	 * @constructor constructor of the class Animation.
-	 * @param {Scene of the application.} scene
-	 * @param {Total time of the animation in ms.} time
+	 * Constructor of the class Animation.
+	 * @param {CGFscene} scene Scene of the application.
+	 * @param {Number} time  Total time of the animation in ms.
 	 */
 	constructor(scene, time) {
 		super(scene);
@@ -24,10 +25,11 @@ class Animation extends CGFobject {
 		this.finished = false;
 
 		this.initBuffers();
-  };
+  	};
 
 	/**
 	 * Checks if the animation has finished or not.
+	 * @return {Boolean} Finished state of the animation.
 	 */
 	hasFinished() {
 		return this.finished;
@@ -35,13 +37,11 @@ class Animation extends CGFobject {
 
 	/**
 	 * Abstract method apply.
-	 * @param {Current unix time in ms.} currTime
 	 */
 	apply() {};
 
 	/**
 	 * Calls the apply method based on time.
-	 * @param {Current unix time in ms.} currTime
 	 */
 	update() {
 		this.apply();
