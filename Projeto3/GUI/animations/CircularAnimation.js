@@ -32,40 +32,40 @@ class CircularAnimation extends Animation {
 	/**
 	* Applies the current animation state to the transformation matrix and prepares the next transformation.
 	* When the current time of the animation exceeds the span specified, it terminates the animation.
-	* @param {Current UNIX time in ms.} currTime
 	*/
 	apply() {
-			if (this.currTime <= this.time) {
-					this.transformation = new mat4.create();
+		if (this.currTime <= this.time) {
+			this.transformation = new mat4.create();
 
-					let centerVec = vec3.create();
-					vec3.set(centerVec, this.center[0], this.center[1], this.center[2]);
-					mat4.translate(this.transformation, this.transformation, centerVec);
+			let centerVec = vec3.create();
+			vec3.set(centerVec, this.center[0], this.center[1], this.center[2]);
+			mat4.translate(this.transformation, this.transformation, centerVec);
 
-					mat4.rotateY(this.transformation, this.transformation, this.angle*this.degToRad);
+			mat4.rotateY(this.transformation, this.transformation, this.angle*this.degToRad);
 
-					let radiusVec = vec3.create();
-					vec3.set(radiusVec, this.radius, 0, 0);
-					mat4.translate(this.transformation, this.transformation, radiusVec);
+			let radiusVec = vec3.create();
+			vec3.set(radiusVec, this.radius, 0, 0);
+			mat4.translate(this.transformation, this.transformation, radiusVec);
 
-					if (this.previousTime != 0) {
-							this.deltaTime = this.scene.currentTime-this.previousTime;
-							this.delta = (this.rotAngle/this.time)*this.deltaTime;
-					}
-					this.previousTime = this.scene.currentTime;
-
-					this.currTime += this.deltaTime;
-					this.angle -= this.delta;
+			if (this.previousTime != 0) {
+				this.deltaTime = this.scene.currentTime-this.previousTime;
+				this.delta = (this.rotAngle/this.time)*this.deltaTime;
 			}
-			else {
-					this.finished = true;
-			}
+			this.previousTime = this.scene.currentTime;
+
+			this.currTime += this.deltaTime;
+			this.angle -= this.delta;
+		}
+		else {
+			this.finished = true;
+		}
 	};
 
 	/**
-	* Returns a copy of the current class.
-	*/
+	 * Returns a copy of the current class.
+	 * @return {CircularAnimation} Copy of the instance of a circle animation.
+	 */
 	copy() {
-			return new CircularAnimation(this.scene, this.time, this.center, this.radius, this.angle, this.rotAngle);
+		return new CircularAnimation(this.scene, this.time, this.center, this.radius, this.angle, this.rotAngle);
 	};
 };

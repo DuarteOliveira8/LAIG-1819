@@ -125,8 +125,9 @@ class BezierAnimation extends Animation {
 	  	}
   	};
 
-  	/**
+   	/**
    	 * Returns a copy the current class.
+   	 * @return {BezierAnimation} Copy of the instance of a bezier animation.
    	 */
   	copy() {
         return new BezierAnimation(this.scene, this.time, this.controlPoints);

@@ -4,15 +4,16 @@
  * @constructor
  */
 
- /**
-  * LinearAnimation class, representing an object's linear animation.
-  */
+/**
+ * LinearAnimation class, representing an object's linear animation.
+ * @extends Animation
+ */
 class LinearAnimation extends Animation {
 	/**
-	 * @constructor constructor of the class LinearAnimation.
-	 * @param {Scene of the application.} scene
-	 * @param {Total time of the animation in ms.} time
-	 * @param {Array containing the control points of the animation.} controlPoints
+	 * Constructor of the class LinearAnimation.
+	 * @param {CGFscene} scene Scene of the application.
+	 * @param {Number} time Total time of the animation in ms.
+	 * @param {Number[][]} controlPoints Array containing the control points of the animation.
 	 */
 	constructor(scene, time, controlPoints) {
 		super(scene, time);
@@ -43,7 +44,6 @@ class LinearAnimation extends Animation {
 	/**
 	 * Applies the current animation state to the transformation matrix and prepares the next transformation.
 	 * When the current time of the animation exceeds the span specified, it terminates the animation.
-	 * @param {Current unix time in ms.} currTime
 	 */
 	apply() {
 		if(this.currTime <= this.time) {
@@ -93,8 +93,9 @@ class LinearAnimation extends Animation {
 
 	/**
 	 * Returns a copy the current class.
+	 * @return {LinearAnimation} Copy of the instance of a linear animation.
 	 */
 	copy() {
-			return new LinearAnimation(this.scene, this.time, this.controlPoints);
+		return new LinearAnimation(this.scene, this.time, this.controlPoints);
 	};
 };
