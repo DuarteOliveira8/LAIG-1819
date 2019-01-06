@@ -2,6 +2,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
+ * @extends CGFscene
  */
 class XMLscene extends CGFscene {
     /**
@@ -96,7 +97,8 @@ class XMLscene extends CGFscene {
     }
 
 
-    /* Handler called when the graph is finally loaded.
+    /**
+     * Handler called when the graph is finally loaded.
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
@@ -127,6 +129,9 @@ class XMLscene extends CGFscene {
         this.interface.addOptionsGroup();
     }
 
+    /**
+     * Picks an object of the scene.
+     */
     logPicking() {
         if (this.pickMode == false) {
     		if (this.pickResults != null && this.pickResults.length > 0) {
@@ -135,7 +140,6 @@ class XMLscene extends CGFscene {
     				if (obj instanceof BoardPiece) {
                         this.game.pickPlayer(obj);
     					var customId = this.pickResults[i][1];
-    					console.log("Picked object with pick id " + customId);
     				}
                     else if (obj instanceof BoardCell) {
                         this.game.movePlayer(obj.xPos, obj.yPos, obj.zPos, obj.row, obj.col);
@@ -226,24 +230,40 @@ class XMLscene extends CGFscene {
         this.interface.setActiveCamera(this.camera);
     }
 
+    /**
+     * Adds the cameras given to the scene's camera array.
+     * @param {Array.<CGFcamera>} cameras Cameras to be added to the scene.
+     */
     addCameras(cameras) {
         for (var key in cameras) {
             this.cameras[key] = cameras[key];
         }
     }
 
+    /**
+     * Starts the game.
+     */
     startGame() {
         this.game.start();
     }
 
+    /**
+     * Reverts a move made by a player.
+     */
     undoMove() {
         this.game.undo();
     }
 
+    /**
+     * Quits the game.
+     */
     quitGame() {
         this.game.quit();
     }
 
+    /**
+     * Plays the last game's movie.
+     */
     gameMovie() {
         this.game.movie();
     }

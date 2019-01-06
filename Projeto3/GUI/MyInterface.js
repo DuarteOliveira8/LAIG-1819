@@ -1,10 +1,15 @@
 /**
- * MyInterface class, creating a GUI interface.
+ * MyInterface
  * @constructor
+ */
+
+/**
+ * MyInterface class, creating a GUI interface.
+ * @extends CGFinterface
  */
 class MyInterface extends CGFinterface {
     /**
-     * @constructor Constructor of the class MyInterface.
+     * Constructor of the class MyInterface.
      */
     constructor() {
         super();
@@ -48,6 +53,7 @@ class MyInterface extends CGFinterface {
 
     /**
      * Adds a dropdown menu containing the game settings.
+     * @param {Array.<CGFcamera>} cameras The scene cameras.
      */
     addSettings(cameras) {
         var scene = this.scene;
@@ -104,13 +110,13 @@ class MyInterface extends CGFinterface {
 
     /**
      * Processes the key down events for keyboard keys.
-     * @param {current event} event
+     * @param  {Event} event Current event.
      */
   	processKeyDown(event) {
-      this.activeKeys[event.code]=true;
-      if (event.key == 'm' || event.key == 'M') {
-          this.scene.graph.currMaterial++;
-      }
-      this.activeKeys[event.code]=false;
+        this.activeKeys[event.code]=true;
+        if (event.key == 'm' || event.key == 'M') {
+            this.scene.graph.currMaterial++;
+        }
+        this.activeKeys[event.code]=false;
   	};
 }
