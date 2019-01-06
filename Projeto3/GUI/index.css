@@ -13,6 +13,7 @@ canvas {
 .game-panel {
     top: 10px;
     left: 10px;
+    width: 300px;
     background-image: url('scenes/images/cork-board-2.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -53,5 +54,10 @@ canvas {
 }
 
 .game-panel .guides .guides-content {
+    text-align: center;
+}
+
+.game-panel .errors {
+    color: red;
     text-align: center;
 }
