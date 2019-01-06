@@ -4,63 +4,64 @@
  * @constructor
  */
 
- /**
-  * Plane class, representing a 2D surface.
-  */
+/**
+ * Plane class, representing a 2D surface.
+ * @extends CGFobject
+ */
 class Plane extends CGFobject {
-		/**
-		 * @constructor constructor of the class Plane.
-		 * @param {scene of the application} scene
-		 */
-		constructor(scene, nPartsU, nPartsV) {
-				super(scene);
+	/**
+	 * Constructor of the class Plane.
+	 * @param {CGFscene} scene   [description]
+	 * @param {Number} nPartsU [description]
+	 * @param {Number} nPartsV [description]
+	 */
+	constructor(scene, nPartsU, nPartsV) {
+		super(scene);
 
-				this.nPartsU = nPartsU;
-				this.nPartsV = nPartsV;
+		this.nPartsU = nPartsU;
+		this.nPartsV = nPartsV;
 
-				this.createSurface();
-	  };
+		this.createSurface();
+	};
 
-		/**
-	   * Creates the NURBS surface using the WebCGF library.
-	   */
-		createSurface() {
-				let nurbsSurface = new CGFnurbsSurface(1, 1,
-						[
-								[
-										[-0.5, 0.0,  0.5, 1 ],
-										[-0.5, 0.0, -0.5, 1 ]
-								],
-								[
-										[0.5, 0.0,  0.5, 1 ],
-										[0.5, 0.0, -0.5, 1 ]
-								]
-						]
-				);
+	/**
+	 * Creates the NURBS surface using the WebCGF library.
+	 */
+	createSurface() {
+		let nurbsSurface = new CGFnurbsSurface(1, 1, [
+			[
+				[-0.5, 0.0,  0.5, 1 ],
+				[-0.5, 0.0, -0.5, 1 ]
+			],
+			[
+				[0.5, 0.0,  0.5, 1 ],
+				[0.5, 0.0, -0.5, 1 ]
+			]
+		]);
 
-				this.nurbsPlane = new CGFnurbsObject(this.scene, this.nPartsU, this.nPartsV, nurbsSurface);
-		};
+		this.nurbsPlane = new CGFnurbsObject(this.scene, this.nPartsU, this.nPartsV, nurbsSurface);
+	};
 
-		/**
-		 * Returns a specific vertex of the plane.
-		 * @param {u coordinate of the point.} u
-		 * @param {v coordinate of the point.} v
-		 */
-		getPoint(u, v) {
-				this.nurbsPlane.evalObj.getPoint(u, v);
-		};
+	/**
+	 * Returns a specific vertex of the cylinder.
+	 * @param  {Number} u u coordinate of the point.
+	 * @param  {Number} v v coordinate of the point.
+	 */
+	getPoint(u, v) {
+		this.nurbsPlane.evalObj.getPoint(u, v);
+	};
 
-		/**
-		 * Displays the plane surface.
-		 */
-		display() {
-				this.nurbsPlane.display();
-		};
+	/**
+	 * Displays the plane surface.
+	 */
+	display() {
+		this.nurbsPlane.display();
+	};
 
-		/**
-		 * Updates the texture coordinates.
-	 	 * @param {s texture coordinate.} s
-	 	 * @param {t texture coordinate.} t
-		 */
-		updateTexCoords(s, t) {};
+	/**
+     * Updates the texture coordinates.
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
+     */
+	updateTexCoords(s, t) {};
 };
