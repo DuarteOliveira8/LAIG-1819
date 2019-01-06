@@ -6,11 +6,12 @@
 
 /**
  * Game class, a 3D representation of our game.
+ * @extends CGFobject
  */
 class Game extends CGFobject {
     /**
-     * @constructor constructor of the class Game.
-     * @param {Scene of the application} scene
+     * Constructor of the class Game.
+     * @param {CGFscene} scene Scene of the application.
      */
     constructor(scene) {
         super(scene);
@@ -60,7 +61,7 @@ class Game extends CGFobject {
     };
 
     /**
-     * Game Display function.
+     * Game Display function. Displays the board, auxiliar box and pieces of the game.
      */
     display() {
         this.board.display();
@@ -75,6 +76,9 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Starts a new game. Initializes all the variable to the starting state.
+     */
     start() {
         this.initBoard();
         this.gameBoards = [];
@@ -112,6 +116,9 @@ class Game extends CGFobject {
         this.setState();
     }
 
+    /**
+     * Initializes the board by initializing the box with all the discs, puts both characters outside the board and clears the array of discs on the board.
+     */
     initBoard() {
         this.box.initDiscs();
         this.mina.setCoordinates(8, 0, 4);
@@ -119,16 +126,21 @@ class Game extends CGFobject {
         this.discs = [];
     }
 
+    /**
+     * Quits the game by setting the state to QUIT, cleaning the valid plays and dehighlighting the board cells.
+     */
     quit() {
         if (this.currentState !== this.states.MOVIE && this.currentState !== this.states.NOT_STARTED) {
             this.currentState = this.states.QUIT;
             this.validPlays = [];
-            this.previousValidPlays = [];
-            this.highlight(this.validPlays);
+            this.dehighlight();
             this.setState();
         }
     }
 
+    /**
+     * Reverts the last play made by any character.
+     */
     undo() {
         if (this.gameBoards.length > 0) {
             this.gameBoards.pop();
@@ -172,6 +184,9 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Plays the movie of the last game if there was any until now.
+     */
     movie() {
         if (this.currentState !== this.states.NOT_STARTED) {
             this.updateGamePanel("error", "Game is still running");
@@ -212,13 +227,20 @@ class Game extends CGFobject {
             this.currentState = this.states.NOT_STARTED;
             this.updateGamePanel("state", "The game hasn't started yet.");
         }.bind(this), 2000*this.gameBoards.length);
-
     }
 
+    /**
+     * Checks if the movie is playing.
+     * @return {Boolean} False if it's not playing. True if it's playing the movie.
+     */
     isPlayingMovie() {
         return this.currentState === this.states.MOVIE;
     }
 
+    /**
+     * Picks a player by setting the playerPick attribute to the player picked.
+     * @param  {BoardPiece} player Player picked.
+     */
     pickPlayer(player) {
         if ((this.currentState === this.states.FIRST_YUKI_PLAY || this.currentState === this.states.YUKI_PLAY) && (player instanceof Yuki)) {
             this.updateGamePanel("guides", "Yuki picked.");
@@ -250,6 +272,14 @@ class Game extends CGFobject {
         this.updateGamePanel("error", "Wrong player!");
     }
 
+    /**
+     * Moves the current player to a new cell if it's a valid play.
+     * @param  {Number} newX new X coordinate of the player.
+     * @param  {Number} newY new Y coordinate of the player.
+     * @param  {Number} newZ new Z coordinate of the player.
+     * @param  {Number} row New board row of the player.
+     * @param  {Number} col New board column of the player.
+     */
     movePlayer(newX, newY, newZ, row, col) {
         if (this.playerPicked === null) {
             this.updateGamePanel("error", "Please choose a player to move first!");
@@ -283,6 +313,10 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Sets the current state to a new state according to the current and/or the previous state.
+     * Prepares the current state by getting valid plays and highlighting them, moving the computer, rotating the camera, setting turn times or updating game panel.
+     */
     setState() {
         let tempState = this.currentState;
 
@@ -415,6 +449,9 @@ class Game extends CGFobject {
         this.previousState = tempState;
     }
 
+    /**
+     * Creates a request to the prolog server to get the valid plays according to the game state.
+     */
     getValidPlays() {
         let boardArray = JSON.stringify(this.createBoardArray());
         let game = this;
@@ -459,10 +496,20 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Pushes to the valid plays array the new set of valid plays.
+     * @param {Number[][]} validPlays New valid plays.
+     */
     setValidPlays(validPlays) {
         this.validPlays.push(validPlays);
     }
 
+    /**
+     * Checks if a given play is valid by checking if the row and column of the destination is on the valid plays array.
+     * @param  {Number}  row Destination row.
+     * @param  {Number}  col Destination column.
+     * @return {Boolean} True if it's a valid play, false otherwise.
+     */
     isValidPlay(row, col) {
         let validPlays = this.validPlays[this.validPlays.length-1];
 
@@ -475,6 +522,9 @@ class Game extends CGFobject {
         return false;
     }
 
+    /**
+     * Creates a request to the prolog server to get the new computer play according to the player and applies the play.
+     */
     getComputerPlay() {
         let boardArray = JSON.stringify(this.createBoardArray());
         let game = this;
@@ -525,6 +575,10 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Makes a computer play according to the new board state given by the prolog server.
+     * @param  {Number[][]} boardArray New board state.
+     */
     makeComputerPlay(boardArray) {
         var play;
 
@@ -539,15 +593,27 @@ class Game extends CGFobject {
         this.movePlayer(play[0], play[1], play[2], play[3], play[4]);
     }
 
+    /**
+     * Creates a play from a given board state array.
+     * @param  {String} player Player to make the play. Can be "mina" or "yuki".
+     * @param  {Number[][]} boardArray New board state.
+     * @return {Number[]} The new play creates. An array with the X, Y and Z coordinates and the row and column of the new play.
+     */
     makePlayFromBoard(player, boardArray) {
-        let newPos = this.getCurrentPlayerPosition(player, boardArray);
+        let newPos = this.getPlayerPosition(player, boardArray);
         let newPosCoords = this.board.boardCells[newPos[0]][newPos[1]].getCoords();
         let play = newPosCoords.concat(newPos);
 
         return play;
     }
 
-    getCurrentPlayerPosition(player, boardArray) {
+    /**
+     * Gets the given player position on a board state array.
+     * @param  {String} player Player to get the position. Can be "mina" or "yuki".
+     * @param  {Number[][]} boardArray The board state array.
+     * @return {Number[]} Array containing the row and column of the player.
+     */
+    getPlayerPosition(player, boardArray) {
         let pos = [];
 
         for (var i = 0; i < boardArray.length; i++) {
@@ -573,6 +639,9 @@ class Game extends CGFobject {
         return pos;
     }
 
+    /**
+     * Creates a request to the prolog server to check if the game has ended.
+     */
     checkGameOver() {
         let boardArray = JSON.stringify(this.createBoardArray());
         let game = this;
@@ -611,20 +680,34 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Ends the game by setting the game state to GAME_OVER and setting it again to NOT_STARTED.
+     */
     gameOver() {
         this.currentState = this.states.GAME_OVER;
         this.setState();
     }
 
+    /**
+     * Checks if the game has ended.
+     * @return {Boolean} True if the game has ended, False otherwise.
+     */
     hasGameEnded() {
         return this.currentState === this.states.NOT_STARTED;
     }
 
+    /**
+     * Saves the game board by creating a board state array and putting it in the previous game boards continainer.
+     */
     saveGameState() {
         let boardArray = this.createBoardArray();
         this.gameBoards.push(boardArray);
     }
 
+    /**
+     * Creates a board state array based on the current game.
+     * @return {Number[][]} New board state array.
+     */
     createBoardArray() {
         let boardArray = [];
         for (var i = 0; i < 10; i++) {
@@ -649,6 +732,9 @@ class Game extends CGFobject {
         return boardArray;
     }
 
+    /**
+     * Dehighlights all the highlithed board cells.
+     */
     dehighlight() {
         for (var i = 0; i < this.board.boardCells.length; i++) {
             for (var j = 0; j < this.board.boardCells[i].length; j++) {
@@ -657,6 +743,10 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Dehighlights all the board cells and Highlights all the board cells that are a valid destination for the current player.
+     * @param  {Number[][]} validPlays Current valid plays for the player.
+     */
     highlight(validPlays) {
         this.dehighlight();
 
@@ -665,6 +755,9 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Starts a new camera rotation.
+     */
     setRotation() {
         this.rotationAngle = Math.PI;
         this.scene.rotatingCamera = true;
@@ -677,16 +770,25 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Sets the camera to Yuki's side.
+     */
     setCameraYuki() {
         this.rotationCamera.setPosition(vec3.fromValues(0, 60, -60));
         this.currentCameraState = this.cameraStates.YUKI;
     }
 
+    /**
+     * Sets the camera to Mina's side.
+     */
     setCameraMina() {
         this.rotationCamera.setPosition(vec3.fromValues(0, 60, 60));
         this.currentCameraState = this.cameraStates.MINA;
     }
 
+    /**
+     * Sets the camera according to the cameraAngle attribute modified by the interface controls.
+     */
     setCameraAngle() {
         if (this.cameraAngle === "Yuki") {
             this.setCameraYuki();
@@ -720,6 +822,10 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Rotates the camera according to the elapsed time.
+     * @param  {Number} deltaTime Elapsed time since the last update.
+     */
     rotateCamera(deltaTime) {
         let delta = (Math.PI/2000)*deltaTime;
 
@@ -741,10 +847,17 @@ class Game extends CGFobject {
         this.rotationAngle -= delta;
     }
 
+    /**
+     * Resets the turn timer to the time specified in the interface settings.
+     */
     setTurnTime() {
         this.turnTime = this.settingsTurnTime*1000;
     }
 
+    /**
+     * Updates the turn timer according to the elapsed time.
+     * @param  {Number} deltaTime Elapsed time since the last update.
+     */
     updateTurnTime(deltaTime) {
         this.turnTime -= deltaTime;
 
@@ -755,6 +868,11 @@ class Game extends CGFobject {
         }
     }
 
+    /**
+     * Updates a game panel section with the the message provided.
+     * @param  {String} section Game panel section.
+     * @param  {String} message Message to be set in the game panel section.
+     */
     updateGamePanel(section, message) {
         switch (section) {
             case "state":
@@ -787,8 +905,8 @@ class Game extends CGFobject {
 
     /**
      * Updates the texture coordinates.
-     * @param {s texture coordinate} s
-     * @param {t texture coordinate} t
+     * @param  {Number} s s texture coordinate
+     * @param  {Number} t t texture coordinate
      */
     updateTexCoords(s, t) {};
 
