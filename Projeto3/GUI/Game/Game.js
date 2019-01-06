@@ -257,7 +257,7 @@ class Game extends CGFobject {
         }
 
         if (this.currentState === this.states.YUKI_PLAY || this.currentState === this.states.FIRST_YUKI_PLAY) {
-            if (this.isValidPlay(row, col) || this.yuki.type === "computer") {
+            if (this.isValidPlay(row, col)) {
                 let disc = this.box.discs.pop();
                 disc.move(newX, newY, newZ, row, col);
                 this.discs.push(disc);
@@ -270,13 +270,34 @@ class Game extends CGFobject {
         }
 
         if (this.currentState === this.states.MINA_PLAY || this.currentState === this.states.FIRST_MINA_PLAY) {
-            if (this.isValidPlay(row, col) || this.mina.type === "computer") {
+            if (this.isValidPlay(row, col)) {
                 this.mina.move(newX, newY, newZ, row, col);
                 this.setState();
             }
             else {
                 this.updateGamePanel("error", "Wrong move!");
             }
+
+            this.playerPicked = null;
+            return;
+        }
+    }
+
+    moveComputer(newX, newY, newZ, row, col) {
+        if (this.currentState === this.states.YUKI_PLAY || this.currentState === this.states.FIRST_YUKI_PLAY) {
+            let disc = this.box.discs.pop();
+            disc.move(newX, newY, newZ, row, col);
+            this.discs.push(disc);
+            this.yuki.move(newX, newY, newZ, row, col);
+            this.setState();
+
+            this.playerPicked = null;
+            return;
+        }
+
+        if (this.currentState === this.states.MINA_PLAY || this.currentState === this.states.FIRST_MINA_PLAY) {
+            this.mina.move(newX, newY, newZ, row, col);
+            this.setState();
 
             this.playerPicked = null;
             return;
@@ -367,15 +388,15 @@ class Game extends CGFobject {
                 break;
 
             case this.states.MOVING_PIECES:
-                if (this.help) {
-                    this.highlight(this.validPlays[this.validPlays.length-1]);
-                }
-
                 if (this.previousState === this.states.FIRST_YUKI_PLAY) {
                     this.updateGamePanel("guides", "Mina's first turn");
                     this.currentState = this.states.FIRST_MINA_PLAY;
-                    if (this.mina.type === "player")
+                    if (this.mina.type === "player") {
+                        if (this.help)
+                            this.highlight(this.validPlays[this.validPlays.length-1]);
+
                         this.setTurnTime();
+                    }
                     else if (this.mina.type === "computer")
                         this.getComputerPlay();
                     break;
@@ -385,8 +406,12 @@ class Game extends CGFobject {
                     this.updateGamePanel("guides", "Mina's turn");
                     this.currentState = this.states.MINA_PLAY;
                     this.checkGameOver();
-                    if (this.mina.type === "player")
+                    if (this.mina.type === "player"){
+                        if (this.help)
+                            this.highlight(this.validPlays[this.validPlays.length-1]);
+
                         this.setTurnTime();
+                    }
                     else if (this.mina.type === "computer")
                         this.getComputerPlay();
                     break;
@@ -396,8 +421,12 @@ class Game extends CGFobject {
                     this.updateGamePanel("guides", "Yuki's turn");
                     this.currentState = this.states.YUKI_PLAY;
                     this.checkGameOver();
-                    if (this.yuki.type === "player")
+                    if (this.yuki.type === "player") {
+                        if (this.help)
+                            this.highlight(this.validPlays[this.validPlays.length-1]);
+
                         this.setTurnTime();
+                    }
                     else if (this.yuki.type === "computer")
                         this.getComputerPlay();
                     break;
@@ -536,7 +565,7 @@ class Game extends CGFobject {
             play = this.makePlayFromBoard("mina", boardArray);
         }
 
-        this.movePlayer(play[0], play[1], play[2], play[3], play[4]);
+        this.moveComputer(play[0], play[1], play[2], play[3], play[4]);
     }
 
     makePlayFromBoard(player, boardArray) {
