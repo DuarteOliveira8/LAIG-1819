@@ -249,8 +249,8 @@ class XMLscene extends CGFscene {
     }
 
     /**
-    *  Switches the current scene to the given one.
-    */
+     * Switches the current scene to the given one.
+     */
     switchScene(filename) {
         this.graph.isSwitchingScene = true;
         this.graph.reader.open('scenes/delivery/' + filename + '.xml', this.graph);

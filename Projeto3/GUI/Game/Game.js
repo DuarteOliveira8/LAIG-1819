@@ -379,7 +379,6 @@ class Game extends CGFobject {
                 break;
 
             case this.states.FIRST_YUKI_PLAY:
-                console.log("Moving yuki");
                 this.updateGamePanel("guides", "Moving yuki...");
                 this.updateGamePanel("score", this.box.discs.length);
                 if (this.scene.currentCamera === "rotation" && this.cameraAngle === "Rotating") {
